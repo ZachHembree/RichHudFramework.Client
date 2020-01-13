@@ -77,11 +77,9 @@ namespace RichHudFramework.UI
             if (acceptInput)
             {
                 if (!selectionBox.Visible && !SharedBinds.LeftButton.IsPressed)
-                {
-                    caret.Visible = true;
                     selectionBox.Visible = true;
-                }
 
+                caret.Visible = true;
                 textInput.HandleInput();
 
                 if (SharedBinds.Copy.IsNewPressed && !selectionBox.Empty)
@@ -308,7 +306,7 @@ namespace RichHudFramework.UI
             {
                 if (HudMain.Cursor.Origin != lastCursorPos)
                 {
-                    Vector2 offset = HudMain.Cursor.Origin - textElement.Origin;
+                    Vector2 offset = HudMain.Cursor.Origin - textElement.Position;
                     Index = ClampIndex(text.GetCharAtOffset(offset));
                     caretOffset = GetOffsetFromIndex(Index);
 
