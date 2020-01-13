@@ -146,7 +146,7 @@ namespace RichHudFramework.UI
                 if (elements[n].Visible)
                 {
                     if (AlignVertical)
-                    {                     
+                    {
                         elements[n].Offset = new Vector2(0f, -(elements[n].Height / 2f)) + offset;
 
                         if (elements[n].ParentAlignment.HasFlag(ParentAlignments.Left))
