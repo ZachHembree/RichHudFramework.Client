@@ -172,6 +172,7 @@ namespace RichHudFramework.UI
 
             CaptureCursor = true;
             ShareCursor = true;
+            CedeCursor = true;
 
             AlignVertical = true;
             Enabled = true;
@@ -199,22 +200,22 @@ namespace RichHudFramework.UI
             {
                 if (SharedBinds.MousewheelUp.IsPressed)
                 {
-                    ShareCursor = false;
+                    CedeCursor = false;
                     scrollBar.Current = Start - 1;
                 }
                 else if (SharedBinds.MousewheelDown.IsPressed)
                 {
-                    ShareCursor = false;
+                    CedeCursor = false;
                     scrollBar.Current = Start + 1;
                 }
                 else
-                    ShareCursor = true;
+                    CedeCursor = true;
             }
             else
-                ShareCursor = true;
+                CedeCursor = true;
         }
 
-        protected override void Draw()
+        protected override void BeforeDraw()
         {
             scrollBar.Max = GetMaxStart(List.Count - 1);
             scrollBar.Min = GetFirstEnabled();
