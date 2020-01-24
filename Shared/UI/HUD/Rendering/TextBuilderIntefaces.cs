@@ -284,7 +284,7 @@ namespace RichHudFramework
                 Vector2 Size { get; }
 
                 /// <summary>
-                /// Full text size beginning with the StartLine
+                /// Full text size including any text outside the visible range.
                 /// </summary>
                 Vector2 TextSize { get; }
 

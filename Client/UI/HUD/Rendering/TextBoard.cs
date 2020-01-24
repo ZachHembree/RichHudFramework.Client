@@ -65,6 +65,9 @@ namespace RichHudFramework
                 /// </summary>
                 public Vector2 Size => GetSizeFunc();
 
+                /// <summary>
+                /// Full text size including any text outside the visible range.
+                /// </summary>
                 public Vector2 TextSize => GetTextSizeFunc();
 
                 /// <summary>
