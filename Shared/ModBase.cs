@@ -39,9 +39,24 @@ namespace RichHudFramework.Game
         protected static ModBase Instance { get; private set; }
         protected MyObjectBuilder_SessionComponent SessionComponent { get; private set; }
 
+        /// <summary>
+        /// If set to true, the user will be given the option to reload in the event of an
+        /// unhandled exception.
+        /// </summary>
         protected static bool promptForReload;
-        protected static long errorLoopThreshold = 50;
-        protected static int exceptionLimit = 10, recoveryLimit = 1, recoveryAttempts;
+
+        /// <summary>
+        /// The maximum number of unhandled exceptions allowed before the mod will attempt to reload.
+        /// </summary>
+        protected static int exceptionLimit = 10;
+
+        /// <summary>
+        /// The maximum number of times the mod will be allowed to reload as a result of an unhandled exception.
+        /// </summary>
+        protected static int recoveryLimit = 1;
+
+        private static int recoveryAttempts;
+        private const long errorLoopThreshold = 50;
 
         private readonly List<ComponentBase> clientComponents, serverComponents;
         private readonly List<string> exceptionMessages;
@@ -82,7 +97,7 @@ namespace RichHudFramework.Game
                 NormalExit = false;
                 Unloading = false;
                 log = new LogIO(LogFileName);
-                
+
                 bool isServer = MyAPIGateway.Session.OnlineMode == MyOnlineModeEnum.OFFLINE || MyAPIGateway.Multiplayer.IsServer;
                 IsDedicated = (MyAPIGateway.Utilities.IsDedicated && isServer);
                 canUpdate = (RunOnClient && IsClient) || (RunOnServer && IsDedicated);
@@ -105,7 +120,7 @@ namespace RichHudFramework.Game
                     serverComponents[n].Draw();
 
                 for (int n = 0; n < clientComponents.Count; n++)
-                    clientComponents[n].Draw();               
+                    clientComponents[n].Draw();
             });
         }
 
@@ -182,7 +197,7 @@ namespace RichHudFramework.Game
                 }
                 catch (Exception e)
                 {
-                    ReportException(e);                  
+                    ReportException(e);
                 }
             }
         }
@@ -204,7 +219,7 @@ namespace RichHudFramework.Game
 
             errorTimer.Start();
 
-            if (!Unloading && (errorTimer.ElapsedMilliseconds < errorLoopThreshold & exceptionMessages.Count > exceptionLimit))
+            if (!Unloading && (errorTimer.ElapsedMilliseconds < errorLoopThreshold && exceptionMessages.Count > exceptionLimit))
             {
                 string exceptionText = GetExceptionMessages();
 
@@ -216,7 +231,7 @@ namespace RichHudFramework.Game
 
                 Close();
                 recoveryAttempts++;
-            }          
+            }
         }
 
         private void ShowErrorPrompt(string errorMessage, bool allowReload)
