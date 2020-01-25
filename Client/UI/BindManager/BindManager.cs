@@ -15,6 +15,7 @@ using ApiMemberAccessor = System.Func<object, int, object>;
 
 namespace RichHudFramework
 {
+    using UI;
     using ControlMembers = MyTuple<string, string, int, Func<bool>, bool, ApiMemberAccessor>;
     using BindGroupMembers = MyTuple<
         string, // Name                
@@ -168,6 +169,24 @@ namespace RichHudFramework
             /// <summary>
             /// Generates a combo array using the corresponding control indices.
             /// </summary>
+            public static IControl[] GetCombo(IList<ControlData> indices)
+            {
+                IControl[] combo = new IControl[indices.Count];
+
+                for (int n = 0; n < indices.Count; n++)
+                {
+                    int index = indices[n];
+
+                    if (index < Controls.Count)
+                        combo[n] = Controls[index];
+                }
+
+                return combo;
+            }
+
+            /// <summary>
+            /// Generates a combo array using the corresponding control indices.
+            /// </summary>
             public static IControl[] GetCombo(IList<int> indices)
             {
                 IControl[] combo = new IControl[indices.Count];
@@ -198,6 +217,19 @@ namespace RichHudFramework
 
                 for (int n = 0; n < controls.Count; n++)
                     indices[n] = controls[n].Index;
+
+                return indices;
+            }
+
+            /// <summary>
+            /// Generates a list of control indices from a list of controls.
+            /// </summary>
+            public static int[] GetComboIndices(IList<ControlData> controls)
+            {
+                int[] indices = new int[controls.Count];
+
+                for (int n = 0; n < controls.Count; n++)
+                    indices[n] = controls[n].index;
 
                 return indices;
             }

@@ -86,30 +86,30 @@ namespace RichHudFramework
 
                 bindData.Add(new MyTuple<string, IList<int>>(bindName, indices));
             }
+        }
 
-            public class ControlData
+        public class ControlData
+        {
+            public readonly int index;
+
+            public ControlData(MyKeys key)
             {
-                public readonly int index;
-
-                public ControlData(MyKeys key)
-                {
-                    index = BindManager.GetControl(key).Index;
-                }
-
-                public ControlData(RichHudControls key)
-                {
-                    index = BindManager.GetControl(key).Index;
-                }
-
-                public static implicit operator int(ControlData control) =>
-                    control.index;
-
-                public static implicit operator ControlData(MyKeys key) =>
-                    new ControlData(key);
-
-                public static implicit operator ControlData(RichHudControls key) =>
-                    new ControlData(key);
+                index = BindManager.GetControl(key).Index;
             }
+
+            public ControlData(RichHudControls key)
+            {
+                index = BindManager.GetControl(key).Index;
+            }
+
+            public static implicit operator int(ControlData control) =>
+                control.index;
+
+            public static implicit operator ControlData(MyKeys key) =>
+                new ControlData(key);
+
+            public static implicit operator ControlData(RichHudControls key) =>
+                new ControlData(key);
         }
     }
 }
