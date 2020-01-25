@@ -158,7 +158,7 @@ namespace RichHudFramework.UI
                 Min = 0,
             };
 
-            scrollBar.slide.button.highlightColor = new Color(137, 140, 149);
+            scrollBar.slide.slider.highlightColor = new Color(137, 140, 149);
 
             divider = new TexturedBox(scrollBar)
             {
@@ -418,16 +418,14 @@ namespace RichHudFramework.UI
                 scrollBar.Height = Height;
                 divider.Height = scrollBar.Height;
 
-                scrollBar.slide.button.Height = ((Height - Padding.Y) / totalSize) * scrollBar.Height;
-                scrollBar.slide.button.Visible = scrollBar.slide.button.Height < scrollBar.slide.bar.Height;
+                scrollBar.slide.slider.Height = ((Height - Padding.Y) / totalSize) * scrollBar.Height;
             }
             else
             {
                 scrollBar.Width = Width;
                 divider.Width = scrollBar.Width;
 
-                scrollBar.slide.button.Width = ((Width - Padding.X) / totalSize) * scrollBar.Width;
-                scrollBar.slide.button.Visible = scrollBar.slide.button.Width < scrollBar.slide.bar.Width;
+                scrollBar.slide.slider.Width = ((Width - Padding.X) / totalSize) * scrollBar.Width;
             }
         }
 

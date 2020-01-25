@@ -53,8 +53,8 @@ namespace RichHudFramework.UI
 
             slide = new SliderBar(background);
 
-            slide.button.Size = new Vector2(14f, 28f);
-            slide.button.Color = new Color(103, 109, 124);
+            slide.slider.Size = new Vector2(14f, 28f);
+            slide.slider.Color = new Color(103, 109, 124);
 
             slide.bar.Height = 5f;
             slide.bar.Color = new Color(103, 109, 124);

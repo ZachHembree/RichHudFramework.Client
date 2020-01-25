@@ -51,7 +51,6 @@ namespace RichHudFramework
             private readonly List<IBindGroup> bindGroups;
             private readonly ApiMemberAccessor GetOrSetMemberFunc;
             private readonly Action HandleInputAction, UnloadAction;
-            private readonly int seKeyMax;
 
             private BindManager() : base(ApiModuleTypes.BindManager, false, true)
             {
@@ -74,8 +73,6 @@ namespace RichHudFramework
 
                 foreach (BindGroupMembers group in groups)
                     AddGroupData(group);
-
-                seKeyMax = (int)GetOrSetMemberFunc(null, (int)BindClientAccessors.SeKeyMax);
             }
 
             private static void Init()
@@ -144,7 +141,7 @@ namespace RichHudFramework
             /// Returns the control associated with the given custom <see cref="RichHudControls"/> enum.
             /// </summary>
             public static IControl GetControl(RichHudControls rhdKey) =>
-                Controls[Instance.seKeyMax + (int)rhdKey];
+                Controls[(int)rhdKey];
 
             /// <summary>
             /// Returns the bind group with the name igven.
@@ -173,12 +170,17 @@ namespace RichHudFramework
             /// </summary>
             public static IControl[] GetCombo(IList<int> indices)
             {
-                IControl[] controls = new IControl[indices.Count];
+                IControl[] combo = new IControl[indices.Count];
 
                 for (int n = 0; n < indices.Count; n++)
-                    controls[n] = Controls[indices[n]];
+                {
+                    int index = indices[n];
 
-                return controls;
+                    if (index < Controls.Count)
+                        combo[n] = Controls[index];
+                }
+
+                return combo;
             }
 
             /// <summary>

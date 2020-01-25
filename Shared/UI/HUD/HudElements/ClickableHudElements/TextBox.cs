@@ -281,16 +281,16 @@ namespace RichHudFramework.UI
             /// </summary>
             protected override void HandleInput()
             {
-                if (SharedBinds.DownArrow.IsPressedAndHeld)
+                if (SharedBinds.DownArrow.IsPressedAndHeld || SharedBinds.DownArrow.IsNewPressed)
                     Move(new Vector2I(1, 0));
 
-                if (SharedBinds.UpArrow.IsPressedAndHeld)
+                if (SharedBinds.UpArrow.IsPressedAndHeld || SharedBinds.UpArrow.IsNewPressed)
                     Move(new Vector2I(-1, 0));
 
-                if (SharedBinds.RightArrow.IsPressedAndHeld)
+                if (SharedBinds.RightArrow.IsPressedAndHeld || SharedBinds.RightArrow.IsNewPressed)
                     Move(new Vector2I(0, 1));
 
-                if (SharedBinds.LeftArrow.IsPressedAndHeld)
+                if (SharedBinds.LeftArrow.IsPressedAndHeld || SharedBinds.LeftArrow.IsNewPressed)
                     Move(new Vector2I(0, -1));
 
                 if (SharedBinds.LeftButton.IsPressed)

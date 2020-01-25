@@ -13,7 +13,7 @@ namespace RichHudFramework.UI
                     value -= Padding.X;
 
                 slide.bar.Width = value;
-                slide.button.Width = value;
+                slide.slider.Width = value;
             }
         }
 
@@ -26,7 +26,7 @@ namespace RichHudFramework.UI
                     value -= Padding.Y;
 
                 slide.bar.Height = value;
-                slide.button.Height = value;
+                slide.slider.Height = value;
             }
         }
 
@@ -50,12 +50,11 @@ namespace RichHudFramework.UI
         public ScrollBar(IHudParent parent = null) : base(parent)
         {
             slide = new SliderBar(this) { Reverse = true, Vertical = true };
-            slide.button.Width = 12f;
-            slide.button.Color = new Color(103, 109, 124);
+            slide.slider.Width = 12f;
+            slide.slider.Color = new Color(103, 109, 124);
 
             slide.bar.Width = 12f;
             slide.bar.Color = new Color(41, 51, 61);
-            slide.bar.highlightEnabled = false;
 
             Padding = new Vector2(18f, 18f);
             Size = new Vector2(317f, 47f);
@@ -65,11 +64,13 @@ namespace RichHudFramework.UI
         {
             if (Vertical)
             {
-                slide.button.Width = slide.bar.Width;
+                slide.slider.Width = slide.bar.Width;
+                slide.slider.Visible = slide.slider.Height < slide.bar.Height;
             }
             else
             {
-                slide.bar.Height = slide.button.Height;
+                slide.bar.Height = slide.slider.Height;
+                slide.slider.Visible = slide.slider.Width < slide.bar.Width;
             }
         }
     }    
