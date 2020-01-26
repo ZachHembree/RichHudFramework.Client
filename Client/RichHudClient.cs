@@ -26,22 +26,21 @@ namespace RichHudFramework.Client
         private Action UnregisterAction;
         private Func<int, object> GetApiDataFunc;
         private readonly ModBase modInstance;
-        private readonly Action InitCallbackAction, CloseCallbackAction;
+        private readonly Action InitCallbackAction;
 
-        private RichHudClient(ModBase mod, Action InitCallback = null, Action CloseCallback = null) : base(false, true)
+        private RichHudClient(ModBase mod, Action InitCallback = null) : base(false, true)
         {
             InitCallbackAction = InitCallback;
-            CloseCallbackAction = CloseCallback;
             modInstance = mod;
 
-            regMessage = new ClientData(ModBase.ModName, MessageHandler, () => ModBase.RunSafeAction(mod.Reload), versionID);
+            regMessage = new ClientData(ModBase.ModName, MessageHandler, () => ModBase.RunSafeAction(RemoteReload), versionID);
         }
 
-        public static void Init(ModBase mod, Action InitCallback = null, Action CloseCallback = null)
+        public static void Init(ModBase mod, Action InitCallback = null)
         {
             if (Instance == null)
             {
-                Instance = new RichHudClient(mod, InitCallback, CloseCallback);
+                Instance = new RichHudClient(mod, InitCallback);
                 Instance.RequestRegistration();
 
                 if (!Registered && !Instance.regFail)
@@ -119,9 +118,17 @@ namespace RichHudFramework.Client
         public override void Close()
         {
             ExitQueue();
-            CloseCallbackAction?.Invoke();
             Unregister();
             Instance = null;
+        }
+
+        private void RemoteReload()
+        {
+            if (registered)
+            {
+                Unregister();
+                modInstance.Reload();
+            }
         }
 
         /// <summary>
