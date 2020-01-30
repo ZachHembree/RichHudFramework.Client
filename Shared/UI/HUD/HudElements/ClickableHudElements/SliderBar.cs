@@ -116,19 +116,32 @@ namespace RichHudFramework.UI
         }
 
         /// <summary>
-        /// The color of the bar when not mosued over.
+        /// The color of the slider bar
         /// </summary>
         public Color BarColor { get; set; }
+
+        public Color BarHighlight { get; set; }
 
         /// <summary>
         /// The color of the slider box when not moused over.
         /// </summary>
-        public Color SliderColor { get { return slider.Color; } set { slider.Color = value; } }
+        public Color SliderColor { get; set; }
 
-        /// <summary>
-        /// The color of the slider while moused over.
-        /// </summary>
-        public Color HighlightColor { get { return slider.highlightColor; } set { slider.highlightColor = value; } }
+        public Color SliderHighlight { get; set; }
+
+        public Vector2 BarSize { get { return bar.Size; } set { bar.Size = value; } }
+
+        public float BarWidth { get { return bar.Width; } set { bar.Width = value; } }
+
+        public float BarHeight { get { return bar.Height; } set { bar.Height = value; } }
+
+        public Vector2 SliderSize { get { return slider.Size; } set { slider.Size = value; } }
+
+        public float SliderWidth { get { return slider.Width; } set { slider.Width = value; } }
+
+        public float SliderHeight { get { return slider.Height; } set { slider.Height = value; } }
+
+        public bool SliderVisible { get { return slider.Visible; } set { slider.Visible = value; } }
 
         /// <summary>
         /// If true, the slider will be oriented vertically s.t. the slider moves up and down.
@@ -140,26 +153,31 @@ namespace RichHudFramework.UI
         /// </summary>
         public bool Reverse { get; set; }
 
-        public readonly Button slider;
-        public readonly TexturedBox bar;
-        public readonly ClickableElement mouseInput;
+        public override bool IsMousedOver => mouseInput.IsMousedOver;
+
+        public IClickableElement MouseInput => mouseInput;
+
+        private readonly TexturedBox slider, bar;
+        private readonly ClickableElement mouseInput;
 
         private float min, max, current, percent;
         private bool canMoveSlider;
 
         public SliderBar(IHudParent parent = null) : base(parent)
         {
+            mouseInput = new ClickableElement(this) { DimAlignment = DimAlignments.Both };
+            mouseInput.OnLeftClick += BarClicked;
+
             bar = new TexturedBox(this);
-            slider = new Button(bar);
+            slider = new TexturedBox(bar);
 
             bar.Size = new Vector2(100f, 12f);
             slider.Size = new Vector2(6f, 12f);
 
-            SliderColor = new Color(200, 200, 200, 255);
-            BarColor = new Color(150, 150, 150, 255);
+            SliderColor = new Color(180, 180, 180, 255);
+            BarColor = new Color(140, 140, 140, 255);
 
-            mouseInput = new ClickableElement(this) { DimAlignment = DimAlignments.Both };
-            mouseInput.OnLeftClick += BarClicked;
+            SliderHighlight = new Color(200, 200, 200, 255);
 
             min = 0f;
             max = 1f;
@@ -178,6 +196,19 @@ namespace RichHudFramework.UI
             if (canMoveSlider && !SharedBinds.LeftButton.IsPressed)
             {
                 canMoveSlider = false;
+            }
+
+            if (IsMousedOver)
+            {
+                slider.Color = SliderHighlight;
+
+                if (BarHighlight != default(Color))
+                    bar.Color = BarHighlight;
+            }
+            else
+            {
+                slider.Color = SliderColor;
+                bar.Color = BarColor;
             }
         }
 
