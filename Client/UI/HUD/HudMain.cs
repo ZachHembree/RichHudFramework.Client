@@ -1,4 +1,4 @@
-﻿using RichHudFramework.Game;
+using RichHudFramework.Game;
 using Sandbox.ModAPI;
 using System;
 using System.Collections.Generic;
@@ -240,7 +240,7 @@ namespace RichHudFramework
 
             public override void Close()
             {
-                if (!ModBase.NormalExit)
+                if (ModBase.Reloading)
                     root.ClearLocalChildren();
 
                 Instance = null;
