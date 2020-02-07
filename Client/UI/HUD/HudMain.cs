@@ -1,4 +1,4 @@
-using RichHudFramework.Game;
+﻿using RichHudFramework.Game;
 using Sandbox.ModAPI;
 using System;
 using System.Collections.Generic;
@@ -6,7 +6,7 @@ using VRage;
 using VRage.Game.ModAPI;
 using VRageMath;
 using FloatProp = VRage.MyTuple<System.Func<float>, System.Action<float>>;
-using RichStringMembers = VRage.MyTuple<System.Text.StringBuilder, VRage.MyTuple<VRageMath.Vector2I, int, VRageMath.Color, float>>;
+using RichStringMembers = VRage.MyTuple<System.Text.StringBuilder, VRage.MyTuple<byte, float, VRageMath.Vector2I, VRageMath.Color>>;
 using Vec2Prop = VRage.MyTuple<System.Func<VRageMath.Vector2>, System.Action<VRageMath.Vector2>>;
 using ApiMemberAccessor = System.Func<object, int, object>;
 
@@ -39,7 +39,7 @@ namespace RichHudFramework
             Func<Vector2I, int, object>, // GetCharMember
             ApiMemberAccessor, // GetOrSetMember
             Action<IList<RichStringMembers>, Vector2I>, // Insert
-            Action<RichStringMembers, Vector2I>, // Insert
+            Action<IList<RichStringMembers>>, // SetText
             Action // Clear
         >,
         FloatProp, // Scale
@@ -104,7 +104,7 @@ namespace RichHudFramework
             public static RichText ClipBoard
             {
                 get { return new RichText(Instance.ClipboardPropWrapper.Getter()); }
-                set { Instance.ClipboardPropWrapper.Setter(value.GetApiData()); }
+                set { Instance.ClipboardPropWrapper.Setter(value.ApiData); }
             }
 
             /// <summary>
