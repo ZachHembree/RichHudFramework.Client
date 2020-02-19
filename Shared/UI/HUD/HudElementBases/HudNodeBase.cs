@@ -21,7 +21,8 @@ namespace RichHudFramework
             GetParentData = 11,
             GetFocus = 12,
             Register = 13,
-            Unregister = 14
+            Unregister = 14,
+            Registered = 15,
         }
 
         /// <summary>
@@ -34,6 +35,8 @@ namespace RichHudFramework
             /// Parent object of the node.
             /// </summary>
             public virtual IHudParent Parent { get; protected set; }
+
+            public bool Registered { get; private set; }
 
             /// <summary>
             /// Initializes the node without any child elements and with/without a parent node.
@@ -65,6 +68,7 @@ namespace RichHudFramework
                 {
                     Parent = parent;
                     Parent.RegisterChild(this);
+                    Registered = true;
                 }
             }
 
@@ -79,6 +83,7 @@ namespace RichHudFramework
 
                     Parent = null;
                     lastParent.RemoveChild(this);
+                    Registered = false;
                 }
             }
 
@@ -105,6 +110,8 @@ namespace RichHudFramework
                         case HudNodeAccessors.Unregister:
                             Unregister();
                             break;
+                        case HudNodeAccessors.Registered:
+                            return Registered;
                     }
                 }
 

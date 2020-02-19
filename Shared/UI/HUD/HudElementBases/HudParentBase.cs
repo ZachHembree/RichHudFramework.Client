@@ -105,9 +105,9 @@ namespace RichHudFramework
             /// </summary>
             public virtual void RegisterChild(IHudNode child)
             {
-                if (child.Parent?.ID == ID)
+                if (child.Parent?.ID == ID && !child.Registered)
                     children.Add(child);
-                else
+                else if (child.Parent?.ID == null)
                     child.Register(this);
             }
 
@@ -164,9 +164,9 @@ namespace RichHudFramework
                 {
                     Item1 = () => Visible,
                     Item2 = this,
-                    Item3 = () => ModBase.RunSafeAction(BeforeDrawStart),
-                    Item4 = () => ModBase.RunSafeAction(DrawStart),
-                    Item5 = () => ModBase.RunSafeAction(HandleInputStart),
+                    Item3 = () => RichHudMain.Instance.RunSafeAction(BeforeDrawStart),
+                    Item4 = () => RichHudMain.Instance.RunSafeAction(DrawStart),
+                    Item5 = () => RichHudMain.Instance.RunSafeAction(HandleInputStart),
                     Item6 = GetOrSetMember
                 };
             }           

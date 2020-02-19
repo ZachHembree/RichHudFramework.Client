@@ -7,7 +7,7 @@ namespace RichHudFramework.IO
     /// <summary>
     /// Handles logging
     /// </summary>
-    public sealed class LogIO : ModBase.ParallelComponentBase
+    public sealed class LogIO : RichHudParallelComponentBase
     {
         public bool Accessible { get; private set; }
         private readonly LocalFileIO logFile;
@@ -26,7 +26,7 @@ namespace RichHudFramework.IO
 
                 if (known != null && known.Count > 0)
                     foreach (Exception e in known)
-                        ModBase.SendChatMessage(e.Message);
+                        SendChatMessage(e.Message);
 
                 if (unknown != null)
                     throw unknown;
@@ -36,7 +36,7 @@ namespace RichHudFramework.IO
         /// <summary>
         /// Attempts to synchronously update log with message and adds a time stamp.
         /// </summary>
-        public bool TryWriteToLog(string message)
+        public new bool TryWriteToLog(string message)
         {
             if (Accessible)
             {
@@ -45,13 +45,13 @@ namespace RichHudFramework.IO
 
                 if (exception != null)
                 {
-                    ModBase.SendChatMessage("Unable to update log; please check your file access permissions.");
+                    SendChatMessage("Unable to update log; please check your file access permissions.");
                     Accessible = false;
                     throw exception;
                 }
                 else
                 {
-                    ModBase.SendChatMessage("Log updated.");
+                    SendChatMessage("Log updated.");
                     Accessible = true;
                     return true;
                 }
@@ -63,7 +63,7 @@ namespace RichHudFramework.IO
         /// <summary>
         /// Attempts to update log in parallel with message and adds a time stamp.
         /// </summary>
-        public void WriteToLogStart(string message)
+        public new void WriteToLogStart(string message)
         {
             if (Accessible)
             {
@@ -89,14 +89,14 @@ namespace RichHudFramework.IO
             if (!success)
             {
                 if (Accessible)
-                    ModBase.SendChatMessage("Unable to update log; please check your file access permissions.");
+                    SendChatMessage("Unable to update log; please check your file access permissions.");
 
                 Accessible = false;
             }
             else
             {
                 if (Accessible)
-                    ModBase.SendChatMessage("Log updated.");
+                    SendChatMessage("Log updated.");
 
                 Accessible = true;
             }
