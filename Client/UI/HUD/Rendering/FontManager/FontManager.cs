@@ -9,6 +9,7 @@ using ApiMemberAccessor = System.Func<object, int, object>;
 
 namespace RichHudFramework
 {
+    using Client;
     using FontMembers = MyTuple<
         string, // Name
         int, // Index
@@ -36,7 +37,6 @@ namespace RichHudFramework
 
         namespace Rendering.Client
         {
-            using RichHudFramework.Client;
             using FontManagerMembers = MyTuple<
                 MyTuple<Func<int, FontMembers>, Func<int>>, // Font List
                 Func<FontDefinition, FontMembers?>, // TryAddFont

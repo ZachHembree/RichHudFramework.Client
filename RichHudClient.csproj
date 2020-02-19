@@ -77,7 +77,6 @@
     <Compile Include="Client\UI\BindManager\BindGroup.cs" />
     <Compile Include="Client\UI\BindManager\BindManager.cs" />
     <Compile Include="Client\UI\BindManager\Control.cs" />
-    <Compile Include="Client\UI\BindManager\RebindMenu.cs" />
     <Compile Include="Client\UI\HUD\HudMain.cs" />
     <Compile Include="Client\UI\HUD\Rendering\FontManager\FontData.cs" />
     <Compile Include="Client\UI\HUD\Rendering\FontManager\FontManager.cs" />
@@ -100,6 +99,7 @@
     <Compile Include="Client\UI\SettingsMenu\Pages\RebindPage.cs" />
     <Compile Include="Client\UI\SettingsMenu\Pages\TerminalPageBase.cs" />
     <Compile Include="Client\UI\SettingsMenu\RichHudTerminal.cs" />
+    <Compile Include="Shared\ModBase.cs" />
     <Compile Include="Shared\General\ApiContainers.cs" />
     <Compile Include="Shared\General\Collections.cs" />
     <Compile Include="Shared\General\Extensions.cs" />
@@ -109,8 +109,8 @@
     <Compile Include="Shared\IO\ConfigIO.cs" />
     <Compile Include="Shared\IO\LocalFileIO.cs" />
     <Compile Include="Shared\IO\LogIO.cs" />
-    <Compile Include="Shared\ModBase.cs" />
     <Compile Include="Shared\MsgEnums.cs" />
+    <Compile Include="Shared\RichHudMain.cs" />
     <Compile Include="Shared\UI\BindManager\BindDefinition.cs" />
     <Compile Include="Shared\UI\BindManager\BindGroupData.cs" />
     <Compile Include="Shared\UI\BindManager\CustomControls.cs" />

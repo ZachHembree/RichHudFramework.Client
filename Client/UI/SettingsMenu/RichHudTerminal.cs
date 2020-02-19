@@ -10,6 +10,7 @@ using GlyphFormatMembers = VRage.MyTuple<byte, float, VRageMath.Vector2I, VRageM
 
 namespace RichHudFramework
 {
+    using Client;
     using ControlContainerMembers = MyTuple<
         ApiMemberAccessor, // GetOrSetMember,
         MyTuple<object, Func<int>>, // Member List
@@ -23,7 +24,6 @@ namespace RichHudFramework
 
     namespace UI.Client
     {
-        using RichHudFramework.Client;
         using SettingsMenuMembers = MyTuple<
             ApiMemberAccessor, // GetOrSetMembers
             ControlContainerMembers, // MenuRoot
