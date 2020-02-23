@@ -218,7 +218,7 @@ namespace RichHudFramework.IO
 
                     if (loadException != null)
                         TryWriteToLog(loadException.ToString());
-                    else
+                    else if (!silent)
                         SendChatMessage("Configuration loaded.");
                 }
                 else

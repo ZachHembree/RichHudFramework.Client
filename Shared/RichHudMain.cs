@@ -8,7 +8,7 @@ using VRageMath;
 
 namespace RichHudFramework
 {
-    [MySessionComponentDescriptor(MyUpdateOrder.BeforeSimulation, 1)]
+    [MySessionComponentDescriptor(MyUpdateOrder.BeforeSimulation, 0)]
     internal sealed class RichHudMain : ModBase
     {
         public static RichHudMain Instance { get; private set; }
@@ -20,11 +20,9 @@ namespace RichHudFramework
                 Instance = this;
             else
                 throw new Exception("Only one instance of RichHudMain can exist at any given time.");
-
-            LogFileName = "richHudLog.txt";
         }
 
-        protected override void AfterInit()
+        protected override void AfterLoadData()
         { }
 
         protected override void BeforeClose()

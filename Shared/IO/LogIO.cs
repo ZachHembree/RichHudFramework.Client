@@ -7,15 +7,51 @@ namespace RichHudFramework.IO
     /// <summary>
     /// Handles logging
     /// </summary>
-    public sealed class LogIO : RichHudParallelComponentBase
+    public sealed class LogIO : InternalParallelComponentBase
     {
-        public bool Accessible { get; private set; }
-        private readonly LocalFileIO logFile;
+        public static bool Accessible => Instance.accessible;
+        public static string FileName 
+        { 
+            get { return _fileName; } 
+            set 
+            {
+                if (value != _fileName)
+                    Instance.logFile = new LocalFileIO(value);
 
-        public LogIO(string fileName) : base(true, true)
+                _fileName = value;
+            }
+        }
+
+        private static LogIO Instance
+        { 
+            get 
+            { 
+                if (_instance == null) 
+                    Init(); 
+
+                return _instance; 
+            } 
+            set { _instance = value; }
+        }
+
+        private static LogIO _instance;
+        private static string _fileName;
+
+        public bool accessible;
+        private LocalFileIO logFile;
+
+        private LogIO() : base(true, true)
         {
-            Accessible = true;
-            logFile = new LocalFileIO(fileName);
+            accessible = true;
+            logFile = new LocalFileIO(_fileName);
+        }
+
+        private static void Init()
+        {
+            if (_instance == null)
+            {
+                _instance = new LogIO();
+            }
         }
 
         protected override void ErrorCallback(List<KnownException> known, AggregateException unknown)
@@ -33,12 +69,18 @@ namespace RichHudFramework.IO
             }
         }
 
+        public new static bool TryWriteToLog(string message) =>
+            Instance.TryWriteToLogInternal(message);
+
+        public new static void WriteToLogStart(string message) =>
+            Instance.WriteToLogStartInternal(message);
+
         /// <summary>
         /// Attempts to synchronously update log with message and adds a time stamp.
         /// </summary>
-        public new bool TryWriteToLog(string message)
+        public bool TryWriteToLogInternal(string message)
         {
-            if (Accessible)
+            if (accessible)
             {
                 message = $"[{DateTime.Now.ToString("MM/dd/yyyy HH:mm:ss:ms")}] {message}";
                 KnownException exception = logFile.TryAppend(message);
@@ -46,13 +88,13 @@ namespace RichHudFramework.IO
                 if (exception != null)
                 {
                     SendChatMessage("Unable to update log; please check your file access permissions.");
-                    Accessible = false;
+                    accessible = false;
                     throw exception;
                 }
                 else
                 {
                     SendChatMessage("Log updated.");
-                    Accessible = true;
+                    accessible = true;
                     return true;
                 }
             }
@@ -63,9 +105,9 @@ namespace RichHudFramework.IO
         /// <summary>
         /// Attempts to update log in parallel with message and adds a time stamp.
         /// </summary>
-        public new void WriteToLogStart(string message)
+        public void WriteToLogStartInternal(string message)
         {
-            if (Accessible)
+            if (accessible)
             {
                 message = $"[{DateTime.Now.ToString("MM/dd/yyyy HH:mm:ss:ms")}] {message}";
 
@@ -88,17 +130,17 @@ namespace RichHudFramework.IO
         {
             if (!success)
             {
-                if (Accessible)
+                if (accessible)
                     SendChatMessage("Unable to update log; please check your file access permissions.");
 
-                Accessible = false;
+                accessible = false;
             }
             else
             {
-                if (Accessible)
+                if (accessible)
                     SendChatMessage("Log updated.");
 
-                Accessible = true;
+                accessible = true;
             }
         }
     }

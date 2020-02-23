@@ -24,11 +24,6 @@ namespace RichHudFramework.Game
         public string ModName { get; protected set; }
 
         /// <summary>
-        /// Sets the name of the log file to be created in the mod's local storage. Should end in .txt.
-        /// </summary>
-        public string LogFileName { get; protected set; }
-
-        /// <summary>
         /// Determines whether or not the main class will be allowed to run on a dedicated server.
         /// </summary>
         public bool RunOnServer { get; protected set; }
@@ -88,7 +83,6 @@ namespace RichHudFramework.Game
         protected ModBase(bool runOnServer, bool runOnClient)
         {
             ModName = DebugName;
-            LogFileName = "modLog.txt";
             recoveryLimit = 1;
 
             clientComponents = new List<ComponentBase>();
@@ -100,7 +94,7 @@ namespace RichHudFramework.Game
             errorTimer = new Utils.Stopwatch();
         }
 
-        public sealed override void Init(MyObjectBuilder_SessionComponent sessionComponent)
+        public sealed override void LoadData()
         {
             if (!Loaded && CanLoad)
             {
@@ -112,13 +106,20 @@ namespace RichHudFramework.Game
                 Reloading = false;
                 Unloading = false;
                 exceptionCount = 0;
-                log = new LogIO(LogFileName);
 
                 if (canUpdate)
-                    RunSafeAction(AfterInit);
+                    RunSafeAction(AfterLoadData);
             }
         }
         
+        protected new virtual void AfterLoadData() { }
+
+        public sealed override void Init(MyObjectBuilder_SessionComponent sessionComponent)
+        {
+            if (canUpdate)
+                RunSafeAction(AfterInit);
+        }
+
         protected virtual void AfterInit() { }
 
         public override void Draw()
@@ -166,9 +167,6 @@ namespace RichHudFramework.Game
         /// </summary>
         private void BeforeUpdate()
         {
-            if (!Loaded && CanLoad)
-                Init(null);
-
             if (Loaded && canUpdate)
                 RunSafeAction(UpdateComponents);
 
@@ -291,20 +289,14 @@ namespace RichHudFramework.Game
         /// <summary>
         /// Attempts to synchronously update mod log with message and adds a time stamp.
         /// </summary>
-        public void TryWriteToLog(string message)
-        {
-            if (log != null)
-                log.TryWriteToLog(message);
-        }
+        public bool TryWriteToLog(string message) =>
+            LogIO.TryWriteToLog(message);
 
         /// <summary>
         /// Attempts to update mod log in parallel with message and adds a time stamp.
         /// </summary>
-        public void WriteToLogStart(string message)
-        {
-            if (log != null)
-                log.WriteToLogStart(message);
-        }
+        public void WriteToLogStart(string message) =>
+            LogIO.WriteToLogStart(message);
 
         /// <summary>
         /// Sends chat message using the mod name as the sender.
@@ -339,6 +331,12 @@ namespace RichHudFramework.Game
                     Reloading = true;
                     Close();
                     Reloading = false;
+
+                    if (!Loaded && CanLoad)
+                    {
+                        LoadData();
+                        Init(null);
+                    }
                 }
                 else
                     UnloadData();
@@ -480,14 +478,14 @@ namespace RichHudFramework.Game
             /// <summary>
             /// Attempts to synchronously update mod log with message and adds a time stamp.
             /// </summary>
-            protected void TryWriteToLog(string message) =>
-                Parent.TryWriteToLog(message);
+            protected bool TryWriteToLog(string message) =>
+                LogIO.TryWriteToLog(message);
 
             /// <summary>
             /// Attempts to update mod log in parallel with message and adds a time stamp.
             /// </summary>
             protected void WriteToLogStart(string message) =>
-                Parent.WriteToLogStart(message);
+                LogIO.WriteToLogStart(message);
 
             /// <summary>
             /// Sends chat message using the mod name as the sender.
