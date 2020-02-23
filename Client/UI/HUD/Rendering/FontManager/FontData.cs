@@ -99,6 +99,18 @@ namespace RichHudFramework
                     /// </summary>
                     public Vector2I GetStyleIndex(FontStyles style) =>
                         new Vector2I(Index, (int)style);
+
+                    public override int GetHashCode()
+                    {
+                        return Index.GetHashCode();
+                    }
+
+                    public override bool Equals(object obj)
+                    {
+                        var font = obj as FontData;
+
+                        return font != null && font.Index == Index;
+                    }
                 }
             }
         }

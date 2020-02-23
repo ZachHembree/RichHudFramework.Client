@@ -14,7 +14,7 @@ namespace RichHudFramework.Client
     public sealed class RichHudClient : RichHudComponentBase
     {
         private const long modID = 1965654081, queueID = 1314086443;
-        private const int versionID = 2;
+        private const int versionID = 3;
 
         public static bool Registered => Instance != null ? Instance.registered : false;
         private static RichHudClient Instance { get; set; }
@@ -63,9 +63,9 @@ namespace RichHudFramework.Client
             Init(main.ModName, InitCallback, main.Reload);
 
         /// <summary>
-        /// Unregisters the client and clears all Framework modules.
+        /// Unregisters the client and resets all framework modules.
         /// </summary>
-        public static void Exit()
+        public static void Reset()
         {
             if (Registered)
                 RichHudMain.Instance.Reload();
