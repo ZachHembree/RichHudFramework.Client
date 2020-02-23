@@ -3,6 +3,24 @@ using System;
 
 namespace RichHudFramework.UI
 {
+    public enum ScrollBoxSizingModes : byte
+    {
+        /// <summary>
+        /// In this mode, the element will automatically resize to match the size of the chain.
+        /// </summary>
+        FitToMembers = 1,
+
+        /// <summary>
+        /// In this mode, scrollbox members will be automatically resized to fill the scrollbox along the axis of alignment.
+        /// </summary>
+        FitMembersToBox = 2,
+
+        /// <summary>
+        /// In this mode, scrollbox member sizes will be clamped between the minimum size and the size of the scrollbox.
+        /// </summary>
+        ClampMembers = 3,
+    }
+
     public class ScrollBox<T> : HudElementBase, IListBoxEntry where T : class, IListBoxEntry
     {
         public HudChain<T> Members { get; }
@@ -39,15 +57,7 @@ namespace RichHudFramework.UI
         /// </summary>
         public Vector2 MinimumSize { get { return minSize * Scale; } set { minSize = value / Scale; } }
 
-        /// <summary>
-        /// If set to true, the element will automatically resize to match the size of the chain.
-        /// </summary>
-        public bool FitToChain { get; set; }
-
-        /// <summary>
-        /// If true, the scrollbox will attempt to clamp the size of its members between the minimum and set size.
-        /// </summary>
-        public bool ClampMembers { get; set; }
+        public ScrollBoxSizingModes SizingMode { get; set; }
 
         public bool Enabled { get; set; }
 
@@ -236,7 +246,7 @@ namespace RichHudFramework.UI
             else
                 min.Y += scrollBar.Height;
 
-            if (FitToChain)
+            if (SizingMode == ScrollBoxSizingModes.FitToMembers)
             {
                 newSize = Vector2.Max(min, MinimumSize);
             }
@@ -350,8 +360,10 @@ namespace RichHudFramework.UI
 
                             chainSize.Y += List[n].Height;
 
-                            if (ClampMembers)
+                            if (SizingMode == ScrollBoxSizingModes.ClampMembers)
                                 List[n].Width = MathHelper.Clamp(List[n].Width, min, max);
+                            else if (SizingMode == ScrollBoxSizingModes.FitMembersToBox)
+                                List[n].Width = MathHelper.Min(List[n].Width, max);
 
                             if (List[n].Width > chainSize.X)
                                 chainSize.X = List[n].Width;
@@ -399,8 +411,10 @@ namespace RichHudFramework.UI
 
                             chainSize.X += List[n].Width;
 
-                            if (ClampMembers)
+                            if (SizingMode == ScrollBoxSizingModes.ClampMembers)
                                 List[n].Height = MathHelper.Clamp(List[n].Height, min, max);
+                            else if (SizingMode == ScrollBoxSizingModes.FitMembersToBox)
+                                List[n].Height = MathHelper.Min(List[n].Height, max);
 
                             if (List[n].Height > chainSize.Y)
                                 chainSize.Y = List[n].Height;

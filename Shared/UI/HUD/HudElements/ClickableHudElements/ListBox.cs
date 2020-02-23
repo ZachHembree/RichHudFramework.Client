@@ -34,6 +34,12 @@ namespace RichHudFramework.UI
         public event Action OnSelectionChanged;
         public ReadOnlyCollection<ListBoxEntry<T>> List => scrollBox.List;
 
+        public override float Width { get { return scrollBox.Width; } set { scrollBox.Width = value; } }
+
+        public override float Height { get { return scrollBox.Height; } set { scrollBox.Height = value; } }
+
+        public override Vector2 Padding { get { return scrollBox.Padding; } set { scrollBox.Padding = value; } }
+
         /// <summary>
         /// Background color
         /// </summary>
@@ -65,12 +71,24 @@ namespace RichHudFramework.UI
             }
         }
 
+        public Vector2 MemberPadding
+        {
+            get { return _memberPadding; }
+            set
+            {
+                _memberPadding = value;
+
+                for (int n = 0; n < scrollBox.List.Count; n++)
+                    scrollBox.List[n].Padding = value;
+            }
+        }
+
         public float LineHeight 
         { 
-            get { return lineHeight; } 
+            get { return _lineHeight; } 
             set 
             {
-                lineHeight = value;
+                _lineHeight = value;
                 
                 for (int n = 0; n < scrollBox.List.Count; n++)
                     scrollBox.List[n].Height = value;
@@ -105,16 +123,15 @@ namespace RichHudFramework.UI
         public readonly ScrollBox<ListBoxEntry<T>> scrollBox;
         protected readonly HighlightBox selectionBox, highlight;
         protected readonly BorderBox border;
-        private float lineHeight;
+        private Vector2 _memberPadding;
+        private float _lineHeight;
 
         public ListBox(IHudParent parent = null) : base(parent)
         {
             scrollBox = new ScrollBox<ListBoxEntry<T>>(this)
             {
-                FitToChain = false,
-                ClampMembers = true,
+                SizingMode = ScrollBoxSizingModes.FitMembersToBox,
                 AlignVertical = true,
-                DimAlignment = DimAlignments.Both | DimAlignments.IgnorePadding,
             };
 
             border = new BorderBox(scrollBox)
@@ -131,25 +148,11 @@ namespace RichHudFramework.UI
             { Color = new Color(34, 44, 53) };
 
             Size = new Vector2(355f, 223f);
-            lineHeight = 30f;
+            _lineHeight = 30f;
 
             Enabled = true;
             CaptureCursor = true;
         }
-
-        /// <summary>
-        /// Adds a new member to the list box with the given name and associated
-        /// object.
-        /// </summary>
-        public ListBoxEntry<T> Add(string name, T assocMember) =>
-            Add(new RichText(name, Format), assocMember);
-
-        /// <summary>
-        /// Adds a new member to the list box with the given name and associated
-        /// object.
-        /// </summary>
-        public ListBoxEntry<T> Add(RichString name, T assocMember) =>
-            Add(new RichText(name), assocMember);
 
         /// <summary>
         /// Adds a new member to the list box with the given name and associated
@@ -164,7 +167,8 @@ namespace RichHudFramework.UI
                 member = new ListBoxEntry<T>(assocMember)
                 {
                     Format = Format,
-                    Height = lineHeight,
+                    Height = _lineHeight,
+                    Padding = _memberPadding,
                 };
 
                 member.OnMemberSelected += SetSelection;
@@ -240,13 +244,14 @@ namespace RichHudFramework.UI
         {
             highlight.Visible = false;
 
-            foreach (ListBoxEntry<T> button in scrollBox.List)
+            foreach (ListBoxEntry<T> entry in scrollBox.List)
             {
-                if (button.IsMousedOver)
+                if (entry.IsMousedOver)
                 {
                     highlight.Visible = true;
-                    highlight.Size = button.Size;
-                    highlight.Offset = button.Offset;
+                    highlight.Size = entry.Size;
+                    highlight.Offset = entry.Offset;
+                    highlight.Padding = entry.Padding;
                 }
             }
         }

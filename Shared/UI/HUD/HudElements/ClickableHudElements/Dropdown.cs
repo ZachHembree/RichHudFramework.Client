@@ -11,6 +11,8 @@ namespace RichHudFramework.UI
         public event Action OnSelectionChanged { add { listBox.OnSelectionChanged += value; } remove { listBox.OnSelectionChanged -= value; } }
         public ReadOnlyCollection<ListBoxEntry<T>> List => listBox.List;
 
+        public Vector2 MemberPadding { get { return listBox.MemberPadding; } set { listBox.MemberPadding = value; } }
+
         public float LineHeight { get { return listBox.LineHeight; } set { listBox.LineHeight = value; } }
 
         /// <summary>
@@ -48,6 +50,7 @@ namespace RichHudFramework.UI
             listBox = new ListBox<T>(display)
             {
                 TabColor = new Color(0, 0, 0, 0),
+                MemberPadding = new Vector2(8f, 0f),
                 MinimumVisCount = 4,
                 Offset = new Vector2(0f, -1f),
                 DimAlignment = DimAlignments.Width | DimAlignments.IgnorePadding,
@@ -97,20 +100,6 @@ namespace RichHudFramework.UI
         {
             listBox.Visible = false;
         }
-
-        /// <summary>
-        /// Adds a new member to the list box with the given name and associated
-        /// object.
-        /// </summary>
-        public ListBoxEntry<T> Add(string name, T assocMember) =>
-            listBox.Add(name, assocMember);
-
-        /// <summary>
-        /// Adds a new member to the list box with the given name and associated
-        /// object.
-        /// </summary>
-        public ListBoxEntry<T> Add(RichString name, T assocMember) =>
-            listBox.Add(name, assocMember);
 
         /// <summary>
         /// Adds a new member to the list box with the given name and associated
