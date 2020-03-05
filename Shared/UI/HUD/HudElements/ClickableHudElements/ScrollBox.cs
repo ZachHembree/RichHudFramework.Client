@@ -5,6 +5,8 @@ namespace RichHudFramework.UI
 {
     public enum ScrollBoxSizingModes : byte
     {
+        None = 0,
+
         /// <summary>
         /// In this mode, the element will automatically resize to match the size of the chain.
         /// </summary>
@@ -21,11 +23,25 @@ namespace RichHudFramework.UI
         ClampMembers = 3,
     }
 
+    /// <summary>
+    /// Scrollable list of hud elements. Can be oriented vertically or horizontally.
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
     public class ScrollBox<T> : HudElementBase, IListBoxEntry where T : class, IListBoxEntry
     {
-        public HudChain<T> Members { get; }
-        public ReadOnlyCollection<T> List => Members.List;
+        /// <summary>
+        /// Chain element used to position list members.
+        /// </summary>
+        public HudChain<T> Chain { get; }
 
+        /// <summary>
+        /// Read-only collection of members in the scroll list.
+        /// </summary>
+        public ReadOnlyCollection<T> List => Chain.ChainMembers;
+
+        /// <summary>
+        /// Width of the scrollbox in pixels.
+        /// </summary>
         public override float Width
         {
             set
@@ -39,6 +55,9 @@ namespace RichHudFramework.UI
             }
         }
 
+        /// <summary>
+        /// Height of the scrollbox in pixels.
+        /// </summary>
         public override float Height
         {
             set
@@ -57,21 +76,30 @@ namespace RichHudFramework.UI
         /// </summary>
         public Vector2 MinimumSize { get { return minSize * Scale; } set { minSize = value / Scale; } }
 
+        /// <summary>
+        /// Determines how/if the scrollbox will attempt to resize member elements.
+        /// </summary>
         public ScrollBoxSizingModes SizingMode { get; set; }
 
+        /// <summary>
+        /// Determines whether or not the element will be enabled and visible in other scroll boxes.
+        /// </summary>
         public bool Enabled { get; set; }
 
+        /// <summary>
+        /// Determines whether or not the scrollbox will be oriented vertically. True by default.
+        /// </summary>
         public bool AlignVertical
         {
-            get { return Members.AlignVertical; }
+            get { return Chain.AlignVertical; }
             set
             {
-                Members.AlignVertical = value;
+                Chain.AlignVertical = value;
                 scrollBar.Vertical = value;
 
                 if (AlignVertical)
                 {
-                    Members.ParentAlignment = ParentAlignments.Top | ParentAlignments.Left | ParentAlignments.Inner;
+                    Chain.ParentAlignment = ParentAlignments.Top | ParentAlignments.Left | ParentAlignments.Inner;
                     scrollBar.ParentAlignment = ParentAlignments.Right | ParentAlignments.InnerH;
                     divider.ParentAlignment = ParentAlignments.Left | ParentAlignments.InnerH;
 
@@ -83,7 +111,7 @@ namespace RichHudFramework.UI
                 }
                 else
                 {
-                    Members.ParentAlignment = ParentAlignments.Top | ParentAlignments.Left | ParentAlignments.Inner;
+                    Chain.ParentAlignment = ParentAlignments.Top | ParentAlignments.Left | ParentAlignments.Inner;
                     scrollBar.ParentAlignment = ParentAlignments.Bottom | ParentAlignments.InnerV;
                     divider.ParentAlignment = ParentAlignments.Bottom | ParentAlignments.InnerV;
 
@@ -99,7 +127,7 @@ namespace RichHudFramework.UI
         /// <summary>
         /// Distance between the chain elements.
         /// </summary>
-        public float Spacing { get { return Members.Spacing; } set { Members.Spacing = value; } }
+        public float Spacing { get { return Chain.Spacing; } set { Chain.Spacing = value; } }
 
         /// <summary>
         /// Minimum number of visible elements allowed. Supercedes maximum size. If the number of elements that
@@ -178,7 +206,7 @@ namespace RichHudFramework.UI
                 Color = new Color(53, 66, 75),
             };
 
-            Members = new HudChain<T>(this)
+            Chain = new HudChain<T>(this)
             {
                 AutoResize = true,
             };
@@ -192,20 +220,38 @@ namespace RichHudFramework.UI
             MinimumVisCount = 1;
         }
 
+        /// <summary>
+        /// Adds a hud element to the scrollbox.
+        /// <param name="element"></param>
         public void AddToList(T element) =>
-            Members.Add(element);
+            Chain.Add(element);
 
+        /// <summary>
+        /// Finds the scrollbox member that meets the conditions
+        /// required by the predicate.
+        /// </summary>
         public T Find(Func<T, bool> predicate) =>
-            Members.Find(x => predicate(x));
+            Chain.Find(x => predicate(x));
 
+        /// <summary>
+        /// Finds the index of the scrollbox member that meets the conditions
+        /// required by the predicate.
+        /// </summary>
         public int FindIndex(Func<T, bool> predicate) =>
-            Members.FindIndex(x => predicate(x));
+            Chain.FindIndex(x => predicate(x));
 
+        /// <summary>
+        /// Removes the given member from the scrollbox.
+        /// </summary>
         public void RemoveFromList(T member) =>
-            Members.RemoveChild(member);
+            Chain.RemoveChild(member);
 
+        /// <summary>
+        /// Removes the scrollbox member that meets the conditions
+        /// required by the predicate.
+        /// </summary>
         public void RemoveFromList(Func<T, bool> predicate) =>
-            Members.Remove(predicate);
+            Chain.Remove(predicate);
 
         protected override void HandleInput()
         {
@@ -238,8 +284,8 @@ namespace RichHudFramework.UI
 
             Vector2 min = chainSize + Padding, newSize = Size;
 
-            Members.Size = chainSize;
-            Members.Offset = new Vector2(Padding.X, -Padding.Y) * .5f;
+            Chain.Size = chainSize;
+            Chain.Offset = new Vector2(Padding.X, -Padding.Y) * .5f;
 
             if (AlignVertical)
                 min.X += scrollBar.Width;

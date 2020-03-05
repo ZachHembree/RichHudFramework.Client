@@ -10,9 +10,8 @@ using VRage.Game.ModAPI;
 namespace RichHudFramework.Game
 {
     /// <summary>
-    /// Extends <see cref="MySessionComponentBase"/> to include built-in exception handling / logging and to allow 
-    /// for types that need to be associated with and updated alongside the mod deriving from this type but without
-    /// being a session component. Only one instance of <see cref="ModBase"/> can exist at a given time.
+    /// Extends <see cref="MySessionComponentBase"/> to include built-in exception handling, logging and a component
+    /// system.
     /// </summary>
     public abstract class ModBase : MySessionComponentBase
     {
@@ -383,8 +382,7 @@ namespace RichHudFramework.Game
         protected virtual void BeforeClose() { }
 
         /// <summary>
-        /// Base for classes that need to be continuously updated by the game. This should not be used for short
-        /// lived objects.
+        /// Base class for ModBase components.
         /// </summary>
         public abstract class ComponentBase
         {

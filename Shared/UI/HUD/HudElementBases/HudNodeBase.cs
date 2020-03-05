@@ -26,8 +26,7 @@ namespace RichHudFramework
         }
 
         /// <summary>
-        /// Base class for hud elements that can serve as child and/or parent nodes. Derives from <see cref="HudParentBase"/>
-        /// and implements <see cref="IHudNode"/>.
+        /// Base class for hud elements that can be parented to other elements.
         /// </summary>
         public abstract class HudNodeBase : HudParentBase, IHudNode
         {
@@ -36,11 +35,11 @@ namespace RichHudFramework
             /// </summary>
             public virtual IHudParent Parent { get; protected set; }
 
+            /// <summary>
+            /// Indicates whether or not the element has been registered to a parent.
+            /// </summary>
             public bool Registered { get; private set; }
 
-            /// <summary>
-            /// Initializes the node without any child elements and with/without a parent node.
-            /// </summary>
             public HudNodeBase(IHudParent parent)
             {
                 if (parent != null)

@@ -20,7 +20,7 @@ namespace RichHudFramework
     namespace UI
     {
         /// <summary>
-        /// Base for all hud elements that serve as parents of other HUD elements. Types deriving from this class cannot be
+        /// Base class for HUD elements to which other elements are parented. Types deriving from this class cannot be
         /// parented to other elements; only types of <see cref="IHudNode"/> can be parented.
         /// </summary>
         public abstract class HudParentBase : IHudParent
@@ -37,15 +37,15 @@ namespace RichHudFramework
 
             protected readonly List<IHudNode> children;
 
-            /// <summary>
-            /// Initializes a new <see cref="HudParentBase"/> with no child elements.
-            /// </summary>
             public HudParentBase()
             {
                 Visible = true;
                 children = new List<IHudNode>();
             }
 
+            /// <summary>
+            /// Updates input for the element and its children.
+            /// </summary>
             public virtual void HandleInputStart()
             {
                 for (int n = children.Count - 1; n >= 0; n--)
@@ -59,6 +59,9 @@ namespace RichHudFramework
 
             protected virtual void HandleInput() { }
 
+            /// <summary>
+            /// Updates before draw for the element and its children.
+            /// </summary>
             public virtual void BeforeDrawStart()
             {
                 BeforeDraw();
@@ -72,6 +75,9 @@ namespace RichHudFramework
 
             protected virtual void BeforeDraw() { }
 
+            /// <summary>
+            /// Draws the element and its children.
+            /// </summary>
             public virtual void DrawStart()
             {
                 Draw();
