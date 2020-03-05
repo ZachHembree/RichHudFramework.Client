@@ -12,9 +12,9 @@ namespace RichHudFramework.UI.Client
     /// <summary>
     /// On/Off toggle designed to mimic the appearance of the On/Off button in the SE Terminal.
     /// </summary>
-    public class OnOffButton : TerminalValue<bool, OnOffButton>
+    public class TerminalOnOffButton : TerminalValue<bool, TerminalOnOffButton>
     {
-        public OnOffButton() : base(MenuControls.OnOffButton)
+        public TerminalOnOffButton() : base(MenuControls.OnOffButton)
         { }
     }
 }

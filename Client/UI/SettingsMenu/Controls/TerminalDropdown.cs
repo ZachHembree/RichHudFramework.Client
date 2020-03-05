@@ -14,7 +14,7 @@ namespace RichHudFramework.UI.Client
     /// A dropdown list with a label. Designed to mimic the appearance of the dropdown in the SE terminal.
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    public class DropdownControl<T> : TerminalValue<EntryData<T>, DropdownControl<T>>
+    public class TerminalDropdown<T> : TerminalValue<EntryData<T>, TerminalDropdown<T>>
     {
         /// <summary>
         /// Currently selected list member.
@@ -27,7 +27,7 @@ namespace RichHudFramework.UI.Client
 
         public ListBoxData<T> List { get; }
 
-        public DropdownControl() : base(MenuControls.DropdownControl)
+        public TerminalDropdown() : base(MenuControls.DropdownControl)
         {
             var listData = GetOrSetMember(null, (int)ListControlAccessors.ListAccessors) as ApiMemberAccessor;
             

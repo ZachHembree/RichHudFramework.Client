@@ -19,7 +19,7 @@ namespace RichHudFramework.UI.Client
     /// <summary>
     /// A terminal control that uses a draggable window to indicate a position on the screen.
     /// </summary>
-    public class DragBox : TerminalValue<Vector2, DragBox>
+    public class TerminalDragBox : TerminalValue<Vector2, TerminalDragBox>
     {
         /// <summary>
         /// Size of the window spawned by the control.
@@ -40,7 +40,7 @@ namespace RichHudFramework.UI.Client
             set { GetOrSetMember(value, (int)DragBoxAccessors.AlignToEdge); }
         }
 
-        public DragBox() : base(MenuControls.DragBox)
+        public TerminalDragBox() : base(MenuControls.DragBox)
         { }
     }
 }

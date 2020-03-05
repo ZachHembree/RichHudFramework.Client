@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Text;
 using VRage;
-using VRageMath;
 using GlyphFormatMembers = VRage.MyTuple<byte, float, VRageMath.Vector2I, VRageMath.Color>;
 using ApiMemberAccessor = System.Func<object, int, object>;
 using EventAccessor = VRage.MyTuple<bool, System.Action>;
@@ -11,12 +10,11 @@ namespace RichHudFramework.UI.Client
     using RichStringMembers = MyTuple<StringBuilder, GlyphFormatMembers>;
 
     /// <summary>
-    /// An RGB color picker using sliders for each channel. Designed to mimic the appearance of the color picker
-    /// in the SE terminal.
+    /// Labeled checkbox designed to mimic the appearance of checkboxes in the SE terminal.
     /// </summary>
-    public class ColorPicker : TerminalValue<Color, ColorPicker>
+    public class TerminalCheckbox : TerminalValue<bool, TerminalCheckbox>
     {
-        public ColorPicker() : base(MenuControls.ColorPicker)
+        public TerminalCheckbox() : base(MenuControls.Checkbox)
         { }
     }
 }

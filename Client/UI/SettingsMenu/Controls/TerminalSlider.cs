@@ -37,7 +37,7 @@ namespace RichHudFramework.UI.Client
     /// Labeled slider used to set float values in the settings menu. Mimics the appearance of the slider in the
     /// SE terminal.
     /// </summary>
-    public class SliderSetting : TerminalValue<float, SliderSetting>
+    public class TerminalSlider : TerminalValue<float, TerminalSlider>
     {
         /// <summary>
         /// Minimum configurable value for the slider.
@@ -75,7 +75,7 @@ namespace RichHudFramework.UI.Client
             set { GetOrSetMember(value, (int)SliderSettingsAccessors.ValueText); }
         }
 
-        public SliderSetting() : base(MenuControls.SliderSetting)
+        public TerminalSlider() : base(MenuControls.SliderSetting)
         { }
     }
 }
