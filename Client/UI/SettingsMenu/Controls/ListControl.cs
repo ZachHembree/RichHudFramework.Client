@@ -15,8 +15,14 @@ namespace RichHudFramework.UI.Client
         ListAccessors = 16,
     }
 
+    /// <summary>
+    /// A fixed size list box with a label. Designed to mimic the appearance of the list box in the SE terminal.
+    /// </summary>
     public class ListControl<T> : TerminalValue<EntryData<T>, ListControl<T>>
     {
+        /// <summary>
+        /// Currently selected list member.
+        /// </summary>
         public override EntryData<T> Value
         {
             get { return List.Selection; }
@@ -27,7 +33,7 @@ namespace RichHudFramework.UI.Client
 
         public ListControl() : base(MenuControls.ListControl)
         {
-            var listData = GetOrSetMemberFunc(null, (int)ListControlAccessors.ListAccessors) as ApiMemberAccessor;
+            var listData = GetOrSetMember(null, (int)ListControlAccessors.ListAccessors) as ApiMemberAccessor;
 
             List = new ListBoxData<T>(listData);
         }

@@ -10,7 +10,7 @@ namespace RichHudFramework.UI.Client
     using RichStringMembers = MyTuple<StringBuilder, GlyphFormatMembers>;
 
     /// <summary>
-    /// Creates a named checkbox designed to mimic the appearance of checkboxes in the SE terminal.
+    /// Labeled checkbox designed to mimic the appearance of checkboxes in the SE terminal.
     /// </summary>
     public class Checkbox : TerminalValue<bool, Checkbox>
     {

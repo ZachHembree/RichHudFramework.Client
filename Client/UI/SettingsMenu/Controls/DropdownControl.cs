@@ -10,8 +10,15 @@ namespace RichHudFramework.UI.Client
 {
     using CollectionData = MyTuple<Func<int, ApiMemberAccessor>, Func<int>>;
 
+    /// <summary>
+    /// A dropdown list with a label. Designed to mimic the appearance of the dropdown in the SE terminal.
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
     public class DropdownControl<T> : TerminalValue<EntryData<T>, DropdownControl<T>>
     {
+        /// <summary>
+        /// Currently selected list member.
+        /// </summary>
         public override EntryData<T> Value
         {
             get { return List.Selection; }
@@ -22,7 +29,7 @@ namespace RichHudFramework.UI.Client
 
         public DropdownControl() : base(MenuControls.DropdownControl)
         {
-            var listData = GetOrSetMemberFunc(null, (int)ListControlAccessors.ListAccessors) as ApiMemberAccessor;
+            var listData = GetOrSetMember(null, (int)ListControlAccessors.ListAccessors) as ApiMemberAccessor;
             
             List = new ListBoxData<T>(listData);
         }

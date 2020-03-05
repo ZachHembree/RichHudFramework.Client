@@ -9,6 +9,9 @@ namespace RichHudFramework.UI.Client
 {
     using RichStringMembers = MyTuple<StringBuilder, GlyphFormatMembers>;
 
+    /// <summary>
+    /// On/Off toggle designed to mimic the appearance of the On/Off button in the SE Terminal.
+    /// </summary>
     public class OnOffButton : TerminalValue<bool, OnOffButton>
     {
         public OnOffButton() : base(MenuControls.OnOffButton)

@@ -10,6 +10,10 @@ namespace RichHudFramework.UI.Client
 {
     using RichStringMembers = MyTuple<StringBuilder, GlyphFormatMembers>;
 
+    /// <summary>
+    /// An RGB color picker using sliders for each channel. Designed to mimic the appearance of the color picker
+    /// in the SE terminal.
+    /// </summary>
     public class ColorPicker : TerminalValue<Color, ColorPicker>
     {
         public ColorPicker() : base(MenuControls.ColorPicker)

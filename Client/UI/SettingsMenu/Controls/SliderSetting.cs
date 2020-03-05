@@ -33,30 +33,46 @@ namespace RichHudFramework.UI.Client
         ValueText = 19,
     }
 
+    /// <summary>
+    /// Labeled slider used to set float values in the settings menu. Mimics the appearance of the slider in the
+    /// SE terminal.
+    /// </summary>
     public class SliderSetting : TerminalValue<float, SliderSetting>
     {
+        /// <summary>
+        /// Minimum configurable value for the slider.
+        /// </summary>
         public float Min
         {
-            get { return (float)GetOrSetMemberFunc(null, (int)SliderSettingsAccessors.Min); }
-            set { GetOrSetMemberFunc(value, (int)SliderSettingsAccessors.Min); }
+            get { return (float)GetOrSetMember(null, (int)SliderSettingsAccessors.Min); }
+            set { GetOrSetMember(value, (int)SliderSettingsAccessors.Min); }
         }
 
+        /// <summary>
+        /// Maximum configurable value for the slider.
+        /// </summary>
         public float Max
         {
-            get { return (float)GetOrSetMemberFunc(null, (int)SliderSettingsAccessors.Max); }
-            set { GetOrSetMemberFunc(value, (int)SliderSettingsAccessors.Max); }
+            get { return (float)GetOrSetMember(null, (int)SliderSettingsAccessors.Max); }
+            set { GetOrSetMember(value, (int)SliderSettingsAccessors.Max); }
         }
 
+        /// <summary>
+        /// Current slider value expreseed as a percentage between the min and maximum values.
+        /// </summary>
         public float Percent
         {
-            get { return (float)GetOrSetMemberFunc(null, (int)SliderSettingsAccessors.Percent); }
-            set { GetOrSetMemberFunc(value, (int)SliderSettingsAccessors.Percent); }
+            get { return (float)GetOrSetMember(null, (int)SliderSettingsAccessors.Percent); }
+            set { GetOrSetMember(value, (int)SliderSettingsAccessors.Percent); }
         }
 
-        public RichText ValueText
+        /// <summary>
+        /// Text indicating the current value of the slider. Does not automatically reflect changes to the slider value.
+        /// </summary>
+        public string ValueText
         {
-            get { return new RichText(GetOrSetMemberFunc(null, (int)SliderSettingsAccessors.ValueText) as IList<RichStringMembers>); }
-            set { GetOrSetMemberFunc(value.ApiData, (int)SliderSettingsAccessors.ValueText); }
+            get { return GetOrSetMember(null, (int)SliderSettingsAccessors.ValueText) as string; }
+            set { GetOrSetMember(value, (int)SliderSettingsAccessors.ValueText); }
         }
 
         public SliderSetting() : base(MenuControls.SliderSetting)
