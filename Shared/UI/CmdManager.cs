@@ -9,7 +9,7 @@ namespace RichHudFramework.UI
     /// <summary>
     /// Manages chat commands; singleton
     /// </summary>
-    public sealed class CmdManager : RichHudComponentBase
+    public sealed class CmdManager : InternalComponentBase
     {
         private static CmdManager Instance
         {

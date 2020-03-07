@@ -30,7 +30,7 @@ namespace RichHudFramework.Client
         {
             InitAction = InitCallback;
             ReloadAction = ReloadCallback;
-            RichHudMain.MainModName = modName;
+            RichHudCore.MainModName = modName;
 
             regMessage = new ClientData(modName, MessageHandler, () => RunSafeAction(RemoteReload), versionID);
         }
@@ -68,7 +68,7 @@ namespace RichHudFramework.Client
         public static void Reset()
         {
             if (Registered)
-                RichHudMain.Instance.Reload();
+                RichHudCore.Instance.Reload();
         }
 
         /// <summary>
@@ -183,8 +183,15 @@ namespace RichHudFramework.Client
                 this.componentType = componentType;
             }
 
-            protected T GetApiData() =>
-                (T)Instance.GetApiDataFunc((int)componentType);
+            protected T GetApiData()
+            {
+                object data = Instance?.GetApiDataFunc((int)componentType);
+
+                if (data == null)
+                    TryWriteToLog($"API Data for {componentType.ToString()} is null.");
+
+                return (T)data;
+            }
         }
     }
 }

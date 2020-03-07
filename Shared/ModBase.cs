@@ -101,13 +101,12 @@ namespace RichHudFramework.Game
                 IsDedicated = (MyAPIGateway.Utilities.IsDedicated && isServer);
                 canUpdate = (RunOnClient && IsClient) || (RunOnServer && IsDedicated);
 
-                Loaded = true;
                 Reloading = false;
                 Unloading = false;
                 exceptionCount = 0;
 
                 if (canUpdate)
-                    RunSafeAction(AfterLoadData);
+                    AfterLoadData();
             }
         }
         
@@ -116,7 +115,9 @@ namespace RichHudFramework.Game
         public sealed override void Init(MyObjectBuilder_SessionComponent sessionComponent)
         {
             if (canUpdate)
-                RunSafeAction(AfterInit);
+                AfterInit();
+
+            Loaded = true;
         }
 
         protected virtual void AfterInit() { }
@@ -333,8 +334,11 @@ namespace RichHudFramework.Game
 
                     if (!Loaded && CanLoad)
                     {
-                        LoadData();
-                        Init(null);
+                        RunSafeAction(() => 
+                        {
+                            LoadData();
+                            Init(null);
+                        });
                     }
                 }
                 else

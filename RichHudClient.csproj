@@ -111,7 +111,7 @@
     <Compile Include="Shared\IO\LogIO.cs" />
     <Compile Include="Shared\ModBase.cs" />
     <Compile Include="Shared\MsgEnums.cs" />
-    <Compile Include="Shared\RichHudMain.cs" />
+    <Compile Include="Shared\RichHudCore.cs" />
     <Compile Include="Shared\UI\BindManager\BindDefinition.cs" />
     <Compile Include="Shared\UI\BindManager\BindGroupData.cs" />
     <Compile Include="Shared\UI\BindManager\CustomControls.cs" />

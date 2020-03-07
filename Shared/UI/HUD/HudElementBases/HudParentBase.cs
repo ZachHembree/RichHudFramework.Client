@@ -170,9 +170,9 @@ namespace RichHudFramework
                 {
                     Item1 = () => Visible,
                     Item2 = this,
-                    Item3 = () => RichHudMain.Instance.RunSafeAction(BeforeDrawStart),
-                    Item4 = () => RichHudMain.Instance.RunSafeAction(DrawStart),
-                    Item5 = () => RichHudMain.Instance.RunSafeAction(HandleInputStart),
+                    Item3 = () => RichHudCore.Instance.RunSafeAction(BeforeDrawStart),
+                    Item4 = () => RichHudCore.Instance.RunSafeAction(DrawStart),
+                    Item5 = () => RichHudCore.Instance.RunSafeAction(HandleInputStart),
                     Item6 = GetOrSetMember
                 };
             }           
