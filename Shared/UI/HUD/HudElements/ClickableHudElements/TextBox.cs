@@ -618,8 +618,7 @@ namespace RichHudFramework.UI
                 public void Draw(MatBoard matBoard, Vector2 origin)
                 {
                     matBoard.Size = size;
-                    matBoard.offset = offset;
-                    matBoard.Draw(origin);
+                    matBoard.Draw(origin + offset);
                 }
             }
         }

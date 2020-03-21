@@ -184,6 +184,7 @@ namespace RichHudFramework.UI
         public readonly TexturedBox background;
         public readonly TexturedBox divider;
 
+        private readonly MouseInputFilter scrollInput;
         private Vector2 maxSize, minSize, chainSize;
         private float totalSize;
         private int end;
@@ -194,6 +195,12 @@ namespace RichHudFramework.UI
             {
                 Color = new Color(41, 54, 62),
                 DimAlignment = DimAlignments.Both,
+            };
+
+            scrollInput = new MouseInputFilter(this)
+            {
+                Binds = new IBind[] { SharedBinds.MousewheelUp, SharedBinds.MousewheelDown },
+                DimAlignment = DimAlignments.Both
             };
 
             scrollBar = new ScrollBar(this)
@@ -210,10 +217,6 @@ namespace RichHudFramework.UI
             {
                 AutoResize = true,
             };
-
-            CaptureCursor = true;
-            ShareCursor = false;
-            CaptureEarly = true;
 
             AlignVertical = true;
             Enabled = true;
@@ -255,18 +258,14 @@ namespace RichHudFramework.UI
 
         protected override void HandleInput()
         {
-            CaptureCursor = scrollBar.Min != scrollBar.Max;
+            scrollInput.CaptureCursor = scrollBar.Min != scrollBar.Max;
 
-            if (IsMousedOver || scrollBar.IsMousedOver)
+            if (scrollInput.IsControlPressed)
             {
                 if (SharedBinds.MousewheelUp.IsPressed)
-                {
                     scrollBar.Current = Start - 1;
-                }
                 else if (SharedBinds.MousewheelDown.IsPressed)
-                {
                     scrollBar.Current = Start + 1;
-                }
             }
         }
 
