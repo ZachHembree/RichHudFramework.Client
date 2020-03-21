@@ -261,19 +261,21 @@ namespace RichHudFramework.UI
                 caretOffset = Math.Max(GetOffsetFromIndex(Index), 0);
             }
 
-            protected override void Layout()
+            protected override void Draw()
             {
                 if (blink)
-                    base.Layout();
+                {
+                    Index = ClampIndex(Index);
+                    UpdateOffset();
+
+                    base.Draw();
+                }
 
                 if (blinkTimer.ElapsedMilliseconds > 500)
                 {
                     blink = !blink;
                     blinkTimer.Reset();
                 }
-
-                Index = ClampIndex(Index);
-                UpdateOffset();
             }
 
             /// <summary>
@@ -309,6 +311,9 @@ namespace RichHudFramework.UI
                         offset.X = textElement.Size.X / 2f - 2f;
 
                     offset.X += Padding.X / 2f;
+
+                    if (!text.VertCenterText)
+                        offset.Y = (text.Size.Y - Height) / 2f - 4f;
                 }
 
                 Offset = offset;
@@ -346,12 +351,15 @@ namespace RichHudFramework.UI
                 {
                     Vector2 offset = HudMain.Cursor.Origin - textElement.Position;
                     Index = ClampIndex(text.GetCharAtOffset(offset));
-                    caretOffset = GetOffsetFromIndex(Index);
 
                     if (text.Count > 0 && text[Index.X].Count > 0 && offset.X < text[Index].Offset.X)
                         Index -= new Vector2I(0, 1);
 
+                    caretOffset = GetOffsetFromIndex(Index);
                     lastCursorPos = HudMain.Cursor.Origin;
+
+                    blink = true;
+                    blinkTimer.Reset();
                 }
             }
 
