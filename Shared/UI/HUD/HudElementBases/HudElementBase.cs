@@ -185,7 +185,7 @@ namespace RichHudFramework
                         isMousedOver = IsMouseInBounds();
                         HandleInput();
 
-                        if (!ShareCursor)
+                        if (!ShareCursor && isMousedOver)
                             HudMain.Cursor.Capture(ID);
                     }
                     else

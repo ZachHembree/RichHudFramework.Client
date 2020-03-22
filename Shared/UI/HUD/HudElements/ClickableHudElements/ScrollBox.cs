@@ -486,16 +486,16 @@ namespace RichHudFramework.UI
             if (AlignVertical)
             {
                 scrollBar.Height = Height;
-                divider.Height = scrollBar.Height;
+                divider.Height = Height;
 
-                scrollBar.slide.SliderSize = new Vector2(scrollBar.slide.SliderSize.X, ((Height - Padding.Y) / totalSize) * scrollBar.Height);
+                scrollBar.slide.SliderHeight = ((Height - Padding.Y) / totalSize) * Height;
             }
             else
             {
                 scrollBar.Width = Width;
-                divider.Width = scrollBar.Width;
+                divider.Width = Width;
 
-                scrollBar.slide.SliderSize = new Vector2(((Width - Padding.X) / totalSize) * scrollBar.Width, scrollBar.slide.SliderSize.Y);
+                scrollBar.slide.SliderWidth = ((Width - Padding.X) / totalSize) * Width;
             }
         }
 
