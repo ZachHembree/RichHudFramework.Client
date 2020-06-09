@@ -27,7 +27,7 @@ namespace RichHudFramework.UI
         /// <summary>
         /// Resets all hud elements in the collection to allow for reuse.
         /// </summary>
-        public void Clear()
+        public void Reset()
         {
             for (int n = 0; n < Count; n++)
             {

@@ -236,10 +236,12 @@ namespace RichHudFramework.UI
         }
 
         /// <summary>
-        /// Clears the contents of the list.
+        /// Unparents all HUD elements from list
         /// </summary>
         public void Clear()
         {
+            OnSelectionChanged = null;
+            Selection = null;
             chain.Clear();
         }
 
@@ -250,8 +252,7 @@ namespace RichHudFramework.UI
         {
             OnSelectionChanged = null;
             Selection = null;
-            Enabled = false;
-            Clear();
+            chain.Reset();
         }
 
         protected override void Layout()

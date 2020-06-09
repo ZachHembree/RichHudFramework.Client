@@ -126,6 +126,16 @@ namespace RichHudFramework.UI
             }
         }
 
+        /// <summary>
+        /// Removes all child elements from the chain.
+        /// </summary>
+        public void Clear()
+        {
+            children.Clear();
+            elements.Clear();
+            Count = 0;
+        }
+
         protected override void Layout()
         {
             if (elements != null && elements.Count > 0)

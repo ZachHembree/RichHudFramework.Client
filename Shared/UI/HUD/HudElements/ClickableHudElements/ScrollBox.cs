@@ -264,7 +264,7 @@ namespace RichHudFramework.UI
             List.Remove(predicate);
 
         /// <summary>
-        /// Clears elements from list.
+        /// Unparents all HUD elements from list.
         /// </summary>
         public void Clear()
         {
@@ -277,7 +277,7 @@ namespace RichHudFramework.UI
         public void Reset()
         {
             Enabled = false;
-            List.Clear();
+            List.Reset();
         }
 
         protected override void HandleInput()
