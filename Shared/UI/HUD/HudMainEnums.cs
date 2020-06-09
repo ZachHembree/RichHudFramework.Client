@@ -1,6 +1,6 @@
 ﻿namespace RichHudFramework
 {
-    namespace UI.Server
+    namespace UI
     {
         public enum HudMainAccessors : int
         {
@@ -42,7 +42,7 @@
             /// <summary>
             /// out: RichText, in: RichText
             /// </summary>
-            ClipBoard = 8,
+            ClipBoard = 8
         }
     }
 }
