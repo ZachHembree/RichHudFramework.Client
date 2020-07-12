@@ -17,7 +17,7 @@ namespace RichHudFramework
             /// <summary>
             /// Size of the text element sans padding.
             /// </summary>
-            public abstract Vector2 TextSize { get; protected set; }
+            public abstract Vector2 TextSize { get; set; }
 
             /// <summary>
             /// Padding applied to the text element.

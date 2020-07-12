@@ -1,5 +1,6 @@
 ﻿using System;
 using VRage;
+using VRageMath;
 using ApiMemberAccessor = System.Func<object, int, object>;
 
 namespace RichHudFramework
@@ -8,7 +9,7 @@ namespace RichHudFramework
         Func<bool>, // Visible
         object, // ID
         Action<bool>, // BeforeLayout
-        Action<int>, // BeforeDraw
+        Action<int, MatrixD>, // BeforeDraw
         Action<int>, // HandleInput
         ApiMemberAccessor // GetOrSetMembers
     >;
@@ -18,7 +19,7 @@ namespace RichHudFramework
         /// <summary>
         /// Wrapper used to access types of <see cref="IHudNode"/> via the API.
         /// </summary>
-        public sealed class HudNodeData : HudParentData, IHudNode
+        public sealed class HudNodeData : HudParentData, IHudNode, IReadOnlyHudNode
         {
             public IHudParent Parent
             {
@@ -48,6 +49,12 @@ namespace RichHudFramework
             public HudLayers ZOffset { get; set; }
 
             public bool Registered => (bool)GetOrSetMemberFunc(null, (int)HudNodeAccessors.Registered);
+
+            public float Scale 
+            { 
+                get { return (float)GetOrSetMemberFunc(null, (int)HudNodeAccessors.Scale); } 
+                set { GetOrSetMemberFunc(value, (int)HudNodeAccessors.Scale); } 
+            }
 
             private IHudParent parent;
 

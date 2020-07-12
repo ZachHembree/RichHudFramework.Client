@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using VRage;
+using VRageMath;
 using ApiMemberAccessor = System.Func<object, int, object>;
 
 namespace RichHudFramework
@@ -9,7 +10,7 @@ namespace RichHudFramework
         Func<bool>, // Visible
         object, // ID
         Action<bool>, // BeforeLayout
-        Action<int>, // BeforeDraw
+        Action<int, MatrixD>, // BeforeDraw
         Action<int>, // HandleInput
         ApiMemberAccessor // GetOrSetMembers
     >;
@@ -24,7 +25,40 @@ namespace RichHudFramework
         }
 
         /// <summary>
-        /// Interface for all types capable of serving as parent objects to <see cref="IHudNode"/>s.
+        /// Read-only interface for types capable of serving as parent objects to <see cref="IHudNode"/>s.
+        /// </summary>
+        public interface IReadOnlyHudParent
+        {
+            /// <summary>
+            /// Determines whether or not the element will be drawn and/or accept
+            /// input.
+            /// </summary>
+            bool Visible { get; }
+
+            /// <summary>
+            /// Unique identifier.
+            /// </summary>
+            object ID { get; }
+
+            /// <summary>
+            /// Updates the input of the UI element and its children.
+            /// </summary>
+            void BeforeInput(HudLayers layer);
+
+            /// <summary>
+            /// Updates the layout of the UI element and its children. Called immediately
+            /// before Draw.
+            /// </summary>
+            void BeforeLayout(bool refresh);
+
+            /// <summary>
+            /// Draws the UI element as well as its children.
+            /// </summary>
+            void BeforeDraw(HudLayers layer, ref MatrixD matrix);
+        }
+
+        /// <summary>
+        /// Interface for types capable of serving as parent objects to <see cref="IHudNode"/>s.
         /// </summary>
         public interface IHudParent
         {
@@ -60,11 +94,21 @@ namespace RichHudFramework
             /// </summary>
             void SetFocus(IHudNode child);
 
+            /// <summary>
+            /// Updates the input of the UI element and its children.
+            /// </summary>
             void BeforeInput(HudLayers layer);
 
+            /// <summary>
+            /// Updates the layout of the UI element and its children. Called immediately
+            /// before Draw.
+            /// </summary>
             void BeforeLayout(bool refresh);
 
-            void BeforeDraw(HudLayers layer);
+            /// <summary>
+            /// Draws the UI element as well as its children.
+            /// </summary>
+            void BeforeDraw(HudLayers layer, ref MatrixD matrix);
 
             /// <summary>
             /// Retrieves the information necessary to access the <see cref="IHudParent"/> through the API.

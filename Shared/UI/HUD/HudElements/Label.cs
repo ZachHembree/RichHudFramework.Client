@@ -79,9 +79,9 @@ namespace RichHudFramework.UI
                 _textBoard.Scale = _scale;
         }
 
-        protected override void Draw()
+        protected override void Draw(ref MatrixD matrix)
         {
-            _textBoard.Draw(cachedPosition);
+            _textBoard.Draw(cachedPosition, ref matrix);
         }
     }
 }

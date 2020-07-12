@@ -12,7 +12,7 @@ namespace RichHudFramework
         /// <summary>
         /// Base type for all hud elements with definite size and position. Inherits from HudParentBase and HudNodeBase.
         /// </summary>
-        public abstract class HudElementBase : HudNodeBase, IHudElement
+        public abstract class HudElementBase : HudNodeBase, IHudElement, IReadOnlyHudElement
         {
             /// <summary>
             /// Parent object of the node.
@@ -23,26 +23,12 @@ namespace RichHudFramework
                 protected set
                 {
                     base.Parent = value;
-                    _parent = value as HudElementBase;
+                    _parentFull = value as HudElementBase;
                 }
             }
 
             /// <summary>
-            /// Scales the size and offset of an element. Any offset or size set at a given
-            /// be increased or decreased with scale. Defaults to 1f. Includes parent scale.
-            /// </summary>
-            public float Scale
-            {
-                get { return _scale; }
-                set
-                {
-                    localScale = value;
-                    _scale = (_parent == null || ignoreParentScale) ? value : (value * _parent._scale);
-                }
-            }
-
-            /// <summary>
-            /// Size of the element in pixels.
+            /// Size of the element. Units in pixels by default.
             /// </summary>
             public Vector2 Size
             {
@@ -51,7 +37,7 @@ namespace RichHudFramework
             }
 
             /// <summary>
-            /// Width of the hud element in pixels.
+            /// Width of the hud element. Units in pixels by default.
             /// </summary>
             public virtual float Width
             {
@@ -66,7 +52,7 @@ namespace RichHudFramework
             }
 
             /// <summary>
-            /// Height of the hud element in pixels.
+            /// Height of the hud element. Units in pixels by default.
             /// </summary>
             public virtual float Height
             {
@@ -86,9 +72,9 @@ namespace RichHudFramework
             public virtual Vector2 Padding { get { return _padding * _scale; } set { _padding = value / _scale; } }
 
             /// <summary>
-            /// Starting position of the hud element on the screen in pixels.
+            /// Starting position of the hud element.
             /// </summary>
-            public Vector2 Origin => (_parent == null) ? Vector2.Zero : (_parent.Origin + _parent.Offset + originAlignment);
+            public Vector2 Origin => (_parentFull == null) ? Vector2.Zero : (_parentFull.Origin + _parentFull.Offset + originAlignment);
 
             /// <summary>
             /// Position of the element relative to its origin.
@@ -125,19 +111,12 @@ namespace RichHudFramework
             /// </summary>
             public virtual bool IsMousedOver => Visible && isMousedOver;
 
-            /// <summary>
-            /// Determines whether or not the scale of the parent element should be used in the calculation
-            /// of the final scale. True by default.
-            /// </summary>
-            public bool ignoreParentScale;
-
             private const float minMouseBounds = 8f;
             private bool isMousedOver;
             private Vector2 _offset, _padding, originAlignment;
 
-            protected float localScale = 1f, _scale = 1f;
             protected float _width, _height;
-            protected HudElementBase _parent;
+            protected HudElementBase _parentFull;
 
             protected Vector2 cachedOrigin, cachedPosition, cachedSize;
 
@@ -149,25 +128,6 @@ namespace RichHudFramework
                 DimAlignment = DimAlignments.None;
                 ParentAlignment = ParentAlignments.Center;
                 ShareCursor = true;
-            }
-
-            public override void Register(IHudParent parent)
-            {
-                base.Register(parent);
-
-                if (_parent != null)
-                {
-                    _zOffset = _parent.ZOffset;
-                    _scale = (ignoreParentScale) ? localScale : (localScale * _parent._scale);
-                }
-                else
-                    _scale = localScale;
-            }
-
-            public override void Unregister()
-            {
-                base.Unregister();
-                _scale = localScale;
             }
 
             public sealed override void BeforeInput(HudLayers layer)
@@ -234,14 +194,14 @@ namespace RichHudFramework
 
             private void UpdateCache()
             {
-                _scale = (_parent == null || ignoreParentScale) ? localScale : (localScale * _parent._scale);
+                _scale = _parentNode == null ? localScale : (localScale * _parentNode.Scale);
                 cachedSize = new Vector2(Width, Height);
 
-                if (_parent != null)
+                if (_parentFull != null)
                 {
                     GetDimAlignment();
                     originAlignment = GetParentAlignment();
-                    cachedOrigin = _parent.cachedOrigin + _parent.Offset + originAlignment;
+                    cachedOrigin = _parentFull.cachedPosition + originAlignment;
                 }
                 else
                     cachedOrigin = Vector2.Zero;
@@ -258,24 +218,24 @@ namespace RichHudFramework
                 if (DimAlignment != DimAlignments.None)
                 {
                     float width = cachedSize.X, height = cachedSize.Y,
-                        parentWidth = _parent.cachedSize.X, parentHeight = _parent.cachedSize.Y;
+                        parentWidth = _parentFull.cachedSize.X, parentHeight = _parentFull.cachedSize.Y;
 
-                    if (DimAlignment.HasFlag(DimAlignments.IgnorePadding))
+                    if ((DimAlignment & DimAlignments.IgnorePadding) == DimAlignments.IgnorePadding)
                     {
-                        Vector2 parentPadding = _parent.Padding;
+                        Vector2 parentPadding = _parentFull.Padding;
 
-                        if (DimAlignment.HasFlag(DimAlignments.Width))
+                        if ((DimAlignment & DimAlignments.Width) == DimAlignments.Width)
                             width = parentWidth - parentPadding.X;
 
-                        if (DimAlignment.HasFlag(DimAlignments.Height))
+                        if ((DimAlignment & DimAlignments.Height) == DimAlignments.Height)
                             height = parentHeight - parentPadding.Y;
                     }
                     else
                     {
-                        if (DimAlignment.HasFlag(DimAlignments.Width))
+                        if ((DimAlignment & DimAlignments.Width) == DimAlignments.Width)
                             width = parentWidth;
 
-                        if (DimAlignment.HasFlag(DimAlignments.Height))
+                        if ((DimAlignment & DimAlignments.Height) == DimAlignments.Height)
                             height = parentHeight;
                     }
 
@@ -291,37 +251,37 @@ namespace RichHudFramework
             private Vector2 GetParentAlignment()
             {
                 Vector2 alignment = Vector2.Zero,
-                    max = (_parent.cachedSize + cachedSize) / 2f,
+                    max = (_parentFull.cachedSize + cachedSize) / 2f,
                     min = -max;
 
-                if (ParentAlignment.HasFlag(ParentAlignments.UsePadding))
+                if ((ParentAlignment & ParentAlignments.UsePadding) == ParentAlignments.UsePadding)
                 {
-                    Vector2 parentPadding = _parent.Padding;
+                    Vector2 parentPadding = _parentFull.Padding;
 
                     min += parentPadding / 2f;
                     max -= parentPadding / 2f;
                 }
 
-                if (ParentAlignment.HasFlag(ParentAlignments.InnerV))
+                if ((ParentAlignment & ParentAlignments.InnerV) == ParentAlignments.InnerV)
                 {
                     min.Y += cachedSize.Y;
                     max.Y -= cachedSize.Y;
                 }
 
-                if (ParentAlignment.HasFlag(ParentAlignments.InnerH))
+                if ((ParentAlignment & ParentAlignments.InnerH) == ParentAlignments.InnerH)
                 {
                     min.X += cachedSize.X;
                     max.X -= cachedSize.X;
                 }
 
-                if (ParentAlignment.HasFlag(ParentAlignments.Bottom))
+                if ((ParentAlignment & ParentAlignments.Bottom) == ParentAlignments.Bottom)
                     alignment.Y = min.Y;
-                else if (ParentAlignment.HasFlag(ParentAlignments.Top))
+                else if ((ParentAlignment & ParentAlignments.Top) == ParentAlignments.Top)
                     alignment.Y = max.Y;
 
-                if (ParentAlignment.HasFlag(ParentAlignments.Left))
+                if ((ParentAlignment & ParentAlignments.Left) == ParentAlignments.Left)
                     alignment.X = min.X;
-                else if (ParentAlignment.HasFlag(ParentAlignments.Right))
+                else if ((ParentAlignment & ParentAlignments.Right) == ParentAlignments.Right)
                     alignment.X = max.X;
 
                 return alignment;

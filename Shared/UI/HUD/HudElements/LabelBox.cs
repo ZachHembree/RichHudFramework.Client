@@ -26,7 +26,7 @@ namespace RichHudFramework.UI
         /// <summary>
         /// Size of the text element including TextPadding.
         /// </summary>
-        public override Vector2 TextSize { get { return textElement.Size; } protected set { textElement.Size = value; } }
+        public override Vector2 TextSize { get { return textElement.Size; } set { textElement.Size = value; } }
 
         /// <summary>
         /// If true, the element will automatically resize to fit the text.

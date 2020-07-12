@@ -71,11 +71,11 @@ namespace RichHudFramework.UI
             }
         }
 
-        protected override void Draw()
+        protected override void Draw(ref MatrixD matrix)
         {
             if (Color.A > 0)
             {
-                hudBoard.Draw(cachedPosition);
+                hudBoard.Draw(cachedPosition, ref matrix);
             }
         }
     }

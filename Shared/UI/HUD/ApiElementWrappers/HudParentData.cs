@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using VRage;
+using VRageMath;
 using ApiMemberAccessor = System.Func<object, int, object>;
 
 namespace RichHudFramework
@@ -9,7 +10,7 @@ namespace RichHudFramework
         Func<bool>, // Visible
         object, // ID
         Action<bool>, // BeforeLayout
-        Action<int>, // BeforeDraw
+        Action<int, MatrixD>, // BeforeDraw
         Action<int>, // HandleInput
         ApiMemberAccessor // GetOrSetMembers
     >;
@@ -19,7 +20,7 @@ namespace RichHudFramework
         /// <summary>
         /// Wrapper used to access types of <see cref="IHudParent"/> via the API.
         /// </summary>
-        public class HudParentData : IHudParent
+        public class HudParentData : IHudParent, IReadOnlyHudParent
         {
             public bool Visible { get { return VisFunc(); } set { } }
 
@@ -29,7 +30,7 @@ namespace RichHudFramework
 
             private readonly Func<bool> VisFunc;
             private readonly Action<bool> BeforeLayoutAction;
-            private readonly Action<int> BeforeDrawAction;
+            private readonly Action<int, MatrixD> BeforeDrawAction;
             private readonly Action<int> BeforeInputAction;
             protected readonly ApiMemberAccessor GetOrSetMemberFunc;
 
@@ -54,8 +55,8 @@ namespace RichHudFramework
             public void BeforeLayout(bool refresh) =>
                 BeforeLayoutAction(refresh);
 
-            public void BeforeDraw(HudLayers layer) =>
-                BeforeDrawAction((int)layer);
+            public void BeforeDraw(HudLayers layer, ref MatrixD matrix) =>
+                BeforeDrawAction((int)layer, matrix);
 
             public void BeforeInput(HudLayers layer) =>
                 BeforeInputAction((int)layer);

@@ -37,24 +37,28 @@ namespace RichHudFramework.UI
             Thickness = 1f;
         }
 
-        protected override void Draw()
+        protected override void Draw(ref MatrixD matrix)
         {
             if (Color.A > 0)
             {
                 float height = _height * _scale, width = _width * _scale, 
                     thickness = _thickness * _scale;
 
+                // Left
                 hudBoard.Size = new Vector2(thickness, height);
-                hudBoard.Draw(cachedPosition + new Vector2(-width / 2f, 0f));
+                hudBoard.Draw(cachedPosition + new Vector2(-width / 2f, 0f), ref matrix);
 
+                // Top
                 hudBoard.Size = new Vector2(width, thickness);
-                hudBoard.Draw(cachedPosition + new Vector2(0f, height / 2f));
+                hudBoard.Draw(cachedPosition + new Vector2(0f, height / 2f), ref matrix);
 
+                // Right
                 hudBoard.Size = new Vector2(thickness, height);
-                hudBoard.Draw(cachedPosition + new Vector2(width / 2f, 0f));
+                hudBoard.Draw(cachedPosition + new Vector2(width / 2f, 0f), ref matrix);
 
+                // Bottom
                 hudBoard.Size = new Vector2(width, thickness);
-                hudBoard.Draw(cachedPosition + new Vector2(0f, -height / 2f));
+                hudBoard.Draw(cachedPosition + new Vector2(0f, -height / 2f), ref matrix);
             }
         }
     }

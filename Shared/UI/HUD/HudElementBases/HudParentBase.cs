@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using VRage;
+using VRageMath;
 using ApiMemberAccessor = System.Func<object, int, object>;
 
 namespace RichHudFramework
@@ -10,25 +11,18 @@ namespace RichHudFramework
         Func<bool>, // Visible
         object, // ID
         Action<bool>, // BeforeLayout
-        Action<int>, // BeforeDraw
+        Action<int, MatrixD>, // BeforeDraw
         Action<int>, // HandleInput
         ApiMemberAccessor // GetOrSetMembers
     >;
 
     namespace UI
     {
-        public enum HudLayers : int
-        {
-            Background = -1,
-            Normal = 0,
-            Foreground = 1,
-        }
-
         /// <summary>
         /// Base class for HUD elements to which other elements are parented. Types deriving from this class cannot be
         /// parented to other elements; only types of <see cref="IHudNode"/> can be parented.
         /// </summary>
-        public abstract class HudParentBase : IHudParent
+        public abstract class HudParentBase : IHudParent, IReadOnlyHudParent
         {
             /// <summary>
             /// Determines whether or not an element will be drawn or process input. Visible by default.
@@ -50,7 +44,9 @@ namespace RichHudFramework
             }
 
             /// <summary>
-            /// Updates input for the element and its children.
+            /// Updates input for the element and its children. Don't override this
+            /// unless you know what you're doing. If you need to update input, use 
+            /// HandleInput().
             /// </summary>
             public virtual void BeforeInput(HudLayers layer)
             {
@@ -64,10 +60,15 @@ namespace RichHudFramework
                     HandleInput();
             }
 
+            /// <summary>
+            /// Updates the input of this UI element.
+            /// </summary>
             protected virtual void HandleInput() { }
 
             /// <summary>
-            /// Updates before draw for the element and its children.
+            /// Updates layout for the element and its children. Don't override this
+            /// unless you know what you're doing. If you need to update layout, use 
+            /// Layout().
             /// </summary>
             public virtual void BeforeLayout(bool refresh)
             {
@@ -80,33 +81,41 @@ namespace RichHudFramework
                 }
             }
 
+            /// <summary>
+            /// Updates the layout of this UI element.
+            /// </summary>
             protected virtual void Layout() { }
 
             /// <summary>
-            /// Draws the element and its children.
+            /// Draws the element and its children.Don't override this
+            /// unless you know what you're doing. If you need to draw something, use 
+            /// Draw().
             /// </summary>
-            public virtual void BeforeDraw(HudLayers layer)
+            public virtual void BeforeDraw(HudLayers layer, ref MatrixD matrix)
             {
                 if (_zOffset == layer)
-                    Draw();
+                    Draw(ref matrix);
 
                 for (int n = 0; n < children.Count; n++)
                 {
                     if (children[n].Visible)
-                        children[n].BeforeDraw(layer);
+                        children[n].BeforeDraw(layer, ref matrix);
                 }
             }
 
-            protected virtual void Draw() { }
+            /// <summary>
+            /// Draws the UI element.
+            /// </summary>
+            protected virtual void Draw(ref MatrixD matrix) { }
 
             /// <summary>
             /// Moves the specified child element to the end of the update list in
             /// order to ensure that it's drawn on top/updated last.
             /// </summary>
             public void SetFocus(IHudNode child) =>
-                SetFocus(child.ID);
+                SetFocusInternal(child.ID);
 
-            private void SetFocus(object childID)
+            private void SetFocusInternal(object childID)
             {
                 int last = children.Count - 1,
                     childIndex = children.FindIndex(x => x.ID == childID);
@@ -145,7 +154,7 @@ namespace RichHudFramework
                     children.Remove(child);
             }
 
-            private void RemoveChild(object childID)
+            private void RemoveChildInternal(object childID)
             {
                 IHudNode node = children.Find(x => x.ID == childID);
                 RemoveChild(node);
@@ -176,10 +185,10 @@ namespace RichHudFramework
                     ExceptionHandler.Run(BeforeLayout, refresh);
             }
 
-            private void BeforeApiDraw(int layer)
+            private void BeforeApiDraw(int layer, MatrixD matrix)
             {
                 if (!ExceptionHandler.ClientsPaused)
-                    ExceptionHandler.Run(BeforeDraw, (HudLayers)layer);
+                    ExceptionHandler.Run(() => BeforeDraw((HudLayers)layer, ref matrix));
             }
 
             private void BeforeApiInput(int layer)
@@ -196,10 +205,10 @@ namespace RichHudFramework
                         RegisterChild(new HudNodeData((HudElementMembers)data));
                         break;
                     case HudParentAccessors.RemoveChild:
-                        RemoveChild(data);
+                        RemoveChildInternal(data);
                         break;
                     case HudParentAccessors.SetFocus:
-                        SetFocus(data);
+                        SetFocusInternal(data);
                         break;
                 }
 

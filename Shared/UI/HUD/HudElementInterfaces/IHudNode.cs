@@ -3,7 +3,45 @@
     namespace UI
     {
         /// <summary>
-        /// Interface for all hud elements that can be parented to another element.
+        /// Used to determine which layer a UI element will be drawn on.
+        /// Back/Mid/Foreground
+        /// </summary>
+        public enum HudLayers : int
+        {
+            Background = -1,
+            Normal = 0,
+            Foreground = 1,
+        }
+
+        /// <summary>
+        /// Read-only interface for hud elements that can be parented to another element.
+        /// </summary>
+        public interface IReadOnlyHudNode : IReadOnlyHudParent
+        {
+            /// <summary>
+            /// Parent object of the node.
+            /// </summary>
+            IHudParent Parent { get; }
+
+            /// <summary>
+            /// Determines 
+            /// </summary>
+            HudLayers ZOffset { get; }
+
+            /// <summary>
+            /// Scales the size and offset of an element. Any offset or size set at a given
+            /// be increased or decreased with scale. Defaults to 1f. Includes parent scale.
+            /// </summary>
+            float Scale { get; }
+
+            /// <summary>
+            /// Indicates whether or not the node has been registered to its parent.
+            /// </summary>
+            bool Registered { get; }
+        }
+
+        /// <summary>
+        /// Interface for hud elements that can be parented to another element.
         /// </summary>
         public interface IHudNode : IHudParent
         {
@@ -12,7 +50,16 @@
             /// </summary>
             IHudParent Parent { get; }
 
+            /// <summary>
+            /// Determines 
+            /// </summary>
             HudLayers ZOffset { get; set; }
+
+            /// <summary>
+            /// Scales the size and offset of an element. Any offset or size set at a given
+            /// be increased or decreased with scale. Defaults to 1f. Includes parent scale.
+            /// </summary>
+            float Scale { get; set; }
 
             /// <summary>
             /// Indicates whether or not the node has been registered to its parent.

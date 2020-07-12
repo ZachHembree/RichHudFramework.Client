@@ -15,7 +15,7 @@ namespace RichHudFramework.UI
         public override Vector2 TextSize
         {
             get { return new Vector2(left.Size.X + right.Size.X, Math.Max(left.Size.Y, right.Size.Y)); }
-            protected set
+            set
             {
                 left.Width = value.X * .5f;
                 right.Width = value.X * .5f;
