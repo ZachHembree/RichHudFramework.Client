@@ -35,10 +35,18 @@ namespace RichHudFramework
             public object ID => this;
 
             protected HudLayers _zOffset;
+
+            /// <summary>
+            /// Used internally to indicate when normal parent registration should be bypassed.
+            /// Child-side registration unaffected.
+            /// </summary>
+            protected bool blockChildRegistration;
+
             protected readonly List<IHudNode> children;
 
             public HudParentBase()
             {
+                _zOffset = HudLayers.Midground;
                 Visible = true;
                 children = new List<IHudNode>();
             }
@@ -87,9 +95,8 @@ namespace RichHudFramework
             protected virtual void Layout() { }
 
             /// <summary>
-            /// Draws the element and its children.Don't override this
-            /// unless you know what you're doing. If you need to draw something, use 
-            /// Draw().
+            /// Used to immediately draw billboards. Don't override unless that's what you're
+            /// doing.
             /// </summary>
             public virtual void BeforeDraw(HudLayers layer, ref MatrixD matrix)
             {
@@ -115,12 +122,13 @@ namespace RichHudFramework
             public void SetFocus(IHudNode child) =>
                 SetFocusInternal(child.ID);
 
-            private void SetFocusInternal(object childID)
+            protected virtual void SetFocusInternal(object childID)
             {
                 int last = children.Count - 1,
                     childIndex = children.FindIndex(x => x.ID == childID);
 
-                children.Swap(last, childIndex);
+                if (childIndex != -1)
+                    children.Swap(last, childIndex);
             }
 
             /// <summary>
@@ -128,36 +136,54 @@ namespace RichHudFramework
             /// </summary>
             public virtual void RegisterChild(IHudNode child)
             {
-                if (child.Parent?.ID == ID && !child.Registered)
-                    children.Add(child);
-                else if (child.Parent?.ID == null)
-                    child.Register(this);
+                if (!blockChildRegistration)
+                {
+                    if (child.Parent == this && !child.Registered)
+                        children.Add(child);
+                    else if (child.Parent == null)
+                        child.Register(this);
+                }
             }
 
             /// <summary>
             /// Registers a collection of child nodes to the object.
             /// </summary>
-            public void RegisterChildren(IEnumerable<IHudNode> newChildren)
+            public virtual void RegisterChildren(IList<IHudNode> newChildren)
             {
-                foreach (IHudNode child in newChildren)
-                    child.Register(this);
+                blockChildRegistration = true;
+
+                for (int n = 0; n < newChildren.Count; n++)
+                {
+                    newChildren[n].Register(this);
+
+                    if (newChildren[n].Parent != this)
+                        throw new Exception("HUD Element Registration Failed.");
+                }
+
+                children.AddRange(newChildren);
+                blockChildRegistration = false;
             }
 
             /// <summary>
             /// Unregisters the specified node from the parent.
             /// </summary>
-            public virtual void RemoveChild(IHudNode child)
-            {
-                if (child.Parent?.ID == ID)
-                    child.Unregister();
-                else if (child.Parent == null)
-                    children.Remove(child);
-            }
+            public void RemoveChild(IHudNode child) =>
+                RemoveChildInternal(child.ID);
 
-            private void RemoveChildInternal(object childID)
+            protected virtual void RemoveChildInternal(object childID)
             {
-                IHudNode node = children.Find(x => x.ID == childID);
-                RemoveChild(node);
+                if (!blockChildRegistration)
+                {
+                    int index = children.FindIndex(x => x.ID == childID);
+
+                    if (index != -1)
+                    {
+                        if (children[index].Parent == this)
+                            children[index].Unregister();
+                        else if (children[index].Parent == null)
+                            children.RemoveAt(index);
+                    }
+                }
             }
 
             /// <summary>

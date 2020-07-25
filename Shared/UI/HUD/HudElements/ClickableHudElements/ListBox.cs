@@ -32,7 +32,7 @@ namespace RichHudFramework.UI
     /// <summary>
     /// Scrollable list of text elements. Each list entry is associated with a value of type T.
     /// </summary>
-    public class ListBox<T> : HudElementBase, IListBoxEntry
+    public class ListBox<T> : HudElementBase
     {
         /// <summary>
         /// Invoked when an entry is selected.
@@ -42,7 +42,7 @@ namespace RichHudFramework.UI
         /// <summary>
         /// Read-only collection of list entries.
         /// </summary>
-        public HudList<ListBoxEntry<T>> List => scrollBox.List;
+        public HudChain<ListBoxEntry<T>> List => scrollBox;
 
         /// <summary>
         /// Width of the list box in pixels.
@@ -100,8 +100,8 @@ namespace RichHudFramework.UI
             {
                 _memberPadding = value;
 
-                for (int n = 0; n < scrollBox.List.Count; n++)
-                    scrollBox.List[n].Padding = value;
+                for (int n = 0; n < scrollBox.ChainElements.Count; n++)
+                    scrollBox.ChainElements[n].Padding = value;
             }
         }
 
@@ -115,8 +115,8 @@ namespace RichHudFramework.UI
             {
                 _lineHeight = value;
                 
-                for (int n = 0; n < scrollBox.List.Count; n++)
-                    scrollBox.List[n].Height = value;
+                for (int n = 0; n < scrollBox.ChainElements.Count; n++)
+                    scrollBox.ChainElements[n].Height = value;
             } 
         }
 
@@ -128,7 +128,7 @@ namespace RichHudFramework.UI
         /// <summary>
         /// Total number of elements in the list
         /// </summary>
-        public int Count => List.Count;
+        public int Count => List.ChainElements.Count;
 
         /// <summary>
         /// Minimum number of elements visible in the list at any given time.
@@ -151,12 +151,15 @@ namespace RichHudFramework.UI
         private Vector2 _memberPadding;
         private float _lineHeight;
 
+        private readonly ObjectPool<ListBoxEntry<T>> entryPool;
+
         public ListBox(IHudParent parent = null) : base(parent)
         {
-            scrollBox = new ScrollBox<ListBoxEntry<T>>(this)
+            entryPool = new ObjectPool<ListBoxEntry<T>>(GetNewEntry, ResetEntry);
+
+            scrollBox = new ScrollBox<ListBoxEntry<T>>(true, this)
             {
-                SizingMode = ScrollBoxSizingModes.FitMembersToBox,
-                AlignVertical = true,
+                SizingMode = HudChainSizingModes.FitMembersToBox,
             };
 
             border = new BorderBox(scrollBox)
@@ -166,10 +169,10 @@ namespace RichHudFramework.UI
                 Thickness = 1f,
             };
 
-            selectionBox = new HighlightBox(scrollBox.List)
+            selectionBox = new HighlightBox(scrollBox)
             { Color = new Color(34, 44, 53) };
 
-            highlight = new HighlightBox(scrollBox.List)
+            highlight = new HighlightBox(scrollBox)
             { Color = new Color(34, 44, 53) };
 
             Size = new Vector2(355f, 223f);
@@ -179,28 +182,35 @@ namespace RichHudFramework.UI
             CaptureCursor = true;
         }
 
+        private ListBoxEntry<T> GetNewEntry()
+        {
+            return new ListBoxEntry<T>()
+            {
+                Format = Format,
+                Height = _lineHeight,
+                Padding = _memberPadding,
+            };
+        }
+
+        private void ResetEntry(ListBoxEntry<T> entry)
+        {
+            entry.ClearSubscribers();
+            entry.Enabled = false;
+            entry.AssocMember = default(T);
+        }
+
         /// <summary>
         /// Adds a new member to the list box with the given name and associated
         /// object.
         /// </summary>
         public ListBoxEntry<T> Add(RichText name, T assocMember)
         {
-            ListBoxEntry<T> member = scrollBox.List.AddReserved();
-
-            if (member == null)
-            {
-                member = new ListBoxEntry<T>(assocMember)
-                {
-                    Format = Format,
-                    Height = _lineHeight,
-                    Padding = _memberPadding,
-                };
-            }
+            ListBoxEntry<T> member = entryPool.Get();
 
             member.OnMemberSelected += SetSelection;
             member.TextBoard.SetText(name);
             member.Enabled = true;
-            scrollBox.AddToList(member);
+            scrollBox.Add(member);
 
             return member;
         }
@@ -210,26 +220,8 @@ namespace RichHudFramework.UI
         /// </summary>
         public void Remove(ListBoxEntry<T> member)
         {
-            scrollBox.RemoveFromList(member);
-        }
-
-        /// <summary>
-        /// Clears the current contents of the list.
-        /// </summary>
-        public void Clear()
-        {
-            scrollBox.Reset();
-            Selection = null;
-        }
-
-        /// <summary>
-        /// Resets the element for later reuse.
-        /// </summary>
-        public void Reset()
-        {
-            Clear();
-            OnSelectionChanged = null;
-            Enabled = false;
+            scrollBox.RemoveChild(member);
+            entryPool.Return(member);
         }
 
         /// <summary>
@@ -277,14 +269,14 @@ namespace RichHudFramework.UI
         {
             highlight.Visible = false;
 
-            foreach (ListBoxEntry<T> entry in scrollBox.List)
+            for (int n = 0; n < scrollBox.ChainElements.Count; n++)
             {
-                if (entry.IsMousedOver)
+                if (scrollBox.ChainElements[n].IsMousedOver)
                 {
                     highlight.Visible = true;
-                    highlight.Size = entry.Size;
-                    highlight.Offset = entry.Offset;
-                    highlight.Padding = entry.Padding;
+                    highlight.Size = scrollBox.ChainElements[n].Size;
+                    highlight.Offset = scrollBox.ChainElements[n].Offset;
+                    highlight.Padding = scrollBox.ChainElements[n].Padding;
                 }
             }
         }
@@ -296,7 +288,7 @@ namespace RichHudFramework.UI
             switch (member)
             {
                 case ListBoxAccessors.ListMembers:
-                    return new CollectionData(x => List[x].GetOrSetMember, () => List.Count);
+                    return new CollectionData(x => List.ChainElements[x].GetOrSetMember, () => List.ChainElements.Count);
                 case ListBoxAccessors.Add:
                     {
                         var entryData = (MyTuple<IList<RichStringMembers>, T>)data;

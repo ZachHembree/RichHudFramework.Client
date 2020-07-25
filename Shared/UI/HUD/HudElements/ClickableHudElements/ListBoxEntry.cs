@@ -9,19 +9,6 @@ namespace RichHudFramework.UI
 {
     using RichStringMembers = MyTuple<StringBuilder, GlyphFormatMembers>;
 
-    public interface IListBoxEntry : IHudElement
-    {
-        /// <summary>
-        /// Indicates whether or not the element will appear in the list
-        /// </summary>
-        bool Enabled { get; }
-
-        /// <summary>
-        /// Resets the state of the entry so the object can be reused.
-        /// </summary>
-        void Reset();
-    }
-
     public enum ListBoxEntryAccessors : int
     {
         /// <summary>
@@ -48,7 +35,7 @@ namespace RichHudFramework.UI
     /// <summary>
     /// Text button assocated with an object of type T. Used in conjunction with list boxes. Implements IListBoxEntry.
     /// </summary>
-    public class ListBoxEntry<T> : LabelButton, IListBoxEntry
+    public class ListBoxEntry<T> : LabelButton
     {
         /// <summary>
         /// Invoked on left click
@@ -65,7 +52,7 @@ namespace RichHudFramework.UI
         /// </summary>
         public T AssocMember { get; set; }
 
-        public ListBoxEntry(T assocMember, IHudParent parent = null) : base(parent)
+        public ListBoxEntry(T assocMember = default(T), IHudParent parent = null) : base(parent)
         {
             this.AssocMember = assocMember;
             AutoResize = false;
@@ -74,11 +61,16 @@ namespace RichHudFramework.UI
             MouseInput.OnLeftClick += SelectMember;
         }
 
-        public void Reset()
+        /*public void Reset()
         {
             OnMemberSelected = null;
             Enabled = false;
             AssocMember = default(T);
+        }*/
+
+        public void ClearSubscribers()
+        {
+            OnMemberSelected = null;
         }
 
         private void SelectMember()

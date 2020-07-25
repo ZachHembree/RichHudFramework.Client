@@ -6,237 +6,551 @@ using System.Collections;
 namespace RichHudFramework.UI
 {
     /// <summary>
-    /// HUD element used to organize other elements into straight lines, either horizontally or vertically.
+    /// Used to control sizing behavior of HudChain members and the containing chain element itself. The align axis
+    /// is the axis chain elements are arranged on; the off axis is the other axis. When vertically aligned, Y is 
+    /// the align axis and X is the off axis. Otherwise, it's reversed.
     /// </summary>
-    public class HudChain<T> : HudElementBase, IReadOnlyCollection<T> where T : class, IHudElement
+    public enum HudChainSizingModes : int
     {
         /// <summary>
-        /// Retrieves the element at the specified index.
+        /// In this mode, the element will not attempt to resize chain members. The size of the element
+		/// will be clamped between its minimum and maximum sizes, provided neither of those value are 
+        /// less than the total size of the elements in the chain.
         /// </summary>
-        public T this[int index] => elements[index];
+        Fixed = 0,
 
         /// <summary>
-        /// Retrieves the number of elements in the collection.
+        /// In this mode, the element will automatically shrink/expand to fit its contents (plus padding).
         /// </summary>
-        public int Count { get; protected set; }
+        FitToMembers = 1,
+
+        /// <summary>
+        /// If this flag is set, then the size of chain members on the off axis will be clamped. 
+        /// Superceeds FitToMembers.
+        /// </summary>
+        ClampMembersOffAxis = 2,
+
+        /// <summary>
+        /// If this flag is set, then the size of chain members on the align axis will be clamped. 
+        /// Superceeds FitToMembers.
+        /// </summary>
+        ClampMembersAlignAxis = 4,
+
+        /// <summary>
+        /// In this mode, chain members will be clamped between the set min/max size on both axes. Superceeds FitToMembers.
+        /// </summary>
+        ClampMembersToBox = ClampMembersOffAxis | ClampMembersAlignAxis,
+
+        /// <summary>
+        /// If this flag is set, chain members will be automatically resized to fill the chain along the off axis. 
+        /// Superceeds ClampMembersOffAxis and FitToMembers.
+        /// </summary>
+        FitMembersOffAxis = 8,
+
+        /// <summary>
+        /// If this flag is set, then the size of chain members on the align axis will be set to the maximum size. 
+        /// Superceeds ClampMembersAlignAxis and FitToMembers.
+        /// </summary>
+        FitMembersAlignAxis = 16,
+
+        /// <summary>
+        /// In this mode, chain members will be set to the maximum size on both axes. Superceeds ClampMembersToBox.
+        /// </summary>
+        FitMembersToBox = FitMembersOffAxis | FitMembersAlignAxis,
+    }
+
+    /// <summary>
+    /// HUD element used to organize other elements into straight lines, either horizontal or vertical. Min/Max size
+    /// determines the minimum and maximum size of chain members.
+    /// </summary>
+    /*
+     Rules:
+        1) Chain members must fit inside the chain.
+        2) Members must be positioned in the chain.
+        3) Members are assumed to be compatible with the specified sizing mode. Otherwise the behavior is undefined
+        and incorrect positioning and sizing will occur.
+     */
+    public class HudChain<T> : HudElementBase, IEnumerable<T> where T : HudElementBase
+    {
+        /// <summary>
+        /// UI elements in the chain
+        /// </summary>
+        public IReadOnlyList<T> ChainElements => chainElements;
 
         /// <summary>
         /// Used to allow the addition of child elements using collection-initializer syntax in
         /// conjunction with normal initializers.
         /// </summary>
-        public HudChain<T> ChildContainer => this;
+        public HudChain<T> ChainContainer => this;
 
         /// <summary>
-        /// Determines whether or not chain elements will be resized to match the
-        /// size of the element along the axis of alignment.
+        /// Width of the chain
         /// </summary>
-        public bool AutoResize { get; set; }
+        public override float Width
+        {
+            set
+            {
+                _maxSize.X = value / _scale;
+
+                if (value > Padding.X)
+                    value -= Padding.X;
+
+                _absoluteWidth = value / _scale;
+            }
+        }
 
         /// <summary>
-        /// Determines whether or not chain elements will be aligned vertically.
+        /// Height of the chain
         /// </summary>
-        public bool AlignVertical { get { return axis1 == 0; } set { axis1 = value ? 0 : 1; } }
+        public override float Height
+        {
+            set
+            {
+                _maxSize.Y = value / _scale;
+
+                if (value > Padding.Y)
+                    value -= Padding.Y;
+
+                _absoluteHeight = value / _scale;
+            }
+        }
+
+        /// <summary>
+        /// Maximum chain member size. If no maximum is set, then the currently set size will be used as the maximum.
+        /// </summary>
+        public Vector2 MaximumSize { get { return _maxSize * _scale; } set { _maxSize = value / _scale; } }
+
+        /// <summary>
+        /// Minimum allowable member size.
+        /// </summary>
+        public Vector2 MinimumSize { get { return _minSize * _scale; } set { _minSize = value / _scale; } }
 
         /// <summary>
         /// Distance between chain elements along their axis of alignment.
         /// </summary>
-        public float Spacing { get { return _spacing * Scale; } set { _spacing = value / Scale; } }
+        public float Spacing { get { return _spacing * _scale; } set { _spacing = value / _scale; } }
 
-        protected readonly List<T> elements;
-        private float _spacing;
-        private int axis1;
+        /// <summary>
+        /// Determines how/if the chain will attempt to resize member elements. Default sizing mode is 
+        /// HudChainSizingModes.FitToMembers.
+        /// </summary>
+        public HudChainSizingModes SizingMode { get; set; }
 
-        public HudChain(IHudParent parent = null) : base(parent)
+        /// <summary>
+        /// Determines whether or not chain elements will be aligned vertically.
+        /// </summary>
+        public bool AlignVertical => alignAxis == 1;
+
+        /// <summary>
+        /// UI elements in the chain
+        /// </summary>
+        protected readonly List<T> chainElements;
+
+        protected float _spacing;
+        protected int alignAxis, offAxis;
+        protected Vector2 _maxSize, _minSize;
+
+        public HudChain(bool alignVertical, IHudParent parent = null) : base(parent)
         {
             Spacing = 0f;
-            elements = new List<T>();
-            AlignVertical = false;
+            chainElements = new List<T>();
+            SizingMode = HudChainSizingModes.FitToMembers;
+
+            if (alignVertical)
+            {
+                alignAxis = 1;
+                offAxis = 0;
+            }
+            else
+            {
+                alignAxis = 0;
+                offAxis = 1;
+            }
         }
 
-        public IEnumerator<T> GetEnumerator()
-        {
-            throw new Exception("IEnumerable Not Implemented for HudChain");
-        }
+        public IEnumerator<T> GetEnumerator() =>
+            chainElements.GetEnumerator();
 
         IEnumerator IEnumerable.GetEnumerator() =>
             GetEnumerator();
 
         /// <summary>
-        /// Adds a <see cref="HudElementBase"/> to the chain.
+        /// Adds an element of type <see cref="T"/> to the chain.
         /// </summary>
-        public void Add(T element)
+        public virtual void Add(T chainElement)
         {
-            RegisterChild(element);
+            blockChildRegistration = true;
 
-            if (element.Parent == this)
+            chainElement.Register(this);
+
+            if (chainElement.Parent != this)
+                throw new Exception("HUD Element Registration Failed.");
+
+            chainElements.Add(chainElement);
+
+            blockChildRegistration = false;
+        }
+
+        /// <summary>
+        /// Add the given range to the end of the chain.
+        /// </summary>
+        public virtual void AddRange(IList<T> newChainElements)
+        {
+            blockChildRegistration = true;
+
+            for (int n = 0; n < newChainElements.Count; n++)
             {
-                if (Count < elements.Count)
-                    elements[Count] = element;
-                else
-                    elements.Add(element);
+                newChainElements[n].Register(this);
 
-                Count++;
+                if (newChainElements[n].Parent != this)
+                    throw new Exception("HUD Element Registration Failed.");
+            }
+
+            chainElements.AddRange(newChainElements);
+            blockChildRegistration = false;
+        }
+
+        /// <summary>
+        /// Insert the given range into the chain.
+        /// </summary>
+        public virtual void InsertRange(int index, IList<T> newChainElements)
+        {
+            blockChildRegistration = true;
+
+            for (int n = 0; n < newChainElements.Count; n++)
+            {
+                newChainElements[n].Register(this);
+
+                if (newChainElements[n].Parent?.ID != this)
+                    throw new Exception("HUD Element Registration Failed.");
+            }
+
+            chainElements.InsertRange(index, newChainElements);
+            blockChildRegistration = false;
+        }
+
+        /// <summary>
+        /// Removes the specified element from the chain.
+        /// </summary>
+        public void Remove(T chainElement)
+        {
+            if (chainElement.Parent == this)
+            {
+                int index = chainElements.FindIndex(x => x == chainElement);
+
+                if (index != -1)
+                {
+                    chainElement.Unregister();
+                    chainElements.RemoveAt(index);
+                }
             }
         }
 
         /// <summary>
-        /// Finds the chain member that meets the conditions
-        /// required by the predicate.
-        /// </summary>
-        public T Find(Func<T, bool> predicate)
-        {
-            return elements.Find(x => predicate(x));
-        }
-
-        /// <summary>
-        /// Finds the index of the chain member that meets the conditions
-        /// required by the predicate.
-        /// </summary>
-        public int FindIndex(Func<T, bool> predicate)
-        {
-            return elements.FindIndex(x => predicate(x));
-        }
-
-        /// <summary>
-        /// Removes types of <see cref="HudElementBase"/> from the chain.
-        /// </summary>
-        public override void RemoveChild(IHudNode element)
-        {
-            var member = element as T;
-
-            if (member != null)
-                elements.Remove(member);
-
-            base.RemoveChild(element);
-            Count--;
-        }
-
-        /// <summary>
-        /// Removes the chain member that meets the conditions
-        /// required by the predicate.
+        /// Removes the chain member that meets the conditions required by the predicate.
         /// </summary>
         public void Remove(Func<T, bool> predicate)
         {
-            T child = elements.Find(x => predicate(x));
+            int index = chainElements.FindIndex(x => predicate(x));
+            RemoveAt(index);
+        }
 
-            if (child != null)
+        /// <summary>
+        /// Remove the chain element at the given index.
+        /// </summary>
+        public virtual void RemoveAt(int index)
+        {
+            if (chainElements[index].Parent == this)
             {
-                RemoveChild(child);
-                Count--;
+                blockChildRegistration = true;
+
+                chainElements[index].Unregister();
+                chainElements.RemoveAt(index);
+
+                blockChildRegistration = false;
             }
         }
 
         /// <summary>
-        /// Removes all child elements from the chain.
+        /// Removes the specfied range from the chain. Normal child elements not affected.
         /// </summary>
-        public void Clear()
+        public virtual void RemoveRange(int index, int count)
         {
-            children.Clear();
-            elements.Clear();
-            Count = 0;
+            blockChildRegistration = true;
+
+            for (int n = index; n < index + count; n++)
+                chainElements[n].Unregister();
+
+            chainElements.RemoveRange(index, count);
+            blockChildRegistration = false;
+        }
+
+        /// <summary>
+        /// Remove all elements in the HudChain. Does not affect normal child elements.
+        /// </summary>
+        public virtual void ClearChain()
+        {
+            blockChildRegistration = true;
+
+            for (int n = 0; n < chainElements.Count; n++)
+                chainElements[n].Unregister();
+
+            chainElements.Clear();
+            blockChildRegistration = false;
+        }
+
+        /// <summary>
+        /// Finds the chain member that meets the conditions required by the predicate.
+        /// </summary>
+        public T Find(Func<T, bool> predicate)
+        {
+            return chainElements.Find(x => predicate(x));
+        }
+
+        /// <summary>
+        /// Finds the index of the chain member that meets the conditions required by the predicate.
+        /// </summary>
+        public int FindIndex(Func<T, bool> predicate)
+        {
+            return chainElements.FindIndex(x => predicate(x));
+        }
+
+        protected override void RemoveChildInternal(object childID)
+        {
+            if (!blockChildRegistration)
+            {
+                int index = children.FindIndex(x => x.ID == childID);
+
+                if (index != -1)
+                {
+                    if (children[index].Parent?.ID == ID)
+                        children[index].Unregister();
+                    else if (children[index].Parent == null)
+                        children.RemoveAt(index);
+                }
+                else
+                {
+                    index = chainElements.FindIndex(x => x.ID == childID);
+
+                    if (index != -1)
+                    {
+                        if (chainElements[index].Parent?.ID == ID)
+                            chainElements[index].Unregister();
+                        else if (chainElements[index].Parent == null)
+                            chainElements.RemoveAt(index);
+                    }
+                }
+            }
+        }
+
+        public override void BeforeInput(HudLayers layer)
+        {
+            for (int n = children.Count - 1; n >= 0; n--)
+            {
+                if (children[n].Visible)
+                    children[n].BeforeInput(layer);
+            }
+
+            // Add extra loop for chain elements
+            for (int n = chainElements.Count - 1; n >= 0; n--)
+            {
+                if (chainElements[n].Visible)
+                    chainElements[n].BeforeInput(layer);
+            }
+
+            if (_zOffset == layer)
+            {
+                UpdateMouseInput();
+            }
+        }
+
+        public override void BeforeLayout(bool refresh)
+        {
+            UpdateCache();
+            Layout();
+
+            // Add extra loop for chain elements
+            for (int n = 0; n < chainElements.Count; n++)
+            {
+                if (chainElements[n].Visible || refresh)
+                    chainElements[n].BeforeLayout(refresh);
+            }
+
+            for (int n = 0; n < children.Count; n++)
+            {
+                if (children[n].Visible || refresh)
+                    children[n].BeforeLayout(refresh);
+            }
+        }
+
+        public override void BeforeDraw(HudLayers layer, ref MatrixD matrix)
+        {
+            if (_zOffset == layer)
+                Draw(ref matrix);
+
+            // Add extra loop for chain elements
+            for (int n = 0; n < chainElements.Count; n++)
+            {
+                if (chainElements[n].Visible)
+                    chainElements[n].BeforeDraw(layer, ref matrix);
+            }
+
+            for (int n = 0; n < children.Count; n++)
+            {
+                if (children[n].Visible)
+                    children[n].BeforeDraw(layer, ref matrix);
+            }
         }
 
         protected override void Layout()
         {
-            if (elements != null && elements.Count > 0)
-            {
-                Vector2 offset = Vector2.Zero, size = Size - Padding;
+            Vector2 visibleTotalSize = GetVisibleTotalSize(), 
+                elementMin = MinimumSize - cachedPadding, 
+                elementMax = MaximumSize - cachedPadding;
 
-                if (AlignVertical)
-                {
-                    offset.Y = size.Y / 2f;
-                    UpdateOffsetsVertical(offset, size);
-                }
-                else
-                {
-                    offset.X = -size.X / 2f;
-                    UpdateOffsetsHorizontal(offset, size);
-                }
+            ClampElementSizeRange(visibleTotalSize, ref elementMin, ref elementMax);
 
-                Size = GetSize() + Padding;
-            }
+            Vector2 newSize = GetNewSize(elementMax, visibleTotalSize);
+
+            cachedSize = newSize;
+            _absoluteWidth = cachedSize.X / _scale;
+            _absoluteHeight = cachedSize.Y / _scale;
+            cachedSize += cachedPadding;
+
+            // Calculate member start offset
+            Vector2 startOffset = Vector2.Zero;
+
+            if (alignAxis == 1)
+                startOffset.Y = newSize.Y / 2f;
+            else
+                startOffset.X = -newSize.X / 2f;
+
+            UpdateMemberOffsets(startOffset, cachedPadding, elementMin, elementMax);
         }
 
-        /// <summary>
-        /// Calculates the size of the element
-        /// </summary>
-        private Vector2 GetSize()
+        protected Vector2 GetNewSize(Vector2 elementMax, Vector2 totalSize)
         {
-            Vector2 newSize = new Vector2();
-            int axis2 = (axis1 == 0) ? 1 : 0;
+            Vector2 newSize;
 
-            if (AutoResize)
-                newSize[axis1] = Size[axis1] - Padding[axis1];
-
-            for (int n = 0; n < elements.Count; n++)
+            if (SizingMode == HudChainSizingModes.Fixed || SizingMode == HudChainSizingModes.FitToMembers)
             {
-                if (elements[n].Visible)
-                {
-                    newSize[axis2] += elements[n].Size[axis2];
-
-                    if (!AutoResize && elements[n].Size[axis1] > newSize[axis1])
-                        newSize[axis1] = elements[n].Size[axis1];
-
-                    if (n != elements.Count - 1)
-                        newSize[axis2] += Spacing;
-                }
+                newSize = elementMax;
+            }
+            else // if FitMembersToBox or ClampMembersToBox
+            {
+                newSize = Vector2.Zero;
+                newSize[offAxis] = elementMax[offAxis];
+                newSize[alignAxis] = totalSize[alignAxis];
             }
 
             return newSize;
         }
 
         /// <summary>
-        /// Updates chain member offsets to ensure that they're in a straight, vertical line.
+        /// Clamps minimum and maximum element sizes based on sizing configuration.
         /// </summary>
-        private void UpdateOffsetsVertical(Vector2 offset, Vector2 memberArea)
+        protected void ClampElementSizeRange(Vector2 totalSize, ref Vector2 min, ref Vector2 max)
         {
-            for (int n = 0; n < elements.Count; n++)
+            min = Vector2.Max(Vector2.Zero, min);
+            max = Vector2.Max(Vector2.Zero, max);
+
+            if (SizingMode == HudChainSizingModes.Fixed)
             {
-                if (elements[n].Visible)
-                {
-                    elements[n].Offset = new Vector2(0f, -(elements[n].Height / 2f)) + offset;
-
-                    if (elements[n].ParentAlignment.HasFlag(ParentAlignments.Left))
-                        elements[n].Offset += new Vector2(Padding.X / 2f, 0f);
-                    else if (elements[n].ParentAlignment.HasFlag(ParentAlignments.Right))
-                        elements[n].Offset += new Vector2(-Padding.X / 2f, 0f);
-
-                    if (AutoResize)
-                        elements[n].Width = memberArea.X;
-
-                    offset.Y -= elements[n].Height;
-
-                    if (n != elements.Count - 1)
-                        offset.Y -= Spacing;
-                }
-            }           
+                min = Vector2.Max(min, totalSize);
+                max = Vector2.Max(min, max);
+            }
+            else if (SizingMode == HudChainSizingModes.FitToMembers)
+            {
+                min = totalSize;
+                max = totalSize;
+            }
+            else // if FitMembersToBox or ClampMembersToBox
+            {
+                max = Vector2.Max(min, max);
+                min = Vector2.Min(min, max);
+            }
         }
 
         /// <summary>
-        /// Updates chain member offsets to ensure that they're in a straight, horizontal line.
+        /// Updates chain member offsets to ensure that they're in a straight line.
         /// </summary>
-        private void UpdateOffsetsHorizontal(Vector2 offset, Vector2 memberArea)
+        protected void UpdateMemberOffsets(Vector2 offset, Vector2 padding, Vector2 minSize, Vector2 maxSize)
         {
-            for (int n = 0; n < elements.Count; n++)
+            Vector2 alignMask = new Vector2(offAxis, -alignAxis), offMask = new Vector2(alignAxis, -offAxis);
+            ParentAlignments left = (ParentAlignments)((int)(ParentAlignments.Left) * (2 - alignAxis)),
+                right = (ParentAlignments)((int)(ParentAlignments.Right) * (2 - alignAxis)),
+                bitmask = left | right;
+
+            for (int n = 0; n < chainElements.Count; n++)
             {
-                if (elements[n].Visible)
+                if (chainElements[n].Visible)
                 {
-                    elements[n].Offset = new Vector2((elements[n].Width / 2f), 0f) + offset;
+                    // Calculate element size
+                    Vector2 elementSize = chainElements[n].Size;
 
-                    if (elements[n].ParentAlignment.HasFlag(ParentAlignments.Top))
-                        elements[n].Offset += new Vector2(0f, -Padding.Y / 2f);
-                    else if (elements[n].ParentAlignment.HasFlag(ParentAlignments.Bottom))
-                        elements[n].Offset += new Vector2(0f, Padding.Y / 2f);
+                    if ((SizingMode & HudChainSizingModes.FitMembersOffAxis) > 0)
+                        elementSize[offAxis] = maxSize[offAxis];
+                    else if ((SizingMode & HudChainSizingModes.ClampMembersOffAxis) > 0)
+                        elementSize[offAxis] = MathHelper.Clamp(elementSize[offAxis], minSize[offAxis], maxSize[offAxis]);
 
-                    if (AutoResize)
-                        elements[n].Height = memberArea.Y;
+                    if ((SizingMode & HudChainSizingModes.FitMembersAlignAxis) > 0)
+                        elementSize[alignAxis] = maxSize[alignAxis];
+                    else if ((SizingMode & HudChainSizingModes.ClampMembersAlignAxis) > 0)
+                        elementSize[alignAxis] = MathHelper.Clamp(elementSize[alignAxis], minSize[alignAxis], maxSize[alignAxis]);
 
-                    offset.X += elements[n].Width;
+                    // Enforce alignment restrictions
+                    chainElements[n].ParentAlignment &= bitmask;
+                    chainElements[n].ParentAlignment |= ParentAlignments.Inner;
 
-                    if (n != elements.Count - 1)
-                        offset.X += Spacing;
+                    // Calculate element offset
+                    Vector2 newOffset = offset + (elementSize * alignMask * .5f);
+
+                    if ((chainElements[n].ParentAlignment & left) == left)
+                    {
+                        newOffset += padding * offMask * .5f;
+                    }
+                    else if ((chainElements[n].ParentAlignment & right) == right)
+                    {
+                        newOffset -= padding * offMask * .5f;
+                    }
+
+                    // Apply changes
+                    chainElements[n].Size = elementSize;
+                    chainElements[n].Offset = newOffset;
+
+                    // Move offset down for the next element
+                    elementSize[alignAxis] += Spacing;
+                    offset += elementSize * alignMask;
                 }
-            }   
+            }
+        }
+
+        /// <summary>
+        /// Calculates the total size of all visible elements in the chain, including spacing.
+        /// </summary>
+        protected Vector2 GetVisibleTotalSize()
+        {
+            Vector2 newSize = new Vector2();
+
+            for (int n = 0; n < chainElements.Count; n++)
+            {
+                if (chainElements[n].Visible)
+                {
+                    Vector2 elementSize = chainElements[n].Size;
+
+                    // Total up the size of elements on the axis of alignment
+                    newSize[alignAxis] += elementSize[alignAxis];
+
+                    // Find largest element on the off axis
+                    if (elementSize[offAxis] > newSize[offAxis])
+                        newSize[offAxis] = elementSize[offAxis];
+
+                    newSize[alignAxis] += Spacing;
+                }
+            }
+
+            newSize[alignAxis] -= Spacing;
+            return Vector2.Max(newSize, Vector2.Zero);
         }
     }
 }

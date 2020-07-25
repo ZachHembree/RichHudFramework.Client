@@ -4,127 +4,16 @@ using System.Collections.Generic;
 
 namespace RichHudFramework.UI
 {
-    public enum ScrollBoxSizingModes : byte
-    {
-        None = 0,
-
-        /// <summary>
-        /// In this mode, the element will automatically resize to match the size of the chain.
-        /// </summary>
-        FitToMembers = 1,
-
-        /// <summary>
-        /// In this mode, scrollbox members will be automatically resized to fill the scrollbox along the axis of alignment.
-        /// </summary>
-        FitMembersToBox = 2,
-
-        /// <summary>
-        /// In this mode, scrollbox member sizes will be clamped between the minimum size and the size of the scrollbox.
-        /// </summary>
-        ClampMembers = 3,
-    }
-
     /// <summary>
-    /// Scrollable list of hud elements. Can be oriented vertically or horizontally.
+    /// Scrollable list of hud elements. Can be oriented vertically or horizontally. Min/Max size determines
+    /// the maximum size of scrollbox elements as well as the scrollbox itself.
     /// </summary>
-    /// <typeparam name="T"></typeparam>
-    public class ScrollBox<T> : HudElementBase, IListBoxEntry where T : class, IListBoxEntry
+    public sealed class ScrollBox<T> : HudChain<T> where T : HudElementBase
     {
         /// <summary>
-        /// Chain element used to position list members.
+        /// Parallel list indicating which chain members are/aren't enabled.
         /// </summary>
-        public HudList<T> List { get; }
-
-        /// <summary>
-        /// Width of the scrollbox in pixels.
-        /// </summary>
-        public override float Width
-        {
-            set
-            {
-                base.Width = value;
-
-                if (value > Padding.X)
-                    value -= Padding.X;
-
-                maxSize.X = value / Scale;
-            }
-        }
-
-        /// <summary>
-        /// Height of the scrollbox in pixels.
-        /// </summary>
-        public override float Height
-        {
-            set
-            {
-                base.Height = value;
-
-                if (value > Padding.Y)
-                    value -= Padding.Y;
-
-                maxSize.Y = value / Scale;
-            }
-        }
-
-        /// <summary>
-        /// Minimum allowable size of the list.
-        /// </summary>
-        public Vector2 MinimumSize { get { return minSize * Scale; } set { minSize = value / Scale; } }
-
-        /// <summary>
-        /// Determines how/if the scrollbox will attempt to resize member elements.
-        /// </summary>
-        public ScrollBoxSizingModes SizingMode { get; set; }
-
-        /// <summary>
-        /// Determines whether or not the element will be enabled and visible in other scroll boxes.
-        /// </summary>
-        public bool Enabled { get; set; }
-
-        /// <summary>
-        /// Determines whether or not the scrollbox will be oriented vertically. True by default.
-        /// </summary>
-        public bool AlignVertical
-        {
-            get { return axis1 == 0; }
-            set
-            {
-                axis1 = value ? 0 : 1;
-                List.AlignVertical = value;
-                scrollBar.Vertical = value;
-
-                if (AlignVertical)
-                {
-                    List.ParentAlignment = ParentAlignments.Top | ParentAlignments.Left | ParentAlignments.Inner;
-                    scrollBar.ParentAlignment = ParentAlignments.Right | ParentAlignments.InnerH;
-                    divider.ParentAlignment = ParentAlignments.Left | ParentAlignments.InnerH;
-
-                    divider.Padding = new Vector2(2f, 0f);
-                    divider.Width = 1f;
-
-                    scrollBar.Padding = new Vector2(30f, 8f);
-                    scrollBar.Width = 45f;
-                }
-                else
-                {
-                    List.ParentAlignment = ParentAlignments.Top | ParentAlignments.Left | ParentAlignments.Inner;
-                    scrollBar.ParentAlignment = ParentAlignments.Bottom | ParentAlignments.InnerV;
-                    divider.ParentAlignment = ParentAlignments.Bottom | ParentAlignments.InnerV;
-
-                    divider.Padding = new Vector2(16f, 2f);
-                    divider.Height = 1f;
-
-                    scrollBar.Padding = new Vector2(16f);
-                    scrollBar.Height = 24f;
-                }
-            }
-        }
-
-        /// <summary>
-        /// Distance between the chain elements.
-        /// </summary>
-        public float Spacing { get { return List.Spacing; } set { List.Spacing = value; } }
+        public IReadOnlyList<bool> EnabledElements => enabledElements;
 
         /// <summary>
         /// Minimum number of visible elements allowed. Supercedes maximum size. If the number of elements that
@@ -138,8 +27,12 @@ namespace RichHudFramework.UI
         /// </summary>
         public int Start
         {
-            get { return (int)scrollBar.Current.Round(); }
-            set { scrollBar.Current = value; }
+            get { return _start; }
+            set 
+            {
+                _start = MathHelper.Clamp(value, 0, enabledElements.Count - 1);
+                updateRangeReverse = false;
+            }
         }
 
         /// <summary>
@@ -147,12 +40,12 @@ namespace RichHudFramework.UI
         /// </summary>
         public int End
         {
-            get { return end; }
-            set
+            get { return _end; } 
+            set 
             {
-                end = MathHelper.Clamp(value, 0, List.Count - 1);
-                Start = GetMaxStart(end);
-            }
+                _end = MathHelper.Clamp(value, 0, enabledElements.Count - 1);
+                updateRangeReverse = true;
+            } 
         }
 
         /// <summary>
@@ -185,22 +78,22 @@ namespace RichHudFramework.UI
             } 
         }
 
-        private Vector2 MaximumSize { get { return maxSize * Scale; } set { maxSize = value / Scale; } }
+        private bool updateRangeReverse;
+        private int _start, _end;
 
         public readonly ScrollBar scrollBar;
         public readonly TexturedBox background;
         public readonly TexturedBox divider;
 
         private readonly MouseInputFilter scrollInput;
-        private Vector2 maxSize, minSize, chainSize;
-        private float totalSize;
-        private int end, axis1;
+        private readonly List<bool> enabledElements;
 
-        public ScrollBox(IHudParent parent = null) : base(parent)
+        public ScrollBox(bool alignVertical, IHudParent parent = null) : base(alignVertical, parent)
         {
             background = new TexturedBox(this)
             {
-                Color = new Color(41, 54, 62),
+                ZOffset = HudLayers.Background,
+                Color = new Color(41, 54, 62, 196),
                 DimAlignment = DimAlignments.Both,
             };
 
@@ -210,316 +103,444 @@ namespace RichHudFramework.UI
                 DimAlignment = DimAlignments.Both
             };
 
-            scrollBar = new ScrollBar(this)
-            {
-                Min = 0,
-            };
+            scrollBar = new ScrollBar(this);
+            divider = new TexturedBox(scrollBar) { Color = new Color(53, 66, 75) };
 
-            divider = new TexturedBox(scrollBar)
-            {
-                Color = new Color(53, 66, 75),
-            };
-
-            List = new HudList<T>(this)
-            {
-                AutoResize = true,
-            };
-
-            AlignVertical = true;
-            Enabled = true;
             MinimumVisCount = 1;
+            enabledElements = new List<bool>();
+
+            if (alignVertical)
+            {
+                scrollBar.DimAlignment = DimAlignments.Height;
+                divider.DimAlignment = DimAlignments.Height;
+
+                scrollBar.ParentAlignment = ParentAlignments.Right | ParentAlignments.InnerH;
+                divider.ParentAlignment = ParentAlignments.Left | ParentAlignments.InnerH;
+
+                divider.Padding = new Vector2(2f, 0f);
+                divider.Width = 1f;
+
+                scrollBar.Padding = new Vector2(30f, 8f);
+                scrollBar.Width = 45f;
+            }
+            else
+            {
+                scrollBar.DimAlignment = DimAlignments.Width;
+                divider.DimAlignment = DimAlignments.Width;
+
+                scrollBar.ParentAlignment = ParentAlignments.Bottom | ParentAlignments.InnerV;
+                divider.ParentAlignment = ParentAlignments.Bottom | ParentAlignments.InnerV;
+
+                divider.Padding = new Vector2(16f, 2f);
+                divider.Height = 1f;
+
+                scrollBar.Padding = new Vector2(16f);
+                scrollBar.Height = 24f;
+            }
         }
 
         /// <summary>
-        /// Adds a hud element to the scrollbox.
-        /// <param name="element"></param>
-        public void AddToList(T element) =>
-            List.Add(element);
-
-        /// <summary>
-        /// Finds the scrollbox member that meets the conditions
-        /// required by the predicate.
+        /// Adds a <see cref="T"/> to the scrollbox.
         /// </summary>
-        public T Find(Func<T, bool> predicate) =>
-            List.Find(x => predicate(x));
-
-        /// <summary>
-        /// Finds the index of the scrollbox member that meets the conditions
-        /// required by the predicate.
-        /// </summary>
-        public int FindIndex(Func<T, bool> predicate) =>
-            List.FindIndex(x => predicate(x));
-
-        /// <summary>
-        /// Removes the given member from the scrollbox.
-        /// </summary>
-        public void RemoveFromList(T member) =>
-            List.RemoveChild(member);
-
-        /// <summary>
-        /// Removes the scrollbox member that meets the conditions
-        /// required by the predicate.
-        /// </summary>
-        public void RemoveFromList(Func<T, bool> predicate) =>
-            List.Remove(predicate);
-
-        /// <summary>
-        /// Unparents all HUD elements from list.
-        /// </summary>
-        public void Clear()
+        public override void Add(T element)
         {
-            List.Clear();
+            base.Add(element);
+            enabledElements.Add(true);
         }
 
         /// <summary>
-        /// Resets hud elements for reuse.
+        /// Adds a <see cref="T"/> to the scrollbox.
         /// </summary>
-        public void Reset()
+        public void Add(T element, bool enabled)
         {
-            Enabled = false;
-            List.Reset();
+            base.Add(element);
+            enabledElements.Add(enabled);
+        }
+
+        /// <summary>
+        /// Add the given range to the end of the scrollbox.
+        /// </summary>
+        public override void AddRange(IList<T> newChainElements)
+        {
+            base.AddRange(newChainElements);
+            enabledElements.EnsureCapacity(enabledElements.Count + newChainElements.Count);
+
+            for (int n = 0; n < enabledElements.Count; n++)
+                enabledElements.Add(true);
+        }
+
+        /// <summary>
+        /// Insert the given range into the chain.
+        /// </summary>
+        public override void InsertRange(int index, IList<T> newChainElements)
+        {
+            base.InsertRange(index, newChainElements);
+            enabledElements.EnsureCapacity(enabledElements.Count + newChainElements.Count);
+
+            for (int n = index; n < index + newChainElements.Count; n++)
+                enabledElements.Insert(n, true);
+        }
+
+        /// <summary>
+        /// Remove the scrollbox element at the given index.
+        /// </summary>
+        public override void RemoveAt(int index)
+        {
+            base.RemoveAt(index);
+            enabledElements.RemoveAt(index);
+        }
+
+        /// <summary>
+        /// Removes the specfied range from the chain. Normal child elements not affected.
+        /// </summary>
+        public override void RemoveRange(int index, int count)
+        {
+            base.RemoveRange(index, count);
+            enabledElements.RemoveRange(index, count);
+        }
+
+        /// <summary>
+        /// Remove all elements in the HudChain. Does not affect normal child elements.
+        /// </summary>
+        public override void ClearChain()
+        {
+            base.ClearChain();
+            enabledElements.Clear();
+        }
+
+        protected override void RemoveChildInternal(object childID)
+        {
+            if (!blockChildRegistration)
+            {
+                int index = children.FindIndex(x => x.ID == childID);
+
+                if (index != -1)
+                {
+                    if (children[index].Parent?.ID == ID)
+                        children[index].Unregister();
+                    else if (children[index].Parent == null)
+                        children.RemoveAt(index);
+                }
+                else
+                {
+                    index = chainElements.FindIndex(x => x.ID == childID);
+
+                    if (index != -1)
+                    {
+                        if (chainElements[index].Parent?.ID == ID)
+                            chainElements[index].Unregister();
+                        else if (chainElements[index].Parent == null)
+                        {
+                            chainElements.RemoveAt(index);
+                            enabledElements.RemoveAt(index);
+                        }
+                    }
+                }
+            }
+        }
+
+        /// <summary>
+        /// Used to enable/disable a scrollbox element.
+        /// </summary>
+        public void SetElementEnabled(int index, bool value)
+        {
+            enabledElements[index] = value;
         }
 
         protected override void HandleInput()
         {
+            // Don't capture cursor if there's no where to scroll to
             scrollInput.CaptureCursor = scrollBar.Min != scrollBar.Max;
+
+            if (scrollBar.MouseInput.IsLeftClicked)
+                _start = (int)Math.Round(scrollBar.Current);
 
             if (scrollInput.IsControlPressed)
             {
                 if (SharedBinds.MousewheelUp.IsPressed)
-                    scrollBar.Current = Start - 1;
+                    _start = MathHelper.Clamp(_start - 1, 0, enabledElements.Count - 1);
                 else if (SharedBinds.MousewheelDown.IsPressed)
-                    scrollBar.Current = Start + 1;
+                    _start = MathHelper.Clamp(_start + 1, 0, enabledElements.Count - 1);
             }
+
+            scrollBar.Current = _start;
         }
 
         protected override void Layout()
         {
-            scrollBar.Max = GetMaxStart(List.Count - 1);
+            // Calculate effective min and max element sizes
+            Vector2 effectivePadding = cachedPadding;
+            float scrollBarPadding = scrollBar.Size[offAxis] + divider.Size[offAxis];
+            effectivePadding[offAxis] += scrollBarPadding;
+
+            Vector2 largest = GetLargestElementSize(),
+                elementMin = MinimumSize - effectivePadding,
+                elementMax = MaximumSize - effectivePadding;
+
+            ClampElementSizeRange(largest, ref elementMin, ref elementMax);
+
+            Vector2 newSize = GetNewSize(elementMax, largest);
+            scrollBar.Current = (int)Math.Round(scrollBar.Current);
+
+            // Update visible range
+            UpdateElementRange(elementMax[alignAxis]);
+            UpdateElementVisibility();
+
+            // Update scrollbox and slider size
+
+            // Visible total size will be greater than total size if its not large enough
+            // to meet minimum vis count
+            newSize = Vector2.Max(newSize, GetVisibleTotalSize());
+
+            // scrollbar range
             scrollBar.Min = GetFirstEnabled();
-            EnabledCount = GetEnabledCount();
+            scrollBar.Max = GetScrollMax(newSize[alignAxis]);
 
-            UpdateVisible();
+            Vector2 enabledTotalSize = GetEnabledTotalSize();
+            UpdateSliderSize(newSize[alignAxis] / enabledTotalSize[alignAxis]);
 
-            Vector2 min = chainSize + Padding, newSize = Size;
+            cachedSize = newSize;
+            cachedSize[offAxis] += scrollBarPadding;
+            _absoluteWidth = cachedSize.X / _scale;
+            _absoluteHeight = cachedSize.Y / _scale;
+            cachedSize += cachedPadding;
 
-            List.Size = chainSize;
-            List.Offset = new Vector2(Padding.X, -Padding.Y) * .5f;
+            // Calculate member start offset
+            Vector2 startOffset;
 
-            if (AlignVertical)
-                min.X += scrollBar.Width;
+            if (alignAxis == 1)
+                startOffset = new Vector2(-scrollBarPadding, newSize.Y) * .5f;
             else
-                min.Y += scrollBar.Height;
+                startOffset = new Vector2(-newSize.X, scrollBarPadding) * .5f;
 
-            if (SizingMode == ScrollBoxSizingModes.FitToMembers)
-            {
-                newSize = Vector2.Max(min, MinimumSize);
-            }
-            else
-            {
-                min = Vector2.Max(min, MinimumSize);
-                newSize = Vector2.Clamp(newSize, min, MaximumSize);
-            }
-
-            base.Width = newSize.X;
-            base.Height = newSize.Y;
+            UpdateMemberOffsets(startOffset, effectivePadding, elementMin, elementMax);
         }
 
+        /// <summary>
+        /// Returns the index of the first enabled element in the list.
+        /// </summary>
         private int GetFirstEnabled()
         {
-            for (int n = 0; n < List.Count; n++)
+            for (int n = 0; n < enabledElements.Count; n++)
             {
-                if (List[n].Enabled)
+                if (enabledElements[n])
                     return n;
             }
 
             return 0;
         }
 
-        private int GetMaxStart(int end)
+        /// <summary>
+        /// Calculates the maximum index offset for the scroll bar
+        /// </summary>
+        private int GetScrollMax(float length)
         {
-            int start = 0, visCount = 0,
-                axis2 = axis1 == 0 ? 1 : 0;
-            float size = MaximumSize[axis2];
+            int start = 0, visCount = 0;
 
-            for (int n = end; n >= 0; n--)
+            // Find new ending index
+            for (int n = chainElements.Count - 1; n >= 0; n--)
             {
-                if (List[n].Enabled)
+                if (enabledElements[n])
                 {
-                    if (size >= List[n].Size[axis2] || visCount < MinimumVisCount)
+                    if (length >= chainElements[n].Size[alignAxis] || VisCount < MinimumVisCount)
                     {
                         start = n;
-                        size -= List[n].Size[axis2];
+                        length -= chainElements[n].Size[alignAxis];
                         visCount++;
                     }
                     else
                         break;
 
-                    size -= Spacing;
+                    length -= Spacing;
                 }
             }
 
             return start;
         }
 
-        private void UpdateVisible()
+        /// <summary>
+        /// Updates the range of visible members starting with the given start index.
+        /// If the starting index doesn't satisfy the minimum visible count, it will 
+        /// be decreased until it does.
+        /// </summary>
+        private void UpdateElementRange(float length)
         {
-            if (AlignVertical)
-            {
-                UpdateVisibleVert();
-            }
+            VisCount = 0;
+            EnabledCount = GetVisibleIndex(chainElements.Count);
+
+            if (updateRangeReverse)
+                UpdateElementRangeReverse(length);
             else
-            {
-                UpdateVisibleHorz();
-            }
+                UpdateElementRangeForward(length);
+            
+            VisStart = GetVisibleIndex(_start);
         }
 
-        private void UpdateVisibleVert()
+        /// <summary>
+        /// Updates range of visible elements starting with the starting index.
+        /// </summary>
+        private void UpdateElementRangeForward(float length)
         {
-            int visCount = 0, visStart = 0;
-            int newEnd = 0;
-            float size = MaximumSize.Y,
-                min = MinimumSize.X - Padding.X - scrollBar.Width,
-                max = MaximumSize.X - Padding.X - scrollBar.Width;
+            Vector2I range = new Vector2I(_start);
 
-            chainSize = new Vector2();
-
-            for (int n = 0; n < List.Count; n++)
+            for (int n = _start; n < chainElements.Count; n++)
             {
-                if (List[n].Enabled)
+                if (enabledElements[n])
                 {
-                    if (n < Start)
-                        visStart++;
-                    else
+                    if (length >= chainElements[n].Size[alignAxis] || VisCount < MinimumVisCount)
                     {
-                        if (size >= List[n].Height || visCount < MinimumVisCount)
-                        {
-                            List[n].Visible = true;
-                            size -= List[n].Height;
+                        range.Y = n;
+                        length -= chainElements[n].Size[alignAxis];
+                        VisCount++;
+                    }
+                    else
+                        break;
 
-                            chainSize.Y += List[n].Height;
+                    length -= Spacing;
+                }
+            }
 
-                            if (SizingMode == ScrollBoxSizingModes.ClampMembers)
-                                List[n].Width = MathHelper.Clamp(List[n].Width, min, max);
-                            else if (SizingMode == ScrollBoxSizingModes.FitMembersToBox)
-                                List[n].Width = max;
-
-                            if (List[n].Width > chainSize.X)
-                                chainSize.X = List[n].Width;
-
-                            chainSize.Y += Spacing;
-                            size -= Spacing;
-                            visCount++;
-                            newEnd = n;
-                        }
-                        else
-                            break;
+            if (EnabledCount > VisCount)
+            {
+                // Move starting index back until minimum visible requirment is met
+                for (int n = _start - 1; (n >= 0 && VisCount < MinimumVisCount); n--)
+                {
+                    if (enabledElements[n])
+                    {
+                        range.X = n;
+                        VisCount++;
                     }
                 }
             }
 
-            chainSize.Y -= Spacing;
-            end = newEnd;
-            VisStart = visStart;
-            VisCount = visCount;
-            UpdateScrollBarSize();
+            _start = range.X;
+            _end = range.Y;
         }
 
-        private void UpdateVisibleHorz()
+        /// <summary>
+        /// Updates range of visible elements starting with the ending index.
+        /// </summary>
+        private void UpdateElementRangeReverse(float length)
         {
-            int visCount = 0, visStart = 0;
-            int newEnd = 0;
-            float size = MaximumSize.X, 
-                min = MinimumSize.Y - Padding.Y - scrollBar.Height, 
-                max = MaximumSize.Y - Padding.Y - scrollBar.Height;
+            Vector2I range = new Vector2I(_end);
 
-            chainSize = new Vector2();
-
-            for (int n = 0; n < List.Count; n++)
+            for (int n = _end; n >= 0; n--)
             {
-                if (List[n].Enabled)
+                if (enabledElements[n])
                 {
-                    if (n < Start)
-                        visStart++;
-                    else
+                    if (length >= chainElements[n].Size[alignAxis] || VisCount < MinimumVisCount)
                     {
-                        if (size >= List[n].Width || visCount < MinimumVisCount)
-                        {
-                            List[n].Visible = true;
-                            size -= List[n].Width;
+                        range.X = n;
+                        length -= chainElements[n].Size[alignAxis];
+                        VisCount++;
+                    }
+                    else
+                        break;
 
-                            chainSize.X += List[n].Width;
+                    length -= Spacing;
+                }
+            }
 
-                            if (SizingMode == ScrollBoxSizingModes.ClampMembers)
-                                List[n].Height = MathHelper.Clamp(List[n].Height, min, max);
-                            else if (SizingMode == ScrollBoxSizingModes.FitMembersToBox)
-                                List[n].Height = max;
-
-                            if (List[n].Height > chainSize.Y)
-                                chainSize.Y = List[n].Height;
-
-                            chainSize.X += Spacing;
-                            size -= Spacing;
-                            visCount++;
-                            newEnd = n;
-                        }
-                        else
-                            break;
+            if (EnabledCount > VisCount)
+            {
+                // Move starting index back until minimum visible requirment is met
+                for (int n = _end + 1; (n < chainElements.Count && VisCount < MinimumVisCount); n++)
+                {
+                    if (enabledElements[n])
+                    {
+                        range.Y = n;
+                        VisCount++;
                     }
                 }
             }
 
-            chainSize.X -= Spacing;
-            end = newEnd;
-            VisStart = visStart;
-            VisCount = visCount;
-            UpdateScrollBarSize();
+            _start = range.X;
+            _end = range.Y;
+        }
+
+        /// <summary>
+        /// Sets the visibility of all elements in the scroll box to false.
+        /// </summary>
+        private void UpdateElementVisibility()
+        {
+            if (chainElements.Count > 0)
+            {
+                for (int n = 0; n < chainElements.Count; n++)
+                    chainElements[n].Visible = false;
+
+                for (int n = _start; n <= _end; n++)
+                    chainElements[n].Visible = enabledElements[n];
+            }
+        }
+
+        /// <summary>
+        /// Returns the number of enabled elements before the one at the given index
+        /// </summary>
+        private int GetVisibleIndex(int index)
+        {
+            int count = 0;
+
+            for (int n = 0; n < index; n++)
+            {
+                if (enabledElements[n])
+                    count++;
+            }
+
+            return count;
+        }
+
+        /// <summary>
+        /// Returns the total size of the enabled elements in the chain.
+        /// </summary>
+        private Vector2 GetEnabledTotalSize()
+        {
+            Vector2 newSize = new Vector2();
+
+            for (int n = 0; n < chainElements.Count; n++)
+            {
+                if (enabledElements[n])
+                {
+                    Vector2 elementSize = chainElements[n].Size;
+
+                    // Total up the size of elements on the axis of alignment
+                    newSize[alignAxis] += elementSize[alignAxis];
+
+                    // Find largest element on the off axis
+                    if (elementSize[offAxis] > newSize[offAxis])
+                        newSize[offAxis] = elementSize[offAxis];
+
+                    newSize[alignAxis] += Spacing;
+                }
+            }
+
+            newSize[alignAxis] -= Spacing;
+            return Vector2.Max(newSize, Vector2.Zero);
+        }
+
+        /// <summary>
+        /// Returns the size of the largest element in the chain.
+        /// </summary>
+        private Vector2 GetLargestElementSize()
+        {
+            Vector2 size = new Vector2();
+
+            for (int n = 0; n < chainElements.Count; n++)
+            {
+                if (enabledElements[n])
+                    size = Vector2.Max(size, chainElements[n].Size);
+            }
+
+            return size;
         }
 
         /// <summary>
         /// Recalculates and updates the height of the scroll bar.
         /// </summary>
-        private void UpdateScrollBarSize()
+        private void UpdateSliderSize(float visRatio)
         {
-            if (AlignVertical)
-            {
-                scrollBar.Height = Height;
-                divider.Height = Height;
-
-                scrollBar.slide.SliderHeight = (chainSize.Y / totalSize) * Height;
-            }
-            else
-            {
-                scrollBar.Width = Width;
-                divider.Width = Width;
-
-                scrollBar.slide.SliderWidth = (chainSize.X / totalSize) * Width;
-            }
-        }
-
-        private int GetEnabledCount()
-        {
-            int count = 0;
-            totalSize = 0f;
-
-            for (int n = 0; n < List.Count; n++)
-            {
-                List[n].Visible = false;
-
-                if (List[n].Enabled)
-                {
-                    if (AlignVertical)
-                        totalSize += List[n].Height;
-                    else
-                        totalSize += List[n].Width;
-
-                    totalSize += Spacing;
-                    count++;
-                }
-            }
-
-            totalSize -= Spacing;
-            return count;
+            Vector2 sliderSize = scrollBar.slide.SliderSize;
+            sliderSize[alignAxis] = visRatio * cachedSize[alignAxis];
+            scrollBar.slide.SliderSize = sliderSize;
         }
     }
 }

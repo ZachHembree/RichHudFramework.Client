@@ -9,7 +9,7 @@ namespace RichHudFramework.UI
     /// <summary>
     /// Collapsable list box. Designed to mimic the appearance of the dropdown in the SE terminal.
     /// </summary>
-    public class Dropdown<T> : HudElementBase, IClickableElement, IListBoxEntry
+    public class Dropdown<T> : HudElementBase, IClickableElement
     {
         /// <summary>
         /// Invoked when a member of the list is selected.
@@ -19,7 +19,7 @@ namespace RichHudFramework.UI
         /// <summary>
         /// List of entries in the dropdown.
         /// </summary>
-        public HudList<ListBoxEntry<T>> List => listBox.List;
+        public HudChain<ListBoxEntry<T>> List => listBox.List;
 
         /// <summary>
         /// Padding applied to list members.
@@ -142,15 +142,9 @@ namespace RichHudFramework.UI
         /// <summary>
         /// Clears the current contents of the list.
         /// </summary>
-        public void Clear() =>
-            listBox.Clear();
-
-        /// <summary>
-        /// Resets the dropdown for reuse.
-        /// </summary>
-        public void Reset()
+        public void Clear()
         {
-            listBox.Reset();
+
         }
 
         /// <summary>
@@ -211,12 +205,11 @@ namespace RichHudFramework.UI
                     DimAlignment = DimAlignments.Both,
                 };
 
-                layout = new HudChain<HudElementBase>(this)
+                layout = new HudChain<HudElementBase>(false, this)
                 {
-                    AlignVertical = false,
-                    AutoResize = true,
+                    SizingMode = HudChainSizingModes.FitMembersToBox,
                     DimAlignment = DimAlignments.Height | DimAlignments.IgnorePadding,
-                    ChildContainer = { name, divider, arrow }
+                    ChainContainer = { name, divider, arrow }
                 };
 
                 mouseInput = new MouseInputElement(this) 

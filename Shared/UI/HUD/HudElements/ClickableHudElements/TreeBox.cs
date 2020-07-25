@@ -9,7 +9,7 @@ namespace RichHudFramework.UI
     /// <summary>
     /// Indented, collapsable list. Designed to fit in with SE UI elements.
     /// </summary>
-    public class TreeBox<T> : HudElementBase, IClickableElement, IListBoxEntry
+    public class TreeBox<T> : HudElementBase, IClickableElement
     {
         /// <summary>
         /// Invoked when a list member is selected.
@@ -19,7 +19,7 @@ namespace RichHudFramework.UI
         /// <summary>
         /// List of entries in the treebox.
         /// </summary>
-        public HudList<ListBoxEntry<T>> List => chain;
+        public HudChain<ListBoxEntry<T>> List => chain;
 
         /// <summary>
         /// Height of the treebox in pixels.
@@ -75,7 +75,7 @@ namespace RichHudFramework.UI
         /// <summary>
         /// Size of the collection.
         /// </summary>
-        public int Count => chain.Count;
+        public int Count => chain.ChainElements.Count;
 
         /// <summary>
         /// Determines how far to the right list members should be offset from the position of the header.
@@ -94,11 +94,15 @@ namespace RichHudFramework.UI
 
         private readonly TreeBoxDisplay display;
         private readonly HighlightBox highlight, selectionBox;
-        private readonly HudList<ListBoxEntry<T>> chain;
+        private readonly HudChain<ListBoxEntry<T>> chain;
         private float indent;
+
+        private readonly ObjectPool<ListBoxEntry<T>> entryPool;
 
         public TreeBox(IHudParent parent = null) : base(parent)
         {
+            entryPool = new ObjectPool<ListBoxEntry<T>>(GetNewEntry, ResetEntry);
+
             display = new TreeBoxDisplay(this)
             {
                 Size = new Vector2(200f, 32f),
@@ -107,11 +111,10 @@ namespace RichHudFramework.UI
                 DimAlignment = DimAlignments.Width | DimAlignments.IgnorePadding
             };
 
-            chain = new HudList<ListBoxEntry<T>>(display)
+            chain = new HudChain<ListBoxEntry<T>>(true, display)
             {
                 Visible = false,
-                AutoResize = true,
-                AlignVertical = true,
+                SizingMode = HudChainSizingModes.FitMembersToBox,
                 ParentAlignment = ParentAlignments.Bottom | ParentAlignments.Right | ParentAlignments.InnerH | ParentAlignments.UsePadding,
             };
 
@@ -207,18 +210,7 @@ namespace RichHudFramework.UI
         /// </summary>
         public ListBoxEntry<T> Add(RichText name, T assocMember)
         {
-            ListBoxEntry<T> member = chain.AddReserved();
-
-            if (member == null)
-            {
-                member = new ListBoxEntry<T>(assocMember)
-                {
-                    Format = Format,
-                    Padding = new Vector2(24f, 0f),
-                };
-
-                chain.Add(member);
-            }
+            ListBoxEntry<T> member = entryPool.Get();
 
             member.OnMemberSelected += SetSelection;
             member.TextBoard.SetText(name);
@@ -233,34 +225,41 @@ namespace RichHudFramework.UI
         public void Remove(ListBoxEntry<T> member)
         {
             chain.RemoveChild(member);
+            entryPool.Return(member);
+        }
+
+        private ListBoxEntry<T> GetNewEntry()
+        {
+            return new ListBoxEntry<T>()
+            {
+                Format = Format,
+                Padding = new Vector2(24f, 0f),
+            };
+        }
+
+        private void ResetEntry(ListBoxEntry<T> entry)
+        {
+            entry.ClearSubscribers();
+            entry.Enabled = false;
+            entry.AssocMember = default(T);
         }
 
         /// <summary>
         /// Unparents all HUD elements from list
         /// </summary>
-        public void Clear()
+        /*public void Clear()
         {
             OnSelectionChanged = null;
             Selection = null;
             chain.Clear();
-        }
-
-        /// <summary>
-        /// Resets the HUD element for later reuse.
-        /// </summary>
-        public void Reset()
-        {
-            OnSelectionChanged = null;
-            Selection = null;
-            chain.Reset();
-        }
+        }*/
 
         protected override void Layout()
         {
             chain.Width = Width - IndentSize;
 
-            for (int n = 0; n < chain.Count; n++)
-                chain[n].Height = display.Height;
+            for (int n = 0; n < chain.ChainElements.Count; n++)
+                chain.ChainElements[n].Height = display.Height;
 
             if (Selection != null)
             {
@@ -276,13 +275,13 @@ namespace RichHudFramework.UI
         {
             highlight.Visible = false;
 
-            for (int n = 0; n < chain.Count; n++)
+            for (int n = 0; n < chain.ChainElements.Count; n++)
             {
-                if (chain[n].IsMousedOver)
+                if (chain.ChainElements[n].IsMousedOver)
                 {
                     highlight.Visible = true;
-                    highlight.Size = chain[n].Size;
-                    highlight.Offset = chain[n].Offset;
+                    highlight.Size = chain.ChainElements[n].Size;
+                    highlight.Offset = chain.ChainElements[n].Offset;
                 }
             }
         }
@@ -396,12 +395,11 @@ namespace RichHudFramework.UI
                     DimAlignment = DimAlignments.Both,
                 };
 
-                layout = new HudChain<HudElementBase>(this)
+                layout = new HudChain<HudElementBase>(false, this)
                 {
-                    AlignVertical = false,
-                    AutoResize = true,
+                    SizingMode = HudChainSizingModes.FitMembersToBox,
                     DimAlignment = DimAlignments.Height,
-                    ChildContainer = { arrow, divider, name }
+                    ChainContainer = { arrow, divider, name }
                 };
 
                 mouseInput = new MouseInputElement(this)

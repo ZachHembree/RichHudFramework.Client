@@ -41,7 +41,7 @@ namespace RichHudFramework.UI
         {
             if (Color.A > 0)
             {
-                float height = _height * _scale, width = _width * _scale, 
+                float height = _absoluteHeight * _scale, width = _absoluteWidth * _scale, 
                     thickness = _thickness * _scale;
 
                 // Left
