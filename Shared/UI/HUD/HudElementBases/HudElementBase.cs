@@ -44,10 +44,10 @@ namespace RichHudFramework
                 get { return (_width * _scale) + Padding.X; }
                 set
                 {
-                    if (Padding.X < value)
-                        _width = (value - Padding.X) / _scale;
-                    else
-                        _width = (value / _scale);
+                    if (value > Padding.X)
+                        value -= Padding.X;
+
+                    _width = (value / _scale);
                 }
             }
 
@@ -59,10 +59,10 @@ namespace RichHudFramework
                 get { return (_height * _scale) + Padding.Y; }
                 set
                 {
-                    if (Padding.Y < value)
-                        _height = (value - Padding.Y) / _scale;
-                    else
-                        _height = (value / _scale);
+                    if (value > Padding.Y)
+                        value -= Padding.Y;
+
+                    _height = (value / _scale);
                 }
             }
 

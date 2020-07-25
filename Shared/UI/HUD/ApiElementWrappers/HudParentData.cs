@@ -48,8 +48,10 @@ namespace RichHudFramework
 
             public void RegisterChild(IHudNode child)
             {
-                localChildren.Add(child.ID);
                 GetOrSetMemberFunc(child.GetApiData(), (int)HudParentAccessors.Add);
+
+                if (child.Parent.ID == ID)
+                    localChildren.Add(child.ID);
             }
 
             public void BeforeLayout(bool refresh) =>
