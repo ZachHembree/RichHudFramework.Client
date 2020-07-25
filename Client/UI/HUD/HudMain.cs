@@ -29,7 +29,7 @@ namespace RichHudFramework
         Func<bool>, // Visible
         object, // ID
         Action<bool>, // BeforeLayout
-        Action<int>, // BeforeDraw
+        Action<int, MatrixD>, // BeforeDraw
         Action<int>, // HandleInput
         ApiMemberAccessor // GetOrSetMembers
     >;
@@ -47,7 +47,7 @@ namespace RichHudFramework
         Func<Vector2>, // Size
         Func<Vector2>, // TextSize
         Vec2Prop, // FixedSize
-        Action<Vector2> // Draw 
+        Action<Vector2, MatrixD> // Draw 
     >;
 
     namespace UI.Client
@@ -217,7 +217,7 @@ namespace RichHudFramework
             private readonly ICursor cursor;
             private readonly Func<TextBoardMembers> GetTextBoardDataFunc;
             private readonly ApiMemberAccessor GetOrSetMemberFunc;
-            private HudMasterDrawAccessor masterDrawAccessor;
+            private HudMasterUpdateAccessor masterUiAcessor;
 
             private float screenHeight, screenWidth, aspectRatio, resScale, fov, fovScale;
             private MatrixD pixelToWorld;
@@ -237,12 +237,20 @@ namespace RichHudFramework
                 if (_instance == null)
                 {
                     _instance = new HudMain();
-                    _instance.masterDrawAccessor = new HudMasterDrawAccessor();
-                    _instance.masterDrawAccessor.DrawAction = _instance.HudMasterDraw;
+                    _instance.masterUiAcessor = new HudMasterUpdateAccessor();
+                    _instance.masterUiAcessor.DrawAction = _instance.HudMasterDraw;
                     _instance.UpdateCache();
                 }
             }
 
+            private void HudMasterDraw()
+            {
+                UpdateCache();
+            }
+
+            /// <summary>
+            /// Updates cached values used to render UI elements.
+            /// </summary>
             private void UpdateCache()
             {
                 screenHeight = (float)GetOrSetMemberFunc(null, (int)HudMainAccessors.ScreenHeight);
@@ -254,11 +262,6 @@ namespace RichHudFramework
                 pixelToWorld = (MatrixD)GetOrSetMemberFunc(null, (int)HudMainAccessors.PixelToWorldTransform);
             }
 
-            private void HudMasterDraw()
-            {
-                UpdateCache();
-            }
-
             public override void Close()
             {
                 if (ExceptionHandler.Reloading)
@@ -267,11 +270,14 @@ namespace RichHudFramework
                 Instance = null;
             }
 
+            /// <summary>
+            /// Returns accessors for a new TextBoard
+            /// </summary>
             public static TextBoardMembers GetTextBoardData() =>
                 Instance.GetTextBoardDataFunc();
 
             /// <summary>
-            /// Converts from a value in the relative coordinate system to a concrete value in pixels.
+            /// Converts from a position in absolute screen space coordinates to a position in pixels.
             /// </summary>
             public static Vector2 GetPixelVector(Vector2 scaledVec)
             {
@@ -286,9 +292,9 @@ namespace RichHudFramework
             }
 
             /// <summary>
-            /// Converts from a coordinate given in pixels to a scaled system independent of screen resolution.
+            /// Converts from a coordinate given in pixels to a position in absolute units.
             /// </summary>
-            public static Vector2 GetRelativeVector(Vector2 pixelVec)
+            public static Vector2 GetAbsoluteVector(Vector2 pixelVec)
             {
                 if (_instance == null)
                     Init();
@@ -300,18 +306,19 @@ namespace RichHudFramework
                 );
             }
 
-            private class HudMasterDrawAccessor : HudNodeBase
+            /// <summary>
+            /// Root UI element for the client. Registered directly to master root.
+            /// </summary>
+            private class HudMasterUpdateAccessor : HudNodeBase
             {
                 public override bool Visible => true;
 
                 public Action DrawAction;
 
-                public HudMasterDrawAccessor() : base(Root)
-                {
-                    ZOffset = HudLayers.Background;
-                }
+                public HudMasterUpdateAccessor() : base(Root)
+                { }
 
-                protected override void Draw()
+                protected override void Draw(ref MatrixD matrix)
                 {
                     DrawAction?.Invoke();
                 }

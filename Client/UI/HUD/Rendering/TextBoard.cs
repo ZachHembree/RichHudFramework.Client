@@ -33,7 +33,7 @@ namespace RichHudFramework
                 Func<Vector2>, // Size
                 Func<Vector2>, // TextSize
                 Vec2Prop, // FixedSize
-                Action<Vector2> // UpdateText, Draw 
+                Action<Vector2, MatrixD> // UpdateText, Draw 
             >;
 
             public class TextBoard : TextBuilder, ITextBoard
@@ -106,7 +106,7 @@ namespace RichHudFramework
                 private readonly Func<Vector2> GetSizeFunc;
                 private readonly Func<Vector2> GetTextSizeFunc;
                 private readonly PropWrapper<Vector2> FixedSizeProp;
-                private readonly Action<Vector2> DrawAction;
+                private readonly Action<Vector2, MatrixD> DrawAction;
 
                 public TextBoard() : this(HudMain.GetTextBoardData())
                 { }
@@ -121,8 +121,25 @@ namespace RichHudFramework
                     DrawAction = members.Item6;
                 }
 
+                /// <summary>
+                /// Draws the text board in screen space with an offset given in pixels.
+                /// </summary>
                 public void Draw(Vector2 origin) =>
-                    DrawAction(origin);
+                    DrawAction(origin, HudMain.PixelToWorld);
+
+                /// <summary>
+                /// Draws the text board in world space on the XY plane of the matrix, facing in the +Z
+                /// direction.
+                /// </summary>
+                public void Draw(Vector2 origin, ref MatrixD matrix) =>
+                    DrawAction(origin, matrix);
+
+                /// <summary>
+                /// Draws the text board in world space on the XY plane of the matrix, facing in the +Z
+                /// direction.
+                /// </summary>
+                public void Draw(Vector2 origin, MatrixD matrix) =>
+                    DrawAction(origin, matrix);
 
                 /// <summary>
                 /// Calculates and applies the minimum offset needed to ensure that the character at the specified index
