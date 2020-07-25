@@ -81,7 +81,7 @@ namespace RichHudFramework
             /// <summary>
             /// Registers a collection of child nodes to the object.
             /// </summary>
-            void RegisterChildren(IEnumerable<IHudNode> newChildren);
+            void RegisterChildren(IList<IHudNode> newChildren);
 
             /// <summary>
             /// Unregisters the specified node from the parent.

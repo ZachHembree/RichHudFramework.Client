@@ -27,7 +27,8 @@ namespace RichHudFramework
             Register = 13,
             Unregister = 14,
             Registered = 15,
-            Scale = 16
+            Scale = 16,
+            ZOffset = 17
         }
 
         /// <summary>
@@ -84,6 +85,7 @@ namespace RichHudFramework
             {
                 localScale = 1f;
                 _scale = 1f;
+
                 Register(parent);
             }
 
@@ -98,7 +100,7 @@ namespace RichHudFramework
             /// that it's drawn/updated last.
             /// </summary>
             public void GetFocus() =>
-                Parent?.SetFocus(this);
+                _parent?.SetFocus(this);
 
             /// <summary>
             /// Registers the element to the given parent object.
@@ -108,10 +110,11 @@ namespace RichHudFramework
                 if (parent != null && parent.ID == ID)
                     throw new Exception("Types of HudNodeBase cannot be parented to themselves!");
 
-                if (parent != null && Parent == null)
+                if (parent != null && _parent == null)
                 {
                     Parent = parent;
-                    Parent.RegisterChild(this);
+                    _parent.RegisterChild(this);
+
                     Registered = true;
                 }
 
@@ -131,10 +134,11 @@ namespace RichHudFramework
             {
                 if (Parent != null)
                 {
-                    IHudParent lastParent = Parent;
+                    IHudParent lastParent = _parent;
 
                     Parent = null;
                     lastParent.RemoveChild(this);
+
                     Registered = false;
                 }
 
@@ -155,9 +159,9 @@ namespace RichHudFramework
                             GetFocus();
                             break;
                         case HudNodeAccessors.GetParentData:
-                            return Parent.GetApiData();
+                            return _parent.GetApiData();
                         case HudNodeAccessors.GetParentID:
-                            return Parent?.ID;
+                            return _parent?.ID;
                         case HudNodeAccessors.Register:
                             Register(new HudNodeData((HudElementMembers)data));
                             break;
@@ -172,6 +176,14 @@ namespace RichHudFramework
                             else
                             {
                                 Scale = (float)data;
+                                break;
+                            }
+                        case HudNodeAccessors.ZOffset:
+                            if (data == null)
+                                return _zOffset;
+                            else
+                            {
+                                _zOffset = (HudLayers)data;
                                 break;
                             }
                     }

@@ -29,6 +29,10 @@ namespace RichHudFramework
             /// </summary>
             public abstract bool AutoResize { get; set; }
 
+            /// <summary>
+            /// If true, then the background will resize to match the size of the text plus padding. Otherwise,
+            /// size will be clamped such that the element will not be smaller than the text element.
+            /// </summary>
             public bool FitToTextElement { get; set; }
 
             /// <summary>
@@ -46,13 +50,14 @@ namespace RichHudFramework
                 get { return FitToTextElement ? TextSize.X + Padding.X : base.Width; }
                 set
                 {
-                    if (FitToTextElement)
-                    {
-                        if (value > Padding.X)
-                            value -= Padding.X;
+                    if (!FitToTextElement)
+                        value = MathHelper.Max(TextSize.X, value);
 
+                    if (value > Padding.X)
+                        value -= Padding.X;
+
+                    if (FitToTextElement)
                         TextSize = new Vector2(value, TextSize.Y);
-                    }
                     else
                         base.Width = value;
                 }
@@ -63,13 +68,14 @@ namespace RichHudFramework
                 get { return FitToTextElement ? TextSize.Y + Padding.Y : base.Height; }
                 set
                 {
-                    if (FitToTextElement)
-                    {
-                        if (value > Padding.Y)
-                            value -= Padding.Y;
+                    if (!FitToTextElement)
+                        value = MathHelper.Max(TextSize.Y, value);
 
+                    if (value > Padding.Y)
+                        value -= Padding.Y;
+
+                    if (FitToTextElement)
                         TextSize = new Vector2(TextSize.X, value);
-                    }
                     else
                         base.Height = value;
                 }
@@ -81,6 +87,18 @@ namespace RichHudFramework
                 {
                     DimAlignment = DimAlignments.Both,
                 };
+
+                FitToTextElement = true;
+            }
+
+            protected override void Layout()
+            {
+                // The element may not be smaller than the text
+                if (!FitToTextElement)
+                {
+                    _absoluteWidth = MathHelper.Max(TextSize.Y, _absoluteWidth * _scale) / _scale;
+                    _absoluteHeight = MathHelper.Max(TextSize.X, _absoluteHeight * _scale) / _scale;
+                }
             }
         }
     }

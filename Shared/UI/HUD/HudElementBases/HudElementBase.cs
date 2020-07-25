@@ -12,7 +12,7 @@ namespace RichHudFramework
         /// <summary>
         /// Base type for all hud elements with definite size and position. Inherits from HudParentBase and HudNodeBase.
         /// </summary>
-        public abstract class HudElementBase : HudNodeBase, IHudElement, IReadOnlyHudElement
+        public abstract class HudElementBase : HudNodeBase, IReadOnlyHudElement
         {
             /// <summary>
             /// Parent object of the node.
@@ -41,13 +41,13 @@ namespace RichHudFramework
             /// </summary>
             public virtual float Width
             {
-                get { return (_width * _scale) + Padding.X; }
+                get { return (_absoluteWidth * _scale) + Padding.X; }
                 set
                 {
                     if (value > Padding.X)
                         value -= Padding.X;
 
-                    _width = (value / _scale);
+                    _absoluteWidth = (value / _scale);
                 }
             }
 
@@ -56,33 +56,33 @@ namespace RichHudFramework
             /// </summary>
             public virtual float Height
             {
-                get { return (_height * _scale) + Padding.Y; }
+                get { return (_absoluteHeight * _scale) + Padding.Y; }
                 set
                 {
                     if (value > Padding.Y)
                         value -= Padding.Y;
 
-                    _height = (value / _scale);
+                    _absoluteHeight = (value / _scale);
                 }
             }
 
             /// <summary>
             /// Border size. Included in total element size.
             /// </summary>
-            public virtual Vector2 Padding { get { return _padding * _scale; } set { _padding = value / _scale; } }
+            public virtual Vector2 Padding { get { return _absolutePadding * _scale; } set { _absolutePadding = value / _scale; } }
 
             /// <summary>
             /// Starting position of the hud element.
             /// </summary>
-            public Vector2 Origin => (_parentFull == null) ? Vector2.Zero : (_parentFull.Origin + _parentFull.Offset + originAlignment);
+            public Vector2 Origin => (_parentFull == null) ? Vector2.Zero : _parentFull.cachedPosition;
 
             /// <summary>
             /// Position of the element relative to its origin.
             /// </summary>
-            public virtual Vector2 Offset { get { return _offset * _scale; } set { _offset = value / _scale; } }
+            public virtual Vector2 Offset { get { return _absoluteOffset * _scale; } set { _absoluteOffset = value / _scale; } }
 
             /// <summary>
-            /// Absolute position of the hud element. Origin + Offset.
+            /// Current position of the hud element. Origin + Offset.
             /// </summary>
             public Vector2 Position => Origin + Offset;
 
@@ -109,16 +109,17 @@ namespace RichHudFramework
             /// <summary>
             /// Indicates whether or not the element is capturing the cursor.
             /// </summary>
-            public virtual bool IsMousedOver => Visible && isMousedOver;
+            public virtual bool IsMousedOver => Visible && _isMousedOver;
 
             private const float minMouseBounds = 8f;
-            private bool isMousedOver;
-            private Vector2 _offset, _padding, originAlignment;
+            private bool _isMousedOver;
+            private Vector2 originAlignment;
 
-            protected float _width, _height;
+            protected float _absoluteWidth, _absoluteHeight;
+            protected Vector2 _absoluteOffset, _absolutePadding;
             protected HudElementBase _parentFull;
 
-            protected Vector2 cachedOrigin, cachedPosition, cachedSize;
+            protected Vector2 cachedOrigin, cachedPosition, cachedSize, cachedPadding;
 
             /// <summary>
             /// Initializes a new hud element with cursor sharing enabled and scaling set to 1f.
@@ -130,41 +131,41 @@ namespace RichHudFramework
                 ShareCursor = true;
             }
 
-            public sealed override void BeforeInput(HudLayers layer)
+            public override void BeforeInput(HudLayers layer)
             {
-                if (Visible)
+                for (int n = children.Count - 1; n >= 0; n--)
                 {
-                    for (int n = children.Count - 1; n >= 0; n--)
-                    {
-                        if (children[n].Visible)
-                            children[n].BeforeInput(layer);
-                    }
+                    if (children[n].Visible)
+                        children[n].BeforeInput(layer);
+                }
 
-                    if (_zOffset == layer)
-                    {
-                        if (CaptureCursor && HudMain.Cursor.Visible && !HudMain.Cursor.IsCaptured)
-                        {
-                            isMousedOver = IsMouseInBounds();
-                            HandleInput();
+                if (_zOffset == layer)
+                {
+                    UpdateMouseInput();
+                }
+            }
 
-                            if (!ShareCursor && isMousedOver)
-                                HudMain.Cursor.Capture(ID);
-                        }
-                        else
-                        {
-                            isMousedOver = false;
-                            HandleInput();
-                        }
-                    }
+            protected void UpdateMouseInput()
+            {
+                if (CaptureCursor && HudMain.Cursor.Visible && !HudMain.Cursor.IsCaptured)
+                {
+                    _isMousedOver = IsMouseInBounds();
+                    HandleInput();
+
+                    if (!ShareCursor && _isMousedOver)
+                        HudMain.Cursor.Capture(ID);
                 }
                 else
-                    isMousedOver = false;
+                {
+                    _isMousedOver = false;
+                    HandleInput();
+                }
             }
 
             /// <summary>
             /// Determines whether or not the cursor is within the bounds of the hud element.
             /// </summary>
-            private bool IsMouseInBounds()
+            protected bool IsMouseInBounds()
             {
                 Vector2 cursorPos = HudMain.Cursor.Origin;
                 float
@@ -180,7 +181,7 @@ namespace RichHudFramework
                     (cursorPos.Y >= lowerBound && cursorPos.Y < upperBound);
             }
 
-            public sealed override void BeforeLayout(bool refresh)
+            public override void BeforeLayout(bool refresh)
             {
                 UpdateCache();
                 Layout();
@@ -192,10 +193,10 @@ namespace RichHudFramework
                 }
             }
 
-            private void UpdateCache()
+            protected void UpdateCache()
             {
                 _scale = _parentNode == null ? localScale : (localScale * _parentNode.Scale);
-                cachedSize = new Vector2(Width, Height);
+                cachedPadding = Padding;
 
                 if (_parentFull != null)
                 {
@@ -204,7 +205,10 @@ namespace RichHudFramework
                     cachedOrigin = _parentFull.cachedPosition + originAlignment;
                 }
                 else
+                {
+                    cachedSize = new Vector2(Width, Height);
                     cachedOrigin = Vector2.Zero;
+                }
 
                 cachedPosition = cachedOrigin + Offset;
             }
@@ -215,14 +219,15 @@ namespace RichHudFramework
             /// </summary>
             private void GetDimAlignment()
             {
+                float width = Width, height = Height;
+
                 if (DimAlignment != DimAlignments.None)
                 {
-                    float width = cachedSize.X, height = cachedSize.Y,
-                        parentWidth = _parentFull.cachedSize.X, parentHeight = _parentFull.cachedSize.Y;
+                    float parentWidth = _parentFull.cachedSize.X, parentHeight = _parentFull.cachedSize.Y;
 
                     if ((DimAlignment & DimAlignments.IgnorePadding) == DimAlignments.IgnorePadding)
                     {
-                        Vector2 parentPadding = _parentFull.Padding;
+                        Vector2 parentPadding = _parentFull.cachedPadding;
 
                         if ((DimAlignment & DimAlignments.Width) == DimAlignments.Width)
                             width = parentWidth - parentPadding.X;
@@ -242,6 +247,8 @@ namespace RichHudFramework
                     Width = width;
                     Height = height;
                 }
+
+                cachedSize = new Vector2(width, height);
             }
 
             /// <summary>
@@ -256,10 +263,8 @@ namespace RichHudFramework
 
                 if ((ParentAlignment & ParentAlignments.UsePadding) == ParentAlignments.UsePadding)
                 {
-                    Vector2 parentPadding = _parentFull.Padding;
-
-                    min += parentPadding / 2f;
-                    max -= parentPadding / 2f;
+                    min += _parentFull.cachedPadding / 2f;
+                    max -= _parentFull.cachedPadding / 2f;
                 }
 
                 if ((ParentAlignment & ParentAlignments.InnerV) == ParentAlignments.InnerV)

@@ -63,7 +63,7 @@ namespace RichHudFramework
             public void BeforeInput(HudLayers layer) =>
                 BeforeInputAction((int)layer);
 
-            public void RegisterChildren(IEnumerable<IHudNode> newChildren)
+            public void RegisterChildren(IList<IHudNode> newChildren)
             {
                 foreach (IHudNode child in newChildren)
                     child.Register(this);

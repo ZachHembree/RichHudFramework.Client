@@ -8,9 +8,10 @@
         /// </summary>
         public enum HudLayers : int
         {
-            Background = -1,
-            Normal = 0,
-            Foreground = 1,
+            None = -1,
+            Background = 0,
+            Midground = 1,
+            Foreground = 2,
         }
 
         /// <summary>
@@ -51,7 +52,7 @@
             IHudParent Parent { get; }
 
             /// <summary>
-            /// Determines 
+            /// Determines whether the UI element will be drawn in the Back, Mid or Foreground
             /// </summary>
             HudLayers ZOffset { get; set; }
 

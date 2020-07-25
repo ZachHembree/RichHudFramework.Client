@@ -46,7 +46,11 @@ namespace RichHudFramework
                 }
             }
 
-            public HudLayers ZOffset { get; set; }
+            public HudLayers ZOffset 
+            {
+                get { return (HudLayers)GetOrSetMemberFunc(null, (int)HudNodeAccessors.ZOffset); }
+                set { GetOrSetMemberFunc(value, (int)HudNodeAccessors.ZOffset); }
+            }
 
             public bool Registered => (bool)GetOrSetMemberFunc(null, (int)HudNodeAccessors.Registered);
 
