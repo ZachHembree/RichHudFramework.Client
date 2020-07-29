@@ -241,7 +241,7 @@ namespace RichHudFramework.UI
             Percent = 0f;
         }
 
-        private void BarClicked()
+        private void BarClicked(object sender, EventArgs args)
         {
             canMoveSlider = true;
         }

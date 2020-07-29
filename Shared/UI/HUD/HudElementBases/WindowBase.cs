@@ -125,38 +125,6 @@ namespace RichHudFramework.UI
 
             resizeRight = new MouseInputElement(this) 
             { Width = 1f, DimAlignment = DimAlignments.Height, ParentAlignment = ParentAlignments.Right };
-
-            header.MouseInput.OnLeftClick += HeaderClicked;
-
-            resizeBottom.OnLeftClick += ResizeClicked;
-            resizeTop.OnLeftClick += ResizeClicked;
-            resizeLeft.OnLeftClick += ResizeClicked;
-            resizeRight.OnLeftClick += ResizeClicked;
-        }
-
-        protected virtual void HeaderClicked()
-        {
-            if (CanDrag)
-            {
-                canMoveWindow = true;
-                cursorOffset = (Origin + Offset) - HudMain.Cursor.Origin;
-            }
-        }
-
-        protected virtual void ResizeClicked()
-        {
-            if (AllowResizing)
-            {
-                Vector2 pos = Origin + Offset;
-                canResize = true;
-                resizeDir = 0;
-
-                if (Width - 2d * Math.Abs(pos.X - HudMain.Cursor.Origin.X) <= cornerSize)
-                    resizeDir += 1;
-
-                if (Height - 2d * Math.Abs(pos.Y - HudMain.Cursor.Origin.Y) <= cornerSize)
-                    resizeDir += 2;
-            }
         }
 
         protected override void Layout()
@@ -218,7 +186,26 @@ namespace RichHudFramework.UI
                 if (SharedBinds.LeftButton.IsNewPressed)
                     GetFocus();
             }
-            
+
+            if (CanDrag && header.MouseInput.IsLeftClicked)
+            {
+                canMoveWindow = true;
+                cursorOffset = (Origin + Offset) - HudMain.Cursor.Origin;
+            }
+
+            if (AllowResizing && IsBorderClicked())
+            {
+                Vector2 pos = Origin + Offset;
+                canResize = true;
+                resizeDir = 0;
+
+                if (Width - 2d * Math.Abs(pos.X - HudMain.Cursor.Origin.X) <= cornerSize)
+                    resizeDir += 1;
+
+                if (Height - 2d * Math.Abs(pos.Y - HudMain.Cursor.Origin.Y) <= cornerSize)
+                    resizeDir += 2;
+            }
+
             if (canResize || canMoveWindow)
             {
                 if (!SharedBinds.LeftButton.IsPressed)
@@ -227,6 +214,11 @@ namespace RichHudFramework.UI
                     ResizeStopped();
                 }
             }
+        }
+
+        protected bool IsBorderClicked()
+        {
+            return resizeBottom.IsLeftClicked || resizeTop.IsLeftClicked || resizeLeft.IsLeftClicked || resizeRight.IsLeftClicked;
         }
 
         protected virtual void HeaderReleased()

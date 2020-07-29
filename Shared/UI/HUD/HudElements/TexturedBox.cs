@@ -23,38 +23,8 @@ namespace RichHudFramework.UI
         /// </summary>
         public Color Color { get { return hudBoard.Color; } set { hudBoard.Color = value; } }
 
-        /// <summary>
-        /// Width of the hud element in pixels.
-        /// </summary>
-        public override float Width
-        {
-            get { return hudBoard.Width + Padding.X; }
-            set
-            {
-                if (value > Padding.X)
-                    value -= Padding.X;
-
-                hudBoard.Width = value;
-            }
-        }
-
-        /// <summary>
-        /// Height of the hud element in pixels.
-        /// </summary>
-        public override float Height
-        {
-            get { return hudBoard.Height + Padding.Y; }
-            set
-            {
-                if (value > Padding.Y)
-                    value -= Padding.Y;
-
-                hudBoard.Height = value;
-            }
-        }
-
-        private float lastScale;
-        private readonly MatBoard hudBoard;
+        protected float lastScale;
+        protected readonly MatBoard hudBoard;
 
         public TexturedBox(IHudParent parent = null) : base(parent)
         {
@@ -64,16 +34,12 @@ namespace RichHudFramework.UI
 
         protected override void Layout()
         {
-            if (Scale != lastScale)
-            {
-                hudBoard.Size *= Scale / lastScale;
-                lastScale = Scale;
-            }
+            hudBoard.Size = cachedSize - cachedPadding;
         }
 
         protected override void Draw(ref MatrixD matrix)
         {
-            if (Color.A > 0)
+            if (hudBoard.Color.A > 0)
             {
                 hudBoard.Draw(cachedPosition, ref matrix);
             }

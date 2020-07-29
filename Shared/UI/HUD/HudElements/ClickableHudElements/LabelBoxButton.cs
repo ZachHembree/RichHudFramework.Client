@@ -1,4 +1,5 @@
 ﻿using VRageMath;
+using System;
 
 namespace RichHudFramework.UI
 {
@@ -37,7 +38,7 @@ namespace RichHudFramework.UI
             _mouseInput.OnCursorExit += CursorExited;
         }
 
-        protected virtual void CursorEntered()
+        protected virtual void CursorEntered(object sender, EventArgs args)
         {
             if (HighlightEnabled)
             {
@@ -46,7 +47,7 @@ namespace RichHudFramework.UI
             }
         }
 
-        protected virtual void CursorExited()
+        protected virtual void CursorExited(object sender, EventArgs args)
         {
             if (HighlightEnabled)
             {
