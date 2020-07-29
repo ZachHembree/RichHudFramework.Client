@@ -17,11 +17,6 @@ namespace RichHudFramework.UI
         Name = 1,
 
         /// <summary>
-        /// Bool
-        /// </summary>
-        Enabled = 2,
-
-        /// <summary>
         /// Object
         /// </summary>
         AssocObject = 3,
@@ -33,20 +28,10 @@ namespace RichHudFramework.UI
     }
 
     /// <summary>
-    /// Text button assocated with an object of type T. Used in conjunction with list boxes. Implements IListBoxEntry.
+    /// Label button assocated with an object of type T. Used in conjunction with list boxes.
     /// </summary>
     public class ListBoxEntry<T> : LabelButton
     {
-        /// <summary>
-        /// Invoked on left click
-        /// </summary>
-        public event Action<ListBoxEntry<T>> OnMemberSelected;
-
-        /// <summary>
-        /// Determines whether or not the entry will be visible
-        /// </summary>
-        public bool Enabled { get; set; }
-
         /// <summary>
         /// Object associated with the entry
         /// </summary>
@@ -56,26 +41,6 @@ namespace RichHudFramework.UI
         {
             this.AssocMember = assocMember;
             AutoResize = false;
-            Enabled = true;
-
-            MouseInput.OnLeftClick += SelectMember;
-        }
-
-        /*public void Reset()
-        {
-            OnMemberSelected = null;
-            Enabled = false;
-            AssocMember = default(T);
-        }*/
-
-        public void ClearSubscribers()
-        {
-            OnMemberSelected = null;
-        }
-
-        private void SelectMember()
-        {
-            OnMemberSelected?.Invoke(this);
         }
 
         public new object GetOrSetMember(object data, int memberEnum)
@@ -90,15 +55,6 @@ namespace RichHudFramework.UI
                             TextBoard.SetText(new RichText(data as IList<RichStringMembers>));
                         else
                             return TextBoard.GetText().ApiData;
-
-                        break;
-                    }
-                case ListBoxEntryAccessors.Enabled:
-                    {
-                        if (data == null)
-                            Enabled = (bool)data;
-                        else
-                            return Enabled;
 
                         break;
                     }

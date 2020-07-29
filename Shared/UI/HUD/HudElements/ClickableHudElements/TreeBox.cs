@@ -114,7 +114,7 @@ namespace RichHudFramework.UI
             chain = new HudChain<ListBoxEntry<T>>(true, display)
             {
                 Visible = false,
-                SizingMode = HudChainSizingModes.FitMembersToBox,
+                SizingMode = HudChainSizingModes.FitMembersBoth,
                 ParentAlignment = ParentAlignments.Bottom | ParentAlignments.Right | ParentAlignments.InnerH | ParentAlignments.UsePadding,
             };
 
@@ -133,7 +133,7 @@ namespace RichHudFramework.UI
             display.MouseInput.OnLeftClick += ToggleList;
         }
 
-        private void ToggleList()
+        private void ToggleList(object sender, EventArgs args)
         {
             if (!chain.Visible)
                 OpenList();
@@ -212,9 +212,9 @@ namespace RichHudFramework.UI
         {
             ListBoxEntry<T> member = entryPool.Get();
 
-            member.OnMemberSelected += SetSelection;
-            member.TextBoard.SetText(name);
-            member.Enabled = true;
+            //member.OnMemberSelected += SetSelection;
+            //member.TextBoard.SetText(name);
+            //member.Enabled = true;
 
             return member;
         }
@@ -239,9 +239,9 @@ namespace RichHudFramework.UI
 
         private void ResetEntry(ListBoxEntry<T> entry)
         {
-            entry.ClearSubscribers();
-            entry.Enabled = false;
-            entry.AssocMember = default(T);
+            //entry.ClearSubscribers();
+            //entry.Enabled = false;
+            //entry.AssocMember = default(T);
         }
 
         /// <summary>
@@ -256,7 +256,7 @@ namespace RichHudFramework.UI
 
         protected override void Layout()
         {
-            chain.Width = Width - IndentSize;
+            /*chain.Width = Width - IndentSize;
 
             for (int n = 0; n < chain.ChainElements.Count; n++)
                 chain.ChainElements[n].Height = display.Height;
@@ -268,14 +268,14 @@ namespace RichHudFramework.UI
                 selectionBox.Visible = Selection.Visible;
             }
             else
-                selectionBox.Visible = false;
+                selectionBox.Visible = false;*/
         }
 
         protected override void HandleInput()
         {
             highlight.Visible = false;
 
-            for (int n = 0; n < chain.ChainElements.Count; n++)
+            /*for (int n = 0; n < chain.ChainElements.Count; n++)
             {
                 if (chain.ChainElements[n].IsMousedOver)
                 {
@@ -283,7 +283,7 @@ namespace RichHudFramework.UI
                     highlight.Size = chain.ChainElements[n].Size;
                     highlight.Offset = chain.ChainElements[n].Offset;
                 }
-            }
+            }*/
         }
 
         protected class HighlightBox : TexturedBox
@@ -397,7 +397,7 @@ namespace RichHudFramework.UI
 
                 layout = new HudChain<HudElementBase>(false, this)
                 {
-                    SizingMode = HudChainSizingModes.FitMembersToBox,
+                    SizingMode = HudChainSizingModes.FitMembersBoth,
                     DimAlignment = DimAlignments.Height,
                     ChainContainer = { arrow, divider, name }
                 };

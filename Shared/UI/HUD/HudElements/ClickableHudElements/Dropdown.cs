@@ -1,25 +1,35 @@
 ﻿using System;
 using System.Collections.Generic;
 using VRageMath;
+using VRage;
 
 namespace RichHudFramework.UI
 {
     using Rendering;
+    using System.Collections;
 
     /// <summary>
     /// Collapsable list box. Designed to mimic the appearance of the dropdown in the SE terminal.
     /// </summary>
-    public class Dropdown<T> : HudElementBase, IClickableElement
+    public class Dropdown<T> : HudElementBase, IClickableElement, IEnumerable<MyTuple<ListBoxEntry<T>, bool>>
     {
         /// <summary>
         /// Invoked when a member of the list is selected.
         /// </summary>
-        public event Action OnSelectionChanged { add { listBox.OnSelectionChanged += value; } remove { listBox.OnSelectionChanged -= value; } }
+        public event Action<IHudParent> OnSelectionChanged { add { listBox.OnSelectionChanged += value; } remove { listBox.OnSelectionChanged -= value; } }
 
         /// <summary>
         /// List of entries in the dropdown.
         /// </summary>
-        public HudChain<ListBoxEntry<T>> List => listBox.List;
+        public IReadOnlyList<MyTuple<ListBoxEntry<T>, bool>> List => listBox.ListEntries;
+
+        /// <summary>
+        /// Used to allow the addition of list entries using collection-initializer syntax in
+        /// conjunction with normal initializers.
+        /// </summary>
+        public Dropdown<T> ListContainer => this;
+
+        public float DropdownHeight { get { return listBox.Height; } set { listBox.Height = value; } }
 
         /// <summary>
         /// Padding applied to list members.
@@ -42,11 +52,6 @@ namespace RichHudFramework.UI
         public ListBoxEntry<T> Selection => listBox.Selection;
 
         /// <summary>
-        /// Indicates whether or not the element will appear in the list
-        /// </summary>
-        public bool Enabled { get { return listBox.Enabled; } set { listBox.Enabled = value; } }
-
-        /// <summary>
         /// Mouse input for the dropdown display.
         /// </summary>
         public IMouseInput MouseInput => display.MouseInput;
@@ -62,7 +67,7 @@ namespace RichHudFramework.UI
         public bool Open => listBox.Visible;
 
         protected readonly DropdownDisplay display;
-        public readonly ListBox<T> listBox;
+        protected readonly ListBox<T> listBox;
 
         public Dropdown(IHudParent parent = null) : base(parent)
         {
@@ -76,11 +81,11 @@ namespace RichHudFramework.UI
             {
                 Visible = false,
                 ZOffset = HudLayers.Foreground,
-                MinimumVisCount = 4,
+                MinVisibleCount = 4,
                 DimAlignment = DimAlignments.Width | DimAlignments.IgnorePadding,
                 ParentAlignment = ParentAlignments.Bottom,
-                MemberPadding = new Vector2(8f, 0f),
-                Offset = new Vector2(0f, -1f),
+                //MemberPadding = new Vector2(8f, 0f),
+                //Offset = new Vector2(0f, -1f),
                 TabColor = new Color(0, 0, 0, 0),
             };
 
@@ -99,7 +104,7 @@ namespace RichHudFramework.UI
             }
         }
 
-        private void UpdateDisplay()
+        private void UpdateDisplay(IHudParent sender)
         {
             if (Selection != null)
             {
@@ -108,7 +113,7 @@ namespace RichHudFramework.UI
             }
         }
 
-        private void ToggleList()
+        private void ToggleList(object sender, EventArgs args)
         {
             if (!listBox.Visible)
                 OpenList();
@@ -146,6 +151,12 @@ namespace RichHudFramework.UI
         {
 
         }
+
+        public IEnumerator<MyTuple<ListBoxEntry<T>, bool>> GetEnumerator() =>
+            listBox.ListEntries.GetEnumerator();
+
+        IEnumerator IEnumerable.GetEnumerator() =>
+            GetEnumerator();
 
         /// <summary>
         /// Sets the selection to the member associated with the given object.
@@ -207,7 +218,7 @@ namespace RichHudFramework.UI
 
                 layout = new HudChain<HudElementBase>(false, this)
                 {
-                    SizingMode = HudChainSizingModes.FitMembersToBox,
+                    SizingMode = HudChainSizingModes.FitMembersOffAxis | HudChainSizingModes.FitChainBoth,
                     DimAlignment = DimAlignments.Height | DimAlignments.IgnorePadding,
                     ChainContainer = { name, divider, arrow }
                 };

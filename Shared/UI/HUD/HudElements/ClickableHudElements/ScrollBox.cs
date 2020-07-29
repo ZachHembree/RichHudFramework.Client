@@ -1,4 +1,5 @@
 ﻿using VRageMath;
+using VRage;
 using System;
 using System.Collections.Generic;
 
@@ -8,19 +9,63 @@ namespace RichHudFramework.UI
     /// Scrollable list of hud elements. Can be oriented vertically or horizontally. Min/Max size determines
     /// the maximum size of scrollbox elements as well as the scrollbox itself.
     /// </summary>
-    public sealed class ScrollBox<T> : HudChain<T> where T : HudElementBase
+    public sealed class ScrollBox<TElement> : HudChain<TElement, bool> where TElement : HudElementBase
     {
         /// <summary>
-        /// Parallel list indicating which chain members are/aren't enabled.
+        /// Width of the scrollbox
         /// </summary>
-        public IReadOnlyList<bool> EnabledElements => enabledElements;
+        public override float Width
+        {
+            set
+            {
+                if (value > Padding.X)
+                    value -= Padding.X;
+
+                _absoluteWidth = value / _scale;
+
+                if (offAxis == 0)
+                {
+                    if ((SizingMode & (HudChainSizingModes.ClampMembersOffAxis | HudChainSizingModes.FitMembersOffAxis)) > 0)
+                        _absMaxSize.X = (value - scrollBarPadding) / _scale;
+                }
+                else
+                    _absMinLengthInternal = (value - scrollBarPadding) / _scale;
+            }
+        }
 
         /// <summary>
-        /// Minimum number of visible elements allowed. Supercedes maximum size. If the number of elements that
-        /// can fit within the maximum size is less than this value, then this element will expand beyond its maximum
+        /// Height of the scrollbox
+        /// </summary>
+        public override float Height
+        {
+            set
+            {
+                if (value > Padding.Y)
+                    value -= Padding.Y;
+
+                _absoluteHeight = value / _scale;
+
+                if (offAxis == 1)
+                {
+                    if ((SizingMode & (HudChainSizingModes.ClampMembersOffAxis | HudChainSizingModes.FitMembersOffAxis)) > 0)
+                        _absMaxSize.Y = _absMinLength;
+                }
+                else
+                    _absMinLengthInternal = (value - scrollBarPadding) / _scale;
+            }
+        }
+
+        /// <summary>
+        /// Minimum number of visible elements allowed. Supercedes maximum length. If the number of elements that
+        /// can fit within the maximum length is less than this value, then this element will expand beyond its maximum
         /// size.
         /// </summary>
-        public int MinimumVisCount { get; set; }
+        public int MinVisibleCount { get; set; }
+
+        /// <summary>
+        /// Minimum total length (on the align axis) of visible members allowed in the scrollbox.
+        /// </summary>
+        public float MinLength { get { return _absMinLength * _scale; } set { _absMinLength = value / _scale; } }
 
         /// <summary>
         /// Index of the first element in the visible range in the chain.
@@ -30,7 +75,7 @@ namespace RichHudFramework.UI
             get { return _start; }
             set 
             {
-                _start = MathHelper.Clamp(value, 0, enabledElements.Count - 1);
+                _start = MathHelper.Clamp(value, 0, chainElements.Count - 1);
                 updateRangeReverse = false;
             }
         }
@@ -43,7 +88,7 @@ namespace RichHudFramework.UI
             get { return _end; } 
             set 
             {
-                _end = MathHelper.Clamp(value, 0, enabledElements.Count - 1);
+                _end = MathHelper.Clamp(value, 0, chainElements.Count - 1);
                 updateRangeReverse = true;
             } 
         }
@@ -74,19 +119,18 @@ namespace RichHudFramework.UI
             set 
             { 
                 scrollInput.Visible = value;
-                scrollBar.slide.MouseInput.CaptureCursor = value;
+                //scrollBar.slide.MouseInput.CaptureCursor = value;
             } 
         }
-
-        private bool updateRangeReverse;
-        private int _start, _end;
 
         public readonly ScrollBar scrollBar;
         public readonly TexturedBox background;
         public readonly TexturedBox divider;
 
         private readonly MouseInputFilter scrollInput;
-        private readonly List<bool> enabledElements;
+        private float scrollBarPadding, _absMinLength, _absMinLengthInternal;
+        private bool updateRangeReverse;
+        private int _start, _end;
 
         public ScrollBox(bool alignVertical, IHudParent parent = null) : base(alignVertical, parent)
         {
@@ -105,9 +149,7 @@ namespace RichHudFramework.UI
 
             scrollBar = new ScrollBar(this);
             divider = new TexturedBox(scrollBar) { Color = new Color(53, 66, 75) };
-
-            MinimumVisCount = 1;
-            enabledElements = new List<bool>();
+            MinVisibleCount = 1;
 
             if (alignVertical)
             {
@@ -139,104 +181,17 @@ namespace RichHudFramework.UI
             }
         }
 
-        /// <summary>
-        /// Adds a <see cref="T"/> to the scrollbox.
-        /// </summary>
-        public override void Add(T element)
+        public override void Add(TElement chainElement)
         {
-            base.Add(element);
-            enabledElements.Add(true);
+            Add(chainElement, true);
         }
 
         /// <summary>
-        /// Adds a <see cref="T"/> to the scrollbox.
+        /// Returns true if the element at the given index is enabled.
         /// </summary>
-        public void Add(T element, bool enabled)
+        public bool IsElementEnabled(int index)
         {
-            base.Add(element);
-            enabledElements.Add(enabled);
-        }
-
-        /// <summary>
-        /// Add the given range to the end of the scrollbox.
-        /// </summary>
-        public override void AddRange(IList<T> newChainElements)
-        {
-            base.AddRange(newChainElements);
-            enabledElements.EnsureCapacity(enabledElements.Count + newChainElements.Count);
-
-            for (int n = 0; n < enabledElements.Count; n++)
-                enabledElements.Add(true);
-        }
-
-        /// <summary>
-        /// Insert the given range into the chain.
-        /// </summary>
-        public override void InsertRange(int index, IList<T> newChainElements)
-        {
-            base.InsertRange(index, newChainElements);
-            enabledElements.EnsureCapacity(enabledElements.Count + newChainElements.Count);
-
-            for (int n = index; n < index + newChainElements.Count; n++)
-                enabledElements.Insert(n, true);
-        }
-
-        /// <summary>
-        /// Remove the scrollbox element at the given index.
-        /// </summary>
-        public override void RemoveAt(int index)
-        {
-            base.RemoveAt(index);
-            enabledElements.RemoveAt(index);
-        }
-
-        /// <summary>
-        /// Removes the specfied range from the chain. Normal child elements not affected.
-        /// </summary>
-        public override void RemoveRange(int index, int count)
-        {
-            base.RemoveRange(index, count);
-            enabledElements.RemoveRange(index, count);
-        }
-
-        /// <summary>
-        /// Remove all elements in the HudChain. Does not affect normal child elements.
-        /// </summary>
-        public override void ClearChain()
-        {
-            base.ClearChain();
-            enabledElements.Clear();
-        }
-
-        protected override void RemoveChildInternal(object childID)
-        {
-            if (!blockChildRegistration)
-            {
-                int index = children.FindIndex(x => x.ID == childID);
-
-                if (index != -1)
-                {
-                    if (children[index].Parent?.ID == ID)
-                        children[index].Unregister();
-                    else if (children[index].Parent == null)
-                        children.RemoveAt(index);
-                }
-                else
-                {
-                    index = chainElements.FindIndex(x => x.ID == childID);
-
-                    if (index != -1)
-                    {
-                        if (chainElements[index].Parent?.ID == ID)
-                            chainElements[index].Unregister();
-                        else if (chainElements[index].Parent == null)
-                        {
-                            chainElements.RemoveAt(index);
-                            enabledElements.RemoveAt(index);
-                        }
-                    }
-                }
-            }
+            return chainElements[index].Item2;
         }
 
         /// <summary>
@@ -244,7 +199,7 @@ namespace RichHudFramework.UI
         /// </summary>
         public void SetElementEnabled(int index, bool value)
         {
-            enabledElements[index] = value;
+            chainElements[index] = new MyTuple<TElement, bool>(chainElements[index].Item1, value);
         }
 
         protected override void HandleInput()
@@ -258,9 +213,9 @@ namespace RichHudFramework.UI
             if (scrollInput.IsControlPressed)
             {
                 if (SharedBinds.MousewheelUp.IsPressed)
-                    _start = MathHelper.Clamp(_start - 1, 0, enabledElements.Count - 1);
+                    _start = MathHelper.Clamp(_start - 1, 0, chainElements.Count - 1);
                 else if (SharedBinds.MousewheelDown.IsPressed)
-                    _start = MathHelper.Clamp(_start + 1, 0, enabledElements.Count - 1);
+                    _start = MathHelper.Clamp(_start + 1, 0, chainElements.Count - 1);
             }
 
             scrollBar.Current = _start;
@@ -270,31 +225,29 @@ namespace RichHudFramework.UI
         {
             // Calculate effective min and max element sizes
             Vector2 effectivePadding = cachedPadding;
-            float scrollBarPadding = scrollBar.Size[offAxis] + divider.Size[offAxis];
+            scrollBarPadding = scrollBar.Size[offAxis] + divider.Size[offAxis];
             effectivePadding[offAxis] += scrollBarPadding;
 
-            Vector2 largest = GetLargestElementSize(),
-                elementMin = MinimumSize - effectivePadding,
-                elementMax = MaximumSize - effectivePadding;
+            ClampElementSizeRange();
+            UpdateMemberSizes();
 
-            ClampElementSizeRange(largest, ref elementMin, ref elementMax);
-
-            Vector2 newSize = GetNewSize(elementMax, largest);
-            scrollBar.Current = (int)Math.Round(scrollBar.Current);
+            // Get the list length
+            Vector2 largest = GetLargestElementSize();
+            float rangeLength = Math.Max(Math.Max(MinLength, _absMinLengthInternal * _scale), largest[alignAxis]);
 
             // Update visible range
-            UpdateElementRange(elementMax[alignAxis]);
+            UpdateElementRange(rangeLength);
             UpdateElementVisibility();
 
-            // Update scrollbox and slider size
+            Vector2 visibleTotalSize = GetVisibleTotalSize(),
+                newSize = GetNewSize(cachedSize - effectivePadding, visibleTotalSize);
 
-            // Visible total size will be greater than total size if its not large enough
-            // to meet minimum vis count
-            newSize = Vector2.Max(newSize, GetVisibleTotalSize());
-
-            // scrollbar range
+            // Update scrollbar range
             scrollBar.Min = GetFirstEnabled();
             scrollBar.Max = GetScrollMax(newSize[alignAxis]);
+
+            // Snap slider to integer offsets
+            scrollBar.Current = (int)Math.Round(scrollBar.Current);
 
             Vector2 enabledTotalSize = GetEnabledTotalSize();
             UpdateSliderSize(newSize[alignAxis] / enabledTotalSize[alignAxis]);
@@ -313,7 +266,7 @@ namespace RichHudFramework.UI
             else
                 startOffset = new Vector2(-newSize.X, scrollBarPadding) * .5f;
 
-            UpdateMemberOffsets(startOffset, effectivePadding, elementMin, elementMax);
+            UpdateMemberOffsets(startOffset, effectivePadding);
         }
 
         /// <summary>
@@ -321,9 +274,9 @@ namespace RichHudFramework.UI
         /// </summary>
         private int GetFirstEnabled()
         {
-            for (int n = 0; n < enabledElements.Count; n++)
+            for (int n = 0; n < chainElements.Count; n++)
             {
-                if (enabledElements[n])
+                if (chainElements[n].Item2)
                     return n;
             }
 
@@ -340,12 +293,14 @@ namespace RichHudFramework.UI
             // Find new ending index
             for (int n = chainElements.Count - 1; n >= 0; n--)
             {
-                if (enabledElements[n])
+                if (chainElements[n].Item2)
                 {
-                    if (length >= chainElements[n].Size[alignAxis] || VisCount < MinimumVisCount)
+                    TElement element = chainElements[n].Item1;
+
+                    if (length >= element.Size[alignAxis] || VisCount < MinVisibleCount)
                     {
                         start = n;
-                        length -= chainElements[n].Size[alignAxis];
+                        length -= element.Size[alignAxis];
                         visCount++;
                     }
                     else
@@ -365,14 +320,14 @@ namespace RichHudFramework.UI
         /// </summary>
         private void UpdateElementRange(float length)
         {
-            VisCount = 0;
             EnabledCount = GetVisibleIndex(chainElements.Count);
 
             if (updateRangeReverse)
                 UpdateElementRangeReverse(length);
             else
                 UpdateElementRangeForward(length);
-            
+
+            updateRangeReverse = false;
             VisStart = GetVisibleIndex(_start);
         }
 
@@ -382,15 +337,18 @@ namespace RichHudFramework.UI
         private void UpdateElementRangeForward(float length)
         {
             Vector2I range = new Vector2I(_start);
+            VisCount = 0;
 
             for (int n = _start; n < chainElements.Count; n++)
             {
-                if (enabledElements[n])
+                if (chainElements[n].Item2)
                 {
-                    if (length >= chainElements[n].Size[alignAxis] || VisCount < MinimumVisCount)
+                    TElement element = chainElements[n].Item1;
+
+                    if (length >= element.Size[alignAxis] || VisCount < MinVisibleCount)
                     {
                         range.Y = n;
-                        length -= chainElements[n].Size[alignAxis];
+                        length -= element.Size[alignAxis];
                         VisCount++;
                     }
                     else
@@ -403,9 +361,9 @@ namespace RichHudFramework.UI
             if (EnabledCount > VisCount)
             {
                 // Move starting index back until minimum visible requirment is met
-                for (int n = _start - 1; (n >= 0 && VisCount < MinimumVisCount); n--)
+                for (int n = _start - 1; (n >= 0 && VisCount < MinVisibleCount); n--)
                 {
-                    if (enabledElements[n])
+                    if (chainElements[n].Item2)
                     {
                         range.X = n;
                         VisCount++;
@@ -423,15 +381,18 @@ namespace RichHudFramework.UI
         private void UpdateElementRangeReverse(float length)
         {
             Vector2I range = new Vector2I(_end);
+            VisCount = 0;
 
             for (int n = _end; n >= 0; n--)
             {
-                if (enabledElements[n])
+                if (chainElements[n].Item2)
                 {
-                    if (length >= chainElements[n].Size[alignAxis] || VisCount < MinimumVisCount)
+                    TElement element = chainElements[n].Item1;
+
+                    if (length >= element.Size[alignAxis] || VisCount < MinVisibleCount)
                     {
                         range.X = n;
-                        length -= chainElements[n].Size[alignAxis];
+                        length -= element.Size[alignAxis];
                         VisCount++;
                     }
                     else
@@ -443,10 +404,10 @@ namespace RichHudFramework.UI
 
             if (EnabledCount > VisCount)
             {
-                // Move starting index back until minimum visible requirment is met
-                for (int n = _end + 1; (n < chainElements.Count && VisCount < MinimumVisCount); n++)
+                // Move ending index up until minimum visible requirment is met
+                for (int n = _end + 1; (n < chainElements.Count && VisCount < MinVisibleCount); n++)
                 {
-                    if (enabledElements[n])
+                    if (chainElements[n].Item2)
                     {
                         range.Y = n;
                         VisCount++;
@@ -459,17 +420,17 @@ namespace RichHudFramework.UI
         }
 
         /// <summary>
-        /// Sets the visibility of all elements in the scroll box to false.
+        /// Sets element visibility such that only elements in the visible range are drawn.
         /// </summary>
         private void UpdateElementVisibility()
         {
             if (chainElements.Count > 0)
             {
                 for (int n = 0; n < chainElements.Count; n++)
-                    chainElements[n].Visible = false;
+                    chainElements[n].Item1.Visible = false;
 
                 for (int n = _start; n <= _end; n++)
-                    chainElements[n].Visible = enabledElements[n];
+                    chainElements[n].Item1.Visible = chainElements[n].Item2;
             }
         }
 
@@ -482,7 +443,7 @@ namespace RichHudFramework.UI
 
             for (int n = 0; n < index; n++)
             {
-                if (enabledElements[n])
+                if (chainElements[n].Item2)
                     count++;
             }
 
@@ -498,9 +459,10 @@ namespace RichHudFramework.UI
 
             for (int n = 0; n < chainElements.Count; n++)
             {
-                if (enabledElements[n])
+                if (chainElements[n].Item2)
                 {
-                    Vector2 elementSize = chainElements[n].Size;
+                    TElement element = chainElements[n].Item1;
+                    Vector2 elementSize = element.Size;
 
                     // Total up the size of elements on the axis of alignment
                     newSize[alignAxis] += elementSize[alignAxis];
@@ -526,8 +488,8 @@ namespace RichHudFramework.UI
 
             for (int n = 0; n < chainElements.Count; n++)
             {
-                if (enabledElements[n])
-                    size = Vector2.Max(size, chainElements[n].Size);
+                if (chainElements[n].Item2)
+                    size = Vector2.Max(size, chainElements[n].Item1.Size);
             }
 
             return size;
