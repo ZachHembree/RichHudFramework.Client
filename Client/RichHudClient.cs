@@ -7,6 +7,7 @@ using VRage;
 using VRage.Game.Components;
 using VRage.Game.ModAPI;
 using VRageMath;
+using ApiMemberAccessor = System.Func<object, int, object>;
 
 namespace RichHudFramework.Client
 {
@@ -117,6 +118,7 @@ namespace RichHudFramework.Client
                     var data = (ServerData)message;
                     UnregisterAction = data.Item1;
                     GetApiDataFunc = data.Item2;
+
                     registered = true;
 
                     ExceptionHandler.Run(InitAction);
