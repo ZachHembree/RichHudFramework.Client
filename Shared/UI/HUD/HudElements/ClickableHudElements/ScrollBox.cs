@@ -9,7 +9,9 @@ namespace RichHudFramework.UI
     /// Scrollable list of hud elements. Can be oriented vertically or horizontally. Min/Max size determines
     /// the maximum size of scrollbox elements as well as the scrollbox itself.
     /// </summary>
-    public sealed class ScrollBox<TElement> : HudChain<TElement, bool> where TElement : HudElementBase
+    public class ScrollBox<TElementContainer, TElement> : HudChain<TElementContainer, TElement> 
+        where TElementContainer : IScrollBoxEntry<TElement>, new()
+        where TElement : HudElementBase
     {
         /// <summary>
         /// Width of the scrollbox
@@ -21,15 +23,15 @@ namespace RichHudFramework.UI
                 if (value > Padding.X)
                     value -= Padding.X;
 
-                _absoluteWidth = value / _scale;
+                _absoluteWidth = value / Scale;
 
                 if (offAxis == 0)
                 {
                     if ((SizingMode & (HudChainSizingModes.ClampMembersOffAxis | HudChainSizingModes.FitMembersOffAxis)) > 0)
-                        _absMaxSize.X = (value - scrollBarPadding) / _scale;
+                        _absMaxSize.X = (value - scrollBarPadding) / Scale;
                 }
                 else
-                    _absMinLengthInternal = (value - scrollBarPadding) / _scale;
+                    _absMinLengthInternal = (value - scrollBarPadding) / Scale;
             }
         }
 
@@ -43,7 +45,7 @@ namespace RichHudFramework.UI
                 if (value > Padding.Y)
                     value -= Padding.Y;
 
-                _absoluteHeight = value / _scale;
+                _absoluteHeight = value / Scale;
 
                 if (offAxis == 1)
                 {
@@ -51,7 +53,7 @@ namespace RichHudFramework.UI
                         _absMaxSize.Y = _absMinLength;
                 }
                 else
-                    _absMinLengthInternal = (value - scrollBarPadding) / _scale;
+                    _absMinLengthInternal = (value - scrollBarPadding) / Scale;
             }
         }
 
@@ -65,7 +67,7 @@ namespace RichHudFramework.UI
         /// <summary>
         /// Minimum total length (on the align axis) of visible members allowed in the scrollbox.
         /// </summary>
-        public float MinLength { get { return _absMinLength * _scale; } set { _absMinLength = value / _scale; } }
+        public float MinLength { get { return _absMinLength * Scale; } set { _absMinLength = value / Scale; } }
 
         /// <summary>
         /// Index of the first element in the visible range in the chain.
@@ -113,6 +115,26 @@ namespace RichHudFramework.UI
         /// </summary>
         public Color Color { get { return background.Color; } set { background.Color = value; } }
 
+        /// <summary>
+        /// Color of the slider bar
+        /// </summary>
+        public Color BarColor { get { return scrollBar.slide.BarColor; } set { scrollBar.slide.BarColor = value; } }
+
+        /// <summary>
+        /// Bar color when moused over
+        /// </summary>
+        public Color BarHighlight { get { return scrollBar.slide.BarHighlight; } set { scrollBar.slide.BarHighlight = value; } }
+
+        /// <summary>
+        /// Color of the slider box when not moused over
+        /// </summary>
+        public Color SliderColor { get { return scrollBar.slide.SliderColor; } set { scrollBar.slide.SliderColor = value; } }
+
+        /// <summary>
+        /// Color of the slider button when moused over
+        /// </summary>
+        public Color SliderHighlight { get { return scrollBar.slide.SliderHighlight; } set { scrollBar.slide.SliderHighlight = value; } }
+
         public bool EnableScrolling 
         { 
             get { return scrollInput.Visible; } 
@@ -132,11 +154,11 @@ namespace RichHudFramework.UI
         private bool updateRangeReverse;
         private int _start, _end;
 
-        public ScrollBox(bool alignVertical, IHudParent parent = null) : base(alignVertical, parent)
+        public ScrollBox(bool alignVertical, HudParentBase parent = null) : base(alignVertical, parent)
         {
             background = new TexturedBox(this)
             {
-                ZOffset = HudLayers.Background,
+                //ZOffset = -1,
                 Color = new Color(41, 54, 62, 196),
                 DimAlignment = DimAlignments.Both,
             };
@@ -181,31 +203,37 @@ namespace RichHudFramework.UI
             }
         }
 
-        public override void Add(TElement chainElement)
-        {
+        /// <summary>
+        /// Adds an element of type <see cref="TElement"/> to the scrollbox. Enabled
+        /// by default.
+        /// </summary>
+        public override void Add(TElement chainElement) =>
             Add(chainElement, true);
-        }
 
         /// <summary>
-        /// Returns true if the element at the given index is enabled.
+        /// Adds an element of type <see cref="TElementContainer"/> to the scrollbox.
         /// </summary>
-        public bool IsElementEnabled(int index)
+        public void Add(TElement chainElement, bool enabled)
         {
-            return chainElements[index].Item2;
-        }
+            blockChildRegistration = true;
 
-        /// <summary>
-        /// Used to enable/disable a scrollbox element.
-        /// </summary>
-        public void SetElementEnabled(int index, bool value)
-        {
-            chainElements[index] = new MyTuple<TElement, bool>(chainElements[index].Item1, value);
+            if (chainElement.Parent == this)
+                throw new Exception("HUD Element already registered.");
+
+            chainElement.Register(this);
+
+            if (chainElement.Parent != this)
+                throw new Exception("HUD Element registration failed.");
+
+            chainElements.Add(new TElementContainer { Element = chainElement, Enabled = enabled });
+
+            blockChildRegistration = false;
         }
 
         protected override void HandleInput()
         {
             // Don't capture cursor if there's no where to scroll to
-            scrollInput.CaptureCursor = scrollBar.Min != scrollBar.Max;
+            scrollInput.UseCursor = scrollBar.Min != scrollBar.Max;
 
             if (scrollBar.MouseInput.IsLeftClicked)
                 _start = (int)Math.Round(scrollBar.Current);
@@ -233,7 +261,7 @@ namespace RichHudFramework.UI
 
             // Get the list length
             Vector2 largest = GetLargestElementSize();
-            float rangeLength = Math.Max(Math.Max(MinLength, _absMinLengthInternal * _scale), largest[alignAxis]);
+            float rangeLength = Math.Max(Math.Max(MinLength, _absMinLengthInternal * Scale), largest[alignAxis]);
 
             // Update visible range
             UpdateElementRange(rangeLength);
@@ -254,8 +282,8 @@ namespace RichHudFramework.UI
 
             cachedSize = newSize;
             cachedSize[offAxis] += scrollBarPadding;
-            _absoluteWidth = cachedSize.X / _scale;
-            _absoluteHeight = cachedSize.Y / _scale;
+            _absoluteWidth = cachedSize.X / Scale;
+            _absoluteHeight = cachedSize.Y / Scale;
             cachedSize += cachedPadding;
 
             // Calculate member start offset
@@ -276,7 +304,7 @@ namespace RichHudFramework.UI
         {
             for (int n = 0; n < chainElements.Count; n++)
             {
-                if (chainElements[n].Item2)
+                if (chainElements[n].Enabled)
                     return n;
             }
 
@@ -293,9 +321,9 @@ namespace RichHudFramework.UI
             // Find new ending index
             for (int n = chainElements.Count - 1; n >= 0; n--)
             {
-                if (chainElements[n].Item2)
+                if (chainElements[n].Enabled)
                 {
-                    TElement element = chainElements[n].Item1;
+                    TElement element = chainElements[n].Element;
 
                     if (length >= element.Size[alignAxis] || VisCount < MinVisibleCount)
                     {
@@ -341,9 +369,9 @@ namespace RichHudFramework.UI
 
             for (int n = _start; n < chainElements.Count; n++)
             {
-                if (chainElements[n].Item2)
+                if (chainElements[n].Enabled)
                 {
-                    TElement element = chainElements[n].Item1;
+                    TElement element = chainElements[n].Element;
 
                     if (length >= element.Size[alignAxis] || VisCount < MinVisibleCount)
                     {
@@ -363,7 +391,7 @@ namespace RichHudFramework.UI
                 // Move starting index back until minimum visible requirment is met
                 for (int n = _start - 1; (n >= 0 && VisCount < MinVisibleCount); n--)
                 {
-                    if (chainElements[n].Item2)
+                    if (chainElements[n].Enabled)
                     {
                         range.X = n;
                         VisCount++;
@@ -385,9 +413,9 @@ namespace RichHudFramework.UI
 
             for (int n = _end; n >= 0; n--)
             {
-                if (chainElements[n].Item2)
+                if (chainElements[n].Enabled)
                 {
-                    TElement element = chainElements[n].Item1;
+                    TElement element = chainElements[n].Element;
 
                     if (length >= element.Size[alignAxis] || VisCount < MinVisibleCount)
                     {
@@ -407,7 +435,7 @@ namespace RichHudFramework.UI
                 // Move ending index up until minimum visible requirment is met
                 for (int n = _end + 1; (n < chainElements.Count && VisCount < MinVisibleCount); n++)
                 {
-                    if (chainElements[n].Item2)
+                    if (chainElements[n].Enabled)
                     {
                         range.Y = n;
                         VisCount++;
@@ -427,10 +455,10 @@ namespace RichHudFramework.UI
             if (chainElements.Count > 0)
             {
                 for (int n = 0; n < chainElements.Count; n++)
-                    chainElements[n].Item1.Visible = false;
+                    chainElements[n].Element.Visible = false;
 
                 for (int n = _start; n <= _end; n++)
-                    chainElements[n].Item1.Visible = chainElements[n].Item2;
+                    chainElements[n].Element.Visible = chainElements[n].Enabled;
             }
         }
 
@@ -443,7 +471,7 @@ namespace RichHudFramework.UI
 
             for (int n = 0; n < index; n++)
             {
-                if (chainElements[n].Item2)
+                if (chainElements[n].Enabled)
                     count++;
             }
 
@@ -459,9 +487,9 @@ namespace RichHudFramework.UI
 
             for (int n = 0; n < chainElements.Count; n++)
             {
-                if (chainElements[n].Item2)
+                if (chainElements[n].Enabled)
                 {
-                    TElement element = chainElements[n].Item1;
+                    TElement element = chainElements[n].Element;
                     Vector2 elementSize = element.Size;
 
                     // Total up the size of elements on the axis of alignment
@@ -488,8 +516,8 @@ namespace RichHudFramework.UI
 
             for (int n = 0; n < chainElements.Count; n++)
             {
-                if (chainElements[n].Item2)
-                    size = Vector2.Max(size, chainElements[n].Item1.Size);
+                if (chainElements[n].Enabled)
+                    size = Vector2.Max(size, chainElements[n].Element.Size);
             }
 
             return size;
@@ -504,5 +532,16 @@ namespace RichHudFramework.UI
             sliderSize[alignAxis] = visRatio * cachedSize[alignAxis];
             scrollBar.slide.SliderSize = sliderSize;
         }
+    }
+
+    /// <summary>
+    /// Scrollable list of hud elements. Can be oriented vertically or horizontally. Min/Max size determines
+    /// the maximum size of scrollbox elements as well as the scrollbox itself.
+    /// </summary>
+    public class ScrollBox<TElementContainer> : ScrollBox<TElementContainer, HudElementBase>
+        where TElementContainer : IScrollBoxEntry<HudElementBase>, new()
+    {
+        public ScrollBox(bool alignVertical, HudParentBase parent = null) : base(alignVertical, parent)
+        { }
     }
 }

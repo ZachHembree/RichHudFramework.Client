@@ -17,6 +17,11 @@ namespace RichHudFramework.UI
         Name = 1,
 
         /// <summary>
+        /// bool
+        /// </summary>
+        Enabled = 2,
+
+        /// <summary>
         /// Object
         /// </summary>
         AssocObject = 3,
@@ -30,20 +35,22 @@ namespace RichHudFramework.UI
     /// <summary>
     /// Label button assocated with an object of type T. Used in conjunction with list boxes.
     /// </summary>
-    public class ListBoxEntry<T> : LabelButton
+    public class ListBoxEntry<T> : ScrollBoxEntryTuple<LabelButton, T>
     {
         /// <summary>
         /// Object associated with the entry
         /// </summary>
         public T AssocMember { get; set; }
 
-        public ListBoxEntry(T assocMember = default(T), IHudParent parent = null) : base(parent)
+        private readonly LabelButton button;
+
+        public ListBoxEntry()
         {
-            this.AssocMember = assocMember;
-            AutoResize = false;
+            button = new LabelButton() { AutoResize = false };
+            Element = button;
         }
 
-        public new object GetOrSetMember(object data, int memberEnum)
+        public object GetOrSetMember(object data, int memberEnum)
         {
             var member = (ListBoxEntryAccessors)memberEnum;
 
@@ -52,9 +59,18 @@ namespace RichHudFramework.UI
                 case ListBoxEntryAccessors.Name:
                     {
                         if (data == null)
-                            TextBoard.SetText(new RichText(data as IList<RichStringMembers>));
+                            Element.Text = new RichText(data as IList<RichStringMembers>);
                         else
-                            return TextBoard.GetText().ApiData;
+                            return Element.Text.ApiData;
+
+                        break;
+                    }
+                case ListBoxEntryAccessors.Enabled:
+                    {
+                        if (data == null)
+                            Enabled = (bool)data;
+                        else
+                            return Enabled;
 
                         break;
                     }

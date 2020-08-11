@@ -63,7 +63,7 @@ namespace RichHudFramework
             void ClearSubscribers();
         }
 
-        public interface IClickableElement : IHudElement
+        public interface IClickableElement : IReadOnlyHudElement
         {
             IMouseInput MouseInput { get; }
         }

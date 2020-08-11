@@ -53,7 +53,7 @@ namespace RichHudFramework.UI
         /// </summary>
         public readonly Label textElement;
 
-        public LabelBox(IHudParent parent = null) : base(parent)
+        public LabelBox(HudParentBase parent = null) : base(parent)
         {
             textElement = new Label(this);
         }

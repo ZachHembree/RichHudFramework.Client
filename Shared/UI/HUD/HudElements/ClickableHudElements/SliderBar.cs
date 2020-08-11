@@ -218,7 +218,7 @@ namespace RichHudFramework.UI
         private float _min, _max, _current, _percent;
         private bool canMoveSlider;
 
-        public SliderBar(IHudParent parent = null) : base(parent)
+        public SliderBar(HudParentBase parent = null) : base(parent)
         {
             mouseInput = new MouseInputElement(this) { DimAlignment = DimAlignments.Both };
             mouseInput.OnLeftClick += BarClicked;
@@ -277,13 +277,13 @@ namespace RichHudFramework.UI
                 {
                     minOffset = -(bar.Height - slider.Height) / 2f;
                     maxOffset = -minOffset;
-                    pos = MathHelper.Clamp(HudMain.Cursor.Origin.Y - Origin.Y, minOffset, maxOffset);
+                    pos = MathHelper.Clamp(HudMain.Cursor.ScreenPos.Y - Origin.Y, minOffset, maxOffset);
                 }
                 else
                 {
                     minOffset = -(bar.Width - slider.Width) / 2f;
                     maxOffset = -minOffset;
-                    pos = MathHelper.Clamp(HudMain.Cursor.Origin.X - Origin.X, minOffset, maxOffset);
+                    pos = MathHelper.Clamp(HudMain.Cursor.ScreenPos.X - Origin.X, minOffset, maxOffset);
                 }
 
                 if (Reverse)

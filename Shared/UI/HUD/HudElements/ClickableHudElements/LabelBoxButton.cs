@@ -31,7 +31,7 @@ namespace RichHudFramework.UI
         protected MouseInputElement _mouseInput;
         private Color oldColor;
 
-        public LabelBoxButton(IHudParent parent = null) : base(parent)
+        public LabelBoxButton(HudParentBase parent = null) : base(parent)
         {
             _mouseInput = new MouseInputElement(this) { DimAlignment = DimAlignments.Both | DimAlignments.IgnorePadding };
             _mouseInput.OnCursorEnter += CursorEntered;

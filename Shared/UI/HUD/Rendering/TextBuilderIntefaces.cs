@@ -244,7 +244,7 @@ namespace RichHudFramework
             public interface ITextBoard : ITextBuilder
             {
                 /// <summary>
-                /// Invoked whenever a change is made to the text.
+                /// Invoked whenever a change is made to the text. Invokes once every 500ms, at most.
                 /// </summary>
                 event Action OnTextChanged;
 

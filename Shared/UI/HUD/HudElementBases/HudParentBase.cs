@@ -4,25 +4,30 @@ using System.Collections.Generic;
 using VRage;
 using VRageMath;
 using ApiMemberAccessor = System.Func<object, int, object>;
+using HudSpaceDelegate = System.Func<VRage.MyTuple<bool, float, VRageMath.MatrixD>>;
+using HudLayoutDelegate = System.Func<bool, bool>;
+using HudDrawDelegate = System.Func<object, object>;
 
 namespace RichHudFramework
 {
-    using HudElementMembers = MyTuple<
-        Func<bool>, // Visible
-        object, // ID
-        Action<bool>, // BeforeLayout
-        Action<int, MatrixD>, // BeforeDraw
-        Action<int>, // HandleInput
-        ApiMemberAccessor // GetOrSetMembers
-    >;
+    using HudInputDelegate = Func<Vector3, HudSpaceDelegate, MyTuple<Vector3, HudSpaceDelegate>>;
 
     namespace UI
     {
+        using HudUpdateAccessors = MyTuple<
+            ushort, // ZOffset
+            byte, // Depth
+            HudInputDelegate, // DepthTest
+            HudInputDelegate, // HandleInput
+            HudLayoutDelegate, // BeforeLayout
+            HudDrawDelegate // BeforeDraw
+        >;
+
         /// <summary>
         /// Base class for HUD elements to which other elements are parented. Types deriving from this class cannot be
-        /// parented to other elements; only types of <see cref="IHudNode"/> can be parented.
+        /// parented to other elements; only types of <see cref="HudNodeBase"/> can be parented.
         /// </summary>
-        public abstract class HudParentBase : IHudParent, IReadOnlyHudParent
+        public abstract class HudParentBase : IReadOnlyHudParent
         {
             /// <summary>
             /// Determines whether or not an element will be drawn or process input. Visible by default.
@@ -30,11 +35,19 @@ namespace RichHudFramework
             public virtual bool Visible { get; set; }
 
             /// <summary>
-            /// Unique identifer.
+            /// Scales the size and offset of an element. Any offset or size set at a given
+            /// be increased or decreased with scale. Defaults to 1f. Includes parent scale.
             /// </summary>
-            public object ID => this;
+            public virtual float Scale { get; set; }
 
-            protected HudLayers _zOffset;
+            /// <summary>
+            /// Determines whether the UI element will be drawn in the Back, Mid or Foreground
+            /// </summary>
+            public virtual sbyte ZOffset 
+            { 
+                get { return _zOffset; } 
+                set { _zOffset = value; } 
+            }
 
             /// <summary>
             /// Used internally to indicate when normal parent registration should be bypassed.
@@ -42,13 +55,41 @@ namespace RichHudFramework
             /// </summary>
             protected bool blockChildRegistration;
 
-            protected readonly List<IHudNode> children;
+            protected readonly List<HudNodeBase> children;
+
+            protected readonly HudInputDelegate DepthTestAction;
+            protected readonly HudInputDelegate InputAction;
+            protected readonly HudLayoutDelegate LayoutAction;
+            protected readonly HudDrawDelegate DrawAction;
+
+            protected sbyte _zOffset;
+
+            /// <summary>
+            /// Additional zOffset range used internally; primarily for determining window draw order.
+            /// Don't use this unless you have a good reason for it.
+            /// </summary>
+            protected byte zOffsetInner;
+            protected ushort fullZOffset;
 
             public HudParentBase()
             {
-                _zOffset = HudLayers.Midground;
                 Visible = true;
-                children = new List<IHudNode>();
+                Scale = 1f;
+                children = new List<HudNodeBase>();
+
+                this.DepthTestAction = InputDepth;
+                LayoutAction = BeginLayout;
+                DrawAction = BeginDraw;
+                InputAction = BeginInput;
+            }
+
+            /// <summary>
+            /// Used to calculate the distance between the screen and HUD space plane and update
+            /// the element accordingly.
+            /// </summary>
+            protected virtual MyTuple<Vector3, HudSpaceDelegate> InputDepth(Vector3 cursorPos, HudSpaceDelegate GetHudSpaceFunc)
+            {
+                return new MyTuple<Vector3, HudSpaceDelegate>(cursorPos, GetHudSpaceFunc);
             }
 
             /// <summary>
@@ -56,16 +97,12 @@ namespace RichHudFramework
             /// unless you know what you're doing. If you need to update input, use 
             /// HandleInput().
             /// </summary>
-            public virtual void BeforeInput(HudLayers layer)
+            protected virtual MyTuple<Vector3, HudSpaceDelegate> BeginInput(Vector3 cursorPos, HudSpaceDelegate GetHudSpaceFunc)
             {
-                for (int n = children.Count - 1; n >= 0; n--)
-                {
-                    if (children[n].Visible)
-                        children[n].BeforeInput(layer);
-                }
-
-                if (_zOffset == layer)
+                if (Visible)
                     HandleInput();
+
+                return new MyTuple<Vector3, HudSpaceDelegate>(cursorPos, GetHudSpaceFunc);
             }
 
             /// <summary>
@@ -78,15 +115,12 @@ namespace RichHudFramework
             /// unless you know what you're doing. If you need to update layout, use 
             /// Layout().
             /// </summary>
-            public virtual void BeforeLayout(bool refresh)
+            protected virtual bool BeginLayout(bool refresh)
             {
-                Layout();
+                if (Visible || refresh)
+                    Layout();
 
-                for (int n = 0; n < children.Count; n++)
-                {
-                    if (children[n].Visible || refresh)
-                        children[n].BeforeLayout(refresh);
-                }
+                return refresh;
             }
 
             /// <summary>
@@ -98,43 +132,39 @@ namespace RichHudFramework
             /// Used to immediately draw billboards. Don't override unless that's what you're
             /// doing.
             /// </summary>
-            public virtual void BeforeDraw(HudLayers layer, ref MatrixD matrix)
+            protected virtual object BeginDraw(object matrix)
             {
-                if (_zOffset == layer)
-                    Draw(ref matrix);
+                if (Visible)
+                    Draw(matrix);
 
-                for (int n = 0; n < children.Count; n++)
-                {
-                    if (children[n].Visible)
-                        children[n].BeforeDraw(layer, ref matrix);
-                }
+                return matrix;
             }
 
             /// <summary>
             /// Draws the UI element.
             /// </summary>
-            protected virtual void Draw(ref MatrixD matrix) { }
+            protected virtual void Draw(object matrix) { }
 
             /// <summary>
-            /// Moves the specified child element to the end of the update list in
-            /// order to ensure that it's drawn on top/updated last.
+            /// Adds update delegates for members in the order dictated by the UI tree
             /// </summary>
-            public void SetFocus(IHudNode child) =>
-                SetFocusInternal(child.ID);
-
-            protected virtual void SetFocusInternal(object childID)
+            public virtual void GetUpdateAccessors(List<HudUpdateAccessors> DrawActions, byte treeDepth)
             {
-                int last = children.Count - 1,
-                    childIndex = children.FindIndex(x => x.ID == childID);
+                fullZOffset = GetFullZOffset(this);
 
-                if (childIndex != -1)
-                    children.Swap(last, childIndex);
+                DrawActions.EnsureCapacity(DrawActions.Count + children.Count + 1);
+                DrawActions.Add(new HudUpdateAccessors(fullZOffset, treeDepth, DepthTestAction, InputAction, LayoutAction, DrawAction));
+
+                treeDepth++;
+
+                for (int n = 0; n < children.Count; n++)
+                    children[n].GetUpdateAccessors(DrawActions, treeDepth);
             }
 
             /// <summary>
             /// Registers a child node to the object.
             /// </summary>
-            public virtual void RegisterChild(IHudNode child)
+            public virtual void RegisterChild(HudNodeBase child)
             {
                 if (!blockChildRegistration)
                 {
@@ -148,7 +178,7 @@ namespace RichHudFramework
             /// <summary>
             /// Registers a collection of child nodes to the object.
             /// </summary>
-            public virtual void RegisterChildren(IList<IHudNode> newChildren)
+            public virtual void RegisterChildren(IReadOnlyList<HudNodeBase> newChildren)
             {
                 blockChildRegistration = true;
 
@@ -167,14 +197,11 @@ namespace RichHudFramework
             /// <summary>
             /// Unregisters the specified node from the parent.
             /// </summary>
-            public void RemoveChild(IHudNode child) =>
-                RemoveChildInternal(child.ID);
-
-            protected virtual void RemoveChildInternal(object childID)
-            {
+            public virtual void RemoveChild(HudNodeBase child) 
+            { 
                 if (!blockChildRegistration)
                 {
-                    int index = children.FindIndex(x => x.ID == childID);
+                    int index = children.FindIndex(x => x == child);
 
                     if (index != -1)
                     {
@@ -187,58 +214,20 @@ namespace RichHudFramework
             }
 
             /// <summary>
-            /// Retrieves the information necessary to access the <see cref="IHudParent"/> through the API.
+            /// Calculates the full z-offset using the public offset and inner offset.
             /// </summary>
-            public HudElementMembers GetApiData()
+            public static ushort GetFullZOffset(HudParentBase element, HudParentBase parent = null)
             {
-                return new HudElementMembers()
+                byte outerOffset = (byte)(element._zOffset - sbyte.MinValue);
+                ushort innerOffset = (ushort)(element.zOffsetInner << 8);
+
+                if (parent != null)
                 {
-                    Item1 = GetApiVisible,
-                    Item2 = this,
-                    Item3 = BeforeApiLayout,
-                    Item4 = BeforeApiDraw,
-                    Item5 = BeforeApiInput,
-                    Item6 = GetOrSetMember
-                };
-            }
-
-            private bool GetApiVisible() =>
-                !ExceptionHandler.ClientsPaused && Visible;
-
-            private void BeforeApiLayout(bool refresh)
-            {
-                if (!ExceptionHandler.ClientsPaused)
-                    ExceptionHandler.Run(BeforeLayout, refresh);
-            }
-
-            private void BeforeApiDraw(int layer, MatrixD matrix)
-            {
-                if (!ExceptionHandler.ClientsPaused)
-                    ExceptionHandler.Run(() => BeforeDraw((HudLayers)layer, ref matrix));
-            }
-
-            private void BeforeApiInput(int layer)
-            {
-                if (!ExceptionHandler.ClientsPaused)
-                    ExceptionHandler.Run(BeforeInput, (HudLayers)layer);
-            }
-
-            protected virtual object GetOrSetMember(object data, int memberEnum)
-            {
-                switch ((HudParentAccessors)memberEnum)
-                {
-                    case HudParentAccessors.Add:
-                        RegisterChild(new HudNodeData((HudElementMembers)data));
-                        break;
-                    case HudParentAccessors.RemoveChild:
-                        RemoveChildInternal(data);
-                        break;
-                    case HudParentAccessors.SetFocus:
-                        SetFocusInternal(data);
-                        break;
+                    outerOffset += (byte)(parent.fullZOffset & 0x00FF);
+                    innerOffset += (ushort)(parent.fullZOffset & 0xFF00);
                 }
 
-                return null;
+                return (ushort)(innerOffset | outerOffset);
             }
         }
     }

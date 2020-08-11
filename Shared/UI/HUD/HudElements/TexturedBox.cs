@@ -26,7 +26,7 @@ namespace RichHudFramework.UI
         protected float lastScale;
         protected readonly MatBoard hudBoard;
 
-        public TexturedBox(IHudParent parent = null) : base(parent)
+        public TexturedBox(HudParentBase parent = null) : base(parent)
         {
             hudBoard = new MatBoard();
             lastScale = Scale;
@@ -37,10 +37,11 @@ namespace RichHudFramework.UI
             hudBoard.Size = cachedSize - cachedPadding;
         }
 
-        protected override void Draw(ref MatrixD matrix)
+        protected override void Draw(object planeToWorld)
         {
             if (hudBoard.Color.A > 0)
             {
+                var matrix = (MatrixD)planeToWorld;
                 hudBoard.Draw(cachedPosition, ref matrix);
             }
         }

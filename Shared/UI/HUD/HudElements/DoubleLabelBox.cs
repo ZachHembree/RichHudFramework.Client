@@ -55,7 +55,7 @@ namespace RichHudFramework.UI
 
         protected readonly Label left, right;
 
-        public DoubleLabelBox(IHudParent parent = null) : base(parent)
+        public DoubleLabelBox(HudParentBase parent = null) : base(parent)
         {
             left = new Label(this) { ParentAlignment = ParentAlignments.Left | ParentAlignments.InnerH | ParentAlignments.UsePadding };
             right = new Label(this) { ParentAlignment = ParentAlignments.Right | ParentAlignments.InnerH | ParentAlignments.UsePadding };

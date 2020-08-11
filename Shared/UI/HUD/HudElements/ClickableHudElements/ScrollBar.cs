@@ -86,7 +86,7 @@ namespace RichHudFramework.UI
 
         public readonly SliderBar slide;
 
-        public ScrollBar(IHudParent parent = null) : base(parent)
+        public ScrollBar(HudParentBase parent = null) : base(parent)
         {
             slide = new SliderBar(this) 
             { 

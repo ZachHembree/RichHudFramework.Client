@@ -3,20 +3,25 @@ using System.Collections.Generic;
 using VRage;
 using VRageMath;
 using ApiMemberAccessor = System.Func<object, int, object>;
+using HudSpaceDelegate = System.Func<VRage.MyTuple<bool, float, VRageMath.MatrixD>>;
+using HudLayoutDelegate = System.Func<bool, bool>;
+using HudDrawDelegate = System.Func<object, object>;
 
 namespace RichHudFramework
 {
-    using HudElementMembers = MyTuple<
-        Func<bool>, // Visible
-        object, // ID
-        Action<bool>, // BeforeLayout
-        Action<int, MatrixD>, // BeforeDraw
-        Action<int>, // HandleInput
-        ApiMemberAccessor // GetOrSetMembers
-    >;
+    using HudInputDelegate = Func<Vector3, HudSpaceDelegate, MyTuple<Vector3, HudSpaceDelegate>>;
 
     namespace UI
     {
+        using HudUpdateAccessors = MyTuple<
+            ushort, // ZOffset
+            byte, // Depth
+            HudInputDelegate, // DepthTest
+            HudInputDelegate, // HandleInput
+            HudLayoutDelegate, // BeforeLayout
+            HudDrawDelegate // BeforeDraw
+        >;
+
         public enum HudParentAccessors : int
         {
             Add = 1,
@@ -25,7 +30,7 @@ namespace RichHudFramework
         }
 
         /// <summary>
-        /// Read-only interface for types capable of serving as parent objects to <see cref="IHudNode"/>s.
+        /// Read-only interface for types capable of serving as parent objects to <see cref="HudNodeBase"/>s.
         /// </summary>
         public interface IReadOnlyHudParent
         {
@@ -36,84 +41,21 @@ namespace RichHudFramework
             bool Visible { get; }
 
             /// <summary>
-            /// Unique identifier.
+            /// Scales the size and offset of an element. Any offset or size set at a given
+            /// be increased or decreased with scale. Defaults to 1f. Includes parent scale.
             /// </summary>
-            object ID { get; }
+            float Scale { get; }
 
             /// <summary>
-            /// Updates the input of the UI element and its children.
+            /// Used to change the draw order of the UI element. Lower offsets place the element
+            /// further in the background. Higher offsets draw later and on top.
             /// </summary>
-            void BeforeInput(HudLayers layer);
+            sbyte ZOffset { get; set; }
 
             /// <summary>
-            /// Updates the layout of the UI element and its children. Called immediately
-            /// before Draw.
+            /// Adds update delegates for members in the order dictated by the UI tree
             /// </summary>
-            void BeforeLayout(bool refresh);
-
-            /// <summary>
-            /// Draws the UI element as well as its children.
-            /// </summary>
-            void BeforeDraw(HudLayers layer, ref MatrixD matrix);
-        }
-
-        /// <summary>
-        /// Interface for types capable of serving as parent objects to <see cref="IHudNode"/>s.
-        /// </summary>
-        public interface IHudParent
-        {
-            /// <summary>
-            /// Determines whether or not the element will be drawn and/or accept
-            /// input.
-            /// </summary>
-            bool Visible { get; set; }
-
-            /// <summary>
-            /// Unique identifier.
-            /// </summary>
-            object ID { get; }
-
-            /// <summary>
-            /// Registers a child node to the object.
-            /// </summary>
-            void RegisterChild(IHudNode child);
-
-            /// <summary>
-            /// Registers a collection of child nodes to the object.
-            /// </summary>
-            void RegisterChildren(IList<IHudNode> newChildren);
-
-            /// <summary>
-            /// Unregisters the specified node from the parent.
-            /// </summary>
-            void RemoveChild(IHudNode child);
-
-            /// <summary>
-            /// Moves the specified child element to the end of the update list in
-            /// order to ensure that it's drawn on top/updated last.
-            /// </summary>
-            void SetFocus(IHudNode child);
-
-            /// <summary>
-            /// Updates the input of the UI element and its children.
-            /// </summary>
-            void BeforeInput(HudLayers layer);
-
-            /// <summary>
-            /// Updates the layout of the UI element and its children. Called immediately
-            /// before Draw.
-            /// </summary>
-            void BeforeLayout(bool refresh);
-
-            /// <summary>
-            /// Draws the UI element as well as its children.
-            /// </summary>
-            void BeforeDraw(HudLayers layer, ref MatrixD matrix);
-
-            /// <summary>
-            /// Retrieves the information necessary to access the <see cref="IHudParent"/> through the API.
-            /// </summary>
-            HudElementMembers GetApiData();
+            void GetUpdateAccessors(List<HudUpdateAccessors> DrawActions, byte treeDepth);
         }
     }
 }
