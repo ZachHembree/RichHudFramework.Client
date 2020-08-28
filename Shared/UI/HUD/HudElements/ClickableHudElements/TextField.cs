@@ -81,7 +81,9 @@ namespace RichHudFramework.UI.Server
         /// </summary>
         public float BorderThickness { get { return border.Thickness; } set { border.Thickness = value; } }
 
-        public IMouseInput MouseInput { get; }
+        public IMouseInput MouseInput => textBox.MouseInput;
+
+        public override bool IsMousedOver => textBox.IsMousedOver;
 
         private readonly TextBox textBox;
         private readonly TexturedBox highlight;
@@ -113,8 +115,7 @@ namespace RichHudFramework.UI.Server
                 Visible = false,
             };
 
-            Padding = new Vector2(40f, 0f);
-            Size = new Vector2(319f, 62f);
+            Size = new Vector2(319f, 40);
 
             textBox.TextBoard.OnTextChanged += TextChanged;
         }

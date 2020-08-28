@@ -34,6 +34,8 @@ namespace RichHudFramework.UI
         /// </summary>
         public override Vector2 Padding { get { return slide.Padding; } set { slide.Padding = value; } }
 
+        public override bool IsMousedOver => slide.IsMousedOver;
+
         public readonly TexturedBox background;
         public readonly BorderBox border;
         public readonly SliderBar slide;

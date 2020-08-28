@@ -56,7 +56,7 @@ namespace RichHudFramework.UI
             UseCursor = true;
             ShareCursor = true;
 
-            MouseInput = new MouseInputElement(this);
+            MouseInput = new MouseInputElement(this) { ShareCursor = true };
             textInput = new TextInput(AddChar, RemoveLastChar, TextInputFilter);
 
             caret = new TextCaret(this) { Visible = false };

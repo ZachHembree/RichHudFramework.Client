@@ -223,7 +223,7 @@ namespace RichHudFramework
 
                 if (parent != null)
                 {
-                    outerOffset += (byte)(parent.fullZOffset & 0x00FF);
+                    outerOffset += (byte)((parent.fullZOffset & 0x00FF) + sbyte.MinValue);
                     innerOffset += (ushort)(parent.fullZOffset & 0xFF00);
                 }
 

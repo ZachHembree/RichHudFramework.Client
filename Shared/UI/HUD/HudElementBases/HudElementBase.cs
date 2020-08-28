@@ -110,10 +110,10 @@ namespace RichHudFramework
             /// <summary>
             /// Indicates whether or not the element is capturing the cursor.
             /// </summary>
-            public virtual bool IsMousedOver => Visible && _isMousedOver;
+            public virtual bool IsMousedOver => _isMousedOver;
 
-            private const float minMouseBounds = 8f;
-            protected bool _isMousedOver;
+            protected const float minMouseBounds = 8f;
+            protected bool _isMousedOver, mouseInBounds;
             private Vector2 originAlignment;
 
             protected float _absoluteWidth, _absoluteHeight;
@@ -129,7 +129,6 @@ namespace RichHudFramework
             {
                 DimAlignment = DimAlignments.None;
                 ParentAlignment = ParentAlignments.Center;
-                ShareCursor = true;
             }
 
             protected override MyTuple<Vector3, HudSpaceDelegate> InputDepth(Vector3 cursorPos, HudSpaceDelegate GetHudSpaceFunc)
@@ -140,9 +139,9 @@ namespace RichHudFramework
                     {
                         Vector2 offset = Vector2.Max(cachedSize, new Vector2(minMouseBounds)) / 2f;
                         BoundingBox2 box = new BoundingBox2(cachedPosition - offset, cachedPosition + offset);
-                        _isMousedOver = box.Contains(new Vector2(cursorPos.X, cursorPos.Y)) == ContainmentType.Contains;
+                        mouseInBounds = box.Contains(new Vector2(cursorPos.X, cursorPos.Y)) == ContainmentType.Contains;
 
-                        if (_isMousedOver)
+                        if (mouseInBounds)
                             HudMain.Cursor.TryCaptureHudSpace(cursorPos.Z, GetHudSpaceFunc);
                     }
                 }
@@ -154,8 +153,10 @@ namespace RichHudFramework
             {
                 if (Visible)
                 {
-                    if (UseCursor && _isMousedOver && !HudMain.Cursor.IsCaptured && HudMain.Cursor.IsCapturingSpace(GetHudSpaceFunc))
+                    if (UseCursor && mouseInBounds && !HudMain.Cursor.IsCaptured && HudMain.Cursor.IsCapturingSpace(GetHudSpaceFunc))
                     {
+                        _isMousedOver = mouseInBounds;
+
                         HandleInput();
 
                         if (!ShareCursor)
@@ -167,6 +168,8 @@ namespace RichHudFramework
                         HandleInput();
                     }
                 }
+                else
+                    _isMousedOver = false;
 
                 return new MyTuple<Vector3, HudSpaceDelegate>(cursorPos, GetHudSpaceFunc);
             }
@@ -177,6 +180,7 @@ namespace RichHudFramework
                 {
                     UpdateCache();
                     Layout();
+                    UpdateCache();
                 }
 
                 return refresh;

@@ -34,7 +34,7 @@ namespace RichHudFramework.UI
     /// <summary>
     /// Scrollable list of text elements. Each list entry is associated with a value of type T.
     /// </summary>
-    public class ListBox<T> : HudElementBase, IEnumerable<ListBoxEntry<T>>
+    public class ListBox<T> : HudElementBase, IEntryBox<T>
     {
         /// <summary>
         /// Invoked when an entry is selected.
@@ -51,21 +51,6 @@ namespace RichHudFramework.UI
         /// Read-only collection of list entries.
         /// </summary>
         public IReadOnlyList<ListBoxEntry<T>> ListEntries => scrollBox.ChainEntries;
-
-        /// <summary>
-        /// Width of the list box in pixels.
-        /// </summary>
-        public override float Width { get { return scrollBox.Width; } set { scrollBox.Width = value; } }
-
-        /// <summary>
-        /// Height of the list box in pixels.
-        /// </summary>
-        public override float Height { get { return scrollBox.Height; } set { scrollBox.Height = value; } }
-
-        /// <summary>
-        /// Border size. Included in total element size.
-        /// </summary>
-        public override Vector2 Padding { get { return scrollBox.Padding; } set { scrollBox.Padding = value; } }
 
         /// <summary>
         /// Background color
@@ -175,7 +160,11 @@ namespace RichHudFramework.UI
             scrollBox = new ScrollBox<ListBoxEntry<T>, LabelButton>(true, this)
             {
                 SizingMode = HudChainSizingModes.FitMembersBoth | HudChainSizingModes.FitChainOffAxis,
+                DimAlignment = DimAlignments.Both | DimAlignments.IgnorePadding,
             };
+
+            selectionBox = new HighlightBox(this);
+            highlight = new HighlightBox(this);
 
             border = new BorderBox(scrollBox)
             {
@@ -184,18 +173,12 @@ namespace RichHudFramework.UI
                 Thickness = 1f,
             };
 
-            selectionBox = new HighlightBox(scrollBox);
-            highlight = new HighlightBox(scrollBox);
-
             Format = GlyphFormat.White;
-            Padding = new Vector2(20f);
-            Size = new Vector2(355f, 223f);
+            Size = new Vector2(335f, 203f);
 
             HighlightPadding = new Vector2(12f, 6f);
             MemberPadding = new Vector2(20f, 6f);
             LineHeight = 30f;
-
-            UseCursor = true;
         }
 
         public IEnumerator<ListBoxEntry<T>> GetEnumerator() =>
@@ -347,7 +330,7 @@ namespace RichHudFramework.UI
             // Make sure the selection box highlights the current selection
             if (Selection != null)
             {
-                selectionBox.Offset = Selection.Element.Offset;
+                selectionBox.Offset = Selection.Element.Position - selectionBox.Origin;
                 selectionBox.Size = Selection.Element.Size;
                 selectionBox.Visible = Selection.Element.Visible;
             }
@@ -367,9 +350,9 @@ namespace RichHudFramework.UI
                 {
                     highlight.Visible = true;
                     highlight.Size = entry.Element.Size;
-                    highlight.Offset = entry.Element.Offset;
+                    highlight.Offset = entry.Element.Position - highlight.Origin;
 
-                    if (entry.Element.MouseInput.IsLeftClicked)
+                    if (entry.Element.MouseInput.IsNewLeftClicked)
                     {
                         Selection = entry;
                         OnSelectionChanged?.Invoke(this, EventArgs.Empty);
