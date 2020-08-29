@@ -431,7 +431,6 @@ namespace RichHudFramework.UI
                     Vector2 offset = cursorPos - textElement.Position;
                     Vector2I newIndex = text.GetCharAtOffset(offset);
 
-                    Internal.ExceptionHandler.SendChatMessage($"New Index: {newIndex}");
                     Index = ClampIndex(newIndex);
 
                     if ((text.Count > 0 && text[Index.X].Count > 0 && text[Index].Ch != '\n') && (offset.X < text[Index].Offset.X))
