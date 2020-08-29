@@ -115,9 +115,12 @@ namespace RichHudFramework.UI
         /// </summary>
         public bool Open => listBox.Visible;
 
+        public HudElementBase Display => display;
+
+        public readonly ListBox<T> listBox;
+
         protected readonly DropdownDisplay display;
         protected readonly TexturedBox highlight;
-        protected readonly ListBox<T> listBox;
 
         public Dropdown(HudParentBase parent = null) : base(parent)
         {

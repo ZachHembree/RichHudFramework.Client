@@ -109,10 +109,10 @@ namespace RichHudFramework.UI
 
         public HudElementBase Display => display;
 
-        protected readonly TreeBoxDisplay display;
-        protected readonly HighlightBox highlight, selectionBox;
         public readonly HudChain<ListBoxEntry<T>, LabelButton> entryChain;
 
+        protected readonly TreeBoxDisplay display;
+        protected readonly HighlightBox highlight, selectionBox;
         private readonly ObjectPool<ListBoxEntry<T>> entryPool;
 
         public TreeBox(HudParentBase parent = null) : base(parent)
