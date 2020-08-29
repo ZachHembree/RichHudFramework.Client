@@ -120,7 +120,7 @@ namespace RichHudFramework.UI
                 {
                     _isMousedOver = mouseInBounds;
 
-                    HandleInput();
+                    HandleInput(new Vector2(cursorPos.X, cursorPos.Y));
 
                     if (!ShareCursor)
                         HudMain.Cursor.Capture(this);
@@ -128,7 +128,7 @@ namespace RichHudFramework.UI
                 else
                 {
                     _isMousedOver = false;
-                    HandleInput();
+                    HandleInput(new Vector2(cursorPos.X, cursorPos.Y));
                 }
             }
             else
@@ -137,7 +137,7 @@ namespace RichHudFramework.UI
             return new MyTuple<Vector3, HudSpaceDelegate>(cursorPos, GetHudSpaceFunc);
         }
 
-        protected override void HandleInput()
+        protected override void HandleInput(Vector2 cursorPos)
         {
             if (IsMousedOver)
             {

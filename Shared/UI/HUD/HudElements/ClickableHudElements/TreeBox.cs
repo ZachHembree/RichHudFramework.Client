@@ -319,7 +319,7 @@ namespace RichHudFramework.UI
             }
         }
 
-        protected override void HandleInput()
+        protected override void HandleInput(Vector2 cursorPos)
         {
             highlight.Visible = false;
 

@@ -338,7 +338,7 @@ namespace RichHudFramework.UI
                 selectionBox.Visible = false;
         }
 
-        protected override void HandleInput()
+        protected override void HandleInput(Vector2 cursorPos)
         {
             highlight.Visible = false;
 

@@ -219,7 +219,7 @@ namespace RichHudFramework.UI
             blockChildRegistration = false;
         }
 
-        protected override void HandleInput()
+        protected override void HandleInput(Vector2 cursorPos)
         {
             if (scrollBar.MouseInput.IsLeftClicked)
                 _start = (int)Math.Round(scrollBar.Current);

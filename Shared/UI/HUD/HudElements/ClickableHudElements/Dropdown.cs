@@ -154,7 +154,7 @@ namespace RichHudFramework.UI
             OnSelectionChanged += UpdateDisplay;
         }
 
-        protected override void HandleInput()
+        protected override void HandleInput(Vector2 cursorPos)
         {
             if (SharedBinds.LeftButton.IsNewPressed && !IsMousedOver)
             {

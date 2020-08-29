@@ -54,7 +54,7 @@ namespace RichHudFramework.UI.Server
             BoxChecked = !BoxChecked;
         }
 
-        protected override void HandleInput()
+        protected override void HandleInput(Vector2 cursorPos)
         {
             if (IsMousedOver)
             {

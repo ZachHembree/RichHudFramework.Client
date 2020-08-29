@@ -157,7 +157,7 @@ namespace RichHudFramework
                     {
                         _isMousedOver = mouseInBounds;
 
-                        HandleInput();
+                        HandleInput(new Vector2(cursorPos.X, cursorPos.Y));
 
                         if (!ShareCursor)
                             HudMain.Cursor.Capture(this);
@@ -165,7 +165,7 @@ namespace RichHudFramework
                     else
                     {
                         _isMousedOver = false;
-                        HandleInput();
+                        HandleInput(new Vector2(cursorPos.X, cursorPos.Y));
                     }
                 }
                 else

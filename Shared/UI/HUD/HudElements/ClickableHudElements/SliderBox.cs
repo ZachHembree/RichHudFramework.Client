@@ -72,7 +72,7 @@ namespace RichHudFramework.UI
             Size = new Vector2(317f, 47f);
         }
 
-        protected override void HandleInput()
+        protected override void HandleInput(Vector2 cursorPos)
         {
             if (IsMousedOver)
             {
