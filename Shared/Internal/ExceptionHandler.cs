@@ -6,6 +6,7 @@ using System.Text;
 using VRage.Game.Components;
 using VRage.Game.ModAPI;
 using VRage.Game;
+using VRage.Utils;
 
 namespace RichHudFramework.Internal
 {
@@ -46,6 +47,21 @@ namespace RichHudFramework.Internal
         /// </summary>
         public static bool Unloading { get; private set; }
 
+        /// <summary>
+        /// If true, the mod is currently running on a client.
+        /// </summary>
+        public static bool IsClient { get; private set; }
+
+        /// <summary>
+        /// If true, the mod is currently running on a server.
+        /// </summary>
+        public static bool IsServer { get; private set; }
+
+        /// <summary>
+        /// If true, the mod is currently running on a dedicated server.
+        /// </summary>
+        public static bool IsDedicated { get; private set; }
+
         public static bool ClientsPaused { get; private set; }
 
         private static ExceptionHandler instance;
@@ -74,6 +90,13 @@ namespace RichHudFramework.Internal
             clients = new List<ModBase>();
         }
 
+        public override void LoadData()
+        {
+            IsDedicated = MyAPIGateway.Utilities.IsDedicated;
+            IsServer = MyAPIGateway.Session.OnlineMode == MyOnlineModeEnum.OFFLINE || MyAPIGateway.Multiplayer.IsServer || IsDedicated;
+            IsClient = !IsDedicated;
+        }
+
         /// <summary>
         /// Registers the <see cref="ModBase"/> with the handler if it isn't already registered.
         /// </summary>
@@ -95,23 +118,7 @@ namespace RichHudFramework.Internal
             }
             catch (Exception e)
             {
-                instance.ReportException(e);
-            }
-        }
-
-        /// <summary>
-        /// Executes a given <see cref="Action{T}"/> in a try-catch block. If an exception occurs, it will attempt
-        /// to log it, display an error message to the user and reload or unload the mod depending on the configuration.
-        /// </summary>
-        public static void Run<T>(Action<T> Action, T argument)
-        {
-            try
-            {
-                Action(argument);
-            }
-            catch (Exception e)
-            {
-                instance.ReportException(e);
+                instance.ReportExceptionInternal(e);
             }
         }
 
@@ -129,7 +136,7 @@ namespace RichHudFramework.Internal
             }
             catch (Exception e)
             {
-                instance.ReportException(e);
+                instance.ReportExceptionInternal(e);
             }
 
             return value;
@@ -138,7 +145,13 @@ namespace RichHudFramework.Internal
         /// <summary>
         /// Records exceptions to be handled. Duplicate stack traces are excluded from the log entry.
         /// </summary>
-        private void ReportException(Exception e)
+        public static void ReportException(Exception e) =>
+            instance.ReportExceptionInternal(e);
+
+        /// <summary>
+        /// Records exceptions to be handled. Duplicate stack traces are excluded from the log entry.
+        /// </summary>
+        private void ReportExceptionInternal(Exception e)
         {
             string message = e.ToString();
 
@@ -184,7 +197,7 @@ namespace RichHudFramework.Internal
                 LogIO.TryWriteToLog(ModName + " encountered an unhandled exception.\n" + exceptionText + '\n');
                 exceptionMessages.Clear();
 
-                if (ModBase.IsClient && PromptForReload)
+                if (IsClient && PromptForReload)
                 {
                     if (RecoveryAttempts < RecoveryLimit)
                     {
@@ -296,11 +309,23 @@ namespace RichHudFramework.Internal
         /// </summary>
         public static void SendChatMessage(string message)
         {
-            if (!ModBase.IsDedicated)
+            if (!IsDedicated)
             {
                 try
                 {
                     MyAPIGateway.Utilities.ShowMessage(ModName, message);
+                }
+                catch { }
+            }
+        }
+
+        public static void WriteLineAndConsole(string message)
+        {
+            if (!Unloading)
+            {
+                try
+                {
+                    MyLog.Default.WriteLineAndConsole($"[{ModName}] {message}");
                 }
                 catch { }
             }

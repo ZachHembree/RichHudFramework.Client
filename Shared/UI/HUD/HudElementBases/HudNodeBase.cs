@@ -1,132 +1,226 @@
 ﻿using System;
+using System.Collections.Generic;
 using VRage;
+using VRageMath;
 using ApiMemberAccessor = System.Func<object, int, object>;
+using HudSpaceDelegate = System.Func<VRage.MyTuple<bool, float, VRageMath.MatrixD>>;
 
 namespace RichHudFramework
 {
-    using HudElementMembers = MyTuple<
-        Func<bool>, // Visible
-        object, // ID
-        Action<bool>, // BeforeLayout
-        Action<int>, // BeforeDraw
-        Action<int>, // HandleInput
-        ApiMemberAccessor // GetOrSetMembers
-    >;
-
     namespace UI
     {
-        public enum HudNodeAccessors : int
-        {
-            GetParentID = 10,
-            GetParentData = 11,
-            GetFocus = 12,
-            Register = 13,
-            Unregister = 14,
-            Registered = 15,
-        }
+        using Client;
+        using EmptyKeys.UserInterface.Generated.StoreBlockView_Bindings;
+        using Server;
+        using HudUpdateAccessors = MyTuple<
+            ApiMemberAccessor,
+            MyTuple<Func<ushort>, Func<Vector3D>>, // ZOffset + GetOrigin
+            Action, // DepthTest
+            Action, // HandleInput
+            Action<bool>, // BeforeLayout
+            Action // BeforeDraw
+        >;
 
         /// <summary>
         /// Base class for hud elements that can be parented to other elements.
         /// </summary>
-        public abstract class HudNodeBase : HudParentBase, IHudNode
+        public abstract class HudNodeBase : HudParentBase, IReadOnlyHudNode
         {
+            /// <summary>
+            /// Read-only parent object of the node.
+            /// </summary>
+            IReadOnlyHudParent IReadOnlyHudNode.Parent => _parent;
+
             /// <summary>
             /// Parent object of the node.
             /// </summary>
-            public virtual IHudParent Parent { get; protected set; }
+            public virtual HudParentBase Parent { get { return _parent; } protected set { _parent = value; } }
 
-            public HudLayers ZOffset
+            /// <summary>
+            /// Determines whether or not an element will be drawn or process input. Visible by default.
+            /// </summary>
+            public override bool Visible
             {
-                get { return _zOffset; }
-                set
-                {
-                    for (int n = 0; n < children.Count; n++)
-                        children[n].ZOffset = value;
-
-                    _zOffset = value;
-                }
+                get { return _visible && parentVisible && _registered; }
+                set { _visible = value; }
             }
+
+            /// <summary>
+            /// Determines whether the UI element will be drawn in the Back, Mid or Foreground
+            /// </summary>
+            public sealed override sbyte ZOffset
+            {
+                get { return (sbyte)(_zOffset + parentZOffset); }
+                set { _zOffset = (sbyte)(value - parentZOffset); }
+            }
+
+            /// <summary>
+            /// Scales the size and offset of an element. Any offset or size set at a given
+            /// be increased or decreased with scale. Defaults to 1f. Includes parent scale.
+            /// </summary>
+            public sealed override float Scale => LocalScale * parentScale;
+
+            /// <summary>
+            /// Element scaling without parent scaling.
+            /// </summary>
+            public virtual float LocalScale { get; set; }
 
             /// <summary>
             /// Indicates whether or not the element has been registered to a parent.
             /// </summary>
-            public bool Registered { get; private set; }
+            public bool Registered { get { return _registered; } private set { _registered = value; } }
 
-            public HudNodeBase(IHudParent parent)
+            protected HudParentBase _parent, reregParent;
+            protected float parentScale;
+            protected bool _visible, parentVisible, wasFastUnregistered;
+            protected sbyte parentZOffset;
+
+            public HudNodeBase(HudParentBase parent)
             {
-                if (parent != null)
+                parentScale = 1f;
+                LocalScale = 1f;
+                parentVisible = true;
+                _registered = false;
+
+                Register(parent);
+            }
+
+            protected override void BeginLayout(bool refresh)
+            {
+                fullZOffset = GetFullZOffset(this, _parent);
+
+                if (Visible || refresh)
                 {
-                    if (parent.ID == ID)
-                        throw new Exception("Types of HudNodeBase cannot be parented to themselves!");
-                    else
-                        Register(parent);
+                    parentScale = _parent == null ? 1f : _parent.Scale;
+                    Layout();
                 }
             }
 
+            protected override void BeginDraw()
+            {
+                if (Visible)
+                    Draw();
+
+                if (_parent == null)
+                {
+                    parentVisible = true;
+                    parentZOffset = 0;
+                }
+                else
+                {
+                    parentVisible = _parent.Visible;
+                    parentZOffset = _parent.ZOffset;
+                }
+            }
+
+
             /// <summary>
-            /// Moves the element to the end of its parent's update list in order to ensure
-            /// that it's drawn/updated last.
+            /// Adds update delegates for members in the order dictated by the UI tree
             /// </summary>
-            public void GetFocus() =>
-                Parent?.SetFocus(this);
+            public override void GetUpdateAccessors(List<HudUpdateAccessors> UpdateActions, byte treeDepth)
+            {
+                HudSpace = _parent?.HudSpace ?? reregParent?.HudSpace;
+                fullZOffset = GetFullZOffset(this, _parent);
+
+                UpdateActions.EnsureCapacity(UpdateActions.Count + children.Count + 1);
+                var accessors = new HudUpdateAccessors()
+                {
+                    Item1 = GetOrSetMemberFunc,
+                    Item2 = new MyTuple<Func<ushort>, Func<Vector3D>>(GetZOffsetFunc, HudSpace.GetNodeOriginFunc),
+                    Item3 = DepthTestAction,
+                    Item4 = InputAction,
+                    Item5 = LayoutAction,
+                    Item6 = DrawAction
+                };
+
+                UpdateActions.Add(accessors);
+                treeDepth++;
+
+                for (int n = 0; n < children.Count; n++)
+                    children[n].GetUpdateAccessors(UpdateActions, treeDepth);
+            }
 
             /// <summary>
             /// Registers the element to the given parent object.
             /// </summary>
-            public virtual void Register(IHudParent parent)
+            /// <param name="fast">Prevents registration from triggering a draw list
+            /// update. Meant to be used in conjunction with pooled elements being
+            /// unregistered/reregistered to the same parent.</param>
+            public virtual bool Register(HudParentBase newParent)
             {
-                if (parent != null && Parent == null)
+                if (newParent == this)
+                    throw new Exception("Types of HudNodeBase cannot be parented to themselves!");
+
+                if (wasFastUnregistered && newParent != reregParent)
+                    throw new Exception("Types of HudNodeBase using fast unregister cannot be reregistered to different parents.");
+
+                if (newParent != null && (reregParent == null || wasFastUnregistered))
                 {
-                    Parent = parent;
-                    Parent.RegisterChild(this);
-                    Registered = true;
+                    reregParent = null;
+
+                    if (wasFastUnregistered)
+                    {
+                        Parent = newParent;
+                        _registered = true;
+                    }
+                    else
+                    {
+                        Parent = newParent;
+                        _registered = _parent.RegisterChild(this);
+                    }
+
+                    if (_registered)
+                    {
+                        if (!wasFastUnregistered)
+                            HudMain.RefreshDrawList = true;
+
+                        parentZOffset = _parent.ZOffset;
+                        parentScale = _parent.Scale;
+                        parentVisible = _parent.Visible;
+                    }
+
+                    wasFastUnregistered = false;
                 }
+
+                return _registered;
             }
 
             /// <summary>
             /// Unregisters the element from its parent, if it has one.
             /// </summary>
-            public virtual void Unregister()
+            /// <param name="fast">Prevents registration from triggering a draw list
+            /// update. Meant to be used in conjunction with pooled elements being
+            /// unregistered/reregistered to the same parent.</param>
+            public virtual bool Unregister(bool fast = false)
             {
-                if (Parent != null)
+                if (Parent != null || (wasFastUnregistered && !fast))
                 {
-                    IHudParent lastParent = Parent;
-
+                    reregParent = _parent;
                     Parent = null;
-                    lastParent.RemoveChild(this);
-                    Registered = false;
-                }
-            }
 
-            protected override object GetOrSetMember(object data, int memberEnum)
-            {
-                if (memberEnum < 10)
-                {
-                    base.GetOrSetMember(data, memberEnum);
-                }
-                else
-                {
-                    switch ((HudNodeAccessors)memberEnum)
+                    if (!fast)
                     {
-                        case HudNodeAccessors.GetFocus:
-                            GetFocus();
-                            break;
-                        case HudNodeAccessors.GetParentData:
-                            return Parent.GetApiData();
-                        case HudNodeAccessors.GetParentID:
-                            return Parent?.ID;
-                        case HudNodeAccessors.Register:
-                            Register(new HudNodeData((HudElementMembers)data));
-                            break;
-                        case HudNodeAccessors.Unregister:
-                            Unregister();
-                            break;
-                        case HudNodeAccessors.Registered:
-                            return Registered;
+                        _registered = !reregParent.RemoveChild(this, false);
+
+                        if (_registered)
+                            Parent = reregParent;
+                        else
+                            HudMain.RefreshDrawList = true;
+
+                        reregParent = null;
                     }
+                    else
+                    {
+                        _registered = false;
+                        wasFastUnregistered = true;
+                    }
+
+                    parentZOffset = 0;
+                    parentScale = 1f;
+                    parentVisible = true;
                 }
 
-                return null;
+                return !_registered;
             }
         }
     }

@@ -15,16 +15,6 @@ namespace RichHudFramework.Internal
     public abstract partial class ModBase : MySessionComponentBase
     {
         /// <summary>
-        /// If true, the mod is currently running on a client.
-        /// </summary>
-        public static bool IsClient => !IsDedicated;
-
-        /// <summary>
-        /// If true, the mod is currently running on a dedicated server.
-        /// </summary>
-        public static bool IsDedicated { get; private set; }
-
-        /// <summary>
         /// Determines whether or not the main class will be allowed to run on a dedicated server.
         /// </summary>
         public bool RunOnServer { get; protected set; }
@@ -48,7 +38,7 @@ namespace RichHudFramework.Internal
 
             set
             {
-                if ((RunOnClient && IsClient) || (RunOnServer && IsDedicated))
+                if ((RunOnClient && ExceptionHandler.IsClient) || (RunOnServer && ExceptionHandler.IsDedicated))
                     _canUpdate = value;
             }
         }
@@ -68,9 +58,7 @@ namespace RichHudFramework.Internal
         {
             if (!Loaded && !ExceptionHandler.Unloading && !closing)
             {
-                bool isServer = MyAPIGateway.Session.OnlineMode == MyOnlineModeEnum.OFFLINE || MyAPIGateway.Multiplayer.IsServer;
-                IsDedicated = (MyAPIGateway.Utilities.IsDedicated && isServer);
-                CanUpdate = (RunOnClient && IsClient) || (RunOnServer && IsDedicated);
+                CanUpdate = true;
 
                 ExceptionHandler.RegisterClient(this);
 
@@ -189,13 +177,13 @@ namespace RichHudFramework.Internal
 
                 for (int n = clientComponents.Count - 1; n >= 0; n--)
                 {
-                    ExceptionHandler.Run(clientComponents[n].Close);
+                    ExceptionHandler.Run(() => clientComponents[n].Close());
                     clientComponents[n].UnregisterComponent(n);
                 }
 
                 for (int n = serverComponents.Count - 1; n >= 0; n--)
                 {
-                    ExceptionHandler.Run(serverComponents[n].Close);
+                    ExceptionHandler.Run(() => serverComponents[n].Close());
                     serverComponents[n].UnregisterComponent(n);
                 }
 
@@ -216,7 +204,7 @@ namespace RichHudFramework.Internal
             protected ModBase Parent { get; private set; }
 
             /// <summary>
-            /// Determines whether or not this component will run on a dedicated server.
+            /// Determines whether or not this component will run on a dedicated server and/or client.
             /// </summary>
             public readonly bool runOnServer, runOnClient;
 
@@ -232,9 +220,9 @@ namespace RichHudFramework.Internal
             {
                 if (Parent == null)
                 {
-                    if (!IsDedicated && runOnClient)
+                    if (!ExceptionHandler.IsDedicated && runOnClient)
                         parent.clientComponents.Add(this);
-                    else if (IsDedicated && runOnServer)
+                    else if (ExceptionHandler.IsDedicated && runOnServer)
                         parent.serverComponents.Add(this);
 
                     Parent = parent;
@@ -249,9 +237,9 @@ namespace RichHudFramework.Internal
             {
                 if (Parent != null)
                 {
-                    if (!IsDedicated && runOnClient)
+                    if (!ExceptionHandler.IsDedicated && runOnClient)
                         Parent.clientComponents.Remove(this);
-                    else if (IsDedicated && runOnServer)
+                    else if (ExceptionHandler.IsDedicated && runOnServer)
                         Parent.serverComponents.Remove(this);
 
                     Parent = null;
@@ -266,7 +254,7 @@ namespace RichHudFramework.Internal
             {
                 if (Parent != null)
                 {
-                    if (!IsDedicated && runOnClient)
+                    if (!ExceptionHandler.IsDedicated && runOnClient)
                     {
                         if (index < Parent.clientComponents.Count && Parent.clientComponents[index] == this)
                         {
@@ -274,7 +262,7 @@ namespace RichHudFramework.Internal
                             Parent = null;
                         }
                     }
-                    else if (IsDedicated && runOnServer)
+                    else if (ExceptionHandler.IsDedicated && runOnServer)
                     {
                         if (index < Parent.serverComponents.Count && Parent.serverComponents[index] == this)
                         {
