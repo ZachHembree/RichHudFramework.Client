@@ -42,7 +42,7 @@ namespace RichHudFramework.UI
         public ListBoxEntry()
         {
             button = new LabelButton() { AutoResize = false };
-            Element = button;
+            SetElement(button);
             Element.ZOffset = 1;
         }
 

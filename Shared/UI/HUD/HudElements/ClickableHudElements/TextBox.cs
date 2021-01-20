@@ -71,6 +71,8 @@ namespace RichHudFramework.UI
             EnableEditing = true;
             EnableHighlighting = true;
             UseCursor = true;
+
+            Size = new Vector2(60f, 200f);
         }
 
         public TextBox() : this(null)

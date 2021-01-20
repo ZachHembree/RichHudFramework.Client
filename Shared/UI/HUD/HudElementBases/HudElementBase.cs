@@ -213,7 +213,7 @@ namespace RichHudFramework
             /// </summary>
             protected override void BeginLayout(bool refresh)
             {
-                fullZOffset = GetFullZOffset(this, _parent);
+                fullZOffset = ParentUtils.GetFullZOffset(this, _parent);
 
                 if (_parent == null)
                 {

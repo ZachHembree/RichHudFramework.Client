@@ -11,6 +11,7 @@ namespace RichHudFramework
     {
         using Client;
         using Server;
+        using VRage.Game.ObjectBuilders;
         using HudUpdateAccessors = MyTuple<
             ApiMemberAccessor,
             MyTuple<Func<ushort>, Func<Vector3D>>, // ZOffset + GetOrigin
@@ -23,7 +24,7 @@ namespace RichHudFramework
         /// <summary>
         /// Base class for hud elements that can be parented to other elements.
         /// </summary>
-        public abstract class HudNodeBase : HudParentBase, IReadOnlyHudNode
+        public abstract partial class HudNodeBase : HudParentBase, IReadOnlyHudNode
         {
             /// <summary>
             /// Read-only parent object of the node.
@@ -86,7 +87,7 @@ namespace RichHudFramework
             /// </summary>
             protected override void BeginLayout(bool refresh)
             {
-                fullZOffset = GetFullZOffset(this, _parent);
+                fullZOffset = ParentUtils.GetFullZOffset(this, _parent);
 
                 if (_parent == null)
                 {
@@ -111,7 +112,7 @@ namespace RichHudFramework
             public override void GetUpdateAccessors(List<HudUpdateAccessors> UpdateActions, byte treeDepth)
             {
                 HudSpace = _parent?.HudSpace ?? reregParent?.HudSpace;
-                fullZOffset = GetFullZOffset(this, _parent);
+                fullZOffset = ParentUtils.GetFullZOffset(this, _parent);
 
                 UpdateActions.EnsureCapacity(UpdateActions.Count + children.Count + 1);
                 var accessors = new HudUpdateAccessors()

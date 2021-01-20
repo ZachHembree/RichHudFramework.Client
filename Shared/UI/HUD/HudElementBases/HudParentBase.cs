@@ -23,7 +23,7 @@ namespace RichHudFramework
         /// Base class for HUD elements to which other elements are parented. Types deriving from this class cannot be
         /// parented to other elements; only types of <see cref="HudNodeBase"/> can be parented.
         /// </summary>
-        public abstract class HudParentBase : IReadOnlyHudParent
+        public abstract partial class HudParentBase : IReadOnlyHudParent
         {
             /// <summary>
             /// Node defining the coordinate space used to render the UI element
@@ -191,7 +191,7 @@ namespace RichHudFramework
             /// </summary>
             protected virtual void BeginLayout(bool refresh)
             {
-                fullZOffset = GetFullZOffset(this);
+                fullZOffset = ParentUtils.GetFullZOffset(this);
 
                 if (Visible || refresh)
                     Layout();
@@ -223,7 +223,7 @@ namespace RichHudFramework
             /// </summary>
             public virtual void GetUpdateAccessors(List<HudUpdateAccessors> UpdateActions, byte treeDepth)
             {
-                fullZOffset = GetFullZOffset(this);
+                fullZOffset = ParentUtils.GetFullZOffset(this);
 
                 UpdateActions.EnsureCapacity(UpdateActions.Count + children.Count + 1);
                 var accessors = new HudUpdateAccessors()
@@ -276,32 +276,6 @@ namespace RichHudFramework
                     return false;
             }
 
-            /// <summary>
-            /// Calculates the full z-offset using the public offset and inner offset.
-            /// </summary>
-            public static ushort GetFullZOffset(HudParentBase element, HudParentBase parent = null)
-            {
-                byte outerOffset = (byte)(element._zOffset - sbyte.MinValue);
-                ushort innerOffset = (ushort)(element.zOffsetInner << 8);
-
-                if (parent != null)
-                {
-                    outerOffset += (byte)((parent.fullZOffset & 0x00FF) + sbyte.MinValue);
-                    innerOffset += (ushort)(parent.fullZOffset & 0xFF00);
-                }
-
-                return (ushort)(innerOffset | outerOffset);
-            }
-
-            /// <summary>
-            /// Returns the visibility set for the given <see cref="HudParentBase"/> without including
-            /// parent visibility.
-            /// </summary>
-            protected static bool IsSetVisible(HudParentBase node)
-            {
-                return node._visible && node._registered;
-            }
-
             protected virtual object GetOrSetApiMember(object data, int memberEnum)
             {
                 switch ((HudElementAccessors)memberEnum)
@@ -336,7 +310,6 @@ namespace RichHudFramework
 
                 return null;
             }
-
         }
     }
 }
