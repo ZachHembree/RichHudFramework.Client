@@ -9,6 +9,7 @@ namespace RichHudFramework
     namespace UI
     {
         using Server;
+        using Client;
 
         public abstract partial class HudNodeBase
         {
