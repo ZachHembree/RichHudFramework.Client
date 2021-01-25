@@ -79,61 +79,25 @@ namespace RichHudFramework
 
                 GetOrSetMemberFunc = GetOrSetApiMember;
                 GetZOffsetFunc = () => fullZOffset;
-                DepthTestAction = SafeInputDepth;
-                LayoutAction = SafeBeginLayout;
-                DrawAction = SafeBeginDraw;
-                InputAction = SafeBeginInput;
+                DepthTestAction = BeginInputDepth;
+                LayoutAction = BeginLayout;
+                DrawAction = BeginDraw;
+                InputAction = BeginInput;
             }
 
             /// <summary>
             /// Starts cursor depth check in a try-catch block. Useful for manually updating UI elements.
-            /// Exceptions are reported client-side.
+            /// Exceptions are reported client-side. Do not override this unless you have a good reason for it.
+            /// If you need to do cursor depth testing use InputDepth();
             /// </summary>
-            public void SafeInputDepth()
+            public virtual void BeginInputDepth()
             {
                 if (!ExceptionHandler.ClientsPaused)
                 {
                     try
                     {
-                        InputDepth();
-                    }
-                    catch (Exception e)
-                    {
-                        ExceptionHandler.ReportException(e);
-                    }
-                }
-            }
-
-            /// <summary>
-            /// Starts layout update in a try-catch block. Useful for manually updating UI elements.
-            /// Exceptions are reported client-side.
-            /// </summary>
-            public void SafeBeginLayout(bool refresh)
-            {
-                if (!ExceptionHandler.ClientsPaused)
-                {
-                    try
-                    {
-                        BeginLayout(refresh);
-                    }
-                    catch (Exception e)
-                    {
-                        ExceptionHandler.ReportException(e);
-                    }
-                }
-            }
-
-            /// <summary>
-            /// Starts UI draw in a try-catch block. Useful for manually updating UI elements.
-            /// Exceptions are reported client-side.
-            /// </summary>
-            public void SafeBeginDraw()
-            {
-                if (!ExceptionHandler.ClientsPaused && _registered)
-                {
-                    try
-                    {
-                        BeginDraw();
+                        if (Visible)
+                            InputDepth();
                     }
                     catch (Exception e)
                     {
@@ -144,15 +108,64 @@ namespace RichHudFramework
 
             /// <summary>
             /// Starts input update in a try-catch block. Useful for manually updating UI elements.
-            /// Exceptions are reported client-side.
+            /// Exceptions are reported client-side. Do not override this unless you have a good reason for it.
+            /// If you need to update input, use HandleInput().
             /// </summary>
-            public void SafeBeginInput()
+            public virtual void BeginInput()
             {
-                if (!ExceptionHandler.ClientsPaused && _registered)
+                if (!ExceptionHandler.ClientsPaused)
                 {
                     try
                     {
-                        BeginInput();
+                        if (Visible)
+                        {
+                            Vector3 cursorPos = HudSpace.CursorPos;
+                            HandleInput(new Vector2(cursorPos.X, cursorPos.Y));
+                        }
+                    }
+                    catch (Exception e)
+                    {
+                        ExceptionHandler.ReportException(e);
+                    }
+                }
+            }
+
+            /// <summary>
+            /// Starts layout update in a try-catch block. Useful for manually updating UI elements.
+            /// Exceptions are reported client-side. Do not override this unless you have a good reason for it.
+            /// If you need to update layout, use Layout().
+            /// </summary>
+            public virtual void BeginLayout(bool refresh)
+            {
+                if (!ExceptionHandler.ClientsPaused)
+                {
+                    try
+                    {
+                        fullZOffset = ParentUtils.GetFullZOffset(this);
+
+                        if (Visible || refresh)
+                            Layout();
+                    }
+                    catch (Exception e)
+                    {
+                        ExceptionHandler.ReportException(e);
+                    }
+                }
+            }
+
+            /// <summary>
+            /// Starts UI draw in a try-catch block. Useful for manually updating UI elements.
+            /// Exceptions are reported client-side. Do not override this unless you have a good reason for it.
+            /// If you need to draw billboards, use Draw().
+            /// </summary>
+            public virtual void BeginDraw()
+            {
+                if (!ExceptionHandler.ClientsPaused)
+                {
+                    try
+                    {
+                        if (Visible)
+                            Draw();
                     }
                     catch (Exception e)
                     {
@@ -168,50 +181,15 @@ namespace RichHudFramework
             protected virtual void InputDepth() { }
 
             /// <summary>
-            /// Updates input for the element and its children. Overriding this method is rarely necessary.
-            /// If you need to update input, use HandleInput().
-            /// </summary>
-            protected virtual void BeginInput()
-            {
-                if (Visible)
-                {
-                    Vector3 cursorPos = HudSpace.CursorPos;
-                    HandleInput(new Vector2(cursorPos.X, cursorPos.Y));
-                }
-            }
-
-            /// <summary>
             /// Updates the input of this UI element. Invocation order affected by z-Offset and depth sorting.
             /// </summary>
             protected virtual void HandleInput(Vector2 cursorPos) { }
-
-            /// <summary>
-            /// Updates layout for the element and its children. Overriding this method is rarely necessary. 
-            /// If you need to update layout, use Layout().
-            /// </summary>
-            protected virtual void BeginLayout(bool refresh)
-            {
-                fullZOffset = ParentUtils.GetFullZOffset(this);
-
-                if (Visible || refresh)
-                    Layout();
-            }
 
             /// <summary>
             /// Updates the layout of this UI element. Not affected by depth or z-Offset sorting.
             /// Executes before input and draw.
             /// </summary>
             protected virtual void Layout() { }
-
-            /// <summary>
-            /// Used to immediately draw billboards. Overriding this method is rarely necessary. 
-            /// If you need to draw something, use Draw().
-            /// </summary>
-            protected virtual void BeginDraw()
-            {
-                if (Visible)
-                    Draw();
-            }
 
             /// <summary>
             /// Used to immediately draw billboards. Invocation order affected by z-Offset and depth sorting.

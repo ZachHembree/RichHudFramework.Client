@@ -81,7 +81,7 @@ namespace RichHudFramework
                 GetNodeOriginFunc = () => PlaneToWorld.Translation;
             }
 
-            protected override void BeginLayout(bool refresh)
+            protected override void Layout()
             {
                 // Determine whether the node is in front of the camera and pointed toward it
                 MatrixD camMatrix = MyAPIGateway.Session.Camera.WorldMatrix;
@@ -111,8 +111,6 @@ namespace RichHudFramework
                         Z = (float)Math.Round(Vector3D.DistanceSquared(worldPos, cursorLine.From), 6)
                     };
                 }
-
-                base.BeginLayout(refresh);
             }
 
             public override void GetUpdateAccessors(List<HudUpdateAccessors> UpdateActions, byte treeDepth)

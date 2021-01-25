@@ -216,7 +216,7 @@ namespace RichHudFramework
             /// unregistered/reregistered to the same parent.</param>
             public void RemoveRange(int index, int count, bool fast = false)
             {
-                NodeUtils.UnregisterNodes<TElementContainer, TElement>(children, hudCollectionList, index, count, fast);
+                NodeUtils.UnregisterNodes<TElementContainer, TElement>(this, children, hudCollectionList, index, count, fast);
                 hudCollectionList.RemoveRange(index, count);
             }
 
@@ -234,7 +234,7 @@ namespace RichHudFramework
             /// unregistered/reregistered to the same parent.</param>
             public void Clear(bool fast)
             {
-                NodeUtils.UnregisterNodes<TElementContainer, TElement>(children, hudCollectionList, 0, hudCollectionList.Count, fast);
+                NodeUtils.UnregisterNodes<TElementContainer, TElement>(this, children, hudCollectionList, 0, hudCollectionList.Count, fast);
                 hudCollectionList.Clear();
             }
 

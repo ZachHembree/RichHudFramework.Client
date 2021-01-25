@@ -1,27 +1,12 @@
-﻿using Sandbox.ModAPI;
-using System;
+﻿using System;
 using VRage;
-using VRage.ModAPI;
 using VRageMath;
 using ApiMemberAccessor = System.Func<object, int, object>;
-using HudSpaceDelegate = System.Func<VRage.MyTuple<bool, float, VRageMath.MatrixD>>;
 
 namespace RichHudFramework
 {
     namespace UI
     {
-        using Client;
-        using Server;
-        using System.Collections.Generic;
-        using HudUpdateAccessors = MyTuple<
-            ApiMemberAccessor,
-            MyTuple<Func<ushort>, Func<Vector3D>>, // ZOffset + GetOrigin
-            Action, // DepthTest
-            Action, // HandleInput
-            Action<bool>, // BeforeLayout
-            Action // BeforeDraw
-        >;
-
         /// <summary>
         /// HUD node used to replace the standard Pixel to World matrix with an arbitrary
         /// world matrix transform given by a user-supplied delegate.
@@ -41,14 +26,14 @@ namespace RichHudFramework
                 GetNodeOriginFunc = () => PlaneToWorld.Translation;
             }
 
-            protected override void BeginLayout(bool refresh)
+            protected override void Layout()
             {
                 if (UpdateMatrixFunc != null)
                     PlaneToWorld = UpdateMatrixFunc();
                 else if (Parent?.HudSpace != null)
                     PlaneToWorld = Parent.HudSpace.PlaneToWorld;
 
-                base.BeginLayout(refresh);
+                base.Layout();
             }
         }
     }

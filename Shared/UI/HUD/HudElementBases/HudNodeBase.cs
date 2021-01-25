@@ -11,7 +11,7 @@ namespace RichHudFramework
     {
         using Client;
         using Server;
-        using VRage.Game.ObjectBuilders;
+        using Internal;
         using HudUpdateAccessors = MyTuple<
             ApiMemberAccessor,
             MyTuple<Func<ushort>, Func<Vector3D>>, // ZOffset + GetOrigin
@@ -85,24 +85,32 @@ namespace RichHudFramework
             /// Updates layout for the element and its children. Overriding this method is rarely necessary. 
             /// If you need to update layout, use Layout().
             /// </summary>
-            protected override void BeginLayout(bool refresh)
+            public override void BeginLayout(bool refresh)
             {
-                fullZOffset = ParentUtils.GetFullZOffset(this, _parent);
+                if (!ExceptionHandler.ClientsPaused)
+                {
+                    try
+                    {
+                        fullZOffset = ParentUtils.GetFullZOffset(this, _parent);
 
-                if (_parent == null)
-                {
-                    parentVisible = false;
-                }
-                else
-                {
-                    parentVisible = _parent.Visible;
-                    parentScale = _parent.Scale;
-                    parentZOffset = _parent.ZOffset;
-                }
+                        if (_parent == null)
+                        {
+                            parentVisible = false;
+                        }
+                        else
+                        {
+                            parentVisible = _parent.Visible;
+                            parentScale = _parent.Scale;
+                            parentZOffset = _parent.ZOffset;
+                        }
 
-                if (Visible || refresh)
-                {
-                    Layout();
+                        if (Visible || refresh)
+                            Layout();
+                    }
+                    catch (Exception e)
+                    {
+                        ExceptionHandler.ReportException(e);
+                    }
                 }
             }
 

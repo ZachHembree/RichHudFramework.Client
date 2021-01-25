@@ -394,9 +394,17 @@ namespace RichHudFramework.UI
                      );
                 case ListBoxAccessors.Add:
                     {
-                        var entryData = (MyTuple<IList<RichStringMembers>, T>)data;
-
-                        return (ApiMemberAccessor)Add(new RichText(entryData.Item1), entryData.Item2).GetOrSetMember;
+                        if (data is MyTuple<IList<RichStringMembers>, T>)
+                        {
+                            var entryData = (MyTuple<IList<RichStringMembers>, T>)data;
+                            var stringList = entryData.Item1 as List<RichStringMembers>;
+                            return (ApiMemberAccessor)Add(new RichText(stringList), entryData.Item2).GetOrSetMember;
+                        }
+                        else
+                        {
+                            var entryData = (MyTuple<List<RichStringMembers>, T>)data;
+                            return (ApiMemberAccessor)Add(new RichText(entryData.Item1), entryData.Item2).GetOrSetMember;
+                        }
                     }
                 case ListBoxAccessors.Selection:
                     {

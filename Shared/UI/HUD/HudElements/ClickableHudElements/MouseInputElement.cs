@@ -7,6 +7,7 @@ namespace RichHudFramework.UI
 {
     using Client;
     using Server;
+    using Internal;
 
     /// <summary>
     /// A clickable box. Doesn't render any textures or text. Must be used in conjunction with other elements.
@@ -111,31 +112,6 @@ namespace RichHudFramework.UI
             }
             else
                 mouseInBounds = false;
-        }
-
-        protected override void BeginInput()
-        {
-            if (Visible)
-            {
-                Vector3 cursorPos = HudSpace.CursorPos;
-
-                if (UseCursor && mouseInBounds && !HudMain.Cursor.IsCaptured && HudMain.Cursor.IsCapturingSpace(HudSpace.GetHudSpaceFunc))
-                {
-                    _isMousedOver = mouseInBounds;
-
-                    HandleInput(new Vector2(cursorPos.X, cursorPos.Y));
-
-                    if (!ShareCursor)
-                        HudMain.Cursor.Capture(GetOrSetMemberFunc);
-                }
-                else
-                {
-                    _isMousedOver = false;
-                    HandleInput(new Vector2(cursorPos.X, cursorPos.Y));
-                }
-            }
-            else
-                _isMousedOver = false;
         }
 
         protected override void HandleInput(Vector2 cursorPos)
