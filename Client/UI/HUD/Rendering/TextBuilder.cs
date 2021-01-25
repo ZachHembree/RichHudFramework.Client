@@ -137,7 +137,7 @@ namespace RichHudFramework
                 {
                     var textData = GetOrSetMemberFunc(new RangeData(start, end), (int)TextBuilderAccessors.GetRange) as List<RichStringMembers>;
 
-                    if (lastText.apiData == textData)
+                    if (lastText != null && lastText.apiData == textData)
                         return lastText;
                     else
                         return new RichText(textData);
