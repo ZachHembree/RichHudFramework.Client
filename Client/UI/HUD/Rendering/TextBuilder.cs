@@ -101,7 +101,7 @@ namespace RichHudFramework
                 /// Clears current text and appends the text given.
                 /// </summary>
                 public void SetText(RichText text) =>
-                    SetTextAction(text.ApiData);
+                    SetTextAction(text.apiData);
 
                 /// <summary>
                 /// Appends the given text to the end of the text using the <see cref="GlyphFormat"/>ting specified in the <see cref="RichText"/>.
@@ -112,7 +112,7 @@ namespace RichHudFramework
                 /// Inserts the given text to the end of the text at the specified starting index using the <see cref="GlyphFormat"/>ting specified in the <see cref="RichText"/>.
                 /// </summary>
                 public void Insert(RichText text, Vector2I start) =>
-                    InsertTextAction(text.ApiData, start);
+                    InsertTextAction(text.apiData, start);
 
                 /// <summary>
                 /// Returns the contents of the text as <see cref="RichText"/>.
@@ -124,7 +124,7 @@ namespace RichHudFramework
                 /// Returns the specified range of characters from the text as <see cref="RichText"/>.
                 /// </summary>
                 public RichText GetTextRange(Vector2I start, Vector2I end) =>
-                    new RichText(GetOrSetMemberFunc(new RangeData(start, end), (int)TextBuilderAccessors.GetRange) as IList<RichStringMembers>);
+                    new RichText(GetOrSetMemberFunc(new RangeData(start, end), (int)TextBuilderAccessors.GetRange) as List<RichStringMembers>);
 
                 /// <summary>
                 /// Changes the formatting for the whole text to the given format.
