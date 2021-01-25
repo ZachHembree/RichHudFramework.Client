@@ -9,6 +9,7 @@ namespace RichHudFramework
     namespace UI
     {
         using Server;
+        using Client;
 
         /// <summary>
         /// HUD Space Node used to generate draw matrices based on the camera's world matrix.
