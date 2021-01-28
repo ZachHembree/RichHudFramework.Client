@@ -152,7 +152,7 @@ namespace RichHudFramework.UI
         /// </summary>
         public ListBoxEntry<T> Selection { get; private set; }
 
-        public readonly ScrollBox<ListBoxEntry<T>, LabelButton> scrollBox;
+        protected readonly ScrollBox<ListBoxEntry<T>, LabelButton> scrollBox;
         protected readonly HighlightBox selectionBox, highlight;
         protected readonly BorderBox border;
         protected Vector2 _memberPadding;
