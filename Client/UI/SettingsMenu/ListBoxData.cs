@@ -118,6 +118,15 @@ namespace RichHudFramework.UI
     public class EntryData<T>
     {
         /// <summary>
+        /// Name of the list box entry as shown in the UI
+        /// </summary>
+        public RichText Text
+        {
+            get { return new RichText(GetOrSetMemberFunc(null, (int)ListBoxEntryAccessors.Name) as List<RichStringMembers>); }
+            set { GetOrSetMemberFunc(value.apiData, (int)ListBoxEntryAccessors.Name); }
+        }
+
+        /// <summary>
         /// Indicates whether or not the element will appear in the list
         /// </summary>
         public bool Enabled
