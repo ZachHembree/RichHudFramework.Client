@@ -62,9 +62,13 @@ namespace RichHudFramework.UI
     }
 
     /// <summary>
-    /// Scrollable list of text elements. Each list entry is associated with a value of type T.
+    /// Generic scrollable list of text elements. Allows use of custom entry element types.
+    /// Each list entry is associated with a value of type T.
     /// </summary>
-    public class ListBox<T> : HudElementBase, IEntryBox<T>
+    public class ListBox<TElementContainer, TElement, TValue>
+        : HudElementBase, IEntryBox<TValue, TElementContainer, TElement>
+        where TElementContainer : class, IListBoxEntry<TElement, TValue>, new()
+        where TElement : HudElementBase, IClickableElement, ILabelElement
     {
         /// <summary>
         /// Invoked when an entry is selected.
@@ -75,17 +79,17 @@ namespace RichHudFramework.UI
         /// Used to allow the addition of list entries using collection-initializer syntax in
         /// conjunction with normal initializers.
         /// </summary>
-        public ListBox<T> ListContainer => this;
+        public ListBox<TElementContainer, TElement, TValue> ListContainer => this;
 
         /// <summary>
         /// Read-only collection of list entries.
         /// </summary>
-        public IReadOnlyList<ListBoxEntry<T>> ListEntries => scrollBox.Collection;
+        public IReadOnlyList<TElementContainer> ListEntries => scrollBox.Collection;
 
         /// <summary>
         /// Read-only collection of list entries.
         /// </summary>
-        public IReadOnlyHudCollection<ListBoxEntry<T>, LabelButton> HudCollection => scrollBox;
+        public IReadOnlyHudCollection<TElementContainer, TElement> HudCollection => scrollBox;
 
         /// <summary>
         /// Background color
@@ -180,24 +184,24 @@ namespace RichHudFramework.UI
         /// <summary>
         /// Current selection. Null if empty.
         /// </summary>
-        public ListBoxEntry<T> Selection => SelectionIndex > 0 ? scrollBox.Collection[SelectionIndex] : null;
+        public TElementContainer Selection => SelectionIndex != -1 ? scrollBox.Collection[SelectionIndex] : default(TElementContainer);
 
         /// <summary>
         /// Index of the current selection. -1 if empty.
         /// </summary>
         public int SelectionIndex { get; protected set; }
 
-        public readonly ScrollBox<ListBoxEntry<T>, LabelButton> scrollBox;
+        public readonly ScrollBox<TElementContainer, TElement> scrollBox;
         protected readonly HighlightBox selectionBox, highlight;
         protected readonly BorderBox border;
         protected Vector2 _memberPadding;
-        protected readonly ObjectPool<ListBoxEntry<T>> entryPool;
+        protected readonly ObjectPool<TElementContainer> entryPool;
 
         public ListBox(HudParentBase parent) : base(parent)
         {
-            entryPool = new ObjectPool<ListBoxEntry<T>>(GetNewEntry, ResetEntry);
+            entryPool = new ObjectPool<TElementContainer>(GetNewEntry, ResetEntry);
 
-            scrollBox = new ScrollBox<ListBoxEntry<T>, LabelButton>(true, this)
+            scrollBox = new ScrollBox<TElementContainer, TElement>(true, this)
             {
                 SizingMode = HudChainSizingModes.FitMembersBoth | HudChainSizingModes.ClampChainOffAxis,
                 DimAlignment = DimAlignments.Both | DimAlignments.IgnorePadding,
@@ -226,7 +230,7 @@ namespace RichHudFramework.UI
         public ListBox() : this(null)
         { }
 
-        public IEnumerator<ListBoxEntry<T>> GetEnumerator() =>
+        public IEnumerator<TElementContainer> GetEnumerator() =>
             scrollBox.Collection.GetEnumerator();
 
         IEnumerator IEnumerable.GetEnumerator() =>
@@ -236,9 +240,9 @@ namespace RichHudFramework.UI
         /// Adds a new member to the list box with the given name and associated
         /// object.
         /// </summary>
-        public ListBoxEntry<T> Add(RichText name, T assocMember, bool enabled = true)
+        public TElementContainer Add(RichText name, TValue assocMember, bool enabled = true)
         {
-            ListBoxEntry<T> entry = entryPool.Get();
+            TElementContainer entry = entryPool.Get();
 
             entry.Element.Text = name;
             entry.AssocMember = assocMember;
@@ -251,11 +255,11 @@ namespace RichHudFramework.UI
         /// <summary>
         /// Adds the given range of entries to the list box.
         /// </summary>
-        public void AddRange(IReadOnlyList<MyTuple<RichText, T, bool>> entries)
+        public void AddRange(IReadOnlyList<MyTuple<RichText, TValue, bool>> entries)
         {
             for (int n = 0; n < entries.Count; n++)
             {
-                ListBoxEntry<T> entry = entryPool.Get();
+                TElementContainer entry = entryPool.Get();
 
                 entry.Element.Text = entries[n].Item1;
                 entry.AssocMember = entries[n].Item2;
@@ -267,9 +271,9 @@ namespace RichHudFramework.UI
         /// <summary>
         /// Inserts an entry at the given index.
         /// </summary>
-        public void Insert(int index, RichText name, T assocMember, bool enabled = true)
+        public void Insert(int index, RichText name, TValue assocMember, bool enabled = true)
         {
-            ListBoxEntry<T> entry = entryPool.Get();
+            TElementContainer entry = entryPool.Get();
 
             entry.Element.Text = name;
             entry.AssocMember = assocMember;
@@ -282,7 +286,7 @@ namespace RichHudFramework.UI
         /// </summary>
         public void RemoveAt(int index)
         {
-            ListBoxEntry<T> entry = scrollBox.Collection[index];
+            TElementContainer entry = scrollBox.Collection[index];
             scrollBox.RemoveAt(index, true);
             entryPool.Return(entry);
         }
@@ -290,7 +294,7 @@ namespace RichHudFramework.UI
         /// <summary>
         /// Removes the member at the given index from the list box.
         /// </summary>
-        public bool Remove(ListBoxEntry<T> entry)
+        public bool Remove(TElementContainer entry)
         {
             if (scrollBox.Remove(entry, true))
             {
@@ -336,7 +340,7 @@ namespace RichHudFramework.UI
         /// <summary>
         /// Sets the selection to the member associated with the given object.
         /// </summary>
-        public void SetSelection(T assocMember)
+        public void SetSelection(TValue assocMember)
         {
             int index = scrollBox.FindIndex(x => assocMember.Equals(x.AssocMember));
 
@@ -351,7 +355,7 @@ namespace RichHudFramework.UI
         /// <summary>
         /// Sets the selection to the specified entry.
         /// </summary>
-        public void SetSelection(ListBoxEntry<T> member)
+        public void SetSelection(TElementContainer member)
         {
             int index = scrollBox.FindIndex(x => member.Equals(x));
 
@@ -363,9 +367,9 @@ namespace RichHudFramework.UI
             }
         }
 
-        private ListBoxEntry<T> GetNewEntry()
+        private TElementContainer GetNewEntry()
         {
-            var entry = new ListBoxEntry<T>();
+            var entry = new TElementContainer();
             entry.Element.Format = Format;
             entry.Element.Padding = _memberPadding;
             entry.Enabled = true;
@@ -373,14 +377,14 @@ namespace RichHudFramework.UI
             return entry;
         }
 
-        private void ResetEntry(ListBoxEntry<T> entry)
+        private void ResetEntry(TElementContainer entry)
         {
             if (Selection == entry)
                 SelectionIndex = -1;
 
             entry.Element.TextBoard.Clear();
             entry.Element.MouseInput.ClearSubscribers();
-            entry.AssocMember = default(T);
+            entry.AssocMember = default(TValue);
             entry.Enabled = true;
         }
 
@@ -400,7 +404,7 @@ namespace RichHudFramework.UI
 
             for (int n = 0; n < scrollBox.Collection.Count; n++)
             {
-                ListBoxEntry<T> entry = scrollBox.Collection[n];
+                TElementContainer entry = scrollBox.Collection[n];
 
                 if (entry.Element.IsMousedOver)
                 {
@@ -436,14 +440,14 @@ namespace RichHudFramework.UI
                      );
                 case ListBoxAccessors.Add:
                     {
-                        if (data is MyTuple<List<RichStringMembers>, T>)
+                        if (data is MyTuple<List<RichStringMembers>, TValue>)
                         {
-                            var entryData = (MyTuple<List<RichStringMembers>, T>)data;
+                            var entryData = (MyTuple<List<RichStringMembers>, TValue>)data;
                             return (ApiMemberAccessor)Add(new RichText(entryData.Item1), entryData.Item2).GetOrSetMember;
                         }
                         else
                         {
-                            var entryData = (MyTuple<IList<RichStringMembers>, T>)data;
+                            var entryData = (MyTuple<IList<RichStringMembers>, TValue>)data;
                             var stringList = entryData.Item1 as List<RichStringMembers>;
                             return (ApiMemberAccessor)Add(new RichText(stringList), entryData.Item2).GetOrSetMember;
                         }
@@ -453,7 +457,7 @@ namespace RichHudFramework.UI
                         if (data == null)
                             return Selection;
                         else
-                            SetSelection(data as ListBoxEntry<T>);
+                            SetSelection(data as TElementContainer);
 
                         break;
                     }
@@ -465,15 +469,15 @@ namespace RichHudFramework.UI
                             SetSelectionAt((int)data); break;
                     }
                 case ListBoxAccessors.SetSelectionAtData:
-                    SetSelection((T)data); break;
+                    SetSelection((TValue)data); break;
                 case ListBoxAccessors.Insert:
                     {
-                        var entryData = (MyTuple<int, List<RichStringMembers>, T>)data;
+                        var entryData = (MyTuple<int, List<RichStringMembers>, TValue>)data;
                         Insert(entryData.Item1, new RichText(entryData.Item2), entryData.Item3);
                         break;
                     }
                 case ListBoxAccessors.Remove:
-                    return Remove(data as ListBoxEntry<T>);
+                    return Remove(data as TElementContainer);
                 case ListBoxAccessors.RemoveAt:
                     RemoveAt((int)data); break;
                 case ListBoxAccessors.ClearEntries:
@@ -520,4 +524,17 @@ namespace RichHudFramework.UI
             }
         }
     }
+
+    /// <summary>
+    /// Scrollable list of text elements. Each list entry is associated with a value of type T.
+    /// </summary>
+    public class ListBox<TValue> : ListBox<ListBoxEntry<TValue>, LabelButton, TValue>
+    {
+        public ListBox(HudParentBase parent) : base(parent)
+        { }
+
+        public ListBox() : base(null)
+        { }
+    }
+
 }

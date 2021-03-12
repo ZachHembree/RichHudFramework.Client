@@ -33,16 +33,24 @@ namespace RichHudFramework.UI
     }
 
     /// <summary>
+    /// Interface implemented by objects that function as list box entries.
+    /// </summary>
+    public interface IListBoxEntry<TElement, TValue>
+        : IScrollBoxEntryTuple<TElement, TValue>
+        where TElement : HudElementBase, IClickableElement, ILabelElement
+    {
+        object GetOrSetMember(object data, int memberEnum);
+    }
+
+    /// <summary>
     /// Label button assocated with an object of type T. Used in conjunction with list boxes.
     /// </summary>
-    public class ListBoxEntry<T> : ScrollBoxEntryTuple<LabelButton, T>
+    public class ListBoxEntry<TValue> 
+        : ScrollBoxEntryTuple<LabelButton, TValue>, IListBoxEntry<LabelButton, TValue>
     {
-        private readonly LabelButton button;
-
         public ListBoxEntry()
         {
-            button = new LabelButton() { AutoResize = false };
-            SetElement(button);
+            SetElement(new LabelButton() { AutoResize = false });
             Element.ZOffset = 1;
         }
 
@@ -73,7 +81,7 @@ namespace RichHudFramework.UI
                 case ListBoxEntryAccessors.AssocObject:
                     {
                         if (data != null)
-                            AssocMember = (T)data;
+                            AssocMember = (TValue)data;
                         else
                             return AssocMember;
 

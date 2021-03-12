@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using VRageMath;
 using VRage;
@@ -6,12 +7,15 @@ using VRage;
 namespace RichHudFramework.UI
 {
     using Rendering;
-    using System.Collections;
 
     /// <summary>
-    /// Indented, collapsable list. Designed to fit in with SE UI elements.
+    /// Generic indented collapsable list. Allows use of custom entry element types. 
+    /// Designed to fit in with SE UI elements.
     /// </summary>
-    public class TreeBox<T> : HudElementBase, IEntryBox<T>, IClickableElement
+    public class TreeBox<TElementContainer, TElement, TValue> 
+        : HudElementBase, IClickableElement, IEntryBox<TValue, TElementContainer, TElement>
+        where TElementContainer : class, IListBoxEntry<TElement, TValue>, new()
+        where TElement : HudElementBase, IClickableElement, ILabelElement
     {
         /// <summary>
         /// Invoked when a list member is selected.
@@ -21,13 +25,13 @@ namespace RichHudFramework.UI
         /// <summary>
         /// List of entries in the treebox.
         /// </summary>
-        public IReadOnlyList<ListBoxEntry<T>> ListEntries => entryChain.Collection;
+        public IReadOnlyList<TElementContainer> ListEntries => entryChain.Collection;
 
         /// <summary>
         /// Used to allow the addition of list entries using collection-initializer syntax in
         /// conjunction with normal initializers.
         /// </summary>
-        public TreeBox<T> ListContainer => this;
+        public TreeBox<TElementContainer, TElement, TValue> ListContainer => this;
 
         /// <summary>
         /// If true, then the dropdown list will be open
@@ -82,7 +86,7 @@ namespace RichHudFramework.UI
         /// <summary>
         /// Current selection. Null if empty.
         /// </summary>
-        public ListBoxEntry<T> Selection { get; private set; }
+        public TElementContainer Selection { get; private set; }
 
         /// <summary>
         /// Size of the collection.
@@ -109,15 +113,15 @@ namespace RichHudFramework.UI
 
         public HudElementBase Display => display;
 
-        public readonly HudChain<ListBoxEntry<T>, LabelButton> entryChain;
+        public readonly HudChain<TElementContainer, TElement> entryChain;
 
         protected readonly TreeBoxDisplay display;
         protected readonly HighlightBox highlight, selectionBox;
-        private readonly ObjectPool<ListBoxEntry<T>> entryPool;
+        private readonly ObjectPool<TElementContainer> entryPool;
 
         public TreeBox(HudParentBase parent) : base(parent)
         {
-            entryPool = new ObjectPool<ListBoxEntry<T>>(GetNewEntry, ResetEntry);
+            entryPool = new ObjectPool<TElementContainer>(GetNewEntry, ResetEntry);
 
             display = new TreeBoxDisplay(this)
             {
@@ -131,7 +135,7 @@ namespace RichHudFramework.UI
             highlight = new HighlightBox(display)
             { Color = new Color(34, 44, 53) };
 
-            entryChain = new HudChain<ListBoxEntry<T>, LabelButton>(true, display)
+            entryChain = new HudChain<TElementContainer, TElement>(true, display)
             {
                 Visible = false,
                 DimAlignment = DimAlignments.Width,
@@ -154,9 +158,9 @@ namespace RichHudFramework.UI
         /// <summary>
         /// Sets the selection to the member associated with the given object.
         /// </summary>
-        public void SetSelection(T assocMember)
+        public void SetSelection(TValue assocMember)
         {
-            ListBoxEntry<T> result = entryChain.Find(x => assocMember.Equals(x.AssocMember));
+            TElementContainer result = entryChain.Find(x => assocMember.Equals(x.AssocMember));
 
             if (result != null)
             {
@@ -168,9 +172,9 @@ namespace RichHudFramework.UI
         /// <summary>
         /// Sets the selection to the specified entry.
         /// </summary>
-        public void SetSelection(ListBoxEntry<T> member)
+        public void SetSelection(ListBoxEntry<TValue> member)
         {
-            ListBoxEntry<T> result = entryChain.Find(x => member.Equals(x));
+            TElementContainer result = entryChain.Find(x => member.Equals(x));
 
             if (result != null)
             {
@@ -191,9 +195,9 @@ namespace RichHudFramework.UI
         /// Adds a new member to the tree box with the given name and associated
         /// object.
         /// </summary>
-        public ListBoxEntry<T> Add(RichText name, T assocMember, bool enabled = true)
+        public TElementContainer Add(RichText name, TValue assocMember, bool enabled = true)
         {
-            ListBoxEntry<T> entry = entryPool.Get();
+            TElementContainer entry = entryPool.Get();
 
             entry.Element.Text = name;
             entry.AssocMember = assocMember;
@@ -206,11 +210,11 @@ namespace RichHudFramework.UI
         /// <summary>
         /// Adds the given range of entries to the tree box.
         /// </summary>
-        public void AddRange(IReadOnlyList<MyTuple<RichText, T, bool>> entries)
+        public void AddRange(IReadOnlyList<MyTuple<RichText, TValue, bool>> entries)
         {
             for (int n = 0; n < entries.Count; n++)
             {
-                ListBoxEntry<T> entry = entryPool.Get();
+                TElementContainer entry = entryPool.Get();
 
                 entry.Element.Text = entries[n].Item1;
                 entry.AssocMember = entries[n].Item2;
@@ -222,9 +226,9 @@ namespace RichHudFramework.UI
         /// <summary>
         /// Inserts an entry at the given index.
         /// </summary>
-        public void Insert(int index, RichText name, T assocMember, bool enabled = true)
+        public void Insert(int index, RichText name, TValue assocMember, bool enabled = true)
         {
-            ListBoxEntry<T> entry = entryPool.Get();
+            TElementContainer entry = entryPool.Get();
 
             entry.Element.Text = name;
             entry.AssocMember = assocMember;
@@ -237,7 +241,7 @@ namespace RichHudFramework.UI
         /// </summary>
         public void RemoveAt(int index)
         {
-            ListBoxEntry<T> entry = entryChain.Collection[index];
+            TElementContainer entry = entryChain.Collection[index];
             entryChain.RemoveAt(index, true);
             entryPool.Return(entry);
         }
@@ -264,9 +268,9 @@ namespace RichHudFramework.UI
             entryChain.Clear(true);
         }
 
-        private ListBoxEntry<T> GetNewEntry()
+        private TElementContainer GetNewEntry()
         {
-            var entry = new ListBoxEntry<T>();
+            var entry = new TElementContainer();
             entry.Element.Format = Format;
             entry.Element.Padding = new Vector2(24f, 0f);
             entry.Enabled = true;
@@ -274,11 +278,11 @@ namespace RichHudFramework.UI
             return entry;
         }
 
-        private void ResetEntry(ListBoxEntry<T> entry)
+        private void ResetEntry(TElementContainer entry)
         {
             entry.Element.TextBoard.Clear();
             entry.Element.MouseInput.ClearSubscribers();
-            entry.AssocMember = default(T);
+            entry.AssocMember = default(TValue);
             entry.Enabled = true;
         }
 
@@ -317,7 +321,7 @@ namespace RichHudFramework.UI
 
             for (int n = 0; n < entryChain.Collection.Count; n++)
             {
-                ListBoxEntry<T> entry = entryChain.Collection[n];
+                TElementContainer entry = entryChain.Collection[n];
                 entry.Element.Visible = entry.Enabled;
             }
 
@@ -325,7 +329,7 @@ namespace RichHudFramework.UI
 
             for (int n = 0; n < entryChain.Collection.Count; n++)
             {
-                ListBoxEntry<T> entry = entryChain.Collection[n];
+                TElementContainer entry = entryChain.Collection[n];
 
                 if (entry.Element.IsMousedOver)
                 {
@@ -342,7 +346,7 @@ namespace RichHudFramework.UI
             }
         }
 
-        public IEnumerator<ListBoxEntry<T>> GetEnumerator() =>
+        public IEnumerator<TElementContainer> GetEnumerator() =>
             entryChain.Collection.GetEnumerator();
 
         IEnumerator IEnumerable.GetEnumerator() =>
@@ -415,7 +419,7 @@ namespace RichHudFramework.UI
 
             private bool open;
 
-            private readonly Label name;
+            public readonly Label name;
             private readonly TexturedBox arrow, divider, background;
             private readonly HudChain layout;
             private readonly MouseInputElement mouseInput;
@@ -473,5 +477,17 @@ namespace RichHudFramework.UI
                 name.Width = (Width - Padding.X) - divider.Width - arrow.Width;
             }
         }
+    }
+
+    /// <summary>
+    /// Indented, collapsable list. Designed to fit in with SE UI elements.
+    /// </summary>
+    public class TreeBox<TValue> : TreeBox<ListBoxEntry<TValue>, LabelButton, TValue>
+    {
+        public TreeBox(HudParentBase parent) : base(parent)
+        { }
+
+        public TreeBox() : base(null)
+        { }
     }
 }

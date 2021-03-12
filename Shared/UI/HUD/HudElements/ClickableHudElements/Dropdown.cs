@@ -10,9 +10,13 @@ namespace RichHudFramework.UI
     using System.Collections;
 
     /// <summary>
-    /// Collapsable list box. Designed to mimic the appearance of the dropdown in the SE terminal.
+    /// Generic collapsable list box. Allows use of custom entry element types.
+    /// Designed to mimic the appearance of the dropdown in the SE terminal.
     /// </summary>
-    public class Dropdown<T> : HudElementBase, IEntryBox<T>, IClickableElement
+    public class Dropdown<TElementContainer, TElement, TValue>
+        : HudElementBase, IClickableElement, IEntryBox<TValue, TElementContainer, TElement>
+        where TElementContainer : class, IListBoxEntry<TElement, TValue>, new()
+        where TElement : HudElementBase, IClickableElement, ILabelElement
     {
         /// <summary>
         /// Invoked when a member of the list is selected.
@@ -22,18 +26,18 @@ namespace RichHudFramework.UI
         /// <summary>
         /// List of entries in the dropdown.
         /// </summary>
-        public IReadOnlyList<ListBoxEntry<T>> ListEntries => listBox.ListEntries;
+        public IReadOnlyList<TElementContainer> ListEntries => listBox.ListEntries;
 
         /// <summary>
         /// Read-only collection of list entries.
         /// </summary>
-        public IReadOnlyHudCollection<ListBoxEntry<T>, LabelButton> HudCollection => listBox.HudCollection;
+        public IReadOnlyHudCollection<TElementContainer, TElement> HudCollection => listBox.HudCollection;
 
         /// <summary>
         /// Used to allow the addition of list entries using collection-initializer syntax in
         /// conjunction with normal initializers.
         /// </summary>
-        public Dropdown<T> ListContainer => this;
+        public Dropdown<TElementContainer, TElement, TValue> ListContainer => this;
 
         /// <summary>
         /// Height of the dropdown list
@@ -103,7 +107,7 @@ namespace RichHudFramework.UI
         /// <summary>
         /// Current selection. Null if empty.
         /// </summary>
-        public ListBoxEntry<T> Selection => listBox.Selection;
+        public TElementContainer Selection => listBox.Selection;
 
         /// <summary>
         /// Index of the current selection. -1 if empty.
@@ -127,7 +131,7 @@ namespace RichHudFramework.UI
 
         public HudElementBase Display => display;
 
-        public readonly ListBox<T> listBox;
+        public readonly ListBox<TElementContainer, TElement, TValue> listBox;
         protected readonly DropdownDisplay display;
         protected readonly TexturedBox highlight;
 
@@ -147,7 +151,7 @@ namespace RichHudFramework.UI
                 Visible = false,
             };
 
-            listBox = new ListBox<T>(display)
+            listBox = new ListBox<TElementContainer, TElement, TValue>(display)
             {
                 Visible = false,
                 ZOffset = 1,
@@ -207,19 +211,19 @@ namespace RichHudFramework.UI
         /// Adds a new member to the dropdown with the given name and associated
         /// object.
         /// </summary>
-        public ListBoxEntry<T> Add(RichText name, T assocMember, bool enabled = true) =>
+        public TElementContainer Add(RichText name, TValue assocMember, bool enabled = true) =>
             listBox.Add(name, assocMember, enabled);
 
         /// <summary>
         /// Adds the given range of entries to the dropdown.
         /// </summary>
-        public void AddRange(IReadOnlyList<MyTuple<RichText, T, bool>> entries) =>
+        public void AddRange(IReadOnlyList<MyTuple<RichText, TValue, bool>> entries) =>
             listBox.AddRange(entries);
 
         /// <summary>
         /// Inserts an entry at the given index.
         /// </summary>
-        public void Insert(int index, RichText name, T assocMember, bool enabled = true) =>
+        public void Insert(int index, RichText name, TValue assocMember, bool enabled = true) =>
             listBox.Insert(index, name, assocMember, enabled);
 
         /// <summary>
@@ -231,7 +235,7 @@ namespace RichHudFramework.UI
         /// <summary>
         /// Removes the member at the given index from the dropdown.
         /// </summary>
-        public bool Remove(ListBoxEntry<T> entry) =>
+        public bool Remove(TElementContainer entry) =>
             listBox.Remove(entry);
 
         /// <summary>
@@ -255,19 +259,19 @@ namespace RichHudFramework.UI
         /// <summary>
         /// Sets the selection to the member associated with the given object.
         /// </summary>
-        public void SetSelection(T assocMember) =>
+        public void SetSelection(TValue assocMember) =>
             listBox.SetSelection(assocMember);
 
         /// <summary>
         /// Sets the selection to the specified entry.
         /// </summary>
-        public void SetSelection(ListBoxEntry<T> member) =>
+        public void SetSelection(TElementContainer member) =>
             listBox.SetSelection(member);
 
         public object GetOrSetMember(object data, int memberEnum) =>
-            listBox.GetOrSetMember(data, memberEnum);
+         listBox.GetOrSetMember(data, memberEnum);
 
-        public IEnumerator<ListBoxEntry<T>> GetEnumerator() =>
+        public IEnumerator<TElementContainer> GetEnumerator() =>
             listBox.ListEntries.GetEnumerator();
 
         IEnumerator IEnumerable.GetEnumerator() =>
@@ -347,5 +351,17 @@ namespace RichHudFramework.UI
                 name.Width = (Width - Padding.X) - divider.Width - arrow.Width;
             }
         }
+    }
+
+    /// <summary>
+    /// Collapsable list box. Designed to mimic the appearance of the dropdown in the SE terminal.
+    /// </summary>
+    public class Dropdown<TValue> : Dropdown<ListBoxEntry<TValue>, LabelButton, TValue>
+    {
+        public Dropdown(HudParentBase parent) : base(parent)
+        { }
+
+        public Dropdown() : base(null)
+        { }
     }
 }
