@@ -21,14 +21,44 @@ namespace RichHudFramework.UI
         ListMembers = 1,
 
         /// <summary>
-        /// MyTuple<IList<RichStringMembers>, T>
+        /// in: MyTuple<IList<RichStringMembers>, T>, out: ApiMemberAccessor
         /// </summary>
         Add = 2,
 
         /// <summary>
-        /// ApiMemberAccessor
+        /// out: ListBoxEntry
         /// </summary>
         Selection = 3,
+
+        /// <summary>
+        /// out: int
+        /// </summary>
+        SelectionIndex = 4,
+
+        /// <summary>
+        /// in: T (AssocObject)
+        /// </summary>
+        SetSelectionAtData = 5,
+
+        /// <summary>
+        /// in: MyTuple<int, IList<RichStringMembers>, T>
+        /// </summary>
+        Insert = 6,
+
+        /// <summary>
+        /// in: ListBoxEntry, out: bool
+        /// </summary>
+        Remove = 7,
+
+        /// <summary>
+        /// in: int
+        /// </summary>
+        RemoveAt = 8,
+
+        /// <summary>
+        /// void
+        /// </summary>
+        ClearEntries = 9
     }
 
     /// <summary>
@@ -150,7 +180,12 @@ namespace RichHudFramework.UI
         /// <summary>
         /// Current selection. Null if empty.
         /// </summary>
-        public ListBoxEntry<T> Selection { get; private set; }
+        public ListBoxEntry<T> Selection => SelectionIndex > 0 ? scrollBox.Collection[SelectionIndex] : null;
+
+        /// <summary>
+        /// Index of the current selection. -1 if empty.
+        /// </summary>
+        public int SelectionIndex { get; protected set; }
 
         public readonly ScrollBox<ListBoxEntry<T>, LabelButton> scrollBox;
         protected readonly HighlightBox selectionBox, highlight;
@@ -184,6 +219,8 @@ namespace RichHudFramework.UI
             HighlightPadding = new Vector2(12f, 6f);
             MemberPadding = new Vector2(20f, 6f);
             LineHeight = 30f;
+
+            SelectionIndex = -1;
         }
 
         public ListBox() : this(null)
@@ -291,7 +328,7 @@ namespace RichHudFramework.UI
         /// </summary>
         public void SetSelectionAt(int index)
         {
-            Selection = scrollBox.Collection[index];
+            SelectionIndex = MathHelper.Clamp(index, 0, scrollBox.Count - 1);
             Selection.Enabled = true;
             SelectionChanged?.Invoke(this, EventArgs.Empty);
         }
@@ -305,7 +342,7 @@ namespace RichHudFramework.UI
 
             if (index != -1)
             {
-                Selection = scrollBox.Collection[index];
+                SelectionIndex = MathHelper.Clamp(index, 0, scrollBox.Count - 1);
                 Selection.Enabled = true;
                 SelectionChanged?.Invoke(this, EventArgs.Empty);
             }
@@ -320,7 +357,7 @@ namespace RichHudFramework.UI
 
             if (index != -1)
             {
-                Selection = scrollBox.Collection[index];
+                SelectionIndex = MathHelper.Clamp(index, 0, scrollBox.Count - 1);
                 Selection.Enabled = true;
                 SelectionChanged?.Invoke(this, EventArgs.Empty);
             }
@@ -339,7 +376,7 @@ namespace RichHudFramework.UI
         private void ResetEntry(ListBoxEntry<T> entry)
         {
             if (Selection == entry)
-                Selection = null;
+                SelectionIndex = -1;
 
             entry.Element.TextBoard.Clear();
             entry.Element.MouseInput.ClearSubscribers();
@@ -373,7 +410,7 @@ namespace RichHudFramework.UI
 
                     if (SharedBinds.LeftButton.IsNewPressed)
                     {
-                        Selection = entry;
+                        SelectionIndex = n;
                         SelectionChanged?.Invoke(this, EventArgs.Empty);
                     }
                 }
@@ -394,21 +431,21 @@ namespace RichHudFramework.UI
                 case ListBoxAccessors.ListMembers:
                     return new CollectionData
                     (
-                        x => scrollBox.Collection[x].GetOrSetMember, 
+                        x => scrollBox.Collection[x].GetOrSetMember,
                         () => scrollBox.Collection.Count
                      );
                 case ListBoxAccessors.Add:
                     {
-                        if (data is MyTuple<IList<RichStringMembers>, T>)
+                        if (data is MyTuple<List<RichStringMembers>, T>)
+                        {
+                            var entryData = (MyTuple<List<RichStringMembers>, T>)data;
+                            return (ApiMemberAccessor)Add(new RichText(entryData.Item1), entryData.Item2).GetOrSetMember;
+                        }
+                        else
                         {
                             var entryData = (MyTuple<IList<RichStringMembers>, T>)data;
                             var stringList = entryData.Item1 as List<RichStringMembers>;
                             return (ApiMemberAccessor)Add(new RichText(stringList), entryData.Item2).GetOrSetMember;
-                        }
-                        else
-                        {
-                            var entryData = (MyTuple<List<RichStringMembers>, T>)data;
-                            return (ApiMemberAccessor)Add(new RichText(entryData.Item1), entryData.Item2).GetOrSetMember;
                         }
                     }
                 case ListBoxAccessors.Selection:
@@ -420,6 +457,27 @@ namespace RichHudFramework.UI
 
                         break;
                     }
+                case ListBoxAccessors.SelectionIndex:
+                    {
+                        if (data == null)
+                            return SelectionIndex;
+                        else
+                            SetSelectionAt((int)data); break;
+                    }
+                case ListBoxAccessors.SetSelectionAtData:
+                    SetSelection((T)data); break;
+                case ListBoxAccessors.Insert:
+                    {
+                        var entryData = (MyTuple<int, List<RichStringMembers>, T>)data;
+                        Insert(entryData.Item1, new RichText(entryData.Item2), entryData.Item3);
+                        break;
+                    }
+                case ListBoxAccessors.Remove:
+                    return Remove(data as ListBoxEntry<T>);
+                case ListBoxAccessors.RemoveAt:
+                    RemoveAt((int)data); break;
+                case ListBoxAccessors.ClearEntries:
+                    ClearEntries(); break;
             }
 
             return null;

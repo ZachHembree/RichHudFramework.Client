@@ -107,14 +107,14 @@ namespace RichHudFramework
         }
 
         /// <summary>
-        /// Read-only interface for UI elements that support child elments using containers.
+        /// Interface for UI elements that support child elments using containers.
         /// </summary>
         public interface IHudCollection<TElementContainer> : IHudCollection<TElementContainer, HudElementBase>
             where TElementContainer : IHudElementContainer<HudElementBase>, new()
         { }
 
         /// <summary>
-        /// Read-only interface for UI elements that support child elments using containers.
+        /// Interface for UI elements that support child elments using containers.
         /// </summary>
         public interface IHudCollection : IHudCollection<HudElementContainer<HudElementBase>, HudElementBase>
         { }

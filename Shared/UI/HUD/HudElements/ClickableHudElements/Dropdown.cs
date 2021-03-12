@@ -106,6 +106,11 @@ namespace RichHudFramework.UI
         public ListBoxEntry<T> Selection => listBox.Selection;
 
         /// <summary>
+        /// Index of the current selection. -1 if empty.
+        /// </summary>
+        public int SelectionIndex => listBox.SelectionIndex;
+
+        /// <summary>
         /// Mouse input for the dropdown display.
         /// </summary>
         public IMouseInput MouseInput => display.MouseInput;

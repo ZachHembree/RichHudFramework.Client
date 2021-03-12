@@ -54,7 +54,7 @@ namespace RichHudFramework.UI
             {
                 case ListBoxEntryAccessors.Name:
                     {
-                        if (data == null)
+                        if (data != null)
                             Element.Text = new RichText(data as List<RichStringMembers>);
                         else
                             return Element.Text.apiData;
@@ -63,7 +63,7 @@ namespace RichHudFramework.UI
                     }
                 case ListBoxEntryAccessors.Enabled:
                     {
-                        if (data == null)
+                        if (data != null)
                             Enabled = (bool)data;
                         else
                             return Enabled;
@@ -72,7 +72,7 @@ namespace RichHudFramework.UI
                     }
                 case ListBoxEntryAccessors.AssocObject:
                     {
-                        if (data == null)
+                        if (data != null)
                             AssocMember = (T)data;
                         else
                             return AssocMember;
