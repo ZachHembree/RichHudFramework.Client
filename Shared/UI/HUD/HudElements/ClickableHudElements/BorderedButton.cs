@@ -19,57 +19,124 @@ namespace RichHudFramework.UI.Server
         public float BorderThickness { get { return border.Thickness; } set { border.Thickness = value; } }
 
         /// <summary>
-        /// Color of the button's highlight overlay
+        /// Background highlight color
         /// </summary>
         public override Color HighlightColor { get; set; }
 
-        private readonly BorderBox border;
-        private readonly TexturedBox highlight;
+        /// <summary>
+        /// Text formatting used when the control gains focus.
+        /// </summary>
+        public GlyphFormat FocusFormat { get; set; }
+
+        /// <summary>
+        /// Background color used when the control gains focus.
+        /// </summary>
+        public Color FocusColor { get; set; } 
+
+        /// <summary>
+        /// If true, then the button will change formatting when it takes focus.
+        /// </summary>
+        public bool UseFocusFormatting { get; set; }
+
+        protected readonly BorderBox border;
+        protected GlyphFormat lastFormat;
+        protected Color lastColor;
 
         public BorderedButton(HudParentBase parent) : base(parent)
         {
             border = new BorderBox(this)
             {
-                Color = TerminalFormatting.BorderColor,
                 Thickness = 1f,
                 DimAlignment = DimAlignments.Both | DimAlignments.IgnorePadding,
             };
 
-            highlight = new TexturedBox(this)
-            {
-                DimAlignment = DimAlignments.Both | DimAlignments.IgnorePadding,
-                Visible = false,
-            };
-
             AutoResize = false;
             Format = TerminalFormatting.ControlFormat.WithAlignment(TextAlignment.Center);
+            FocusFormat = TerminalFormatting.InvControlFormat.WithAlignment(TextAlignment.Center);
             Text = "NewBorderedButton";
 
-            Color = new Color(42, 55, 63);
-            HighlightColor = TerminalFormatting.HighlightOverlayColor;
             TextPadding = new Vector2(32f, 0f);
             Padding = new Vector2(37f, 0f);
             Size = new Vector2(253f, 50f);
             HighlightEnabled = true;
+
+            Color = TerminalFormatting.OuterSpace;
+            HighlightColor = TerminalFormatting.Atomic;
+            BorderColor = TerminalFormatting.LimedSpruce;
+            FocusColor = TerminalFormatting.Mint;
+            UseFocusFormatting = true;
+
+            _mouseInput.GainedInputFocus += GainFocus;
+            _mouseInput.LostInputFocus += LoseFocus;
         }
 
         public BorderedButton() : this(null)
         { }
 
-        protected override void CursorEntered(object sender, EventArgs args)
+        protected override void HandleInput(Vector2 cursorPos)
         {
-            if (HighlightEnabled)
+            if (MouseInput.HasFocus)
             {
-                highlight.Color = HighlightColor;
-                highlight.Visible = true;
+                if (SharedBinds.Space.IsNewPressed)
+                {
+                    _mouseInput.OnLeftClick();
+                }
             }
         }
 
-        protected override void CursorExited(object sender, EventArgs args)
+        protected override void CursorEnter(object sender, EventArgs args)
         {
             if (HighlightEnabled)
             {
-                highlight.Visible = false;
+                if (!(UseFocusFormatting && MouseInput.HasFocus))
+                {
+                    lastColor = Color;
+                    lastFormat = Format;
+                }
+
+                TextBoard.SetFormatting(lastFormat);
+                Color = HighlightColor;
+            }
+        }
+
+        protected override void CursorExit(object sender, EventArgs args)
+        {
+            if (HighlightEnabled)
+            {
+                if (UseFocusFormatting && MouseInput.HasFocus)
+                {
+                    Color = FocusColor;
+                    TextBoard.SetFormatting(FocusFormat);
+                }
+                else
+                {
+                    Color = lastColor;
+                    TextBoard.SetFormatting(lastFormat);
+                }
+            }
+        }
+
+        protected virtual void GainFocus(object sender, EventArgs args)
+        {
+            if (UseFocusFormatting)
+            {
+                if (!MouseInput.IsMousedOver)
+                {
+                    lastColor = Color;
+                    lastFormat = Format;
+                }
+
+                Color = FocusColor;
+                TextBoard.SetFormatting(FocusFormat);
+            }
+        }
+
+        protected virtual void LoseFocus(object sender, EventArgs args)
+        {
+            if (UseFocusFormatting)
+            {
+                Color = lastColor;
+                TextBoard.SetFormatting(lastFormat);
             }
         }
     }

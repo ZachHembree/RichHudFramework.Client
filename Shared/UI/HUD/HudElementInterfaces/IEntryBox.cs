@@ -10,7 +10,7 @@ namespace RichHudFramework.UI
     /// </summary>
     public interface IEntryBox<TValue, TElementContainer, TElement> : IEnumerable<TElementContainer>, IReadOnlyHudElement
         where TElementContainer : IListBoxEntry<TElement, TValue>, new()
-        where TElement : HudElementBase, IClickableElement, ILabelElement
+        where TElement : HudElementBase, ILabelElement
     {
         /// <summary>
         /// Invoked when a member of the list is selected.

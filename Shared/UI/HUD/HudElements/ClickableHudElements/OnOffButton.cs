@@ -10,7 +10,7 @@ namespace RichHudFramework.UI.Server
     /// A pair of horizontally aligned on and off bordered buttons used to indicate a boolean value. Made to
     /// resemble on/off button used in the SE terminal, sans name tag.
     /// </summary>
-    public class OnOffButton : HudElementBase
+    public class OnOffButton : HudElementBase, IClickableElement
     {   
         /// <summary>
         /// Distance between the on and off buttons
@@ -20,12 +20,46 @@ namespace RichHudFramework.UI.Server
         /// <summary>
         /// Color of the border surrounding the on and off buttons
         /// </summary>
-        public Color BorderColor { get { return on.BorderColor; } set { on.BorderColor = value; off.BorderColor = value; } }
+        public Color BorderColor 
+        { 
+            get { return onBorder.Color; } 
+            set 
+            {
+                onBorder.Color = value;
+                offBorder.Color = value;
+                bgBorder.Color = value;
+            } 
+        }
 
         /// <summary>
-        /// Color of the highlight border used to indicate the current selection
+        /// Padding between background and button pair
         /// </summary>
-        public Color HighlightBorderColor { get { return selectionHighlight.Color; } set { selectionHighlight.Color = value; } }
+        public Vector2 BackgroundPadding { get { return buttonChain.Padding; } set { buttonChain.Padding = value; } }
+
+        /// <summary>
+        /// Color used for the background behind the button pair
+        /// </summary>
+        public Color BackgroundColor { get; set; }
+
+        /// <summary>
+        /// Focus color used for the background behind the button pair
+        /// </summary>
+        public Color FocusColor { get; set; }
+
+        /// <summary>
+        /// Highlight color used for the background behind the button pair
+        /// </summary>
+        public Color HighlightColor { get; set; }
+
+        /// <summary>
+        /// Color used for the background of the unselected button
+        /// </summary>
+        public Color UnselectedColor { get; set; }
+
+        /// <summary>
+        /// Background color used to indicate the current selection
+        /// </summary>
+        public Color SelectionColor { get; set; }
 
         /// <summary>
         /// On button text
@@ -47,73 +81,140 @@ namespace RichHudFramework.UI.Server
         /// </summary>
         public bool Value { get; set; }
 
-        protected readonly BorderedButton on, off;
+        /// <summary>
+        /// If true, then the button will change formatting when it takes focus.
+        /// </summary>
+        public bool UseFocusFormatting { get; set; }
+
+        /// <summary>
+        /// Determines whether or not the button will highlight when moused over.
+        /// </summary>
+        public virtual bool HighlightEnabled { get; set; }
+
+        /// <summary>
+        /// Mouse input element for the button
+        /// </summary>
+        public IMouseInput MouseInput => mouseInput;
+
+        protected readonly LabelBox on, off;
+        protected readonly BorderBox onBorder, offBorder;
         protected readonly HudChain buttonChain;
-        protected readonly BorderBox selectionHighlight;
+
+        protected readonly TexturedBox background;
+        protected readonly BorderBox bgBorder;
+
+        protected readonly MouseInputElement mouseInput;
 
         public OnOffButton(HudParentBase parent) : base(parent)
         {
-            on = new BorderedButton()
+            mouseInput = new MouseInputElement(this);
+
+            background = new TexturedBox(this)
             {
-                Text = "On",
-                Padding = Vector2.Zero,
-                Size = new Vector2(71f, 49f),
-                HighlightEnabled = true,
+                DimAlignment = DimAlignments.Both | DimAlignments.IgnorePadding,
             };
 
-            on.BorderThickness = 2f;
-
-            off = new BorderedButton()
+            bgBorder = new BorderBox(background)
             {
-                Text = "Off",
-                Padding = Vector2.Zero,
-                Size = new Vector2(71f, 49f),
-                HighlightEnabled = true,
+                DimAlignment = DimAlignments.Both | DimAlignments.IgnorePadding,
             };
 
-            off.BorderThickness = 2f;
+            on = new LabelBox()
+            {
+                AutoResize = false,
+                Size = new Vector2(71f, 49f),
+                Format = TerminalFormatting.ControlFormat.WithAlignment(TextAlignment.Center),
+                Text = "On"
+            };
 
-            buttonChain = new HudChain(false, this)
+            onBorder = new BorderBox(on)
+            {
+                Thickness = 2f,
+                DimAlignment = DimAlignments.Both | DimAlignments.IgnorePadding,
+            };
+
+            off = new LabelBox()
+            {
+                AutoResize = false,
+                Size = new Vector2(71f, 49f),
+                Format = TerminalFormatting.ControlFormat.WithAlignment(TextAlignment.Center),
+                Text = "Off"
+            };
+
+            offBorder = new BorderBox(off)
+            {
+                Thickness = 2f,
+                DimAlignment = DimAlignments.Both | DimAlignments.IgnorePadding,
+            };
+
+            buttonChain = new HudChain(false, bgBorder)
             {
                 SizingMode = HudChainSizingModes.FitMembersBoth | HudChainSizingModes.FitChainBoth,
+                Padding = new Vector2(12f, 10f),
                 Spacing = 9f,
                 CollectionContainer = { on, off }
             };
 
-            on.MouseInput.LeftClicked += ToggleValue;
-            off.MouseInput.LeftClicked += ToggleValue;
+            Size = new Vector2(166f, 58f);
 
-            selectionHighlight = new BorderBox(buttonChain)
-            { 
-                Color = Color.White 
-            };
+            BackgroundColor = TerminalFormatting.Cinder.SetAlphaPct(0.8f);
+            HighlightColor = TerminalFormatting.Atomic;
+            FocusColor = TerminalFormatting.Mint;
+            BorderColor = TerminalFormatting.LimedSpruce;
 
-            Size = new Vector2(200f, 50f);
+            UnselectedColor = TerminalFormatting.OuterSpace;
+            SelectionColor = TerminalFormatting.DullMint;
+
+            HighlightEnabled = true;
+            UseFocusFormatting = true;
+
+            mouseInput.LeftClicked += LeftClick;
         }
 
         public OnOffButton() : this(null)
         { }
 
-        private void ToggleValue(object sender, EventArgs args)
+        protected virtual void LeftClick(object sender, EventArgs args)
         {
             Value = !Value;
         }
 
         protected override void Layout()
         {
-            Vector2 buttonSize = cachedSize - cachedPadding;
+            Vector2 buttonSize = cachedSize - cachedPadding - buttonChain.Padding;
             buttonSize.X = buttonSize.X / 2f - buttonChain.Spacing;
             buttonChain.MemberMaxSize = buttonSize;
 
             if (Value)
             {
-                selectionHighlight.Size = buttonSize;
-                selectionHighlight.Offset = on.Offset;
+                on.Color = SelectionColor;
+                off.Color = UnselectedColor;
             }
             else
             {
-                selectionHighlight.Size = buttonSize;
-                selectionHighlight.Offset = off.Offset;
+                off.Color = SelectionColor;
+                on.Color = UnselectedColor;
+            }
+        }
+
+        protected override void HandleInput(Vector2 cursorPos)
+        {
+            if (mouseInput.HasFocus && SharedBinds.Space.IsNewPressed)
+            {
+                mouseInput.OnLeftClick();
+            }
+
+            if (HighlightEnabled && mouseInput.IsMousedOver)
+            {
+                background.Color = HighlightColor;
+            }
+            else if (UseFocusFormatting && mouseInput.HasFocus)
+            {
+                background.Color = FocusColor;
+            }
+            else
+            {
+                background.Color = BackgroundColor;
             }
         }
     }

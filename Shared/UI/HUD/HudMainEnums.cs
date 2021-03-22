@@ -77,7 +77,12 @@
             /// <summary>
             /// out: Func{Vector3D}
             /// </summary>
-            GetPixelSpaceOriginFunc = 15
+            GetPixelSpaceOriginFunc = 15,
+
+            /// <summary>
+            /// in: Action
+            /// </summary>
+            GetInputFocus = 16,
         }
     }
 }

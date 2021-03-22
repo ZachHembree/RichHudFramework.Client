@@ -18,14 +18,18 @@ namespace RichHudFramework.UI
         where TElement : HudElementBase, IClickableElement, ILabelElement
     {
         /// <summary>
-        /// Invoked when a list member is selected.
+        /// Invoked when an entry is selected.
         /// </summary>
-        public event EventHandler SelectionChanged;
+        public event EventHandler SelectionChanged
+        {
+            add { selectionBox.SelectionChanged += value; }
+            remove { selectionBox.SelectionChanged -= value; }
+        }
 
         /// <summary>
         /// List of entries in the treebox.
         /// </summary>
-        public IReadOnlyList<TElementContainer> ListEntries => entryChain.Collection;
+        public IReadOnlyList<TElementContainer> ListEntries => selectionBox.ListEntries;
 
         /// <summary>
         /// Used to allow the addition of list entries using collection-initializer syntax in
@@ -48,7 +52,7 @@ namespace RichHudFramework.UI
                 if (!ListOpen)
                     return display.Height + Padding.Y;
                 else
-                    return display.Height + entryChain.Height + Padding.Y;
+                    return display.Height + selectionBox.Height + Padding.Y;
             }
             set
             {
@@ -58,7 +62,7 @@ namespace RichHudFramework.UI
                 if (!ListOpen)
                 {
                     display.Height = value;
-                    entryChain.MemberMaxSize = new Vector2(entryChain.MemberMaxSize.X, value);
+                    selectionBox.LineHeight = value;
                 }
             }
         }
@@ -71,7 +75,12 @@ namespace RichHudFramework.UI
         /// <summary>
         /// Default format for member text;
         /// </summary>
-        public GlyphFormat Format { get { return display.Format; } set { display.Format = value; } }
+        public GlyphFormat Format { get { return display.Format; } set { display.Format = value; selectionBox.Format = value; } }
+
+        /// <summary>
+        /// Text formatting used for entries that have input focus
+        /// </summary>
+        public GlyphFormat FocusFormat { get { return selectionBox.FocusFormat; } set { selectionBox.FocusFormat = value; } }
 
         /// <summary>
         /// Determines the color of the header's background/
@@ -79,30 +88,45 @@ namespace RichHudFramework.UI
         public Color HeaderColor { get { return display.Color; } set { display.Color = value; } }
 
         /// <summary>
-        /// Color of the list's highlight box.
+        /// Default background color of the highlight box
         /// </summary>
-        public Color HighlightColor { get { return highlight.Color; } set { highlight.Color = value; selectionBox.Color = value; } }
+        public Color HighlightColor { get { return selectionBox.HighlightColor; } set { selectionBox.HighlightColor = value; } }
+
+        /// <summary>
+        /// Background color used for selection/highlighting when the list has input focus
+        /// </summary>
+        public Color FocusColor { get { return selectionBox.FocusColor; } set { selectionBox.FocusColor = value; } }
+
+        /// <summary>
+        /// Background color used for selection/highlighting when the list has input focus
+        /// </summary>
+        public Color TabColor { get { return selectionBox.TabColor; } set { selectionBox.TabColor = value; } }
+
+        /// <summary>
+        /// Padding applied to the highlight box.
+        /// </summary>
+        public Vector2 HighlightPadding { get { return selectionBox.HighlightPadding; } set { selectionBox.HighlightPadding = value; } }
 
         /// <summary>
         /// Current selection. Null if empty.
         /// </summary>
-        public TElementContainer Selection { get; private set; }
+        public TElementContainer Selection => selectionBox.Selection;
 
         /// <summary>
-        /// Size of the collection.
+        /// Size of the entry collection.
         /// </summary>
-        public int Count => entryChain.Collection.Count;
+        public int Count => selectionBox.Count;
 
         /// <summary>
         /// Determines how far to the right list members should be offset from the position of the header.
         /// </summary>
         public float IndentSize 
         { 
-            get { return entryChain.Padding.X; } 
+            get { return selectionBox.Padding.X; } 
             set 
             {
-                entryChain.Padding = new Vector2(value, entryChain.Padding.Y);
-                entryChain.Offset = entryChain.Padding / 2f;
+                selectionBox.Padding = new Vector2(value, selectionBox.Padding.Y);
+                selectionBox.Offset = selectionBox.Padding / 2f;
             } 
          }
 
@@ -113,42 +137,39 @@ namespace RichHudFramework.UI
 
         public HudElementBase Display => display;
 
-        public readonly HudChain<TElementContainer, TElement> entryChain;
+        public readonly SelectionBox<HudChain<TElementContainer, TElement>, TElementContainer, TElement, TValue> selectionBox;
 
         protected readonly TreeBoxDisplay display;
-        protected readonly HighlightBox highlight, selectionBox;
-        private readonly ObjectPool<TElementContainer> entryPool;
 
         public TreeBox(HudParentBase parent) : base(parent)
         {
-            entryPool = new ObjectPool<TElementContainer>(GetNewEntry, ResetEntry);
-
             display = new TreeBoxDisplay(this)
             {
                 ParentAlignment = ParentAlignments.Top | ParentAlignments.InnerV | ParentAlignments.UsePadding,
                 DimAlignment = DimAlignments.Width | DimAlignments.IgnorePadding
             };
 
-            selectionBox = new HighlightBox(display)
-            { Color = new Color(34, 44, 53) };
-
-            highlight = new HighlightBox(display)
-            { Color = new Color(34, 44, 53) };
-
-            entryChain = new HudChain<TElementContainer, TElement>(true, display)
+            selectionBox = new SelectionBox<HudChain<TElementContainer, TElement>, TElementContainer, TElement, TValue>()
             {
                 Visible = false,
-                DimAlignment = DimAlignments.Width,
-                SizingMode = HudChainSizingModes.FitMembersBoth | HudChainSizingModes.FitChainBoth,
-                ParentAlignment = ParentAlignments.Bottom | ParentAlignments.Right | ParentAlignments.InnerH | ParentAlignments.UsePadding,
+                ParentAlignment = ParentAlignments.Bottom,
+                HighlightPadding = Vector2.Zero
             };
+            selectionBox.Register(display, false, true);
+
+            selectionBox.border.Visible = false;
+            selectionBox.hudChain.SizingMode = 
+                HudChainSizingModes.FitMembersBoth | 
+                HudChainSizingModes.ClampChainOffAxis | 
+                HudChainSizingModes.FitChainAlignAxis;
 
             Size = new Vector2(200f, 34f);
-            IndentSize = 40f;
+            IndentSize = 20f;
 
             Format = GlyphFormat.Blueish;
-            display.Name = "NewTreeBox";
+            selectionBox.FocusFormat = Format.WithColor(TerminalFormatting.Charcoal);
 
+            display.Name = "NewTreeBox";
             display.MouseInput.LeftClicked += ToggleList;
         }
 
@@ -158,133 +179,57 @@ namespace RichHudFramework.UI
         /// <summary>
         /// Sets the selection to the member associated with the given object.
         /// </summary>
-        public void SetSelection(TValue assocMember)
-        {
-            TElementContainer result = entryChain.Find(x => assocMember.Equals(x.AssocMember));
-
-            if (result != null)
-            {
-                Selection = result;
-                SelectionChanged?.Invoke(this, EventArgs.Empty);
-            }
-        }
+        public void SetSelection(TValue assocMember) =>
+            selectionBox.SetSelection(assocMember);
 
         /// <summary>
         /// Sets the selection to the specified entry.
         /// </summary>
-        public void SetSelection(ListBoxEntry<TValue> member)
-        {
-            TElementContainer result = entryChain.Find(x => member.Equals(x));
-
-            if (result != null)
-            {
-                Selection = result;
-                SelectionChanged?.Invoke(this, EventArgs.Empty);
-            }
-        }
+        public void SetSelection(TElementContainer member) =>
+            selectionBox.SetSelection(member);
 
         /// <summary>
         /// Clears the current selection.
         /// </summary>
-        public void ClearSelection()
-        {
-            Selection = null;
-        }
+        public void ClearSelection() =>
+            selectionBox.ClearSelection();
 
         /// <summary>
         /// Adds a new member to the tree box with the given name and associated
         /// object.
         /// </summary>
-        public TElementContainer Add(RichText name, TValue assocMember, bool enabled = true)
-        {
-            TElementContainer entry = entryPool.Get();
-
-            entry.Element.Text = name;
-            entry.AssocMember = assocMember;
-            entry.Enabled = enabled;
-            entryChain.Add(entry);
-
-            return entry;
-        }
+        public TElementContainer Add(RichText name, TValue assocMember, bool enabled = true) =>
+            selectionBox.Add(name, assocMember, enabled);
 
         /// <summary>
         /// Adds the given range of entries to the tree box.
         /// </summary>
-        public void AddRange(IReadOnlyList<MyTuple<RichText, TValue, bool>> entries)
-        {
-            for (int n = 0; n < entries.Count; n++)
-            {
-                TElementContainer entry = entryPool.Get();
-
-                entry.Element.Text = entries[n].Item1;
-                entry.AssocMember = entries[n].Item2;
-                entry.Enabled = entries[n].Item3;
-                entryChain.Add(entry);
-            }
-        }
+        public void AddRange(IReadOnlyList<MyTuple<RichText, TValue, bool>> entries) =>
+            selectionBox.AddRange(entries);
 
         /// <summary>
         /// Inserts an entry at the given index.
         /// </summary>
-        public void Insert(int index, RichText name, TValue assocMember, bool enabled = true)
-        {
-            TElementContainer entry = entryPool.Get();
-
-            entry.Element.Text = name;
-            entry.AssocMember = assocMember;
-            entry.Enabled = enabled;
-            entryChain.Insert(index, entry);
-        }
+        public void Insert(int index, RichText name, TValue assocMember, bool enabled = true) =>
+            selectionBox.Insert(index, name, assocMember, enabled);
 
         /// <summary>
         /// Removes the member at the given index from the tree box.
         /// </summary>
-        public void RemoveAt(int index)
-        {
-            TElementContainer entry = entryChain.Collection[index];
-            entryChain.RemoveAt(index, true);
-            entryPool.Return(entry);
-        }
+        public void RemoveAt(int index) =>
+            selectionBox.RemoveAt(index);
 
         /// <summary>
         /// Removes the specified range of indices from the tree box.
         /// </summary>
-        public void RemoveRange(int index, int count)
-        {
-            for (int n = index; n < index + count; n++)
-                entryPool.Return(entryChain.Collection[n]);
-
-            entryChain.RemoveRange(index, count, true);
-        }
+        public void RemoveRange(int index, int count) =>
+            selectionBox.RemoveRange(index, count);
 
         /// <summary>
-        /// Removes all entries from the tree box.
+        /// Clears the current selection
         /// </summary>
-        public void ClearEntries()
-        {
-            for (int n = 0; n < entryChain.Collection.Count; n++)
-                entryPool.Return(entryChain.Collection[n]);
-
-            entryChain.Clear(true);
-        }
-
-        private TElementContainer GetNewEntry()
-        {
-            var entry = new TElementContainer();
-            entry.Element.Format = Format;
-            entry.Element.Padding = new Vector2(24f, 0f);
-            entry.Enabled = true;
-
-            return entry;
-        }
-
-        private void ResetEntry(TElementContainer entry)
-        {
-            entry.Element.TextBoard.Clear();
-            entry.Element.MouseInput.ClearSubscribers();
-            entry.AssocMember = default(TValue);
-            entry.Enabled = true;
-        }
+        public void ClearEntries() =>
+            selectionBox.ClearEntries();
 
         private void ToggleList(object sender, EventArgs args)
         {
@@ -296,98 +241,34 @@ namespace RichHudFramework.UI
 
         public void OpenList()
         {
-            entryChain.Visible = true;
+            selectionBox.Visible = true;
             display.Open = true;
             ListOpen = true;
         }
 
         public void CloseList()
         {
-            entryChain.Visible = false;
+            selectionBox.Visible = false;
             display.Open = false;
             ListOpen = false;
         }
 
-        protected override void HandleInput(Vector2 cursorPos)
+        protected override void Layout()
         {
-            if (Selection != null)
+            selectionBox.Visible = ListOpen;
+
+            if (ListOpen)
             {
-                selectionBox.Offset = Selection.Element.Position - selectionBox.Origin;
-                selectionBox.Size = Selection.Element.Size;
-                selectionBox.Visible = Selection.Element.Visible;
-            }
-            else
-                selectionBox.Visible = false;
-
-            for (int n = 0; n < entryChain.Collection.Count; n++)
-            {
-                TElementContainer entry = entryChain.Collection[n];
-                entry.Element.Visible = entry.Enabled;
-            }
-
-            highlight.Visible = false;
-
-            for (int n = 0; n < entryChain.Collection.Count; n++)
-            {
-                TElementContainer entry = entryChain.Collection[n];
-
-                if (entry.Element.IsMousedOver)
-                {
-                    highlight.Visible = true;
-                    highlight.Size = entry.Element.Size;
-                    highlight.Offset = entry.Element.Position - highlight.Origin;
-
-                    if (entry.Element.MouseInput.IsNewLeftClicked)
-                    {
-                        Selection = entry;
-                        SelectionChanged?.Invoke(this, EventArgs.Empty);
-                    }
-                }
+                selectionBox.Width = Width - IndentSize - Padding.X;
+                selectionBox.Offset = new Vector2(IndentSize, 0f);
             }
         }
 
         public IEnumerator<TElementContainer> GetEnumerator() =>
-            entryChain.Collection.GetEnumerator();
+            selectionBox.GetEnumerator();
 
         IEnumerator IEnumerable.GetEnumerator() =>
-            entryChain.Collection.GetEnumerator();
-
-        /// <summary>
-        /// A textured box with a white tab positioned on the left hand side.
-        /// </summary>
-        protected class HighlightBox : TexturedBox
-        {
-            public Color TabColor { get { return tabBoard.Color; } set { tabBoard.Color = value; } }
-
-            private readonly MatBoard tabBoard;
-
-            public HighlightBox(HudParentBase parent = null) : base(parent)
-            {
-                tabBoard = new MatBoard() { Color = new Color(223, 230, 236) };
-                Color = Color = new Color(34, 44, 53);
-            }
-
-            protected override void Layout()
-            {
-                hudBoard.Size = cachedSize - cachedPadding;
-                tabBoard.Size = new Vector2(4f * Scale, cachedSize.Y - cachedPadding.Y);
-            }
-
-            protected override void Draw()
-            {
-                var ptw = HudSpace.PlaneToWorld;
-
-                if (hudBoard.Color.A > 0)
-                    hudBoard.Draw(cachedPosition, ref ptw);
-
-                // Left align the tab
-                Vector2 tabPos = cachedPosition;
-                tabPos.X += (-hudBoard.Size.X + tabBoard.Size.X) / 2f;
-
-                if (tabBoard.Color.A > 0)
-                    tabBoard.Draw(tabPos, ref ptw);
-            }
-        }
+            selectionBox.GetEnumerator();
 
         /// <summary>
         /// Modified dropdown header with a rotating arrow on the left side indicating
@@ -432,7 +313,7 @@ namespace RichHudFramework.UI
             {
                 background = new TexturedBox(this)
                 {
-                    Color = new Color(41, 54, 62),
+                    Color = TerminalFormatting.EbonyClay,
                     DimAlignment = DimAlignments.Both,
                 };
 

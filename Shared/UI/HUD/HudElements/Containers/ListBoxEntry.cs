@@ -37,7 +37,7 @@ namespace RichHudFramework.UI
     /// </summary>
     public interface IListBoxEntry<TElement, TValue>
         : IScrollBoxEntryTuple<TElement, TValue>
-        where TElement : HudElementBase, IClickableElement, ILabelElement
+        where TElement : HudElementBase, ILabelElement
     {
         object GetOrSetMember(object data, int memberEnum);
     }
@@ -45,12 +45,19 @@ namespace RichHudFramework.UI
     /// <summary>
     /// Label button assocated with an object of type T. Used in conjunction with list boxes.
     /// </summary>
-    public class ListBoxEntry<TValue> 
-        : ScrollBoxEntryTuple<LabelButton, TValue>, IListBoxEntry<LabelButton, TValue>
+    public class ListBoxEntry<TValue> : ListBoxEntry<TValue, LabelButton>
+    { }
+
+    public class ListBoxLabel<TValue> : ListBoxEntry<TValue, Label>
+    { }
+
+    public class ListBoxEntry<TValue, TElement>
+        : ScrollBoxEntryTuple<TElement, TValue>, IListBoxEntry<TElement, TValue>
+        where TElement : HudElementBase, ILabelElement, new()
     {
         public ListBoxEntry()
         {
-            SetElement(new LabelButton() { AutoResize = false });
+            SetElement(new TElement() { AutoResize = false });
             Element.ZOffset = 1;
         }
 

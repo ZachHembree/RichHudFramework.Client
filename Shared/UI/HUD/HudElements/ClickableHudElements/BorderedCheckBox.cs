@@ -12,62 +12,157 @@ namespace RichHudFramework.UI.Server
         /// <summary>
         /// Indicates whether or not the box is checked.
         /// </summary>
-        public bool IsBoxChecked { get { return box.Visible; } set { box.Visible = value; } }
+        public bool IsBoxChecked { get { return tickBox.Visible; } set { tickBox.Visible = value; } }
 
-        private readonly TexturedBox box, highlight;
+        /// <summary>
+        /// Color of the border surrounding the button
+        /// </summary>
+        public Color BorderColor { get { return border.Color; } set { border.Color = value; } }
 
-        private static readonly Color BoxColor = new Color(114, 121, 139);
+        /// <summary>
+        /// Thickness of the border surrounding the button
+        /// </summary>
+        public float BorderThickness { get { return border.Thickness; } set { border.Thickness = value; } }
+
+        /// <summary>
+        /// Tickbox default color
+        /// </summary>
+        public Color TickBoxColor { get { return tickBox.Color; } set { tickBox.Color = value; } }
+
+        /// <summary>
+        /// Tickbox highlight color
+        /// </summary>
+        public Color TickBoxHighlightColor { get; set; }
+
+        /// <summary>
+        /// Tickbox focus color
+        /// </summary>
+        public Color TickBoxFocusColor { get; set; }
+
+        /// <summary>
+        /// Text formatting used when the control gains focus.
+        /// </summary>
+        public GlyphFormat FocusFormat { get; set; }
+
+        /// <summary>
+        /// Background color used when the control gains focus.
+        /// </summary>
+        public Color FocusColor { get; set; }
+
+        /// <summary>
+        /// If true, then the button will change formatting when it takes focus.
+        /// </summary>
+        public bool UseFocusFormatting { get; set; }
+
+        protected readonly BorderBox border;
+        protected readonly TexturedBox tickBox;
+        protected Color lastTickColor;
 
         public BorderedCheckBox(HudParentBase parent) : base(parent)
         {
-            var border = new BorderBox(this)
+            border = new BorderBox(this)
             {
-                Color = TerminalFormatting.BorderColor,
                 Thickness = 1f,
                 DimAlignment = DimAlignments.Both,
             };
 
-            highlight = new TexturedBox(this)
-            {
-                Color = TerminalFormatting.HighlightOverlayColor,
-                DimAlignment = DimAlignments.Both,
-                Visible = false,
-            };
-
-            box = new TexturedBox(this)
+            tickBox = new TexturedBox()
             {
                 DimAlignment = DimAlignments.Both,
-                Padding = new Vector2(16f),
-                Color = BoxColor,
+                Padding = new Vector2(17f),
             };
+            tickBox.Register(this, false, true);
 
             Size = new Vector2(37f);
-            Color = new Color(39, 52, 60);
-            highlightColor = new Color(50, 60, 70);
-            highlightEnabled = false;
+
+            Color = TerminalFormatting.OuterSpace;
+            HighlightColor = TerminalFormatting.Atomic;
+            FocusColor = TerminalFormatting.Mint;
+
+            TickBoxColor = TerminalFormatting.StormGrey;
+            TickBoxHighlightColor = Color.White;
+            TickBoxFocusColor = TerminalFormatting.Cinder;
+
+            BorderColor = TerminalFormatting.LimedSpruce;
+            UseFocusFormatting = true;
 
             MouseInput.LeftClicked += ToggleValue;
+            MouseInput.GainedInputFocus += GainFocus;
+            MouseInput.LostInputFocus += LoseFocus;
         }
 
         public BorderedCheckBox() : this(null)
         { }
+
+        protected override void HandleInput(Vector2 cursorPos)
+        {
+            if (MouseInput.HasFocus)
+            {
+                if (SharedBinds.Space.IsNewPressed)
+                {
+                    _mouseInput.OnLeftClick();
+                }
+            }
+        }
 
         private void ToggleValue(object sender, EventArgs args)
         {
             IsBoxChecked = !IsBoxChecked;
         }
 
-        protected override void HandleInput(Vector2 cursorPos)
+        protected override void CursorEnter(object sender, EventArgs args)
         {
-            if (IsMousedOver)
+            if (HighlightEnabled)
             {
-                highlight.Visible = true;
-                box.Color = TerminalFormatting.HighlightColor;
+                if (!(UseFocusFormatting && MouseInput.HasFocus))
+                {
+                    lastBackgroundColor = Color;
+                    lastTickColor = TickBoxColor;
+                }
+
+                Color = HighlightColor;
+                TickBoxColor = TickBoxHighlightColor;
             }
-            else
+        }
+
+        protected override void CursorExit(object sender, EventArgs args)
+        {
+            if (HighlightEnabled)
             {
-                highlight.Visible = false;
-                box.Color = BoxColor;
+                if (UseFocusFormatting && MouseInput.HasFocus)
+                {
+                    Color = FocusColor;
+                    TickBoxColor = TickBoxFocusColor;
+                }
+                else
+                {
+                    Color = lastBackgroundColor;
+                    TickBoxColor = lastTickColor;
+                }
+            }
+        }
+
+        protected virtual void GainFocus(object sender, EventArgs args)
+        {
+            if (HighlightEnabled)
+            {
+                if (UseFocusFormatting && !MouseInput.IsMousedOver)
+                {
+                    Color = FocusColor;
+                    TickBoxColor = TickBoxFocusColor;
+                }
+            }
+        }
+
+        protected virtual void LoseFocus(object sender, EventArgs args)
+        {
+            if (HighlightEnabled)
+            {
+                if (UseFocusFormatting)
+                {
+                    Color = lastBackgroundColor;
+                    TickBoxColor = lastTickColor;
+                }
             }
         }
     }
