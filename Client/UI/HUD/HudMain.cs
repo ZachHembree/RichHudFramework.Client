@@ -10,6 +10,7 @@ using Vec2Prop = VRage.MyTuple<System.Func<VRageMath.Vector2>, System.Action<VRa
 
 namespace RichHudFramework
 {
+    using Internal;
     using Client;
     using CursorMembers = MyTuple<
         Func<HudSpaceDelegate, bool>, // IsCapturingSpace
@@ -177,8 +178,14 @@ namespace RichHudFramework
 
                 root = new HudClientRoot();
 
+                Action<List<HudUpdateAccessors>, byte> rootDelegate = root.GetUpdateAccessors,
+                    safeAccessor = (List<HudUpdateAccessors> list, byte depth) =>
+                    {
+                        ExceptionHandler.Run(() => rootDelegate(list, depth));
+                    };
+
                 // Register update delegate
-                GetOrSetMemberFunc(new Action<List<HudUpdateAccessors>, byte>(root.GetUpdateAccessors), (int)HudMainAccessors.GetUpdateAccessors);
+                GetOrSetMemberFunc(safeAccessor, (int)HudMainAccessors.GetUpdateAccessors);
 
                 root.CustomDrawAction = HudMasterDraw;
                 root.CustomInputAction = HudMasterInput;
