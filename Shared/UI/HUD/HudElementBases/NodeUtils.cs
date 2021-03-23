@@ -290,17 +290,21 @@ namespace RichHudFramework
                 /// </summary>
                 public static void SetNodesState(HudElementStates state, bool mask, IReadOnlyList<HudNodeBase> nodes, int index, int count)
                 {
-                    int end = index + count - 1;
+                    if (count > 0)
+                    {
+                        int end = index + count - 1;
+                        Utils.Debug.Assert(index >= 0 && end < nodes.Count, $"Range out of bounds. Index: {index}, End: {end}");
 
-                    if (mask)
-                    {
-                        for (int i = index; i <= end; i++)
-                            nodes[i].State &= ~state;
-                    }
-                    else
-                    {
-                        for (int i = index; i <= end; i++)
-                            nodes[i].State |= state;
+                        if (mask)
+                        {
+                            for (int i = index; i <= end; i++)
+                                nodes[i].State &= ~state;
+                        }
+                        else
+                        {
+                            for (int i = index; i <= end; i++)
+                                nodes[i].State |= state;
+                        }
                     }
                 }
 
@@ -311,17 +315,21 @@ namespace RichHudFramework
                     where TCon : IHudElementContainer<TNode>, new()
                     where TNode : HudNodeBase
                 {
-                    int end = index + count - 1;
+                    if (count > 0)
+                    {
+                        int end = index + count - 1;
+                        Utils.Debug.Assert(index >= 0 && end < nodes.Count, $"Range out of bounds. Index: {index}, End: {end}");
 
-                    if (mask)
-                    {
-                        for (int i = index; i <= end; i++)
-                            nodes[i].Element.State &= ~state;
-                    }
-                    else
-                    {
-                        for (int i = index; i <= end; i++)
-                            nodes[i].Element.State |= state;
+                        if (mask)
+                        {
+                            for (int i = index; i <= end; i++)
+                                nodes[i].Element.State &= ~state;
+                        }
+                        else
+                        {
+                            for (int i = index; i <= end; i++)
+                                nodes[i].Element.State |= state;
+                        }
                     }
                 }
             }
