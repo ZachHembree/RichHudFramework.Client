@@ -1,4 +1,4 @@
-﻿using RichHudFramework;
+using RichHudFramework;
 using RichHudFramework.Internal;
 using RichHudFramework.IO;
 using Sandbox.ModAPI;
@@ -21,7 +21,7 @@ namespace RichHudFramework.Client
     public sealed class RichHudClient : RichHudComponentBase
     {
         private const long modID = 1965654081, queueID = 1314086443;
-        private const int versionID = 7;
+        private const int vID = 8;
 
         public static bool Registered => Instance != null ? Instance.registered : false;
         private static RichHudClient Instance { get; set; }
