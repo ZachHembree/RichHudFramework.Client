@@ -28,15 +28,8 @@ namespace RichHudFramework
         public interface IControlPage : IControlPage<ControlCategory, ControlTile>
         { }
 
-        /// <summary>
-        /// Interactable list of vertically scrolling control categories
-        /// </summary>
-        public interface IVertControlPage : IControlPage<VertControlCategory, TerminalControlBase>
-        { }
-
         public interface IControlPage<TCategory, TMember> : ITerminalPage, IEnumerable<TCategory>
-            where TMember : IScrollBoxEntry<HudElementBase>, new()
-            where TCategory : IControlCategory<TMember>, IScrollBoxEntry<HudElementBase>, new()
+            where TCategory : IControlCategory<TMember>, new()
         {
             /// <summary>
             /// Read only collection of <see cref="IControlCategory"/>s assigned to this object.

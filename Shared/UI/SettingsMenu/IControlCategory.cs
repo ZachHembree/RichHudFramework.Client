@@ -59,7 +59,7 @@ namespace RichHudFramework
         }
 
         /// <summary>
-        /// Horizontally scrolling list of control tiles.
+        /// Vertically scrolling list of terminal controls
         /// </summary>
         public interface IVertControlCategory : IControlCategory<TerminalControlBase>
         {
@@ -76,7 +76,6 @@ namespace RichHudFramework
         }
 
         public interface IControlCategory<TElementContainer> : IEnumerable<TElementContainer>
-            where TElementContainer : IScrollBoxEntry<HudElementBase>, new()
         {
             /// <summary>
             /// Category name
