@@ -32,11 +32,6 @@ namespace RichHudFramework
         public interface ITerminalPage : IModRootMember
         {
             /// <summary>
-            /// Unique identifier
-            /// </summary>
-            object ID { get; }
-
-            /// <summary>
             /// Retrieves information used by the Framework API
             /// </summary>
             ControlMembers GetApiData();
