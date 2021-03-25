@@ -8,7 +8,7 @@ namespace RichHudFramework.UI.Server
     /// Unlined clickable textbox with a background and border designed to look like text fields in the SE
     /// terminal.
     /// </summary>
-    public class TextField : LabelBoxBase, IClickableElement
+    public class TextField : LabelBoxBase, IClickableElement, ILabelElement
     {
         /// <summary>
         /// Invoked whenever a change is made to the text. Invokes once every 500ms, at most.
@@ -23,7 +23,7 @@ namespace RichHudFramework.UI.Server
         /// <summary>
         /// TextBoard backing the text field.
         /// </summary>
-        public ITextBuilder TextBoard => textBox.TextBoard;
+        public ITextBoard TextBoard => textBox.TextBoard;
 
         /// <summary>
         /// Default formatting used by the text field.
@@ -118,6 +118,16 @@ namespace RichHudFramework.UI.Server
         public IMouseInput MouseInput => textBox.MouseInput;
 
         public override bool IsMousedOver => textBox.IsMousedOver;
+
+        /// <summary>
+        /// Line formatting mode used by the field
+        /// </summary>
+        public TextBuilderModes BuilderMode { get { return textBox.BuilderMode; } set { textBox.BuilderMode = value; } }
+
+        /// <summary>
+        /// If true, the text will be vertically centered.
+        /// </summary>
+        public bool VertCenterText { get { return textBox.VertCenterText; } set { textBox.VertCenterText = value; } }
 
         protected readonly TextBox textBox;
         protected readonly BorderBox border;

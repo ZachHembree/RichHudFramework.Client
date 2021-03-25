@@ -12,9 +12,9 @@ namespace RichHudFramework.UI
     /// MouseInputElement subtype designed to manage selection, highlighting of vertically scrolling lists with entries
     /// of the same height.
     /// </summary>
-    public class ListInputElement<TElementContainer, TElement, TValue> : MouseInputElement
-        where TElement : HudElementBase, ILabelElement
-        where TElementContainer : class, IListBoxEntry<TElement, TValue>, new()
+    public class ListInputElement<TElementContainer, TElement> : MouseInputElement
+        where TElement : HudElementBase, IMinLabelElement
+        where TElementContainer : class, IScrollBoxEntry<TElement>, new()
     {
         /// <summary>
         /// Invoked when an entry is selected.
@@ -85,21 +85,6 @@ namespace RichHudFramework.UI
             SelectionIndex = MathHelper.Clamp(index, 0, Entries.Count - 1);
             Selection.Enabled = true;
             SelectionChanged?.Invoke(this, EventArgs.Empty);
-        }
-
-        /// <summary>
-        /// Sets the selection to the member associated with the given object.
-        /// </summary>
-        public void SetSelection(TValue assocMember)
-        {
-            int index = Entries.FindIndex(x => assocMember.Equals(x.AssocMember));
-
-            if (index != -1)
-            {
-                SelectionIndex = MathHelper.Clamp(index, 0, Entries.Count - 1);
-                Selection.Enabled = true;
-                SelectionChanged?.Invoke(this, EventArgs.Empty);
-            }
         }
 
         /// <summary>

@@ -2,20 +2,46 @@
 using System.Collections;
 using System.Collections.Generic;
 using VRageMath;
-using VRage;
 
 namespace RichHudFramework.UI
 {
     using Rendering;
 
     /// <summary>
-    /// Generic indented collapsable list. Allows use of custom entry element types. 
-    /// Designed to fit in with SE UI elements.
+    /// Abstract, generic base for tree boxes/lists
     /// </summary>
-    public class TreeBox<TElementContainer, TElement, TValue> 
-        : HudElementBase, IClickableElement, IEntryBox<TValue, TElementContainer, TElement>
-        where TElementContainer : class, IListBoxEntry<TElement, TValue>, new()
-        where TElement : HudElementBase, IClickableElement, ILabelElement
+    /// <typeparam name="TContainer">Container element type wrapping the UI element</typeparam>
+    /// <typeparam name="TElement">UI element in the list</typeparam>
+    public class TreeBoxBase<TContainer, TElement> 
+        : TreeBoxBase<
+            ChainSelectionBoxBase<TContainer, TElement>,
+            HudChain<TContainer, TElement>,
+            TContainer,
+            TElement
+        >
+        where TContainer : class, ISelectionBoxEntry<TElement>, new()
+        where TElement : HudElementBase, IMinLabelElement
+    {
+        public TreeBoxBase(HudParentBase parent) : base(parent)
+        { }
+
+        public TreeBoxBase() : base(null)
+        { }
+    }
+
+    /// <summary>
+    /// Abstract, generic base for tree boxes/lists
+    /// </summary>
+    /// <typeparam name="TContainer">Container element type wrapping the UI element</typeparam>
+    /// <typeparam name="TElement">UI element in the list</typeparam>
+    /// <typeparam name="TChain">HudChain type used by the SelectionBox as the list container</typeparam>
+    /// <typeparam name="TSelectionBox">SelectionBox type</typeparam>
+    public abstract class TreeBoxBase<TSelectionBox, TChain, TContainer, TElement>
+        : LabelElementBase, IEntryBox<TContainer, TElement>, IClickableElement
+        where TElement : HudElementBase, IMinLabelElement
+        where TContainer : class, ISelectionBoxEntry<TElement>, new()
+        where TChain : HudChain<TContainer, TElement>, new()
+        where TSelectionBox : SelectionBoxBase<TChain, TContainer, TElement>, new()
     {
         /// <summary>
         /// Invoked when an entry is selected.
@@ -29,13 +55,13 @@ namespace RichHudFramework.UI
         /// <summary>
         /// List of entries in the treebox.
         /// </summary>
-        public IReadOnlyList<TElementContainer> ListEntries => selectionBox.ListEntries;
+        public IReadOnlyList<TContainer> EntryList => selectionBox.EntryList;
 
         /// <summary>
         /// Used to allow the addition of list entries using collection-initializer syntax in
         /// conjunction with normal initializers.
         /// </summary>
-        public TreeBox<TElementContainer, TElement, TValue> ListContainer => this;
+        public TreeBoxBase<TSelectionBox, TChain, TContainer, TElement> ListContainer => this;
 
         /// <summary>
         /// If true, then the dropdown list will be open
@@ -62,7 +88,6 @@ namespace RichHudFramework.UI
                 if (!ListOpen)
                 {
                     display.Height = value;
-                    selectionBox.LineHeight = value;
                 }
             }
         }
@@ -71,6 +96,11 @@ namespace RichHudFramework.UI
         /// Name of the element as rendered on the display
         /// </summary>
         public RichText Name { get { return display.Name; } set { display.Name = value; } }
+
+        /// <summary>
+        /// TextBoard backing the name label
+        /// </summary>
+        public override ITextBoard TextBoard => display.name.TextBoard;
 
         /// <summary>
         /// Default format for member text;
@@ -110,7 +140,7 @@ namespace RichHudFramework.UI
         /// <summary>
         /// Current selection. Null if empty.
         /// </summary>
-        public TElementContainer Selection => selectionBox.Selection;
+        public TContainer Selection => selectionBox.Selection;
 
         /// <summary>
         /// Size of the entry collection.
@@ -120,15 +150,34 @@ namespace RichHudFramework.UI
         /// <summary>
         /// Determines how far to the right list members should be offset from the position of the header.
         /// </summary>
-        public float IndentSize 
-        { 
-            get { return selectionBox.Padding.X; } 
-            set 
-            {
-                selectionBox.Padding = new Vector2(value, selectionBox.Padding.Y);
-                selectionBox.Offset = selectionBox.Padding / 2f;
-            } 
-         }
+        public float IndentSize { get; set; }
+
+        /// <summary>
+        /// Sizing mode used by the chain containing the tree box's member list
+        /// </summary>
+        public HudChainSizingModes MemberSizingModes 
+        {
+            get { return selectionBox.hudChain.SizingMode; } 
+            set { selectionBox.hudChain.SizingMode = value; } 
+        }
+
+        /// <summary>
+        /// Member lists' min member size
+        /// </summary>
+        public Vector2 MemberMinSize
+        {
+            get { return selectionBox.hudChain.MemberMinSize; }
+            set { selectionBox.hudChain.MemberMinSize = value; }
+        }
+
+        /// <summary>
+        /// Member lists' max member size
+        /// </summary>
+        public Vector2 MemberMaxSize
+        {
+            get { return selectionBox.hudChain.MemberMinSize; }
+            set { selectionBox.hudChain.MemberMinSize = value; }
+        }
 
         /// <summary>
         /// Handles mouse input for the header.
@@ -137,11 +186,10 @@ namespace RichHudFramework.UI
 
         public HudElementBase Display => display;
 
-        public readonly SelectionBox<HudChain<TElementContainer, TElement>, TElementContainer, TElement, TValue> selectionBox;
-
+        public readonly TSelectionBox selectionBox;
         protected readonly TreeBoxDisplay display;
 
-        public TreeBox(HudParentBase parent) : base(parent)
+        public TreeBoxBase(HudParentBase parent) : base(parent)
         {
             display = new TreeBoxDisplay(this)
             {
@@ -149,7 +197,7 @@ namespace RichHudFramework.UI
                 DimAlignment = DimAlignments.Width | DimAlignments.IgnorePadding
             };
 
-            selectionBox = new SelectionBox<HudChain<TElementContainer, TElement>, TElementContainer, TElement, TValue>()
+            selectionBox = new TSelectionBox()
             {
                 Visible = false,
                 ParentAlignment = ParentAlignments.Bottom,
@@ -157,10 +205,10 @@ namespace RichHudFramework.UI
             };
             selectionBox.Register(display, false, true);
 
-            selectionBox.border.Visible = false;
-            selectionBox.hudChain.SizingMode = 
-                HudChainSizingModes.FitMembersBoth | 
-                HudChainSizingModes.ClampChainOffAxis | 
+            selectionBox.hudChain.SizingMode =
+                HudChainSizingModes.FitMembersOffAxis |
+                HudChainSizingModes.ClampMembersAlignAxis |
+                HudChainSizingModes.ClampChainOffAxis |
                 HudChainSizingModes.FitChainAlignAxis;
 
             Size = new Vector2(200f, 34f);
@@ -173,20 +221,20 @@ namespace RichHudFramework.UI
             display.MouseInput.LeftClicked += ToggleList;
         }
 
-        public TreeBox() : this(null)
+        public TreeBoxBase() : this(null)
         { }
-
-        /// <summary>
-        /// Sets the selection to the member associated with the given object.
-        /// </summary>
-        public void SetSelection(TValue assocMember) =>
-            selectionBox.SetSelection(assocMember);
 
         /// <summary>
         /// Sets the selection to the specified entry.
         /// </summary>
-        public void SetSelection(TElementContainer member) =>
+        public void SetSelection(TContainer member) =>
             selectionBox.SetSelection(member);
+
+        /// <summary>
+        /// Sets the selection to the member associated with the given object.
+        /// </summary>
+        public void SetSelectionAt(int index) =>
+            selectionBox.SetSelectionAt(index);
 
         /// <summary>
         /// Clears the current selection.
@@ -194,44 +242,7 @@ namespace RichHudFramework.UI
         public void ClearSelection() =>
             selectionBox.ClearSelection();
 
-        /// <summary>
-        /// Adds a new member to the tree box with the given name and associated
-        /// object.
-        /// </summary>
-        public TElementContainer Add(RichText name, TValue assocMember, bool enabled = true) =>
-            selectionBox.Add(name, assocMember, enabled);
-
-        /// <summary>
-        /// Adds the given range of entries to the tree box.
-        /// </summary>
-        public void AddRange(IReadOnlyList<MyTuple<RichText, TValue, bool>> entries) =>
-            selectionBox.AddRange(entries);
-
-        /// <summary>
-        /// Inserts an entry at the given index.
-        /// </summary>
-        public void Insert(int index, RichText name, TValue assocMember, bool enabled = true) =>
-            selectionBox.Insert(index, name, assocMember, enabled);
-
-        /// <summary>
-        /// Removes the member at the given index from the tree box.
-        /// </summary>
-        public void RemoveAt(int index) =>
-            selectionBox.RemoveAt(index);
-
-        /// <summary>
-        /// Removes the specified range of indices from the tree box.
-        /// </summary>
-        public void RemoveRange(int index, int count) =>
-            selectionBox.RemoveRange(index, count);
-
-        /// <summary>
-        /// Clears the current selection
-        /// </summary>
-        public void ClearEntries() =>
-            selectionBox.ClearEntries();
-
-        private void ToggleList(object sender, EventArgs args)
+        protected virtual void ToggleList(object sender, EventArgs args)
         {
             if (!ListOpen)
                 OpenList();
@@ -259,12 +270,12 @@ namespace RichHudFramework.UI
 
             if (ListOpen)
             {
-                selectionBox.Width = Width - IndentSize - Padding.X;
+                selectionBox.Width = Width - 2f * IndentSize - Padding.X;
                 selectionBox.Offset = new Vector2(IndentSize, 0f);
             }
         }
 
-        public IEnumerator<TElementContainer> GetEnumerator() =>
+        public IEnumerator<TContainer> GetEnumerator() =>
             selectionBox.GetEnumerator();
 
         IEnumerator IEnumerable.GetEnumerator() =>
@@ -305,8 +316,8 @@ namespace RichHudFramework.UI
             private readonly HudChain layout;
             private readonly MouseInputElement mouseInput;
 
-            private static readonly Material 
-                downArrow = new Material("RichHudDownArrow", new Vector2(64f, 64f)), 
+            private static readonly Material
+                downArrow = new Material("RichHudDownArrow", new Vector2(64f, 64f)),
                 rightArrow = new Material("RichHudRightArrow", new Vector2(64f, 64f));
 
             public TreeBoxDisplay(HudParentBase parent = null) : base(parent)
@@ -358,17 +369,5 @@ namespace RichHudFramework.UI
                 name.Width = (Width - Padding.X) - divider.Width - arrow.Width;
             }
         }
-    }
-
-    /// <summary>
-    /// Indented, collapsable list. Designed to fit in with SE UI elements.
-    /// </summary>
-    public class TreeBox<TValue> : TreeBox<ListBoxEntry<TValue>, LabelButton, TValue>
-    {
-        public TreeBox(HudParentBase parent) : base(parent)
-        { }
-
-        public TreeBox() : base(null)
-        { }
     }
 }

@@ -84,7 +84,7 @@ namespace RichHudFramework.UI
         /// </summary>
         public int Start
         {
-            get { return _start; }
+            get { return MathHelper.Clamp(_start, 0, hudCollectionList.Count - 1); }
             set 
             {
                 _start = MathHelper.Clamp(value, 0, hudCollectionList.Count - 1);
@@ -97,7 +97,7 @@ namespace RichHudFramework.UI
         /// </summary>
         public int End
         {
-            get { return _end; } 
+            get { return MathHelper.Clamp(_end, 0, hudCollectionList.Count - 1); } 
             set 
             {
                 _end = MathHelper.Clamp(value, 0, hudCollectionList.Count - 1);

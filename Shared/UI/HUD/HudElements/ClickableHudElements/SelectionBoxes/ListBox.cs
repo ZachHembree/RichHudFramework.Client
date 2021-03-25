@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Text;
 using VRage;
 using VRageMath;
@@ -62,13 +62,29 @@ namespace RichHudFramework.UI
     }
 
     /// <summary>
+    /// Scrollable list of text elements. Each list entry is associated with a value of type T.
+    /// </summary>
+    /// <typeparam name="TValue">Value paired with the list entry</typeparam>
+    public class ListBox<TValue> : ListBox<ListBoxEntry<TValue>, Label, TValue>
+    {
+        public ListBox(HudParentBase parent) : base(parent)
+        { }
+
+        public ListBox() : base(null)
+        { }
+    }
+
+    /// <summary>
     /// Generic scrollable list of text elements. Allows use of custom entry element types.
     /// Each list entry is associated with a value of type T.
     /// </summary>
-    public class ListBox<TElementContainer, TElement, TValue>
-        : SelectionBox<ScrollBox<TElementContainer, TElement>, TElementContainer, TElement, TValue>, IClickableElement
-        where TElementContainer : class, IListBoxEntry<TElement, TValue>, new()
-        where TElement : HudElementBase, ILabelElement
+    /// <typeparam name="TContainer">Container element type wrapping the UI element</typeparam>
+    /// <typeparam name="TElement">UI element in the list</typeparam>
+    /// <typeparam name="TValue">Value paired with the list entry</typeparam>
+    public class ListBox<TContainer, TElement, TValue>
+        : SelectionBox<ScrollBox<TContainer, TElement>, TContainer, TElement, TValue>, IClickableElement
+        where TContainer : class, IListBoxEntry<TElement, TValue>, new()
+        where TElement : HudElementBase, IMinLabelElement
     {
         /// <summary>
         /// Background color
@@ -126,17 +142,14 @@ namespace RichHudFramework.UI
 
         public ListBox(HudParentBase parent) : base(parent)
         {
-            hudChain.MinVisibleCount = 6;
+            hudChain.MinVisibleCount = 5;
             hudChain.Padding = new Vector2(0f, 8f);
         }
 
         public ListBox() : this(null)
         { }
 
-        /// <summary>
-        /// Update indices for selections, highlight and focus
-        /// </summary>
-        protected override void UpdateSelection()
+        protected override void Layout()
         {
             if (listInput.KeyboardScroll)
             {
@@ -145,32 +158,12 @@ namespace RichHudFramework.UI
                 else if (listInput.HighlightIndex > hudChain.End)
                     hudChain.End = listInput.HighlightIndex;
             }
-
-            UpdateSelectionPositions();
-            UpdateSelectionFormatting();
-        }
-
-        protected override void Layout()
-        {
-            hudChain.Height = LineHeight * hudChain.MinVisibleCount;
         }
 
         protected override void Draw()
         {
             Size = hudChain.Size + Padding;
         }
-    }
-
-    /// <summary>
-    /// Scrollable list of text elements. Each list entry is associated with a value of type T.
-    /// </summary>
-    public class ListBox<TValue> : ListBox<ListBoxLabel<TValue>, Label, TValue>
-    {
-        public ListBox(HudParentBase parent) : base(parent)
-        { }
-
-        public ListBox() : base(null)
-        { }
     }
 
 }

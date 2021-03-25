@@ -36,29 +36,26 @@ namespace RichHudFramework.UI
     /// Interface implemented by objects that function as list box entries.
     /// </summary>
     public interface IListBoxEntry<TElement, TValue>
-        : IScrollBoxEntryTuple<TElement, TValue>
-        where TElement : HudElementBase, ILabelElement
+        : ISelectionBoxEntryTuple<TElement, TValue>
+        where TElement : HudElementBase, IMinLabelElement
     {
         object GetOrSetMember(object data, int memberEnum);
     }
 
     /// <summary>
-    /// Label button assocated with an object of type T. Used in conjunction with list boxes.
+    /// Label assocated with an object of type T. Used in conjunction with list boxes.
     /// </summary>
-    public class ListBoxEntry<TValue> : ListBoxEntry<TValue, LabelButton>
+    public class ListBoxEntry<TValue> : ListBoxEntry<Label, TValue>
     { }
 
-    public class ListBoxLabel<TValue> : ListBoxEntry<TValue, Label>
-    { }
-
-    public class ListBoxEntry<TValue, TElement>
-        : ScrollBoxEntryTuple<TElement, TValue>, IListBoxEntry<TElement, TValue>
-        where TElement : HudElementBase, ILabelElement, new()
+    public class ListBoxEntry<TElement, TValue>
+        : SelectionBoxEntryTuple<TElement, TValue>, IListBoxEntry<TElement, TValue>
+        where TElement : HudElementBase, IMinLabelElement, new()
     {
         public ListBoxEntry()
         {
-            SetElement(new TElement() { AutoResize = false });
-            Element.ZOffset = 1;
+            SetElement(new TElement());
+            Element.TextBoard.AutoResize = false;
         }
 
         public object GetOrSetMember(object data, int memberEnum)
@@ -70,9 +67,9 @@ namespace RichHudFramework.UI
                 case ListBoxEntryAccessors.Name:
                     {
                         if (data != null)
-                            Element.Text = new RichText(data as List<RichStringMembers>);
+                            Element.TextBoard.SetText(data as List<RichStringMembers>);
                         else
-                            return Element.Text.apiData;
+                            return Element.TextBoard.GetText().apiData;
 
                         break;
                     }

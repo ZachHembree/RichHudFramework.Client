@@ -83,6 +83,11 @@
             /// in: Action
             /// </summary>
             GetInputFocus = 16,
+
+            /// <summary>
+            /// out: int
+            /// </summary>
+            TreeRefreshRate = 17
         }
     }
 }
