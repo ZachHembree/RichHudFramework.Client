@@ -8,6 +8,7 @@ namespace RichHudFramework
     namespace UI
     {
         using Server;
+        using Client;
 
         public enum TerminalPageCategoryAccessors : int
         {
@@ -40,7 +41,7 @@ namespace RichHudFramework
         /// <summary>
         /// Indented dropdown list of terminal pages.
         /// </summary>
-        public interface ITerminalPageCategory : IEnumerable<ITerminalPage>, IModRootMember
+        public interface ITerminalPageCategory : IEnumerable<TerminalPageBase>, IModRootMember
         {
             /// <summary>
             /// Read only collection of <see cref="TerminalPageBase"/>s assigned to this object.

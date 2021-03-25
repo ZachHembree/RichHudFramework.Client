@@ -25,7 +25,12 @@ namespace RichHudFramework
             CloseMenu = 2,
             OpenToPage = 3,
             SetPage = 4,
-            GetMenuOpen = 5
+            GetMenuOpen = 5,
+
+            /// <summary>
+            /// out: Func<ControlContainerMembers>
+            /// </summary>
+            GetNewPageCategoryFunc = 6
         }
 
         /// <summary>
@@ -67,7 +72,12 @@ namespace RichHudFramework
             /// <summary>
             /// out: MyTuple<object, Func<int>>
             /// </summary>
-            GetCategoryAccessors = 7
+            GetCategoryAccessors = 7,
+
+            /// <summary>
+            /// in: TerminalPageCategory
+            /// </summary>
+            AddSubcategory = 8
         }
 
         public interface IModRootMember
@@ -82,6 +92,11 @@ namespace RichHudFramework
             /// Disabled by default.
             /// </summary>
             bool Enabled { get; set; }
+
+            /// <summary>
+            /// Unique identifier
+            /// </summary>
+            object ID { get; }
         }
 
         /// <summary>
@@ -98,12 +113,12 @@ namespace RichHudFramework
             /// <summary>
             /// Page subcategories attached to the mod root
             /// </summary>
-            IReadOnlyList<TerminalPageCategory> Subcategories { get; }
+            IReadOnlyList<TerminalPageCategoryBase> Subcategories { get; }
 
             /// <summary>
             /// Adds a page subcategory to the control root
             /// </summary>
-            void Add(TerminalPageCategory subcategory);
+            void Add(TerminalPageCategoryBase subcategory);
 
             /// <summary>
             /// Adds a range of root members to the control root, either subcategories or pages.
