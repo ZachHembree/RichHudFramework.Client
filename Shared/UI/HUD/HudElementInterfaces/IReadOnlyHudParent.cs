@@ -146,7 +146,7 @@ namespace RichHudFramework
             /// <summary>
             /// Adds update delegates for members in the order dictated by the UI tree
             /// </summary>
-            void GetUpdateAccessors(List<HudUpdateAccessors> UpdateActions, byte treeDepth);
+            void GetUpdateAccessors(List<HudUpdateAccessors> UpdateActions, byte preloadDepth);
         }
     }
 }

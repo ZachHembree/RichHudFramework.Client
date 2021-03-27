@@ -96,7 +96,7 @@ namespace RichHudFramework
                 {
                     try
                     {
-                        if (Visible)
+                        if ((State & HudElementStates.CanUseCursor) > 0 && Visible)
                             InputDepth();
                     }
                     catch (Exception e)
@@ -199,7 +199,7 @@ namespace RichHudFramework
             /// <summary>
             /// Adds update delegates for members in the order dictated by the UI tree
             /// </summary>
-            public virtual void GetUpdateAccessors(List<HudUpdateAccessors> UpdateActions, byte treeDepth)
+            public virtual void GetUpdateAccessors(List<HudUpdateAccessors> UpdateActions, byte preloadDepth)
             {
                 if (Visible)
                 {
@@ -209,10 +209,9 @@ namespace RichHudFramework
                     accessorDelegates.Item2.Item2 = HudSpace.GetNodeOriginFunc;
 
                     UpdateActions.Add(accessorDelegates);
-                    treeDepth++;
 
                     for (int n = 0; n < children.Count; n++)
-                        children[n].GetUpdateAccessors(UpdateActions, treeDepth);
+                        children[n].GetUpdateAccessors(UpdateActions, preloadDepth);
                 }
             }
 

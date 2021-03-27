@@ -112,19 +112,18 @@ namespace RichHudFramework
                 };
             }
 
-            public override void GetUpdateAccessors(List<HudUpdateAccessors> UpdateActions, byte treeDepth)
+            public override void GetUpdateAccessors(List<HudUpdateAccessors> UpdateActions, byte preloadDepth)
             {
                 layerData.fullZOffset = ParentUtils.GetFullZOffset(layerData, _parent);
                 UpdateActions.EnsureCapacity(UpdateActions.Count + children.Count + 1);
                 accessorDelegates.Item2.Item2 = GetNodeOriginFunc;
 
                 UpdateActions.Add(accessorDelegates);
-                treeDepth++;
 
                 if (Visible && IsInFront)
                 {
                     for (int n = 0; n < children.Count; n++)
-                        children[n].GetUpdateAccessors(UpdateActions, treeDepth);
+                        children[n].GetUpdateAccessors(UpdateActions, preloadDepth);
                 }
             }
         }

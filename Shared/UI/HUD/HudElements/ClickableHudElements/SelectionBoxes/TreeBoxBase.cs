@@ -150,15 +150,15 @@ namespace RichHudFramework.UI
         /// <summary>
         /// Determines how far to the right list members should be offset from the position of the header.
         /// </summary>
-        public float IndentSize { get; set; }
+        public float IndentSize { get { return _indentSize * Scale; } set { _indentSize = value / Scale; } }
 
         /// <summary>
         /// Sizing mode used by the chain containing the tree box's member list
         /// </summary>
-        public HudChainSizingModes MemberSizingModes 
+        public HudChainSizingModes MemberSizingModes
         {
-            get { return selectionBox.hudChain.SizingMode; } 
-            set { selectionBox.hudChain.SizingMode = value; } 
+            get { return selectionBox.hudChain.SizingMode; }
+            set { selectionBox.hudChain.SizingMode = value; }
         }
 
         /// <summary>
@@ -188,6 +188,7 @@ namespace RichHudFramework.UI
 
         public readonly TSelectionBox selectionBox;
         protected readonly TreeBoxDisplay display;
+        protected float _indentSize;
 
         public TreeBoxBase(HudParentBase parent) : base(parent)
         {

@@ -182,7 +182,7 @@ namespace RichHudFramework
             {
                 State &= ~HudElementStates.IsMouseInBounds;
 
-                if (UseCursor && (HudSpace?.IsFacingCamera ?? false))
+                if (HudSpace?.IsFacingCamera ?? false)
                 {
                     Vector3 cursorPos = HudSpace.CursorPos;
                     Vector2 offset = Vector2.Max(cachedSize, new Vector2(minMouseBounds)) / 2f;
@@ -212,12 +212,11 @@ namespace RichHudFramework
                         if (Visible)
                         {
                             Vector3 cursorPos = HudSpace.CursorPos;
-                            bool isMousedOver = false,
-                                mouseInBounds = (State & HudElementStates.IsMouseInBounds) > 0;
+                            bool mouseInBounds = (State & HudElementStates.IsMouseInBounds) > 0;
 
                             if (UseCursor && mouseInBounds && !HudMain.Cursor.IsCaptured && HudMain.Cursor.IsCapturingSpace(HudSpace.GetHudSpaceFunc))
                             {
-                                isMousedOver = mouseInBounds;
+                                bool isMousedOver = mouseInBounds;
 
                                 if (isMousedOver)
                                     State |= HudElementStates.IsMousedOver;
@@ -260,7 +259,7 @@ namespace RichHudFramework
                         {
                             ParentVisible = _parent.Visible;
                             parentScale = _parent.Scale;
-                            parentZOffset = _parent.ZOffset;
+                            layerData.parentZOffset = _parent.ZOffset;
                         }
 
                         if (Visible || refresh)

@@ -490,8 +490,9 @@ namespace RichHudFramework.UI
 
         public override void GetUpdateAccessors(List<HudUpdateAccessors> UpdateActions, byte treeDepth)
         {
-            int preloadStart = MathHelper.Clamp(Start - 10, 0, hudCollectionList.Count - 1),
-                preloadCount = MathHelper.Clamp((End + 10) - preloadStart, 0, hudCollectionList.Count - preloadStart);
+            int preloadRange = Math.Max((End - Start) * 2, 10),
+                preloadStart = MathHelper.Clamp(Start - preloadRange, 0, hudCollectionList.Count - 1),
+                preloadCount = MathHelper.Clamp((End + preloadRange) - preloadStart, 0, hudCollectionList.Count - preloadStart);
 
             NodeUtils.SetNodesState<TElementContainer, TElement>
                 (HudElementStates.CanPreload, true, hudCollectionList, 0, hudCollectionList.Count);

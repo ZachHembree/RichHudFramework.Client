@@ -60,7 +60,7 @@ namespace RichHudFramework
                         {
                             node.Parent = newParent;
                             node.State |= HudElementStates.IsRegistered;
-                            node.parentZOffset = newParent.ZOffset;
+                            node.layerData.parentZOffset = newParent.ZOffset;
                             node.parentScale = newParent.Scale;
                             node.ParentVisible = newParent.Visible;
                         }
@@ -126,7 +126,7 @@ namespace RichHudFramework
                         {
                             node.Parent = newParent;
                             node.State |= HudElementStates.IsRegistered;
-                            node.parentZOffset = newParent.ZOffset;
+                            node.layerData.parentZOffset = newParent.ZOffset;
                             node.parentScale = newParent.Scale;
                             node.ParentVisible = newParent.Visible;
                         }
@@ -210,7 +210,7 @@ namespace RichHudFramework
 
                             node.Parent = null;
                             node.State &= ~HudElementStates.IsRegistered;
-                            node.parentZOffset = 0;
+                            node.layerData.parentZOffset = 0;
                             node.ParentVisible = false;
                         }
                     }
@@ -280,7 +280,7 @@ namespace RichHudFramework
 
                             node.Parent = null;
                             node.State &= ~HudElementStates.IsRegistered;
-                            node.parentZOffset = 0;
+                            node.layerData.parentZOffset = 0;
                         }
                     }
                 }
