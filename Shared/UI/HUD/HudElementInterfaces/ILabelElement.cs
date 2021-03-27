@@ -2,17 +2,20 @@
 {
     using Rendering;
 
-    public interface ILabelElement
+    public interface IMinLabelElement
+    {
+        /// <summary>
+        /// TextBoard backing the label element.
+        /// </summary>
+        ITextBoard TextBoard { get; }
+    }
+
+    public interface ILabelElement : IMinLabelElement
     {
         /// <summary>
         /// Text rendered by the label.
         /// </summary>
         RichText Text { get; set; }
-
-        /// <summary>
-        /// TextBoard backing the label element.
-        /// </summary>
-        ITextBoard TextBoard { get; }
 
         /// <summary>
         /// Default formatting used by the label.

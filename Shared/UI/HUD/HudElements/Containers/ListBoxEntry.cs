@@ -9,49 +9,20 @@ namespace RichHudFramework.UI
 {
     using RichStringMembers = MyTuple<StringBuilder, GlyphFormatMembers>;
 
-    public enum ListBoxEntryAccessors : int
-    {
-        /// <summary>
-        /// IList<RichStringMembers>
-        /// </summary>
-        Name = 1,
-
-        /// <summary>
-        /// bool
-        /// </summary>
-        Enabled = 2,
-
-        /// <summary>
-        /// Object
-        /// </summary>
-        AssocObject = 3,
-
-        /// <summary>
-        /// Object
-        /// </summary>
-        ID = 4,
-    }
-
     /// <summary>
-    /// Interface implemented by objects that function as list box entries.
+    /// Label assocated with an object of type T. Used in conjunction with list boxes.
     /// </summary>
-    public interface IListBoxEntry<TElement, TValue>
-        : IScrollBoxEntryTuple<TElement, TValue>
-        where TElement : HudElementBase, IClickableElement, ILabelElement
-    {
-        object GetOrSetMember(object data, int memberEnum);
-    }
+    public class ListBoxEntry<TValue> : ListBoxEntry<Label, TValue>
+    { }
 
-    /// <summary>
-    /// Label button assocated with an object of type T. Used in conjunction with list boxes.
-    /// </summary>
-    public class ListBoxEntry<TValue> 
-        : ScrollBoxEntryTuple<LabelButton, TValue>, IListBoxEntry<LabelButton, TValue>
+    public class ListBoxEntry<TElement, TValue>
+        : SelectionBoxEntryTuple<TElement, TValue>, IListBoxEntry<TElement, TValue>
+        where TElement : HudElementBase, IMinLabelElement, new()
     {
         public ListBoxEntry()
         {
-            SetElement(new LabelButton() { AutoResize = false });
-            Element.ZOffset = 1;
+            SetElement(new TElement());
+            Element.TextBoard.AutoResize = false;
         }
 
         public object GetOrSetMember(object data, int memberEnum)
@@ -63,9 +34,9 @@ namespace RichHudFramework.UI
                 case ListBoxEntryAccessors.Name:
                     {
                         if (data != null)
-                            Element.Text = new RichText(data as List<RichStringMembers>);
+                            Element.TextBoard.SetText(data as List<RichStringMembers>);
                         else
-                            return Element.Text.apiData;
+                            return Element.TextBoard.GetText().apiData;
 
                         break;
                     }
