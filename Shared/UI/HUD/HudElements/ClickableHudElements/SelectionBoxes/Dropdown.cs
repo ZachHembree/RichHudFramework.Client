@@ -92,7 +92,22 @@ namespace RichHudFramework.UI
         /// <summary>
         /// Default format for member text;
         /// </summary>
-        public GlyphFormat Format { get { return listBox.Format; } set { listBox.Format = value; } }
+        public GlyphFormat Format { get { return listBox.Format; } set { listBox.Format = value; display.Format = value; } }
+
+        /// <summary>
+        /// Text formatting used for entries that have input focus
+        /// </summary>
+        public GlyphFormat FocusFormat { get { return listBox.FocusFormat; } set { listBox.FocusFormat = value; display.FocusFormat = value; } }
+
+        /// <summary>
+        /// Default background color of the highlight box
+        /// </summary>
+        public Color HighlightColor { get { return listBox.HighlightColor; } set { listBox.HighlightColor = value; display.HighlightColor = value; } }
+
+        /// <summary>
+        /// Background color used for selection/highlighting when the list has input focus
+        /// </summary>
+        public Color FocusColor { get { return listBox.FocusColor; } set { listBox.FocusColor = value; display.FocusColor = value; } }
 
         /// <summary>
         /// Background color of the dropdown list
@@ -118,11 +133,6 @@ namespace RichHudFramework.UI
         /// Color of the slider button when moused over
         /// </summary>
         public Color SliderHighlight { get { return listBox.SliderHighlight; } set { listBox.SliderHighlight = value; } }
-
-        /// <summary>
-        /// Background color of the highlight box
-        /// </summary>
-        public Color HighlightColor { get { return listBox.HighlightColor; } set { listBox.HighlightColor = value; } }
 
         /// <summary>
         /// Color of the highlight box's tab
