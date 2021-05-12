@@ -9,4 +9,9 @@ To get started using this framework, you'll need to download a copy of the [clie
 ## Demo
 If you want to get a better idea of what you can do with this framework, [Rich HUD Master](https://steamcommunity.com/workshop/filedetails/?id=1965654081) has a demo built into the terminal that can be enabled using the chat command "/rhd toggledebug". This demo allows you to spawn most of the UI elements in the library in their default state while also allowing you to maniplate their [HUD Space](https://github.com/ZachHembree/RichHudFramework.Client/wiki/HUD-Spaces) in real time. 
 
-![enter image description here](https://steamuserimages-a.akamaihd.net/ugc/1722038154210428899/17BC5D4D245402D3E642B36672DC840D1B7207D3/)
+![Demo menu screenshot](https://steamuserimages-a.akamaihd.net/ugc/1722038154210428899/17BC5D4D245402D3E642B36672DC840D1B7207D3/)
+
+## Example Mod
+You can find a well-documented example Text Editor Mod [here](https://github.com/ZachHembree/TextEditorExample). Fair warning, the corresponding walkthrough in the wiki is currently outdated, and I probably won't get around to finishing it until July.
+
+![Text editor screenshot](https://user-images.githubusercontent.com/6527038/117976888-3ffe4d80-b2fe-11eb-82f2-17c690fec3c5.png)
