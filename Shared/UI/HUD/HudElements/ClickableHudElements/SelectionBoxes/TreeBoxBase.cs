@@ -150,7 +150,7 @@ namespace RichHudFramework.UI
         /// <summary>
         /// Determines how far to the right list members should be offset from the position of the header.
         /// </summary>
-        public float IndentSize { get { return _indentSize * Scale; } set { _indentSize = value / Scale; } }
+        public float IndentSize { get { return _indentSize * (LocalScale * parentScale); } set { _indentSize = value / (LocalScale * parentScale); } }
 
         /// <summary>
         /// Sizing mode used by the chain containing the tree box's member list

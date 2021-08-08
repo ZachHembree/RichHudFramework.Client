@@ -114,13 +114,23 @@ namespace RichHudFramework.UI
         {
             State &= ~HudElementStates.IsMouseInBounds;
 
-            if (HudSpace?.IsFacingCamera ?? false)
+            if (HudMain.InputMode != HudInputMode.NoInput && (HudSpace?.IsFacingCamera ?? false))
             {
                 Vector3 cursorPos = HudSpace.CursorPos;
-                Vector2 offset = Vector2.Max(cachedSize, new Vector2(minMouseBounds)) / 2f;
-                BoundingBox2 box = new BoundingBox2(cachedPosition - offset, cachedPosition + offset);
-                bool mouseInBounds = box.Contains(new Vector2(cursorPos.X, cursorPos.Y)) == ContainmentType.Contains
+                Vector2 halfSize = Vector2.Max(cachedSize, new Vector2(minMouseBounds)) * .5f;
+                BoundingBox2 box = new BoundingBox2(cachedPosition - halfSize, cachedPosition + halfSize);
+                bool mouseInBounds;
+
+                if (maskingBox == null)
+                {
+                    mouseInBounds = box.Contains(new Vector2(cursorPos.X, cursorPos.Y)) == ContainmentType.Contains
                         || (IsLeftClicked || IsRightClicked);
+                }
+                else
+                {
+                    mouseInBounds = box.Intersect(maskingBox.Value).Contains(new Vector2(cursorPos.X, cursorPos.Y)) == ContainmentType.Contains
+                        || (IsLeftClicked || IsRightClicked);
+                }
 
                 if (mouseInBounds)
                 {
