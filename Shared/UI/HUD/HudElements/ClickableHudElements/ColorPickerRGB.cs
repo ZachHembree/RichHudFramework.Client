@@ -48,7 +48,7 @@ namespace RichHudFramework.UI.Server
                 if (value > Padding.X)
                     value -= Padding.X;
 
-                _absoluteWidth = (value / Scale);
+                _absoluteWidth = (value / (LocalScale * parentScale));
                 display.Width = value - name.Width;
                 colorSliderColumn.Width = display.Width;
             }
@@ -61,7 +61,7 @@ namespace RichHudFramework.UI.Server
                 if (value > Padding.Y)
                     value -= Padding.Y;
 
-                _absoluteHeight = (value / Scale);
+                _absoluteHeight = (value / (LocalScale * parentScale));
                 value = (value - headerChain.Height - 15f) / 3f;
                 colorNameColumn.MemberMaxSize = new Vector2(colorNameColumn.MemberMaxSize.X, value);
                 colorSliderColumn.MemberMaxSize = new Vector2(colorSliderColumn.MemberMaxSize.X, value);

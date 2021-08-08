@@ -97,8 +97,9 @@ namespace RichHudFramework
                 // The element may not be smaller than the text
                 if (!FitToTextElement)
                 {
-                    _absoluteWidth = MathHelper.Max(TextSize.Y, _absoluteWidth * Scale) / Scale;
-                    _absoluteHeight = MathHelper.Max(TextSize.X, _absoluteHeight * Scale) / Scale;
+                    float scale = (LocalScale * parentScale);
+                    _absoluteWidth = MathHelper.Max(TextSize.Y, _absoluteWidth * scale) / scale;
+                    _absoluteHeight = MathHelper.Max(TextSize.X, _absoluteHeight * scale) / scale;
                 }
             }
         }

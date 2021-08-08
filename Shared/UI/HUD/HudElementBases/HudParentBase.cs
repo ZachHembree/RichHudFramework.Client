@@ -271,13 +271,13 @@ namespace RichHudFramework
                     case HudElementAccessors.DrawCursorInHudSpace:
                         return HudSpace?.DrawCursorInHudSpace ?? false;
                     case HudElementAccessors.PlaneToWorld:
-                        return HudSpace?.PlaneToWorld ?? default(MatrixD);
+                        return HudSpace?.PlaneToWorldRef[0] ?? default(MatrixD);
                     case HudElementAccessors.IsInFront:
                         return HudSpace?.IsInFront ?? false;
                     case HudElementAccessors.IsFacingCamera:
                         return HudSpace?.IsFacingCamera ?? false;
                     case HudElementAccessors.NodeOrigin:
-                        return HudSpace?.PlaneToWorld.Translation ?? Vector3D.Zero;
+                        return HudSpace?.PlaneToWorldRef[0].Translation ?? Vector3D.Zero;
                 }
 
                 return null;

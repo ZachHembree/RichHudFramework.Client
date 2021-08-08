@@ -75,7 +75,7 @@ namespace RichHudFramework
                 var rotation = MatrixD.CreateFromQuaternion(Quaternion.CreateFromAxisAngle(RotationAxis, RotationAngle));
                 var translation = MatrixD.CreateTranslation(TransformOffset);
 
-                PlaneToWorld = (scaling * rotation * translation) * MyAPIGateway.Session.Camera.WorldMatrix;
+                PlaneToWorldRef[0] = (scaling * rotation * translation) * MyAPIGateway.Session.Camera.WorldMatrix;
                 base.Layout();
             }
         }

@@ -168,12 +168,12 @@ namespace RichHudFramework.UI
                 if (!KeyboardScroll)
                 {
                     Vector2 cursorOffset = cursorPos - ListPos;
-                    BoundingBox2 listBounds = new BoundingBox2(-ListSize / 2f, ListSize / 2f);
+                    BoundingBox2 listBounds = new BoundingBox2(-ListSize * .5f, ListSize * .5f);
 
                     // If the list is moused over, then calculate highlight index based on cursor position.
                     if (listBounds.Contains(cursorOffset) == ContainmentType.Contains)
                     {
-                        float vOffset = -(cursorOffset.Y - ListSize.Y / 2f),
+                        float vOffset = -(cursorOffset.Y - ListSize.Y * .5f),
                             entryOffset = 0f;
                         int newIndex = ListRange.X;
 

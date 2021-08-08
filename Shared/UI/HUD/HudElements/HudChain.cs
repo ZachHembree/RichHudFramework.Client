@@ -116,7 +116,7 @@ namespace RichHudFramework
                     if (value > Padding.X)
                         value -= Padding.X;
 
-                    _absoluteWidth = value / Scale;
+                    _absoluteWidth = value / (LocalScale * parentScale);
 
                     if (value > 0f && offAxis == 0 && (SizingMode & (HudChainSizingModes.ClampMembersOffAxis | HudChainSizingModes.FitMembersOffAxis)) > 0)
                         _absMaxSize.X = _absoluteWidth;
@@ -133,7 +133,7 @@ namespace RichHudFramework
                     if (value > Padding.Y)
                         value -= Padding.Y;
 
-                    _absoluteHeight = value / Scale;
+                    _absoluteHeight = value / (LocalScale * parentScale);
 
                     if (value > 0f && offAxis == 1 && (SizingMode & (HudChainSizingModes.ClampMembersOffAxis | HudChainSizingModes.FitMembersOffAxis)) > 0)
                         _absMaxSize.Y = _absoluteHeight;
@@ -143,17 +143,17 @@ namespace RichHudFramework
             /// <summary>
             /// Maximum chain member size. If no maximum is set, then the currently set size will be used as the maximum.
             /// </summary>
-            public Vector2 MemberMaxSize { get { return _absMaxSize * Scale; } set { _absMaxSize = value / Scale; } }
+            public Vector2 MemberMaxSize { get { return _absMaxSize * (LocalScale * parentScale); } set { _absMaxSize = value / (LocalScale * parentScale); } }
 
             /// <summary>
             /// Minimum allowable member size.
             /// </summary>
-            public Vector2 MemberMinSize { get { return _absMinSize * Scale; } set { _absMinSize = value / Scale; } }
+            public Vector2 MemberMinSize { get { return _absMinSize * (LocalScale * parentScale); } set { _absMinSize = value / (LocalScale * parentScale); } }
 
             /// <summary>
             /// Distance between chain elements along their axis of alignment.
             /// </summary>
-            public float Spacing { get { return _spacing * Scale; } set { _spacing = value / Scale; } }
+            public float Spacing { get { return _spacing * (LocalScale * parentScale); } set { _spacing = value / (LocalScale * parentScale); } }
 
             /// <summary>
             /// Determines how/if the chain will attempt to resize member elements. Default sizing mode is 
@@ -211,37 +211,57 @@ namespace RichHudFramework
 
             protected override void Layout()
             {
-                ClampElementSizeRange();
                 UpdateMemberSizes();
 
                 Vector2 visibleTotalSize = GetVisibleTotalSize(),
                     listSize = GetListSize(cachedSize - cachedPadding, visibleTotalSize);
 
-                _absoluteWidth = listSize.X / Scale;
-                _absoluteHeight = listSize.Y / Scale;
+                float scale = (LocalScale * parentScale);
+                _absoluteWidth = listSize.X / scale;
+                _absoluteHeight = listSize.Y / scale;
 
                 // Calculate member start offset
                 Vector2 startOffset = new Vector2();
 
                 if (alignAxis == 1)
-                    startOffset.Y = listSize.Y / 2f;
+                    startOffset.Y = listSize.Y * .5f;
                 else
-                    startOffset.X = -listSize.X / 2f;
+                    startOffset.X = -listSize.X * .5f;
 
                 UpdateMemberOffsets(startOffset, cachedPadding);
             }
 
             /// <summary>
-            /// Clamps minimum and maximum element sizes
+            /// Updates chain member sizes to conform to sizing rules.
             /// </summary>
-            protected void ClampElementSizeRange()
+            protected void UpdateMemberSizes()
             {
-                _absMinSize = Vector2.Max(Vector2.Zero, _absMinSize);
-
                 Vector2 newMax;
+                _absMinSize = Vector2.Max(Vector2.Zero, _absMinSize);
                 newMax = Vector2.Max(_absMinSize, _absMaxSize);
-
                 _absMaxSize = newMax;
+
+                Vector2 minSize = MemberMinSize,
+                    maxSize = MemberMaxSize;
+
+                for (int n = 0; n < hudCollectionList.Count; n++)
+                {
+                    TElement element = hudCollectionList[n].Element;
+                    Vector2 elementSize = element.Size;
+
+                    // Adjust element size based on sizing mode
+                    if ((SizingMode & HudChainSizingModes.FitMembersOffAxis) > 0)
+                        elementSize[offAxis] = maxSize[offAxis];
+                    else if ((SizingMode & HudChainSizingModes.ClampMembersOffAxis) > 0)
+                        elementSize[offAxis] = MathHelper.Clamp(elementSize[offAxis], minSize[offAxis], maxSize[offAxis]);
+
+                    if ((SizingMode & HudChainSizingModes.FitMembersAlignAxis) > 0)
+                        elementSize[alignAxis] = maxSize[alignAxis];
+                    else if ((SizingMode & HudChainSizingModes.ClampMembersAlignAxis) > 0)
+                        elementSize[alignAxis] = MathHelper.Clamp(elementSize[alignAxis], minSize[alignAxis], maxSize[alignAxis]);
+
+                    element.Size = elementSize;
+                }
             }
 
             /// <summary>
@@ -317,38 +337,10 @@ namespace RichHudFramework
             }
 
             /// <summary>
-            /// Updates chain member sizes to conform to sizing rules.
-            /// </summary>
-            protected void UpdateMemberSizes()
-            {
-                Vector2 minSize = MemberMinSize,
-                    maxSize = MemberMaxSize;
-
-                for (int n = 0; n < hudCollectionList.Count; n++)
-                {
-                    TElement element = hudCollectionList[n].Element;
-                    Vector2 elementSize = element.Size;
-
-                    // Adjust element size based on sizing mode
-                    if ((SizingMode & HudChainSizingModes.FitMembersOffAxis) > 0)
-                        elementSize[offAxis] = maxSize[offAxis];
-                    else if ((SizingMode & HudChainSizingModes.ClampMembersOffAxis) > 0)
-                        elementSize[offAxis] = MathHelper.Clamp(elementSize[offAxis], minSize[offAxis], maxSize[offAxis]);
-
-                    if ((SizingMode & HudChainSizingModes.FitMembersAlignAxis) > 0)
-                        elementSize[alignAxis] = maxSize[alignAxis];
-                    else if ((SizingMode & HudChainSizingModes.ClampMembersAlignAxis) > 0)
-                        elementSize[alignAxis] = MathHelper.Clamp(elementSize[alignAxis], minSize[alignAxis], maxSize[alignAxis]);
-
-                    element.Size = elementSize;
-                }
-            }
-
-            /// <summary>
             /// Calculates the total size of all visible elements in the chain, including spacing and
             /// any resizing that might be required.
             /// </summary>
-            protected Vector2 GetVisibleTotalSize()
+            protected virtual Vector2 GetVisibleTotalSize()
             {
                 Vector2 newSize = new Vector2();
 

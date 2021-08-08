@@ -44,13 +44,13 @@ namespace RichHudFramework
             /// </summary>
             public virtual float Width
             {
-                get { return (_absoluteWidth * Scale) + Padding.X; }
+                get { return (_absoluteWidth * (LocalScale * parentScale)) + Padding.X; }
                 set
                 {
                     if (value > Padding.X)
                         value -= Padding.X;
 
-                    _absoluteWidth = (value / Scale);
+                    _absoluteWidth = (value / (LocalScale * parentScale));
                 }
             }
 
@@ -59,13 +59,13 @@ namespace RichHudFramework
             /// </summary>
             public virtual float Height
             {
-                get { return (_absoluteHeight * Scale) + Padding.Y; }
+                get { return (_absoluteHeight * (LocalScale * parentScale)) + Padding.Y; }
                 set
                 {
                     if (value > Padding.Y)
                         value -= Padding.Y;
 
-                    _absoluteHeight = (value / Scale);
+                    _absoluteHeight = (value / (LocalScale * parentScale));
                 }
             }
 
@@ -74,8 +74,8 @@ namespace RichHudFramework
             /// </summary>
             public virtual Vector2 Padding
             {
-                get { return _absolutePadding * Scale; }
-                set { _absolutePadding = value / Scale; }
+                get { return _absolutePadding * (LocalScale * parentScale); }
+                set { _absolutePadding = value / (LocalScale * parentScale); }
             }
 
             /// <summary>
@@ -88,8 +88,8 @@ namespace RichHudFramework
             /// </summary>
             public virtual Vector2 Offset
             {
-                get { return _absoluteOffset * Scale; }
-                set { _absoluteOffset = value / Scale; }
+                get { return _absoluteOffset * (LocalScale * parentScale); }
+                set { _absoluteOffset = value / (LocalScale * parentScale); }
             }
 
             /// <summary>
@@ -138,6 +138,54 @@ namespace RichHudFramework
             }
 
             /// <summary>
+            /// If set to true, the hud element will act as a clipping mask for child elements.
+            /// False by default. Masking parent elements can still affect non-masking children.
+            /// </summary>
+            public bool IsMasking
+            {
+                get { return (State & HudElementStates.IsMasking) > 0; }
+                set
+                {
+                    if (value)
+                        State |= HudElementStates.IsMasking;
+                    else
+                        State &= ~HudElementStates.IsMasking;
+                }
+            }
+
+            /// <summary>
+            /// If set to true, the hud element will treat its parent as a clipping mask, whether
+            /// it's configured as a mask or not.
+            /// </summary>
+            public bool IsSelectivelyMasked
+            {
+                get { return (State & HudElementStates.IsSelectivelyMasked) > 0; }
+                set
+                {
+                    if (value)
+                        State |= HudElementStates.IsSelectivelyMasked;
+                    else
+                        State &= ~HudElementStates.IsSelectivelyMasked;
+                }
+            }
+
+            /// <summary>
+            /// If set to true, then the element can ignore any bounding masks imposed by its parents.
+            /// Superceeds selective masking flag.
+            /// </summary>
+            public bool CanIgnoreMasking
+            {
+                get { return (State & HudElementStates.CanIgnoreMasking) > 0; }
+                set
+                {
+                    if (value)
+                        State |= HudElementStates.CanIgnoreMasking;
+                    else
+                        State &= ~HudElementStates.CanIgnoreMasking;
+                }
+            }
+
+            /// <summary>
             /// Indicates whether or not the element is capturing the cursor.
             /// </summary>
             public virtual bool IsMousedOver => (State & HudElementStates.IsMousedOver) > 0;
@@ -162,6 +210,7 @@ namespace RichHudFramework
             /// </summary>
             protected Vector2 cachedOrigin, cachedPosition, cachedSize, cachedPadding;
 
+            protected BoundingBox2? maskingBox;
             protected HudElementBase _parentFull;
             private Vector2 originAlignment;
 
@@ -182,12 +231,17 @@ namespace RichHudFramework
             {
                 State &= ~HudElementStates.IsMouseInBounds;
 
-                if (HudSpace?.IsFacingCamera ?? false)
+                if (HudMain.InputMode != HudInputMode.NoInput && (HudSpace?.IsFacingCamera ?? false))
                 {
                     Vector3 cursorPos = HudSpace.CursorPos;
-                    Vector2 offset = Vector2.Max(cachedSize, new Vector2(minMouseBounds)) / 2f;
-                    BoundingBox2 box = new BoundingBox2(cachedPosition - offset, cachedPosition + offset);
-                    bool mouseInBounds = box.Contains(new Vector2(cursorPos.X, cursorPos.Y)) == ContainmentType.Contains;
+                    Vector2 halfSize = Vector2.Max(cachedSize, new Vector2(minMouseBounds)) * .5f;
+                    BoundingBox2 box = new BoundingBox2(cachedPosition - halfSize, cachedPosition + halfSize);
+                    bool mouseInBounds;
+
+                    if (maskingBox == null)
+                        mouseInBounds = box.Contains(new Vector2(cursorPos.X, cursorPos.Y)) == ContainmentType.Contains;
+                    else
+                        mouseInBounds = box.Intersect(maskingBox.Value).Contains(new Vector2(cursorPos.X, cursorPos.Y)) == ContainmentType.Contains;
 
                     if (mouseInBounds)
                     {
@@ -271,6 +325,8 @@ namespace RichHudFramework
                             cachedPadding = Padding;
                             cachedSize = new Vector2(Width, Height);
                             cachedPosition = cachedOrigin + Offset;
+
+                            UpdateMasking();
                         }
                     }
                     catch (Exception e)
@@ -315,14 +371,76 @@ namespace RichHudFramework
                     GetDimAlignment();
                     originAlignment = GetParentAlignment();
                     cachedOrigin = _parentFull.cachedPosition + originAlignment;
+                    cachedPosition = cachedOrigin + Offset;
                 }
                 else
                 {
                     cachedSize = new Vector2(Width, Height);
                     cachedOrigin = Vector2.Zero;
+                    cachedPosition = cachedOrigin + Offset;
                 }
+            }
 
-                cachedPosition = cachedOrigin + Offset;
+            /// <summary>
+            /// Updates masking state and bounding boxes used to mask billboards
+            /// </summary>
+            private void UpdateMasking()
+            {
+                if (_parentFull != null && 
+                    (_parentFull.State & HudElementStates.IsMasked) > 0 && 
+                    (State & HudElementStates.CanIgnoreMasking) == 0
+                )
+                    State |= HudElementStates.IsMasked;
+                else
+                    State &= ~HudElementStates.IsMasked;
+
+                if ((State & HudElementStates.IsMasking) > 0 || (_parentFull != null && (State & HudElementStates.IsSelectivelyMasked) > 0))
+                {
+                    State |= HudElementStates.IsMasked;
+                    BoundingBox2? parentBox, box = null;
+
+                    if ((State & HudElementStates.CanIgnoreMasking) > 0)
+                    {
+                        parentBox = null;
+                    }
+                    else if (_parentFull != null && (State & HudElementStates.IsSelectivelyMasked) > 0)
+                    {
+                        Vector2 halfParent = .5f * _parentFull.cachedSize + Vector2.One;
+                        parentBox = new BoundingBox2(
+                            -halfParent + _parentFull.cachedPosition,
+                            halfParent + _parentFull.cachedPosition
+                        );
+
+                        if (_parentFull.maskingBox != null)
+                            parentBox = parentBox.Value.Intersect(_parentFull.maskingBox.Value);
+                    }
+                    else
+                        parentBox = _parentFull?.maskingBox;
+
+                    if ((State & HudElementStates.IsMasking) > 0)
+                    {
+                        Vector2 halfSize = .5f * cachedSize + Vector2.One;
+                        box = new BoundingBox2(
+                            -halfSize + cachedPosition,
+                            halfSize + cachedPosition
+                        );
+                    }
+
+                    if (parentBox != null && box != null)
+                        box = box.Value.Intersect(parentBox.Value);
+                    else if (box == null)
+                        box = parentBox;
+
+                    maskingBox = box;
+                }
+                else if ((State & HudElementStates.IsMasked) > 0)
+                {
+                    maskingBox = _parentFull?.maskingBox;
+                }
+                else
+                {
+                    maskingBox = null;
+                }
             }
 
             /// <summary>
@@ -370,13 +488,13 @@ namespace RichHudFramework
             private Vector2 GetParentAlignment()
             {
                 Vector2 alignment = Vector2.Zero,
-                    max = (_parentFull.cachedSize + cachedSize) / 2f,
+                    max = (_parentFull.cachedSize + cachedSize) * .5f,
                     min = -max;
 
                 if ((ParentAlignment & ParentAlignments.UsePadding) == ParentAlignments.UsePadding)
                 {
-                    min += _parentFull.cachedPadding / 2f;
-                    max -= _parentFull.cachedPadding / 2f;
+                    min += _parentFull.cachedPadding * .5f;
+                    max -= _parentFull.cachedPadding * .5f;
                 }
 
                 if ((ParentAlignment & ParentAlignments.InnerV) == ParentAlignments.InnerV)
