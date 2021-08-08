@@ -348,6 +348,7 @@ namespace RichHudFramework.UI
                 tabBoard = new MatBoard() { Color = TerminalFormatting.Mercury };
                 Color = TerminalFormatting.Atomic;
                 CanDrawTab = true;
+                IsSelectivelyMasked = true;
             }
 
             protected override void Draw()

@@ -181,6 +181,7 @@ namespace RichHudFramework.UI
             listBox = new ListBox<TContainer, TElement, TValue>()
             {
                 Visible = false,
+                CanIgnoreMasking = true,
                 ZOffset = 3,
                 DimAlignment = DimAlignments.Width,
                 ParentAlignment = ParentAlignments.Bottom,

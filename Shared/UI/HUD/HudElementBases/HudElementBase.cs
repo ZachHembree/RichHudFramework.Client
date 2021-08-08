@@ -405,7 +405,7 @@ namespace RichHudFramework
                     }
                     else if (_parentFull != null && (State & HudElementStates.IsSelectivelyMasked) > 0)
                     {
-                        Vector2 halfParent = .5f * _parentFull.cachedSize + Vector2.One;
+                        Vector2 halfParent = .5f * _parentFull.cachedSize;
                         parentBox = new BoundingBox2(
                             -halfParent + _parentFull.cachedPosition,
                             halfParent + _parentFull.cachedPosition
@@ -419,7 +419,7 @@ namespace RichHudFramework
 
                     if ((State & HudElementStates.IsMasking) > 0)
                     {
-                        Vector2 halfSize = .5f * cachedSize + Vector2.One;
+                        Vector2 halfSize = .5f * cachedSize;
                         box = new BoundingBox2(
                             -halfSize + cachedPosition,
                             halfSize + cachedPosition
