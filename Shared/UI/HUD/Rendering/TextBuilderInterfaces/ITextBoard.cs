@@ -119,12 +119,6 @@ namespace RichHudFramework
                 /// Draws the text board in world space on the XY plane of the matrix, facing in the +Z
                 /// direction.
                 /// </summary>
-                void Draw(Vector2 offset, ref MatrixD matrix);
-
-                /// <summary>
-                /// Draws the text board in world space on the XY plane of the matrix, facing in the +Z
-                /// direction.
-                /// </summary>
                 void Draw(BoundingBox2 box, BoundingBox2 mask, MatrixD[] matrix);
             }
         }
