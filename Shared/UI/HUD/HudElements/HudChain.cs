@@ -300,6 +300,7 @@ namespace RichHudFramework
                 ParentAlignments left = (ParentAlignments)((int)ParentAlignments.Left * (2 - alignAxis)),
                     right = (ParentAlignments)((int)ParentAlignments.Right * (2 - alignAxis)),
                     bitmask = left | right;
+                float spacing = Spacing;
 
                 for (int n = 0; n < hudCollectionList.Count; n++)
                 {
@@ -330,7 +331,7 @@ namespace RichHudFramework
                     if ((element.State & (nodeSetVisible)) == nodeSetVisible)
                     {
                         // Move offset down for the next element
-                        elementSize[alignAxis] += Spacing;
+                        elementSize[alignAxis] += spacing;
                         offset += elementSize * alignMask;
                     }
                 }
@@ -343,6 +344,7 @@ namespace RichHudFramework
             protected virtual Vector2 GetVisibleTotalSize()
             {
                 Vector2 newSize = new Vector2();
+                float spacing = Spacing;
 
                 for (int n = 0; n < hudCollectionList.Count; n++)
                 {
@@ -359,11 +361,11 @@ namespace RichHudFramework
                         if (elementSize[offAxis] > newSize[offAxis])
                             newSize[offAxis] = elementSize[offAxis];
 
-                        newSize[alignAxis] += Spacing;
+                        newSize[alignAxis] += spacing;
                     }
                 }
 
-                newSize[alignAxis] -= Spacing;
+                newSize[alignAxis] -= spacing;
                 return Vector2.Max(newSize, Vector2.Zero);
             }
         }
