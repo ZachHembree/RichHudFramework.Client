@@ -1,5 +1,27 @@
-﻿namespace RichHudFramework.UI
+﻿using System;
+
+namespace RichHudFramework.UI
 {
+    /// <summary>
+    /// Flags used to request a given blacklist configuration for SE controls.
+    /// </summary>
+    [Flags]
+    public enum SeBlacklistModes : int
+    {
+        None = 0x0,
+
+        /// <summary>
+        /// Enable to disable mouse button keybinds. 
+        /// </summary>
+        Mouse = 0x1,
+
+        /// <summary>
+        /// Enable to blacklist every blacklist-able bind. 
+        /// Keep in mind that not every SE bind can be disabled.
+        /// </summary>
+        Full = 0x2 | Mouse
+    }
+
     public enum BindClientAccessors : int
     {
         /// <summary>
@@ -31,5 +53,10 @@
         /// void
         /// </summary>
         Unload = 6,
+
+        /// <summary>
+        /// in/out: SeBlacklistModes
+        /// </summary>
+        RequestBlacklistMode = 7,
     }
 }
