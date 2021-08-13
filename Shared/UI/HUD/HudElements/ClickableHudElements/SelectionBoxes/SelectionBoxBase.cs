@@ -140,6 +140,11 @@ namespace RichHudFramework.UI
         public IMouseInput MouseInput => listInput;
 
         /// <summary>
+        /// Indicates whether or not the cursor is currently positioned over the list.
+        /// </summary>
+        public override bool IsMousedOver => listInput.IsMousedOver;
+
+        /// <summary>
         /// Defines the range of elements visible
         /// </summary>
         protected virtual Vector2I ListRange => new Vector2I(0, hudChain.Count - 1);
