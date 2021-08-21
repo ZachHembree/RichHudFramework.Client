@@ -55,10 +55,28 @@ namespace RichHudFramework.UI
         /// </summary>
         public event EventHandler LostInputFocus;
 
+        public bool Enabled { get { return Visible; } set { Visible = value; } }
+
         /// <summary>
         /// Indicates whether or not the element has input focus.
         /// </summary>
-        public bool HasFocus { get { return hasFocus && Visible; } private set { hasFocus = value; } }
+        public bool HasFocus
+        {
+            get { return hasFocus && Visible; }
+            private set
+            {
+                hasFocus = value;
+
+                if (!value)
+                {
+                    State &= ~(HudElementStates.IsMousedOver | HudElementStates.IsMouseInBounds);
+                    IsLeftClicked = false;
+                    IsRightClicked = false;
+                    IsNewLeftClicked = false;
+                    IsNewRightClicked = false;
+                }
+            }
+        }
 
         /// <summary>
         /// True if the element is being clicked with the left mouse button

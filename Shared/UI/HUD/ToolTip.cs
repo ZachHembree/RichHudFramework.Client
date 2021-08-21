@@ -20,7 +20,7 @@ namespace RichHudFramework
         /// </summary>
         public class ToolTip
         {
-            public static readonly GlyphFormat DefaultText = GlyphFormat.Blueish.WithSize(.83f);
+            public static readonly GlyphFormat DefaultText = GlyphFormat.Blueish.WithSize(.75f);
             public static readonly Color DefaultBG = new Color(73, 86, 95),
                 orangeWarningBG = new Color(180, 110, 0),
                 redWarningBG = new Color(126, 39, 44);
