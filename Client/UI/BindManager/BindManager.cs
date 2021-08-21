@@ -41,7 +41,7 @@ namespace RichHudFramework
             /// <summary>
             /// Specifies blacklist mode for SE controls
             /// </summary>
-            public static SeBlacklistModes RequestBlacklistMode
+            public static SeBlacklistModes BlacklistMode
             {
                 get 
                 { 
