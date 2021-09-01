@@ -74,6 +74,21 @@ namespace RichHudFramework
                 }
 
                 /// <summary>
+                /// Root node for high DPI scaling at > 1080p. Draw matrix automatically rescales to comensate
+                /// for decrease in apparent size due to high DPI displays.
+                /// </summary>
+                public static HudParentBase HighDpiRoot
+                {
+                    get
+                    {
+                        if (_instance == null)
+                            Init();
+
+                        return _instance.highDpiRoot;
+                    }
+                }
+
+                /// <summary>
                 /// Cursor shared between mods.
                 /// </summary>
                 public static ICursor Cursor
@@ -169,6 +184,7 @@ namespace RichHudFramework
                 private static HudMain _instance;
 
                 private readonly HudClientRoot root;
+                private readonly ScaledSpaceNode highDpiRoot;
                 private readonly HudCursor cursor;
                 private bool enableCursorLast;
 
@@ -191,6 +207,7 @@ namespace RichHudFramework
 
                     PixelToWorldRef = new MatrixD[1];
                     root = new HudClientRoot();
+                    highDpiRoot = new ScaledSpaceNode(root) { UpdateScaleFunc = () => ResScale };
 
                     Action<List<HudUpdateAccessors>, byte> rootDelegate = root.GetUpdateAccessors,
                         safeAccessor = (List<HudUpdateAccessors> list, byte depth) =>
