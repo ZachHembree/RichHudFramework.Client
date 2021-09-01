@@ -78,11 +78,6 @@ namespace RichHudFramework.UI
         public Label() : this(null)
         { }
 
-        protected override void Layout()
-        {
-            _textBoard.Scale = (LocalScale * parentScale);
-        }
-
         protected override void Draw()
         {
             Vector2 halfSize = (cachedSize - cachedPadding) * .5f;

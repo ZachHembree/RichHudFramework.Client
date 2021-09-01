@@ -17,6 +17,18 @@ namespace RichHudFramework
         public abstract class HudElementBase : HudNodeBase, IReadOnlyHudElement
         {
             protected const float minMouseBounds = 8f;
+            protected const HudElementStates elementNotVisible = ~(HudElementStates.IsVisible | HudElementStates.IsMousedOver | HudElementStates.IsMouseInBounds);
+
+            public override bool Visible
+            {
+                set
+                {
+                    if (value)
+                        State |= HudElementStates.IsVisible;
+                    else
+                        State &= elementNotVisible;
+                }
+            }
 
             /// <summary>
             /// Parent object of the node.
@@ -44,13 +56,13 @@ namespace RichHudFramework
             /// </summary>
             public virtual float Width
             {
-                get { return (_absoluteWidth * (LocalScale * parentScale)) + Padding.X; }
+                get { return _size.X + Padding.X; }
                 set
                 {
                     if (value > Padding.X)
                         value -= Padding.X;
 
-                    _absoluteWidth = (value / (LocalScale * parentScale));
+                    _size.X = value;
                 }
             }
 
@@ -59,13 +71,13 @@ namespace RichHudFramework
             /// </summary>
             public virtual float Height
             {
-                get { return (_absoluteHeight * (LocalScale * parentScale)) + Padding.Y; }
+                get { return _size.Y + Padding.Y; }
                 set
                 {
                     if (value > Padding.Y)
                         value -= Padding.Y;
 
-                    _absoluteHeight = (value / (LocalScale * parentScale));
+                    _size.Y = value;
                 }
             }
 
@@ -74,8 +86,8 @@ namespace RichHudFramework
             /// </summary>
             public virtual Vector2 Padding
             {
-                get { return _absolutePadding * (LocalScale * parentScale); }
-                set { _absolutePadding = value / (LocalScale * parentScale); }
+                get { return _padding; }
+                set { _padding = value; }
             }
 
             /// <summary>
@@ -86,11 +98,7 @@ namespace RichHudFramework
             /// <summary>
             /// Position of the element relative to its origin.
             /// </summary>
-            public virtual Vector2 Offset
-            {
-                get { return _absoluteOffset * (LocalScale * parentScale); }
-                set { _absoluteOffset = value / (LocalScale * parentScale); }
-            }
+            public Vector2 Offset { get; set; }
 
             /// <summary>
             /// Current position of the hud element. Origin + Offset.
@@ -191,19 +199,14 @@ namespace RichHudFramework
             public virtual bool IsMousedOver => (State & HudElementStates.IsMousedOver) > 0;
 
             /// <summary>
-            /// Unscaled element size;
+            /// Element size
             /// </summary>
-            protected float _absoluteWidth, _absoluteHeight;
+            protected Vector2 _size;
 
             /// <summary>
-            /// Unscaled element offset.
+            /// Element padding
             /// </summary>
-            protected Vector2 _absoluteOffset;
-
-            /// <summary>
-            /// Unscaled element padding.
-            /// </summary>
-            protected Vector2 _absolutePadding;
+            protected Vector2 _padding;
 
             /// <summary>
             /// Values used internally to minimize property calls. Should be treated as read only.
@@ -312,8 +315,6 @@ namespace RichHudFramework
                         else
                         {
                             ParentVisible = _parent.Visible;
-                            parentScale = _parent.Scale;
-                            layerData.parentZOffset = _parent.ZOffset;
                         }
 
                         if (Visible || refresh)

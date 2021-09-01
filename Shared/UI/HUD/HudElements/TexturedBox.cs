@@ -29,7 +29,6 @@ namespace RichHudFramework.UI
         public TexturedBox(HudParentBase parent) : base(parent)
         {
             hudBoard = new MatBoard();
-            lastScale = Scale;
             Size = new Vector2(50f);
         }
 

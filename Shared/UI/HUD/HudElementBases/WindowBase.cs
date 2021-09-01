@@ -44,7 +44,7 @@ namespace RichHudFramework.UI
         /// <summary>
         /// Minimum allowable size for the window.
         /// </summary>
-        public Vector2 MinimumSize { get { return minimumSize * (LocalScale * parentScale); } set { minimumSize = value / (LocalScale * parentScale); } }
+        public Vector2 MinimumSize { get { return minimumSize; } set { minimumSize = value; } }
 
         /// <summary>
         /// Determines whether or not the window can be resized by the user
@@ -132,8 +132,9 @@ namespace RichHudFramework.UI
                 ZOffset = sbyte.MaxValue,
                 Padding = new Vector2(16f),
                 DimAlignment = DimAlignments.Both,
+                CanIgnoreMasking = true
             };
-
+            
             inputInner = new MouseInputElement(resizeInput)
             {
                 DimAlignment = DimAlignments.Both | DimAlignments.IgnorePadding,
@@ -223,15 +224,14 @@ namespace RichHudFramework.UI
 
             if (AllowResizing && resizeInput.IsNewLeftClicked && !inputInner.IsMousedOver)
             {
-                float scale = (LocalScale * parentScale);
                 Vector2 pos = Origin + Offset;
                 canResize = true;
                 resizeDir = 0;
 
-                if (Width - (2f * scale) * Math.Abs(pos.X - cursorPos.X) <= cornerSize * scale)
+                if (Width - (2f) * Math.Abs(pos.X - cursorPos.X) <= cornerSize)
                     resizeDir += 1;
 
-                if (Height - (2f * scale) * Math.Abs(pos.Y - cursorPos.Y) <= cornerSize * scale)
+                if (Height - (2f) * Math.Abs(pos.Y - cursorPos.Y) <= cornerSize)
                     resizeDir += 2;
             }
             else if (CanDrag && header.MouseInput.IsNewLeftClicked)

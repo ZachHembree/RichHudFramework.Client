@@ -33,16 +33,15 @@ namespace RichHudFramework.UI
                 if (value > Padding.X)
                     value -= Padding.X;
 
-                float scale = (LocalScale * parentScale);
-                _absoluteWidth = value / scale;
+                _size.X = value;
 
                 if (offAxis == 0)
                 {
                     if (value > 0f && (SizingMode & (HudChainSizingModes.ClampMembersOffAxis | HudChainSizingModes.FitMembersOffAxis)) > 0)
-                        _absMaxSize.X = (value - scrollBarPadding) / scale;
+                        _absMaxSize.X = (value - scrollBarPadding);
                 }
                 else
-                    _absMinLengthInternal = _absoluteWidth;
+                    _absMinLengthInternal = _size.X;
             }
         }
 
@@ -56,16 +55,15 @@ namespace RichHudFramework.UI
                 if (value > Padding.Y)
                     value -= Padding.Y;
 
-                float scale = (LocalScale * parentScale);
-                _absoluteHeight = value / scale;
+                _size.Y = value;
 
                 if (offAxis == 1)
                 {
                     if (value > 0f && (SizingMode & (HudChainSizingModes.ClampMembersOffAxis | HudChainSizingModes.FitMembersOffAxis)) > 0)
-                        _absMaxSize.Y = (value - scrollBarPadding) / scale;
+                        _absMaxSize.Y = (value - scrollBarPadding);
                 }
                 else
-                    _absMinLengthInternal = _absoluteHeight;
+                    _absMinLengthInternal = _size.Y;
             }
         }
 
@@ -79,7 +77,7 @@ namespace RichHudFramework.UI
         /// <summary>
         /// Minimum total length (on the align axis) of visible members allowed in the scrollbox.
         /// </summary>
-        public float MinLength { get { return _absMinLength * (LocalScale * parentScale); } set { _absMinLength = value / (LocalScale * parentScale); } }
+        public float MinLength { get { return _absMinLength; } set { _absMinLength = value; } }
 
         /// <summary>
         /// Index of the first element in the visible range in the chain.
@@ -112,6 +110,12 @@ namespace RichHudFramework.UI
                 }
             }
         }
+
+        /// <summary>
+        /// Range of elements including elements immediately before and after the logical visible
+        /// range to allow for clipping.
+        /// </summary>
+        public Vector2I ClipRange => new Vector2I(_start, _end);
 
         /// <summary>
         /// Position of the first visible element as it appears in the UI. Does not correspond to actual index.
@@ -270,8 +274,7 @@ namespace RichHudFramework.UI
             UpdateMemberSizes();
 
             // Get the list length
-            float scale = (LocalScale * parentScale),
-                rangeLength = Math.Max(_absMinLength, _absMinLengthInternal) * scale;
+            float rangeLength = Math.Max(_absMinLength, _absMinLengthInternal);
 
             // Update visible range
             float totalEnabledLength = 0f, scrollOffset = 0f;
@@ -298,8 +301,7 @@ namespace RichHudFramework.UI
 
             size = listSize;
             size[offAxis] += scrollBarPadding;
-            _absoluteWidth = size.X / scale;
-            _absoluteHeight = size.Y / scale;
+            _size = size;
 
             // Update scrollbar max bound and calculate offset for scrolling
             ScrollBar.Current = (float)Math.Round(ScrollBar.Current, 6);
@@ -465,7 +467,7 @@ namespace RichHudFramework.UI
                 firstEnabled = MathHelper.Clamp(firstEnabled, 0, hudCollectionList.Count - 1);
 
                 float elementSize,
-                    offset = .1f * Scale,
+                    offset = .1f,
                     spacing = Spacing;
 
                 if (getEnd)

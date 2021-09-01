@@ -26,7 +26,7 @@ namespace RichHudFramework.UI
         /// <summary>
         /// Size of the border on all four sides in pixels.
         /// </summary>
-        public float Thickness { get { return _thickness * (LocalScale * parentScale); } set { _thickness = value / (LocalScale * parentScale); } }
+        public float Thickness { get { return _thickness; } set { _thickness = value; } }
 
         private float _thickness;
         protected readonly MatBoard hudBoard;
@@ -47,9 +47,8 @@ namespace RichHudFramework.UI
                 CroppedBox box = default(CroppedBox);
                 box.mask = maskingBox;
 
-                float scale = (LocalScale * parentScale),
-                    thickness = _thickness * scale, 
-                    height = _absoluteHeight * scale, width = _absoluteWidth * scale;
+                float thickness = _thickness, 
+                    height = _size.Y, width = _size.X;
                 Vector2 halfSize, pos;
 
                 // Left

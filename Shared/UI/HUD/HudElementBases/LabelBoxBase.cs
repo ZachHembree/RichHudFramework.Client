@@ -47,7 +47,7 @@ namespace RichHudFramework
 
             public override float Width
             {
-                get { return FitToTextElement ? TextSize.X + Padding.X : base.Width; }
+                get { return FitToTextElement ? TextSize.X + Padding.X : (_size.X + Padding.X); }
                 set
                 {
                     if (!FitToTextElement)
@@ -65,7 +65,7 @@ namespace RichHudFramework
 
             public override float Height
             {
-                get { return FitToTextElement ? TextSize.Y + Padding.Y : base.Height; }
+                get { return FitToTextElement ? TextSize.Y + Padding.Y : (_size.Y + Padding.Y); }
                 set
                 {
                     if (!FitToTextElement)
@@ -97,9 +97,7 @@ namespace RichHudFramework
                 // The element may not be smaller than the text
                 if (!FitToTextElement)
                 {
-                    float scale = (LocalScale * parentScale);
-                    _absoluteWidth = MathHelper.Max(TextSize.Y, _absoluteWidth * scale) / scale;
-                    _absoluteHeight = MathHelper.Max(TextSize.X, _absoluteHeight * scale) / scale;
+                    _size = Vector2.Max(TextSize, _size);
                 }
             }
         }

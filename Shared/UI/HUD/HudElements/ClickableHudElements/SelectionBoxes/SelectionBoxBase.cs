@@ -45,7 +45,7 @@ namespace RichHudFramework.UI
     }
 
     /// <summary>
-    /// Abstract generic list of selectable UI elements of arbitrary size size.
+    /// Abstract generic list of selectable UI elements of arbitrary size.
     /// </summary>
     /// <typeparam name="TContainer">Container element type wrapping the UI element</typeparam>
     /// <typeparam name="TElement">UI element in the list</typeparam>
@@ -370,7 +370,7 @@ namespace RichHudFramework.UI
 
                 // Left align the tab
                 Vector2 tabPos = cachedPosition,
-                    tabSize = new Vector2(4f * (LocalScale * parentScale), size.Y - cachedPadding.Y);
+                    tabSize = new Vector2(4f, size.Y - cachedPadding.Y);
                 tabPos.X += (-size.X + tabSize.X) * .5f;
                 tabSize *= .5f;
 

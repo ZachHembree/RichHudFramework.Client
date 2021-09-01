@@ -40,8 +40,6 @@ namespace RichHudFramework
         {
             public sbyte zOffset;
 
-            public sbyte parentZOffset;
-
             /// <summary>
             /// Additional zOffset range used internally; primarily for determining window draw order.
             /// Don't use this unless you have a good reason for it.
@@ -134,12 +132,6 @@ namespace RichHudFramework
             /// input.
             /// </summary>
             bool Visible { get; }
-
-            /// <summary>
-            /// Scales the size and offset of an element. Any offset or size set at a given
-            /// be increased or decreased with scale. Defaults to 1f.
-            /// </summary>
-            float Scale { get; }
 
             /// <summary>
             /// Used to change the draw order of the UI element. Lower offsets place the element

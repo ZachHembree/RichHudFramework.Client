@@ -43,11 +43,19 @@ namespace RichHudFramework
 
             public ToolTip()
             {
+                bgColor = DefaultBG;
+
                 GetToolTipFunc = () => new ToolTipMembers()
                 {
                     Item1 = text?.apiData,
                     Item2 = bgColor,
                 };
+            }
+
+            public ToolTip(Func<ToolTipMembers> GetToolTipFunc)
+            {
+                bgColor = DefaultBG;
+                this.GetToolTipFunc = GetToolTipFunc;
             }
         }
     }

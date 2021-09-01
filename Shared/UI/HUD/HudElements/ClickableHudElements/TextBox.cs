@@ -430,37 +430,36 @@ namespace RichHudFramework.UI
             private void UpdateOffset()
             {
                 Vector2 offset = new Vector2();
-                float scale = (LocalScale * parentScale);
 
                 if (text.Count > 0 && text[Index.X].Count > 0)
                 {
                     IRichChar ch;
-                    Height = text[Index.X].Size.Y - (2f * scale);
+                    Height = text[Index.X].Size.Y - 2f;
                     
                     if (Index.Y == -1)
                     {
                         ch = text[Index + new Vector2I(0, 1)];
                         offset = ch.Offset + text.TextOffset;
-                        offset.X -= ch.Size.X * .5f + (1f * scale);
+                        offset.X -= ch.Size.X * .5f + 1f;
                     }
                     else
                     {
                         ch = text[Index];
                         offset = ch.Offset + text.TextOffset;
-                        offset.X += ch.Size.X * .5f + (1f * scale);
+                        offset.X += ch.Size.X * .5f + 1f;
                     }
                 }
                 else
                 {
                     if (text.Format.Alignment == TextAlignment.Left)
-                        offset.X = -textElement.Size.X * .5f + (2f * scale);
+                        offset.X = -textElement.Size.X * .5f + 2f;
                     else if (text.Format.Alignment == TextAlignment.Right)
-                        offset.X = textElement.Size.X * .5f - (2f * scale);
+                        offset.X = textElement.Size.X * .5f - 2f;
 
                     offset += _parentFull.Padding * .5f;
 
                     if (!text.VertCenterText)
-                        offset.Y = (text.Size.Y - Height) * .5f - (4f * scale);
+                        offset.Y = (text.Size.Y - Height) * .5f - 4f;
                 }
 
                 Offset = offset;
@@ -497,7 +496,7 @@ namespace RichHudFramework.UI
             /// </summary>
             private void GetClickedChar(Vector2 cursorPos)
             {
-                if ((cursorPos - lastCursorPos).LengthSquared() > 4f * (LocalScale * parentScale))
+                if ((cursorPos - lastCursorPos).LengthSquared() > 4f)
                 {
                     Vector2 offset = cursorPos - textElement.Position;
                     Vector2I newIndex = text.GetCharAtOffset(offset);

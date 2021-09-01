@@ -83,7 +83,7 @@ namespace RichHudFramework
 
             public HudSpaceNodeBase(HudParentBase parent = null) : base(parent)
             {
-                GetHudSpaceFunc = () => new MyTuple<bool, float, MatrixD>(DrawCursorInHudSpace, Scale, PlaneToWorldRef[0]);
+                GetHudSpaceFunc = () => new MyTuple<bool, float, MatrixD>(DrawCursorInHudSpace, 1f, PlaneToWorldRef[0]);
                 DrawCursorInHudSpace = true;
                 GetNodeOriginFunc = () => PlaneToWorldRef[0].Translation;
                 PlaneToWorldRef = new MatrixD[1];
