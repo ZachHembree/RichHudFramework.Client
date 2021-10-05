@@ -1,5 +1,9 @@
-﻿namespace RichHudFramework
+﻿using System;
+
+namespace RichHudFramework
 {
+    public delegate void EventHandler(object sender, EventArgs e);
+
     namespace UI
     {
         public enum HudMainAccessors : int
