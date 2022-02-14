@@ -162,20 +162,36 @@ namespace RichHudFramework.UI
             UseFocusFormatting = true;
             HighlightEnabled = true;
 
-            Size = new Vector2(319f, 40);
+            Size = new Vector2(250f, 40);
 
             textBox.TextBoard.TextChanged += OnTextChanged;
             MouseInput.CursorEntered += CursorEnter;
             MouseInput.CursorExited += CursorExit;
+            MouseInput.GainedInputFocus += GainFocus;
             MouseInput.LostInputFocus += LoseFocus;
         }
 
         public TextField() : this(null)
         { }
 
+        public void OpenInput() =>
+            textBox.OpenInput();
+
+        public void CloseInput() =>
+            textBox.CloseInput();
+
         private void OnTextChanged()
         {
             TextChanged?.Invoke(this, EventArgs.Empty);
+        }
+
+        protected override void HandleInput(Vector2 cursorPos)
+        {
+            if (!MouseInput.HasFocus && !MouseInput.IsMousedOver)
+            {
+                lastColor = Color;
+                lastTextColor = TextBoard.Format.Color;
+            }
         }
 
         protected virtual void CursorEnter(object sender, EventArgs args)
@@ -207,6 +223,21 @@ namespace RichHudFramework.UI
                     Color = lastColor;
                     TextBoard.SetFormatting(TextBoard.Format.WithColor(lastTextColor));
                 }
+            }
+        }
+
+        protected virtual void GainFocus(object sender, EventArgs args)
+        {
+            if (UseFocusFormatting)
+            {
+                if (!MouseInput.IsMousedOver)
+                {
+                    lastColor = Color;
+                    lastTextColor = TextBoard.Format.Color;
+                }
+
+                Color = FocusColor;
+                TextBoard.SetFormatting(TextBoard.Format.WithColor(FocusTextColor));
             }
         }
 
