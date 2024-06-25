@@ -6,6 +6,13 @@ namespace RichHudFramework
 {
     namespace UI
     {
+        [XmlType(TypeName = "Alias")]
+        public struct BindAliasDefinition
+        {
+            [XmlArray("Controls")]
+            public string[] controlNames;
+        }
+
         /// <summary>
         /// Stores data for serializing individual key binds to XML.
         /// </summary>
@@ -18,10 +25,14 @@ namespace RichHudFramework
             [XmlArray("Controls")]
             public string[] controlNames;
 
-            public BindDefinition(string name, string[] controlNames)
+            [XmlArray("Aliases")]
+            public BindAliasDefinition[] aliases;
+
+            public BindDefinition(string name, string[] controlNames, BindAliasDefinition[] aliases = null)
             {
                 this.name = name;
                 this.controlNames = controlNames;
+                this.aliases = aliases;
             }
 
             public static implicit operator BindDefinition(BindDefinitionData value)
@@ -29,7 +40,7 @@ namespace RichHudFramework
                 return new BindDefinition(value.Item1, value.Item2);
             }
 
-            public static implicit operator MyTuple<string, string[]>(BindDefinition value)
+            public static implicit operator BindDefinitionData(BindDefinition value)
             {
                 return new BindDefinitionData(value.name, value.controlNames);
             }
