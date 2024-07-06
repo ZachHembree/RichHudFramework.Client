@@ -1,9 +1,10 @@
 ﻿using System.Collections.Generic;
 using VRage;
-using BindDefinitionData = VRage.MyTuple<string, string[]>;
 
 namespace RichHudFramework
 {
+    using BindDefinitionData = MyTuple<string, string[], string[][]>;
+
     namespace UI
     {
         // <summary>
@@ -35,11 +36,6 @@ namespace RichHudFramework
             /// Returns true if the group contains a bind with the given name.
             /// </summary>
             bool DoesBindExist(string name);
-
-            /// <summary>
-            /// Returns true if the specified alias conflicts with other combos
-            /// </summary>
-            bool DoesComboConflict(IBind bind, int alias = 0);
 
             /// <summary>
             /// Returns true if the given list of controls conflicts with any existing combos
@@ -180,12 +176,13 @@ namespace RichHudFramework
             RegisterBindDefinitions = 13,
 
             /// <summary>
-            /// in: MyTuple{string, IReadOnlyList{int}}, out: Vector2I
+            /// in: MyTuple{string, IReadOnlyList{int}, IReadOnlyList{IReadOnlyList{int}}, out: Vector2I
             /// </summary>
             AddBindWithIndices = 14,
 
             /// <summary>
             /// in: MyTuple{string, IReadOnlyList{string}}, out: Vector2I
+            /// Deprecated API vID < 11
             /// </summary>
             AddBindWithNames = 15,
 

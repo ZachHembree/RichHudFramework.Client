@@ -293,7 +293,7 @@ namespace RichHudFramework
 
             public ControlHandle(string controlName)
             {
-                this.id = BindManager.GetControl(controlName).Index;
+                this.id = BindManager.GetControl(controlName);
             }
 
             public ControlHandle(int id)
