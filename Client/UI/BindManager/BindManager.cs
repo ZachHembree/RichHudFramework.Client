@@ -179,6 +179,30 @@ namespace RichHudFramework
             }
 
             /// <summary>
+            /// Returns control name for the corresponding handle
+            /// </summary>
+            public static string GetControlName(ControlHandle con)
+            {
+                return Instance.GetOrSetMemberFunc(con.id, (int)BindClientAccessors.GetControlName) as string;
+            }
+
+            /// <summary>
+            /// Returns control name for the corresponding int ID
+            /// </summary>
+            public static string GetControlName(int conID)
+            {
+                return Instance.GetOrSetMemberFunc(conID, (int)BindClientAccessors.GetControlName) as string;
+            }
+
+            /// <summary>
+            /// Returns control names for the corresponding int IDs
+            /// </summary>
+            public static string[] GetControlNames(IReadOnlyList<int> conIDs)
+            {
+                return Instance.GetOrSetMemberFunc(conIDs, (int)BindClientAccessors.GetControlName) as string[];
+            }
+
+            /// <summary>
             /// Returns the control associated with the given <see cref="ControlHandle"/>
             /// </summary>
             public static IControl GetControl(ControlHandle handle) =>
