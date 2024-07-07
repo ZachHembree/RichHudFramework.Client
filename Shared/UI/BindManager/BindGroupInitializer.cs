@@ -105,6 +105,29 @@ namespace RichHudFramework
                 bindData.Add(new BindInitData(bindName, combo, new List<KeyComboInitData> { alias1, alias2 }));
             }
 
+            public BindDefinition[] GetBindDefinitions()
+            {
+                var bindDefs = new BindDefinition[bindData.Count];
+
+                for (int i = 0; i < bindData.Count; i++)
+                {
+                    var bindName = bindData[i].Item1;
+                    var mainCombo = bindData[i].Item2;
+                    var aliases = bindData[i].Item3;
+
+                    bindDefs[i].name = bindName;
+                    bindDefs[i].controlNames = BindManager.GetControlNames(mainCombo);
+                    bindDefs[i].aliases = new BindAliasDefinition[aliases.Count];
+
+                    for (int j = 0; j < aliases.Count; j++)
+                    {
+                        bindDefs[i].aliases[j].controlNames = BindManager.GetControlNames(aliases[j]);
+                    }
+                }
+
+                return bindDefs;
+            }
+
             public static implicit operator List<BindInitData>(BindGroupInitializer gInit)
             {
                 return gInit.bindData;
