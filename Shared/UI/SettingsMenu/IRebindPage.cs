@@ -15,6 +15,7 @@ namespace RichHudFramework
         public enum RebindPageAccessors : int
         {
             Add = 10,
+            GetOrSetIsAliased = 11
         }
 
         public interface IRebindPage : ITerminalPage, IEnumerable<IBindGroup>
@@ -23,6 +24,11 @@ namespace RichHudFramework
             /// Bind groups registered to the rebind page.
             /// </summary>
             IReadOnlyList<IBindGroup> BindGroups { get; }
+
+            /// <summary>
+            /// If true, then the menu will allow bind alias configuration
+            /// </summary>
+            bool IsAliased { get; set; }
 
             /// <summary>
             /// Adds the given bind group to the page.
