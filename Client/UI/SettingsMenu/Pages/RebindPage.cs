@@ -34,6 +34,24 @@ namespace RichHudFramework
             /// </summary>
             public IReadOnlyList<IBindGroup> BindGroups => bindGroups;
 
+            /// <summary>
+            /// If true, then the menu will allow bind alias configuration
+            /// </summary>
+            public bool IsAliased 
+            { 
+                get 
+                { 
+                    return (bool)GetOrSetMemberFunc(null, (int)RebindPageAccessors.GetOrSetIsAliased); 
+                } 
+                set
+                {
+                    GetOrSetMemberFunc(value, (int)RebindPageAccessors.GetOrSetIsAliased);
+                }
+            }
+
+            /// <summary>
+            /// Allows addition of bind groups using collection-initializer syntax
+            /// </summary>
             public RebindPage GroupContainer => this;
 
             private readonly List<IBindGroup> bindGroups;
