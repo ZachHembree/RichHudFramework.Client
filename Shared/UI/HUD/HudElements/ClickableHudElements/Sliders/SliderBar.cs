@@ -303,7 +303,7 @@ namespace RichHudFramework.UI
                 bar.Color = BarColor;
             }
 
-            Vector2 size = CachedSize - Padding;
+            Vector2 size = UnpaddedSize;
 
             if (_barSize.X >= _sliderSize.X)
             {
