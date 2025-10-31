@@ -11,6 +11,7 @@ namespace RichHudFramework
 	{
 		using static NodeConfigIndices;
 		using Server;
+		using Client;
 
 		/// <summary>
 		/// Base class for hud nodes used to replace standard Pixel to World matrix with an arbitrary

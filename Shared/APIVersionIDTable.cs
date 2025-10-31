@@ -1,4 +1,4 @@
-﻿namespace RichHudFramework.Server
+﻿namespace RichHudFramework
 {
 	/// <summary>
 	/// API version IDs for extensions/revisions to Master-Client interface
