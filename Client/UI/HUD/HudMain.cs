@@ -1,8 +1,8 @@
+using RichHudFramework.UI.Rendering;
 using System;
 using System.Collections.Generic;
 using VRage;
 using VRageMath;
-using RichHudFramework.UI.Rendering;
 using ApiMemberAccessor = System.Func<object, int, object>;
 using FloatProp = VRage.MyTuple<System.Func<float>, System.Action<float>>;
 using HudSpaceDelegate = System.Func<VRage.MyTuple<bool, float, VRageMath.MatrixD>>;
@@ -11,8 +11,8 @@ using Vec2Prop = VRage.MyTuple<System.Func<VRageMath.Vector2>, System.Action<VRa
 
 namespace RichHudFramework
 {
-	using Internal;
 	using Client;
+	using Internal;
 	using CursorMembers = MyTuple<
 		Func<HudSpaceDelegate, bool>, // IsCapturingSpace
 		Func<float, HudSpaceDelegate, bool>, // TryCaptureHudSpace
@@ -32,6 +32,7 @@ namespace RichHudFramework
 
 	namespace UI
 	{
+		using static NodeConfigIndices;
 		using TextBoardMembers = MyTuple<
 			TextBuilderMembers,
 			FloatProp, // Scale
@@ -49,14 +50,7 @@ namespace RichHudFramework
 				ApiMemberAccessor, // GetOrSetMembers
 				Action // Unregister
 			>;
-			using HudUpdateAccessors = MyTuple<
-				ApiMemberAccessor,
-				MyTuple<Func<ushort>, Func<Vector3D>>, // ZOffset + GetOrigin
-				Action, // DepthTest
-				Action, // HandleInput
-				Action<bool>, // BeforeLayout
-				Action // BeforeDraw
-			>;
+
 
 			public sealed partial class HudMain : RichHudClient.ApiModule<HudClientMembers>
 			{
@@ -210,14 +204,8 @@ namespace RichHudFramework
 					root = new HudClientRoot();
 					highDpiRoot = new ScaledSpaceNode(root) { UpdateScaleFunc = () => ResScale };
 
-					Action<List<HudUpdateAccessors>, byte> rootDelegate = root.GetUpdateAccessors,
-						safeAccessor = (List<HudUpdateAccessors> list, byte depth) =>
-						{
-							ExceptionHandler.Run(() => rootDelegate(list, depth));
-						};
-
-					// Register update delegate
-					GetOrSetMemberFunc(safeAccessor, (int)HudMainAccessors.GetUpdateAccessors);
+					// Register update handle
+					GetOrSetMemberFunc(root.DataHandle, (int)HudMainAccessors.ClientRootNode);
 					GetOrSetMemberFunc(new Action(() => ExceptionHandler.Run(BeforeMasterDraw)), (int)HudMainAccessors.SetBeforeDrawCallback);
 
 					UpdateCache();
@@ -330,7 +318,11 @@ namespace RichHudFramework
 
 					public Func<MatrixD> UpdateMatrixFunc { get; }
 
-					public Func<Vector3D> GetNodeOriginFunc { get; }
+					public Func<Vector3D> GetNodeOriginFunc
+					{
+						get { return hudSpaceOriginFunc[0]; }
+						private set { hudSpaceOriginFunc[0] = value; }
+					}
 
 					public bool IsInFront { get; }
 
@@ -338,9 +330,6 @@ namespace RichHudFramework
 
 					public HudClientRoot()
 					{
-						accessorDelegates.Item2 = new MyTuple<Func<ushort>, Func<Vector3D>>(() => 0, null);
-
-						State |= HudElementStates.CanUseCursor;
 						DrawCursorInHudSpace = true;
 						HudSpace = this;
 						IsInFront = true;
@@ -349,9 +338,12 @@ namespace RichHudFramework
 
 						GetHudSpaceFunc = _instance.GetOrSetMemberFunc(null, (int)HudMainAccessors.GetPixelSpaceFunc) as HudSpaceDelegate;
 						GetNodeOriginFunc = _instance.GetOrSetMemberFunc(null, (int)HudMainAccessors.GetPixelSpaceOriginFunc) as Func<Vector3D>;
+						Config[StateID] |= (uint)(HudElementStates.CanUseCursor | HudElementStates.IsSpaceNode);
+
+						LayoutCallback = Layout;
 					}
 
-					protected override void Layout()
+					protected virtual void Layout()
 					{
 						PlaneToWorldRef[0] = PixelToWorldRef[0];
 						CursorPos = new Vector3(Cursor.ScreenPos.X, Cursor.ScreenPos.Y, 0f);
