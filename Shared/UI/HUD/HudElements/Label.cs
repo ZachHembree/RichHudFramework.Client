@@ -70,7 +70,8 @@ namespace RichHudFramework.UI
 			Vector2 halfSize = .5f * UnpaddedSize;
 			BoundingBox2 box = new BoundingBox2(Position - halfSize, Position + halfSize);
 
-			TextBoard.FixedSize = UnpaddedSize;
+			if (!TextBoard.AutoResize)
+				TextBoard.FixedSize = UnpaddedSize;
 
 			if (maskingBox != null)
 				TextBoard.Draw(box, maskingBox.Value, HudSpace.PlaneToWorldRef);

@@ -381,6 +381,8 @@ namespace RichHudFramework.UI
 				}
 			}
 
+			VisCount = 0;
+
 			// Update logical range
 			// Clamp indices
 			int max = hudCollectionList.Count - 1;
@@ -440,7 +442,7 @@ namespace RichHudFramework.UI
 			VisStart = GetVisibleIndex(_intStart);
 
 			for (int i = 0; i < hudCollectionList.Count; i++)
-				hudCollectionList[i].Element.Visible = (i >= _start && i <= _end) && hudCollectionList[i].Enabled;
+				hudCollectionList[i].Element.Visible = (i >= _intStart && i <= _intEnd) && hudCollectionList[i].Enabled;
 		}
 
 		/// <summary>

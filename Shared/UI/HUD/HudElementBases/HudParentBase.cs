@@ -91,7 +91,7 @@ namespace RichHudFramework
 			public sbyte ZOffset
 			{
 				get { return (sbyte)Config[ZOffsetID]; }
-				set 
+				set
 				{
 					// Signal potential structural change on offset change if visible
 					bool isVisible = (Config[StateID] & Config[VisMaskID]) == Config[VisMaskID];
@@ -202,8 +202,8 @@ namespace RichHudFramework
 				// Hooks
 				_dataHandle[0].Item3.Item1 = GetOrSetApiMember; // Required
 				_dataHandle[0].Item3.Item5 = BeginLayout; // Required
-				// Parent
-				_dataHandle[0].Item4 = null; 
+														  // Parent
+				_dataHandle[0].Item4 = null;
 				// Child handle list
 				_dataHandle[0].Item5 = childHandles;
 				DataHandle = _dataHandle;
@@ -249,6 +249,8 @@ namespace RichHudFramework
 				if (child.Parent == this && !child.Registered)
 				{
 					child._dataHandle[0].Item4 = DataHandle;
+					child.HudSpace = HudSpace;
+
 					children.Add(child);
 					childHandles.Add(child.DataHandle);
 
