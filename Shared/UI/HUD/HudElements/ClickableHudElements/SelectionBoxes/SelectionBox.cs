@@ -55,15 +55,17 @@ namespace RichHudFramework.UI
             hudChain.Size.X - Padding.X - hudChain.ScrollBar.Width - hudChain.Padding.X - HighlightPadding.X;
 
         public ScrollSelectionBox(HudParentBase parent) : base(parent)
-        { }
+        {
+			HandleInputCallback = HandleInput;
+		}
 
         public ScrollSelectionBox() : base(null)
-        { }
-
-        protected override void HandleInput(Vector2 cursorPos)
         {
-            base.HandleInput(cursorPos);
+			HandleInputCallback = HandleInput;
+		}
 
+        protected virtual void HandleInput(Vector2 cursorPos)
+        {
             if (listInput.KeyboardScroll)
             {
                 if (listInput.HighlightIndex > hudChain.End)

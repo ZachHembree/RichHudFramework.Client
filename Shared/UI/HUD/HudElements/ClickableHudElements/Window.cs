@@ -5,6 +5,7 @@ using RichHudFramework.Internal;
 
 namespace RichHudFramework.UI
 {
+    using static NodeConfigIndices;
     using Client;
     using Server;
 
@@ -90,7 +91,6 @@ namespace RichHudFramework.UI
         protected readonly MouseInputElement inputInner, resizeInput;
         protected readonly TexturedBox windowBg;
 
-        protected readonly Action<byte> LoseFocusCallback;
         protected float cornerSize = 16f;
         protected bool canMoveWindow;
         protected Vector2 resizeDir, cursorOffset, _minimumSize;
@@ -147,11 +147,12 @@ namespace RichHudFramework.UI
             IsMasking = true;
             MinimumSize = new Vector2(200f, 200f);
 
-            LoseFocusCallback = LoseFocus;
             GetFocus();
+            LayoutCallback = Layout;
+            HandleInputCallback = HandleInput;
         }
 
-        protected override void Layout()
+        protected virtual void Layout()
         {
             body.Height = UnpaddedSize.Y - header.Height;
             body.Width = UnpaddedSize.X;
@@ -181,7 +182,7 @@ namespace RichHudFramework.UI
             Offset = pos - Origin;
         }
 
-        protected override void HandleInput(Vector2 cursorPos)
+        protected virtual void HandleInput(Vector2 cursorPos)
         {
             if (IsMousedOver)
             {
@@ -235,13 +236,13 @@ namespace RichHudFramework.UI
         /// </summary>
         public virtual void GetFocus()
         {
-            layerData.zOffsetInner = HudMain.GetFocusOffset(LoseFocusCallback);
+            GetWindowFocus();
             WindowActive = true;
         }
 
-        protected virtual void LoseFocus(byte newOffset)
+        protected override void LoseWindowFocus(byte newOffset)
         {
-            layerData.zOffsetInner = newOffset;
+            base.LoseWindowFocus(newOffset);
             WindowActive = false;
         }
     }

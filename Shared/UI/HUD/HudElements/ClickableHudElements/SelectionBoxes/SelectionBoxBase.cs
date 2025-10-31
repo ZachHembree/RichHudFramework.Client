@@ -56,15 +56,17 @@ namespace RichHudFramework.UI
             hudChain.Size.X - Padding.X - hudChain.ScrollBar.Width - hudChain.Padding.X - HighlightPadding.X;
 
         public ScrollSelectionBoxBase(HudParentBase parent) : base(parent)
-        { }
+        {
+			HandleInputCallback = HandleInput;
+		}
 
         public ScrollSelectionBoxBase() : base(null)
-        { }
-
-        protected override void HandleInput(Vector2 cursorPos)
         {
-            base.HandleInput(cursorPos);
+            HandleInputCallback = HandleInput;
+        }
 
+        protected virtual void HandleInput(Vector2 cursorPos)
+        {
             if (listInput.KeyboardScroll)
             {
                 if (listInput.HighlightIndex > hudChain.End)
@@ -214,11 +216,8 @@ namespace RichHudFramework.UI
             hudChain.Register(this);
             chainHidesDisabled = hudChain is ScrollBox<TContainer, TElement>;
 
-            selectionBox = new HighlightBox() { Visible = false };
-            highlightBox = new HighlightBox() { Visible = false, CanDrawTab = false };
-
-            selectionBox.Register(hudChain, true);
-            highlightBox.Register(hudChain, true);
+            selectionBox = new HighlightBox(hudChain) { Visible = false };
+            highlightBox = new HighlightBox(hudChain) { Visible = false, CanDrawTab = false };
 
             listInput = new ListInputElement<TContainer, TElement>(hudChain);
 
@@ -230,6 +229,8 @@ namespace RichHudFramework.UI
             Size = new Vector2(335f, 203f);
 
             HighlightPadding = new Vector2(8f, 0f);
+
+            LayoutCallback = Layout;
         }
 
         public SelectionBoxBase() : this(null)
@@ -267,7 +268,7 @@ namespace RichHudFramework.UI
             listInput.ClearSelection();
 
         /// <summary>
-        /// Returns the most recent total size of the list elements in the given range,
+        /// Calculates the total size of the list elements in the given range,
         /// including padding.
         /// </summary>
         public virtual Vector2 GetRangeSize(int start = 0, int end = -1)
@@ -275,7 +276,7 @@ namespace RichHudFramework.UI
             return hudChain.GetRangeSize(start, end) + Padding;
         }
 
-        protected override void Layout()
+        protected virtual void Layout()
         {
             if (!chainHidesDisabled)
             {

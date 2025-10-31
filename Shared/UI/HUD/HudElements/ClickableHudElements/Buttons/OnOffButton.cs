@@ -171,6 +171,9 @@ namespace RichHudFramework.UI
             UseFocusFormatting = true;
 
             mouseInput.LeftClicked += LeftClick;
+
+            LayoutCallback = Layout;
+            HandleInputCallback = HandleInput;
         }
 
         public OnOffButton() : this(null)
@@ -181,7 +184,7 @@ namespace RichHudFramework.UI
             Value = !Value;
         }
 
-        protected override void Layout()
+        protected virtual void Layout()
         {
             if (Value)
             {
@@ -208,7 +211,7 @@ namespace RichHudFramework.UI
             }
         }
 
-        protected override void HandleInput(Vector2 cursorPos)
+        protected virtual void HandleInput(Vector2 cursorPos)
         {
             if (mouseInput.HasFocus && SharedBinds.Space.IsNewPressed)
             {

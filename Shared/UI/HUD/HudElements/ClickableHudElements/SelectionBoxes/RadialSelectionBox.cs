@@ -9,6 +9,8 @@ using EventHandler = RichHudFramework.EventHandler;
 
 namespace RichHudFramework.UI
 {
+    using static NodeConfigIndices;
+
     /// <summary>
     /// Radial selection box. Represents a list of entries as UI elements arranged around
     /// a wheel.
@@ -122,6 +124,10 @@ namespace RichHudFramework.UI
 
             UseGestureInput = false;
             UseCursor = true;
+
+            LayoutCallback = Layout;
+            DrawCallback = Draw;
+            HandleInputCallback = HandleInput;
         }
 
         /// <summary>
@@ -185,7 +191,7 @@ namespace RichHudFramework.UI
             SelectionIndex = -1;
         }
 
-        protected override void Layout()
+        protected virtual void Layout()
         {
             // Get enabled elements and effective max count
             EnabledCount = 0;
@@ -228,7 +234,7 @@ namespace RichHudFramework.UI
 
         protected override void InputDepth()
         {
-            State &= ~HudElementStates.IsMouseInBounds;
+            Config[StateID] &= ~(uint)HudElementStates.IsMouseInBounds;
 
             if (HudMain.InputMode != HudInputMode.NoInput && (HudSpace?.IsFacingCamera ?? false))
             {
@@ -244,13 +250,13 @@ namespace RichHudFramework.UI
 
                 if (offsetLen > min && offsetLen < max)
                 {
-                    State |= HudElementStates.IsMouseInBounds;
+                    Config[StateID] |= (uint)HudElementStates.IsMouseInBounds;
                     HudMain.Cursor.TryCaptureHudSpace(HudSpace.CursorPos.Z, HudSpace.GetHudSpaceFunc);
                 }
             }
         }
 
-        protected override void HandleInput(Vector2 cursorPos)
+        protected virtual void HandleInput(Vector2 cursorPos)
         {
             if (UseGestureInput || IsMousedOver)
             {
@@ -352,7 +358,7 @@ namespace RichHudFramework.UI
             }
         }
 
-        protected override void Draw()
+        protected virtual void Draw()
         {
             Vector2 size = UnpaddedSize;
             int entrySize = polyBoard.Sides / effectiveMaxCount;

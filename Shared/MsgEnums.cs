@@ -19,7 +19,8 @@
     public enum ClientDataAccessors : int
     {   
         GetVersionID = 1,
-        GetSubtype = 2
+        GetSubtype = 2,
+        ReportException = 3
     }
 
     public enum ClientSubtypes : int

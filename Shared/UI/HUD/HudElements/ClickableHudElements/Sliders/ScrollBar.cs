@@ -68,12 +68,14 @@ namespace RichHudFramework.UI
             Size = new Vector2(13f, 300f);
             Padding = new Vector2(30f, 10f);
             slide.SliderVisible = false;
+
+            LayoutCallback = Layout;
         }
 
         public ScrollBar() : this(null)
         { }
 
-        protected override void Layout()
+        protected virtual void Layout()
         {
             Vector2 size = UnpaddedSize;
             slide.BarSize = size;

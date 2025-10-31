@@ -30,12 +30,14 @@ namespace RichHudFramework.UI
         {
             hudBoard = new MatBoard();
             Size = new Vector2(50f);
+
+            DrawCallback = Draw;
         }
 
         public TexturedBox() : this(null)
         { }
 
-        protected override void Draw()
+        protected virtual void Draw()
         {
             if (hudBoard.Color.A > 0)
             {

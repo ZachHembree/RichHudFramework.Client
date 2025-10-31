@@ -35,12 +35,14 @@ namespace RichHudFramework.UI
         {
             hudBoard = new MatBoard();
             Thickness = 1f;
+
+            DrawCallback = Draw;
         }
 
         public BorderBox() : this(null)
         { }
 
-        protected override void Draw()
+        protected virtual void Draw()
         {
             if (Color.A > 0)
             {

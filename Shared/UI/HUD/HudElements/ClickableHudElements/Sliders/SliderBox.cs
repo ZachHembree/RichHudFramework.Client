@@ -141,12 +141,14 @@ namespace RichHudFramework.UI
             slide.MouseInput.CursorExited += CursorExit;
             slide.MouseInput.GainedInputFocus += GainFocus;
             slide.MouseInput.LostInputFocus += LoseFocus;
+
+            HandleInputCallback = HandleInput;
         }
 
         public SliderBox() : this(null)
         { }
 
-        protected override void HandleInput(Vector2 cursorPos)
+        protected virtual void HandleInput(Vector2 cursorPos)
         {
             if (MouseInput.HasFocus)
             {
