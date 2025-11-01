@@ -61,10 +61,10 @@ namespace RichHudFramework
 				{
 					get
 					{
-						if (_instance == null)
+						if (Instance == null)
 							Init();
 
-						return _instance.root;
+						return Instance._root;
 					}
 				}
 
@@ -76,10 +76,10 @@ namespace RichHudFramework
 				{
 					get
 					{
-						if (_instance == null)
+						if (Instance == null)
 							Init();
 
-						return _instance.highDpiRoot;
+						return Instance.highDpiRoot;
 					}
 				}
 
@@ -90,10 +90,10 @@ namespace RichHudFramework
 				{
 					get
 					{
-						if (_instance == null)
+						if (Instance == null)
 							Init();
 
-						return _instance.cursor;
+						return Instance.cursor;
 					}
 				}
 
@@ -104,6 +104,9 @@ namespace RichHudFramework
 				{
 					get
 					{
+						if (Instance == null)
+							Init();
+
 						object value = Instance.GetOrSetMemberFunc(null, (int)HudMainAccessors.ClipBoard);
 
 						if (value != null)
@@ -111,7 +114,13 @@ namespace RichHudFramework
 						else
 							return default(RichText);
 					}
-					set { Instance.GetOrSetMemberFunc(value.apiData, (int)HudMainAccessors.ClipBoard); }
+					set 
+					{
+						if (Instance == null)
+							Init();
+
+						Instance.GetOrSetMemberFunc(value.apiData, (int)HudMainAccessors.ClipBoard); 
+					}
 				}
 
 				/// <summary>
@@ -141,6 +150,16 @@ namespace RichHudFramework
 				public static float ScreenHeight { get; private set; }
 
 				/// <summary>
+				/// Current screen dimensions ScreenWidth x ScreenHeight in pixels
+				/// </summary>
+				public static Vector2 ScreenDim { get; private set; }
+
+				/// <summary>
+				/// Current screen dimensions ScreenWidth x ScreenHeight with high DPI scaling
+				/// </summary>
+				public static Vector2 ScreenDimHighDPI { get; private set; }
+
+				/// <summary>
 				/// The current aspect ratio (ScreenWidth/ScreenHeight).
 				/// </summary>
 				public static float AspectRatio { get; private set; }
@@ -162,7 +181,7 @@ namespace RichHudFramework
 				public static float UiBkOpacity { get; private set; }
 
 				/// <summary>
-				/// If true then the cursor will be visible while chat is open
+				/// If true then the cursor will be visible
 				/// </summary>
 				public static bool EnableCursor { get; set; }
 
@@ -171,14 +190,9 @@ namespace RichHudFramework
 				/// </summary>
 				public static HudInputMode InputMode { get; private set; }
 
-				private static HudMain Instance
-				{
-					get { Init(); return _instance; }
-					set { _instance = value; }
-				}
-				private static HudMain _instance;
+				public static HudMain Instance { get; private set; }
 
-				private readonly HudClientRoot root;
+				public readonly HudParentBase _root;
 				private readonly ScaledSpaceNode highDpiRoot;
 				private readonly HudCursor cursor;
 				private bool enableCursorLast;
@@ -189,10 +203,10 @@ namespace RichHudFramework
 
 				private HudMain() : base(ApiModuleTypes.HudMain, false, true)
 				{
-					if (_instance != null)
+					if (Instance != null)
 						throw new Exception("Only one instance of HudMain can exist at any give time!");
 
-					_instance = this;
+					Instance = this;
 					var members = GetApiData();
 
 					cursor = new HudCursor(members.Item1);
@@ -201,21 +215,21 @@ namespace RichHudFramework
 					UnregisterAction = members.Item4;
 
 					PixelToWorldRef = new MatrixD[1];
-					root = new HudClientRoot();
-					highDpiRoot = new ScaledSpaceNode(root) { UpdateScaleFunc = () => ResScale };
+					_root = new HudClientRoot();
+					highDpiRoot = new ScaledSpaceNode(_root) { UpdateScaleFunc = () => ResScale };
 
 					// Register update handle
-					GetOrSetMemberFunc(root.DataHandle, (int)HudMainAccessors.ClientRootNode);
+					GetOrSetMemberFunc(_root.DataHandle, (int)HudMainAccessors.ClientRootNode);
 					GetOrSetMemberFunc(new Action(() => ExceptionHandler.Run(BeforeMasterDraw)), (int)HudMainAccessors.SetBeforeDrawCallback);
 
 					UpdateCache();
 				}
 
-				private static void Init()
+				public static void Init()
 				{
 					BillBoardUtils.Init();
 
-					if (_instance == null)
+					if (Instance == null)
 						new HudMain();
 				}
 
@@ -228,7 +242,7 @@ namespace RichHudFramework
 				public override void Close()
 				{
 					UnregisterAction?.Invoke();
-					_instance = null;
+					Instance = null;
 				}
 
 				private void UpdateCache()
@@ -243,6 +257,9 @@ namespace RichHudFramework
 					UiBkOpacity = (float)GetOrSetMemberFunc(null, (int)HudMainAccessors.UiBkOpacity);
 					InputMode = (HudInputMode)GetOrSetMemberFunc(null, (int)HudMainAccessors.InputMode);
 
+					ScreenDim = new Vector2(ScreenWidth, ScreenHeight);
+					ScreenDimHighDPI = ScreenDim / ResScale;
+
 					if (EnableCursor != enableCursorLast)
 						GetOrSetMemberFunc(EnableCursor, (int)HudMainAccessors.EnableCursor);
 					else
@@ -255,28 +272,44 @@ namespace RichHudFramework
 				/// Returns the ZOffset for focusing a window and registers a callback
 				/// for when another object takes focus.
 				/// </summary>
-				public static byte GetFocusOffset(Action<byte> LoseFocusCallback) =>
-					(byte)Instance.GetOrSetMemberFunc(LoseFocusCallback, (int)HudMainAccessors.GetFocusOffset);
+				public static byte GetFocusOffset(Action<byte> LoseFocusCallback)
+				{
+					if (Instance == null)
+						Init();
+
+					return (byte)Instance.GetOrSetMemberFunc(LoseFocusCallback, (int)HudMainAccessors.GetFocusOffset);
+				}
 
 				/// <summary>
 				/// Registers a callback for UI elements taking input focus. Callback
 				/// invoked when another element takes focus.
 				/// </summary>
-				public static void GetInputFocus(Action LoseFocusCallback) =>
+				public static void GetInputFocus(Action LoseFocusCallback)
+				{
+					if (Instance == null)
+						Init();
+
 					Instance.GetOrSetMemberFunc(LoseFocusCallback, (int)HudMainAccessors.GetInputFocus);
+				}
 
 				/// <summary>
 				/// Returns accessors for a new TextBoard
 				/// </summary>
-				public static TextBoardMembers GetTextBoardData() =>
-					Instance.GetTextBoardDataFunc();
+				public static TextBoardMembers GetTextBoardData() 
+				{
+					if (Instance == null)
+						Init();
+
+					return Instance.GetTextBoardDataFunc();
+				}
+					
 
 				/// <summary>
 				/// Converts from a position in normalized coordinates to a position in pixels.
 				/// </summary>
 				public static Vector2 GetPixelVector(Vector2 scaledVec)
 				{
-					if (_instance == null)
+					if (Instance == null)
 						Init();
 
 					return new Vector2
@@ -291,7 +324,7 @@ namespace RichHudFramework
 				/// </summary>
 				public static Vector2 GetAbsoluteVector(Vector2 pixelVec)
 				{
-					if (_instance == null)
+					if (Instance == null)
 						Init();
 
 					return new Vector2
@@ -320,8 +353,8 @@ namespace RichHudFramework
 
 					public Func<Vector3D> GetNodeOriginFunc
 					{
-						get { return hudSpaceOriginFunc[0]; }
-						private set { hudSpaceOriginFunc[0] = value; }
+						get { return _dataHandle[0].Item2[0]; }
+						private set { _dataHandle[0].Item2[0] = value; }
 					}
 
 					public bool IsInFront { get; }
@@ -334,18 +367,15 @@ namespace RichHudFramework
 						HudSpace = this;
 						IsInFront = true;
 						IsFacingCamera = true;
-						PlaneToWorldRef = new MatrixD[1];
+						PlaneToWorldRef = PixelToWorldRef;
 
-						GetHudSpaceFunc = _instance.GetOrSetMemberFunc(null, (int)HudMainAccessors.GetPixelSpaceFunc) as HudSpaceDelegate;
-						GetNodeOriginFunc = _instance.GetOrSetMemberFunc(null, (int)HudMainAccessors.GetPixelSpaceOriginFunc) as Func<Vector3D>;
+						GetHudSpaceFunc = Instance.GetOrSetMemberFunc(null, (int)HudMainAccessors.GetPixelSpaceFunc) as HudSpaceDelegate;
+						GetNodeOriginFunc = Instance.GetOrSetMemberFunc(null, (int)HudMainAccessors.GetPixelSpaceOriginFunc) as Func<Vector3D>;
 						Config[StateID] |= (uint)(HudElementStates.CanUseCursor | HudElementStates.IsSpaceNode);
-
-						LayoutCallback = Layout;
 					}
 
-					protected virtual void Layout()
+					protected override void Layout()
 					{
-						PlaneToWorldRef[0] = PixelToWorldRef[0];
 						CursorPos = new Vector3(Cursor.ScreenPos.X, Cursor.ScreenPos.Y, 0f);
 					}
 				}
