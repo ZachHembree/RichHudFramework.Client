@@ -25,11 +25,9 @@ namespace RichHudFramework
 
 	namespace UI
 	{
-		using static RichHudFramework.UI.NodeConfigIndices;
-		using Server;
-		using Client;
 		using Internal;
-
+		using Server;
+		using static RichHudFramework.UI.NodeConfigIndices;
 		// Read-only length-1 array containing raw UI node data
 		using HudNodeDataHandle = IReadOnlyList<HudNodeData>;
 
@@ -57,10 +55,12 @@ namespace RichHudFramework
 					if (value && ((Config[StateID] & (uint)HudElementStates.IsVisible) == 0))
 					{
 						// Depending on where this is called, the frame number might be off by one
-						bool isActive = Math.Abs(Config[FrameNumberID] - HudMain.Root.Config[FrameNumberID]) < 2;
+						bool isActive = Math.Abs((int)Config[FrameNumberID] - (int)HudMain.Root.Config[FrameNumberID]) < 2;
 
-						if (!isActive)
+						if (!isActive && (HudMain.Root.Config[StateID] & (uint)HudElementStates.IsStructureStale) == 0)
+						{
 							HudMain.Root.Config[StateID] |= (uint)HudElementStates.IsStructureStale;
+						}
 					}
 
 					if (value)
@@ -86,7 +86,9 @@ namespace RichHudFramework
 			}
 
 			/// <summary>
-			/// Determines whether the UI element will be drawn in the Back, Mid or Foreground
+			/// Moves the UI element up or down in draw order. -1 will darw an element behind its immediate 
+			/// parent. +1 will draw it on top of siblings. Higher values will allow it to draw behind or over 
+			/// more distantly related elements.
 			/// </summary>
 			public sbyte ZOffset
 			{
@@ -104,62 +106,6 @@ namespace RichHudFramework
 					Config[ZOffsetID] = (uint)value;
 				}
 			}
-
-			// Custom Update Hooks - inject custom updates and polling here
-			#region CUSTOM UPDATE HOOKS
-
-			/// <summary>
-			/// Used to check whether the cursor is moused over the element and whether its being
-			/// obstructed by another element.
-			/// </summary>
-			protected Action InputDepthCallback
-			{
-				get { return _dataHandle[0].Item3.Item2; }
-				set { _dataHandle[0].Item3.Item2 = value; }
-			}
-
-			/// <summary>
-			/// Updates the input of this UI element. Invocation order affected by z-Offset and depth sorting.
-			/// Executes last, after Draw.
-			/// </summary>
-			protected Action<Vector2> HandleInputCallback
-			{
-				get { return _handleInputCallback; }
-				set
-				{
-					_handleInputCallback = value;
-
-					if (value != null && _dataHandle[0].Item3.Item3 == null)
-						_dataHandle[0].Item3.Item3 = BeginInput;
-				}
-			}
-
-			/// <summary>
-			/// Updates the sizing of the element. Executes before layout in bottom-up order, before layout.
-			/// </summary>
-			protected Action UpdateSizeCallback
-			{
-				get { return _dataHandle[0].Item3.Item4; }
-				set { _dataHandle[0].Item3.Item4 = value; }
-			}
-
-			/// <summary>
-			/// Updates the internal layout of the UI element. Executes after sizing in top-down order, before 
-			/// input and draw. Not affected by depth or z-Offset sorting.
-			/// </summary>
-			protected Action LayoutCallback;
-
-			/// <summary>
-			/// Used to immediately draw billboards. Invocation order affected by z-Offset and depth sorting.
-			/// Executes after Layout and before HandleInput.
-			/// </summary>
-			protected Action DrawCallback
-			{
-				get { return _dataHandle[0].Item3.Item6; }
-				set { _dataHandle[0].Item3.Item6 = value; }
-			}
-
-			#endregion
 
 			// INTERNAL DATA
 			#region INTERNAL DATA
@@ -180,8 +126,6 @@ namespace RichHudFramework
 			protected readonly HudNodeData[] _dataHandle;
 			protected readonly List<object> childHandles;
 			protected readonly List<HudNodeBase> children;
-			protected readonly HudSpaceOriginFunc[] hudSpaceOriginFunc;
-			protected Action<Vector2> _handleInputCallback;
 
 			#endregion
 
@@ -192,17 +136,20 @@ namespace RichHudFramework
 				childHandles = new List<object>();
 
 				Config = new uint[ConfigLength];
-				hudSpaceOriginFunc = new HudSpaceOriginFunc[1];
 
 				// Shared data handle
 				_dataHandle = new HudNodeData[1];
 				// Shared state
 				_dataHandle[0].Item1 = Config;
-				_dataHandle[0].Item2 = hudSpaceOriginFunc;
+				_dataHandle[0].Item2 = new HudSpaceOriginFunc[1];
 				// Hooks
 				_dataHandle[0].Item3.Item1 = GetOrSetApiMember; // Required
+				_dataHandle[0].Item3.Item2 = InputDepth;
+				_dataHandle[0].Item3.Item3 = BeginInput;
+				_dataHandle[0].Item3.Item4 = UpdateSize;
 				_dataHandle[0].Item3.Item5 = BeginLayout; // Required
-														  // Parent
+				_dataHandle[0].Item3.Item6 = Draw;
+				// Parent
 				_dataHandle[0].Item4 = null;
 				// Child handle list
 				_dataHandle[0].Item5 = childHandles;
@@ -214,6 +161,9 @@ namespace RichHudFramework
 				Config[StateID] = (uint)(HudElementStates.IsRegistered | HudElementStates.IsInputEnabled | HudElementStates.IsVisible);
 			}
 
+			protected virtual void InputDepth()
+			{ }
+
 			/// <summary>
 			/// Starts input update in a try-catch block. Useful for manually updating UI elements.
 			/// Exceptions are reported client-side. Do not override this unless you have a good reason for it.
@@ -222,8 +172,11 @@ namespace RichHudFramework
 			public virtual void BeginInput()
 			{
 				Vector3 cursorPos = HudSpace.CursorPos;
-				_handleInputCallback?.Invoke(new Vector2(cursorPos.X, cursorPos.Y));
+				HandleInput(new Vector2(cursorPos.X, cursorPos.Y));
 			}
+
+			protected virtual void HandleInput(Vector2 cursorPos)
+			{ }
 
 			/// <summary>
 			/// Starts layout update in a try-catch block. Useful for manually updating UI elements.
@@ -237,8 +190,17 @@ namespace RichHudFramework
 				else
 					Config[StateID] &= ~(uint)HudElementStates.IsSpaceNodeReady;
 
-				LayoutCallback?.Invoke();
+				Layout();
 			}
+
+			protected virtual void UpdateSize()
+			{ }
+
+			protected virtual void Layout()
+			{ }
+
+			protected virtual void Draw()
+			{ }
 
 			/// <summary>
 			/// Registers a child node to the object.
@@ -256,10 +218,13 @@ namespace RichHudFramework
 
 					if ((Config[StateID] & Config[VisMaskID]) == Config[VisMaskID])
 					{
-						bool isActive = Math.Abs(Config[FrameNumberID] - HudMain.Root.Config[FrameNumberID]) < 2;
+						// Depending on where this is called, the frame number might be off by one
+						bool isActive = Math.Abs((int)Config[FrameNumberID] - (int)HudMain.Root.Config[FrameNumberID]) < 2;
 
-						if (isActive)
+						if (isActive && (HudMain.Root.Config[StateID] & (uint)HudElementStates.IsStructureStale) == 0)
+						{
 							HudMain.Root.Config[StateID] |= (uint)HudElementStates.IsStructureStale;
+						}
 					}
 
 					return true;

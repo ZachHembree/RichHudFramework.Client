@@ -208,15 +208,13 @@ namespace RichHudFramework
 				Origin = Vector2.Zero;
 				Position = Vector2.Zero;
 				OriginAlignment = Vector2.Zero;
-
-				InputDepthCallback = InputDepth;
 			}
 
 			/// <summary>
 			/// Used to check whether the cursor is moused over the element and whether its being
 			/// obstructed by another element.
 			/// </summary>
-			protected virtual void InputDepth()
+			protected override void InputDepth()
 			{
 				if (HudSpace.IsFacingCamera)
 				{
@@ -256,14 +254,14 @@ namespace RichHudFramework
 					if (isMousedOver)
 						Config[StateID] |= (uint)HudElementStates.IsMousedOver;
 
-					_handleInputCallback?.Invoke(new Vector2(cursorPos.X, cursorPos.Y));
+					HandleInput(new Vector2(cursorPos.X, cursorPos.Y));
 
 					if (!canShareCursor)
 						HudMain.Cursor.Capture(DataHandle[0].Item3.Item1);
 				}
 				else
 				{
-					_handleInputCallback?.Invoke(new Vector2(cursorPos.X, cursorPos.Y));
+					HandleInput(new Vector2(cursorPos.X, cursorPos.Y));
 				}
 			}
 
@@ -293,7 +291,7 @@ namespace RichHudFramework
 					CachedSize = UnpaddedSize + Padding;
 				}
 
-				LayoutCallback?.Invoke();
+				Layout();
 
 				// Masking configuration
 				if (parentFull != null && (parentFull.Config[StateID] & (uint)HudElementStates.IsMasked) > 0 &&

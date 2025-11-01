@@ -231,8 +231,6 @@ namespace RichHudFramework.UI
 			Current = 0f;
 			Percent = 0f;
 
-			LayoutCallback = Layout;
-
 			ShareCursor = false;
 			UseCursor = true;
 		}
@@ -282,7 +280,7 @@ namespace RichHudFramework.UI
 			}
 		}
 
-		protected virtual void Layout()
+		protected override void Layout()
 		{
 			slider.Visible = SliderVisible;
 

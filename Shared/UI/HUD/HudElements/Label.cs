@@ -51,21 +51,18 @@ namespace RichHudFramework.UI
 		{
 			TextBoard = new TextBoard();
 			TextBoard.SetText("NewLabel", GlyphFormat.White);
-
-			UpdateSizeCallback = UpdateSize;
-			DrawCallback = Draw;
 		}
 
 		public Label() : this(null)
 		{ }
 
-		protected virtual void UpdateSize()
+		protected override void UpdateSize()
 		{
 			if (TextBoard.AutoResize)
 				UnpaddedSize = TextBoard.TextSize;
 		}
 
-		protected virtual void Draw()
+		protected override void Draw()
 		{
 			Vector2 halfSize = .5f * UnpaddedSize;
 			BoundingBox2 box = new BoundingBox2(Position - halfSize, Position + halfSize);

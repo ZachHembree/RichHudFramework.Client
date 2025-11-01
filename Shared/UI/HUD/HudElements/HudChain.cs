@@ -168,9 +168,6 @@ namespace RichHudFramework
                     alignAxis = 0;
                     offAxis = 1;
                 }
-
-                UpdateSizeCallback = UpdateSize;
-                LayoutCallback = Layout;
             }
 
             public HudChain(HudParentBase parent) : this(false, parent)
@@ -265,7 +262,7 @@ namespace RichHudFramework
                 return listSize + Padding;
             }
 
-            protected virtual void UpdateSize()
+			protected override void UpdateSize()
             {
                 // If self-resizing or size is uninitialized
                 if ((SizingMode & HudChainSizingModes.IsSelfResizing) > 0 || (UnpaddedSize.X == 0f || UnpaddedSize.Y == 0f))
@@ -287,7 +284,7 @@ namespace RichHudFramework
 				}
 			}
 
-            protected virtual void Layout()
+			protected override void Layout()
             {
                 Vector2 chainSize = UnpaddedSize;
 

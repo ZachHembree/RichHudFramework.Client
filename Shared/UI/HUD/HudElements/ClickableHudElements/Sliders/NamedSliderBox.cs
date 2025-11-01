@@ -90,14 +90,12 @@ namespace RichHudFramework.UI
 
             Padding = new Vector2(40f, 0f);
             Size = new Vector2(317f, 70f);
-
-            LayoutCallback = Layout;
         }
 
         public NamedSliderBox() : this(null)
         { }
 
-        protected virtual void Layout()
+        protected override void Layout()
         {
             Vector2 size = UnpaddedSize;
             current.UnpaddedSize = current.TextBoard.TextSize;

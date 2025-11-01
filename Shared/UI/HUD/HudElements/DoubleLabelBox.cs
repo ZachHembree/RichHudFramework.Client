@@ -66,14 +66,12 @@ namespace RichHudFramework.UI
         {
             left = new Label(this) { ParentAlignment = ParentAlignments.PaddedInnerLeft };
             right = new Label(this) { ParentAlignment = ParentAlignments.PaddedInnerRight };
-
-            LayoutCallback = Layout;
         }
 
         public DoubleLabelBox() : this(null)
         { }
 
-        protected virtual void Layout()
+        protected override void Layout()
         {
             if (!AutoResize)
             {

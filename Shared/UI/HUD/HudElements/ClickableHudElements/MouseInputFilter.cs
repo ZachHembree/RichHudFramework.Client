@@ -23,14 +23,12 @@ namespace RichHudFramework.UI
         {
             UseCursor = true;
             ShareCursor = true;
-
-            HandleInputCallback = HandleInput;
         }
 
         public MouseInputFilter() : this(null)
         { }
 
-        protected virtual void HandleInput(Vector2 cursorPos)
+		protected override void HandleInput(Vector2 cursorPos)
         {
             IsControlPressed = false;
 

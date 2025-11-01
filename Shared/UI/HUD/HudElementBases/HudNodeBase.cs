@@ -36,6 +36,39 @@ namespace RichHudFramework
 			/// </summary>
 			public bool Registered => (Config[StateID] & (uint)HudElementStates.IsRegistered) > 0;
 
+			/// <summary>
+			/// Specialized ZOffset range used for creating windows and custom overlays. Regular ZOffsets
+			/// are sufficient for most use cases.
+			/// </summary>
+			protected byte OverlayOffset
+			{
+				get { return (byte)Config[ZOffsetInnerID]; }
+				set
+				{
+					Config[ZOffsetInnerID] = value;
+
+					// Update combined ZOffset for layer sorting
+					{
+						byte outerOffset = (byte)((sbyte)Config[ZOffsetID] - sbyte.MinValue);
+						ushort innerOffset = (ushort)(Config[ZOffsetInnerID] << 8);
+
+						// Combine local node inner and outer offsets with parent and pack into
+						// full ZOffset
+						if (Parent != null)
+						{
+							ushort parentFull = (ushort)Parent.Config[FullZOffsetID];
+							byte parentOuter = (byte)((parentFull & 0x00FF) + sbyte.MinValue);
+							ushort parentInner = (ushort)(parentFull & 0xFF00);
+
+							outerOffset = (byte)Math.Min((outerOffset + parentOuter), byte.MaxValue);
+							innerOffset = (ushort)Math.Min(innerOffset + parentInner, 0xFF00);
+						}
+
+						Config[FullZOffsetID] = (ushort)(innerOffset | outerOffset);
+					}
+				}
+			}
+
 			public HudNodeBase(HudParentBase parent)
 			{
 				Config[VisMaskID] = nodeVisible;
@@ -46,60 +79,6 @@ namespace RichHudFramework
 			}
 
 			/// <summary>
-			/// Causes a window to be brought to the foreground. Overriding methods must call the 
-			/// base implementation.
-			/// </summary>
-			protected virtual void GetWindowFocus()
-			{
-				byte newLayer = HudMain.GetFocusOffset(LoseWindowFocus);
-				Config[ZOffsetInnerID] = newLayer;
-
-				// Update combined ZOffset for layer sorting
-				{
-					byte outerOffset = (byte)(Config[ZOffsetID] - sbyte.MinValue);
-					ushort innerOffset = (ushort)(Config[ZOffsetInnerID] << 8);
-
-					// Combine local node inner and outer offsets with parent and pack into
-					// full ZOffset
-					if (Parent != null)
-					{
-						ushort parentFull = (ushort)Parent.Config[FullZOffsetID];
-						outerOffset += (byte)((parentFull & 0x00FF) + sbyte.MinValue);
-						innerOffset += (ushort)(parentFull & 0xFF00);
-					}
-
-					Config[FullZOffsetID] = (ushort)(innerOffset | outerOffset);
-				}
-			}
-
-			/// <summary>
-			/// Invoked when a window that previously had focus loses it. Overriding methods must call 
-			/// the base implementation.
-			/// </summary>
-			protected virtual void LoseWindowFocus(byte newLayer)
-			{
-				byte currentLayer = (byte)Config[ZOffsetInnerID];
-				Config[ZOffsetInnerID] = newLayer;
-
-				// Update combined ZOffset for layer sorting
-				{
-					byte outerOffset = (byte)(Config[ZOffsetID] - sbyte.MinValue);
-					ushort innerOffset = (ushort)(Config[ZOffsetInnerID] << 8);
-
-					// Combine local node inner and outer offsets with parent and pack into
-					// full ZOffset
-					if (Parent != null)
-					{
-						ushort parentFull = (ushort)Parent.Config[FullZOffsetID];
-						outerOffset += (byte)((parentFull & 0x00FF) + sbyte.MinValue);
-						innerOffset += (ushort)(parentFull & 0xFF00);
-					}
-
-					Config[FullZOffsetID] = (ushort)(innerOffset | outerOffset);
-				}
-			}
-
-			/// <summary>
 			/// Starts input update in a try-catch block. Useful for manually updating UI elements.
 			/// Exceptions are reported client-side. Do not override this unless you have a good reason for it.
 			/// If you need to update input, use HandleInputCallback.
@@ -107,7 +86,7 @@ namespace RichHudFramework
 			public override void BeginInput()
 			{
 				Vector3 cursorPos = HudSpace.CursorPos;
-				_handleInputCallback?.Invoke(new Vector2(cursorPos.X, cursorPos.Y));
+				HandleInput(new Vector2(cursorPos.X, cursorPos.Y));
 			}
 
 			/// <summary>
@@ -124,7 +103,7 @@ namespace RichHudFramework
 				else
 					Config[StateID] &= ~(uint)HudElementStates.IsSpaceNodeReady;
 
-				LayoutCallback?.Invoke();
+				Layout();
 			}
 
 			/// <summary>

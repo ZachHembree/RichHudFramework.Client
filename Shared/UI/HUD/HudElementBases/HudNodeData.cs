@@ -72,7 +72,7 @@ namespace RichHudFramework
 
 			/// <summary>
 			/// Stores the frame number of the last time the node was updated.
-			/// type: uint
+			/// type: int
 			/// </summary>
 			public const int FrameNumberID = 6;
 

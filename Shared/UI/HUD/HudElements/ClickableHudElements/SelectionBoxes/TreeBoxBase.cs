@@ -171,8 +171,6 @@ namespace RichHudFramework.UI
             Format = GlyphFormat.Blueish;
             labelButton.Name = "NewTreeBox";
             labelButton.MouseInput.LeftClicked += ToggleList;
-
-            UpdateSizeCallback = UpdateSize;
         }
 
         public TreeBoxBase() : this(null)
@@ -216,7 +214,7 @@ namespace RichHudFramework.UI
             ListOpen = false;
         }
 
-		protected virtual void UpdateSize()
+		protected override void UpdateSize()
 		{
 			selectionBox.Visible = ListOpen;
 

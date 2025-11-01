@@ -188,14 +188,12 @@ namespace RichHudFramework.UI
 
             display.MouseInput.LeftClicked += ClickDisplay;
             SelectionChanged += UpdateDisplay;
-
-            HandleInputCallback = HandleInput;
         }
 
         public Dropdown() : this(null)
         { }
 
-        protected virtual void HandleInput(Vector2 cursorPos)
+		protected override void HandleInput(Vector2 cursorPos)
         {
             if (SharedBinds.LeftButton.IsNewPressed && !(display.IsMousedOver || listBox.IsMousedOver))
                 CloseList();
@@ -408,10 +406,9 @@ namespace RichHudFramework.UI
 
                 _mouseInput.GainedInputFocus += GainFocus;
                 _mouseInput.LostInputFocus += LoseFocus;
-                HandleInputCallback = HandleInput;
             }
 
-            protected virtual void HandleInput(Vector2 cursorPos)
+			protected override void HandleInput(Vector2 cursorPos)
             {
 				if (MouseInput.HasFocus)
                 {

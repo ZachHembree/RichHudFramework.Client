@@ -168,9 +168,6 @@ namespace RichHudFramework.UI
             UseCursor = true;
             ShareCursor = true;
             focusedChannel = -1;
-
-            LayoutCallback = Layout;
-            HandleInputCallback = HandleInput;
         }
 
         public ColorPickerRGB() : this(null)
@@ -187,7 +184,7 @@ namespace RichHudFramework.UI
                 focusedChannel = channel;
         }
 
-        protected virtual void Layout()
+		protected override void Layout()
         {
             _color = new Color()
             {
@@ -215,7 +212,7 @@ namespace RichHudFramework.UI
             display.Color = _color;
         }
 
-        protected virtual void HandleInput(Vector2 cursorPos)
+		protected override void HandleInput(Vector2 cursorPos)
         {
             if (focusedChannel != -1)
             {

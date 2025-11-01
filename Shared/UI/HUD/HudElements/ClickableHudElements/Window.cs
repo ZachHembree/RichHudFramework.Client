@@ -147,12 +147,10 @@ namespace RichHudFramework.UI
             IsMasking = true;
             MinimumSize = new Vector2(200f, 200f);
 
-            GetFocus();
-            LayoutCallback = Layout;
-            HandleInputCallback = HandleInput;
+			GetWindowFocus();
         }
 
-        protected virtual void Layout()
+		protected override void Layout()
         {
             body.Height = UnpaddedSize.Y - header.Height;
             body.Width = UnpaddedSize.X;
@@ -182,12 +180,12 @@ namespace RichHudFramework.UI
             Offset = pos - Origin;
         }
 
-        protected virtual void HandleInput(Vector2 cursorPos)
+		protected override void HandleInput(Vector2 cursorPos)
         {
             if (IsMousedOver)
             {
                 if (SharedBinds.LeftButton.IsNewPressed && !WindowActive)
-                    GetFocus();
+					GetWindowFocus();
             }
 
             if (AllowResizing && resizeInput.IsNewLeftClicked && !inputInner.IsMousedOver)
@@ -231,19 +229,24 @@ namespace RichHudFramework.UI
                 Resize(cursorPos);
         }
 
-        /// <summary>
-        /// Brings the window into the foreground
-        /// </summary>
-        public virtual void GetFocus()
-        {
-            GetWindowFocus();
-            WindowActive = true;
-        }
+		/// <summary>
+		/// Causes a window to be brought to the foreground. Overriding methods must call the 
+		/// base implementation.
+		/// </summary>
+		public virtual void GetWindowFocus()
+		{
+			OverlayOffset = HudMain.GetFocusOffset(LoseWindowFocus);
+			WindowActive = true;
+		}
 
-        protected override void LoseWindowFocus(byte newOffset)
-        {
-            base.LoseWindowFocus(newOffset);
-            WindowActive = false;
-        }
-    }
+		/// <summary>
+		/// Invoked when a window that previously had focus loses it. Overriding methods must call 
+		/// the base implementation.
+		/// </summary>
+		protected virtual void LoseWindowFocus(byte newLayer)
+		{
+			OverlayOffset = newLayer;
+			WindowActive = false;
+		}
+	}
 }
