@@ -134,10 +134,15 @@ namespace RichHudFramework.UI
         /// </summary>
         public Vector2 HighlightPadding { get { return listBox.HighlightPadding; } set { listBox.HighlightPadding = value; } }
 
-        /// <summary>
-        /// Current selection. Null if empty.
-        /// </summary>
-        public TContainer Selection => listBox.Selection;
+		/// <summary>
+		/// Minimum number of elements visible in the list at any given time.
+		/// </summary>
+		public int MinVisibleCount { get { return listBox.MinVisibleCount; } set { listBox.MinVisibleCount = value; } }
+
+		/// <summary>
+		/// Current selection. Null if empty.
+		/// </summary>
+		public TContainer Selection => listBox.Selection;
 
         /// <summary>
         /// Index of the current selection. -1 if empty.

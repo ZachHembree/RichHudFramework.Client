@@ -13,6 +13,17 @@ namespace RichHudFramework.UI
 		where TElement : HudElementBase
 	{
 		/// <summary>
+		/// Minimum number of visible elements allowed. Zero/disabled by default.
+		/// </summary>
+		public int MinVisibleCount { get; set; }
+
+		/// <summary>
+		/// Minimum total length (on the align axis) of visible members allowed in the scrollbox.
+		/// Zero/disabled by default.
+		/// </summary>
+		public float MinLength { get; set; }
+
+		/// <summary>
 		/// Index of the first element in the visible range in the chain.
 		/// </summary>
 		public int Start
@@ -104,6 +115,12 @@ namespace RichHudFramework.UI
 		{
 			set
 			{
+				if (ScrollBar == null)
+					ScrollBar = new ScrollBar(this);
+
+				if (Divider == null)
+					Divider = new TexturedBox(ScrollBar) { Color = new Color(53, 66, 75) };
+
 				ScrollBar.Vertical = value;
 				base.AlignVertical = value;
 
@@ -112,8 +129,8 @@ namespace RichHudFramework.UI
 					ScrollBar.DimAlignment = DimAlignments.Height;
 					Divider.DimAlignment = DimAlignments.Height;
 
-					ScrollBar.ParentAlignment = ParentAlignments.Right | ParentAlignments.InnerH;
-					Divider.ParentAlignment = ParentAlignments.Left | ParentAlignments.InnerH;
+					ScrollBar.ParentAlignment = ParentAlignments.InnerRight;
+					Divider.ParentAlignment = ParentAlignments.InnerLeft;
 
 					Divider.Padding = new Vector2(2f, 0f);
 					Divider.Width = 1f;
@@ -126,8 +143,8 @@ namespace RichHudFramework.UI
 					ScrollBar.DimAlignment = DimAlignments.Width;
 					Divider.DimAlignment = DimAlignments.Width;
 
-					ScrollBar.ParentAlignment = ParentAlignments.Bottom | ParentAlignments.InnerV;
-					Divider.ParentAlignment = ParentAlignments.Bottom | ParentAlignments.InnerV;
+					ScrollBar.ParentAlignment = ParentAlignments.InnerBottom;
+					Divider.ParentAlignment = ParentAlignments.InnerBottom;
 
 					Divider.Padding = new Vector2(16f, 2f);
 					Divider.Height = 1f;
@@ -147,8 +164,6 @@ namespace RichHudFramework.UI
 
 		public ScrollBox(bool alignVertical, HudParentBase parent = null) : base(alignVertical, parent)
 		{
-			ScrollBar = new ScrollBar(this);
-			Divider = new TexturedBox(ScrollBar) { Color = new Color(53, 66, 75) };
 			Background = new TexturedBox(this)
 			{
 				Color = TerminalFormatting.DarkSlateGrey,
@@ -161,36 +176,10 @@ namespace RichHudFramework.UI
 			EnableScrolling = true;
 			UseSmoothScrolling = true;
 			ZOffset = 1;
-			ScrollBar.Vertical = alignVertical;
+			AlignVertical = alignVertical;
 
-			if (alignVertical)
-			{
-				ScrollBar.DimAlignment = DimAlignments.Height;
-				Divider.DimAlignment = DimAlignments.Height;
-
-				ScrollBar.ParentAlignment = ParentAlignments.Right | ParentAlignments.InnerH;
-				Divider.ParentAlignment = ParentAlignments.Left | ParentAlignments.InnerH;
-
-				Divider.Padding = new Vector2(2f, 0f);
-				Divider.Width = 1f;
-
-				ScrollBar.Padding = new Vector2(30f, 10f);
-				ScrollBar.Width = 43f;
-			}
-			else
-			{
-				ScrollBar.DimAlignment = DimAlignments.Width;
-				Divider.DimAlignment = DimAlignments.Width;
-
-				ScrollBar.ParentAlignment = ParentAlignments.Bottom | ParentAlignments.InnerV;
-				Divider.ParentAlignment = ParentAlignments.Bottom | ParentAlignments.InnerV;
-
-				Divider.Padding = new Vector2(16f, 2f);
-				Divider.Height = 1f;
-
-				ScrollBar.Padding = new Vector2(16f);
-				ScrollBar.Height = 24f;
-			}
+			MinVisibleCount = 0;
+			MinLength = 0f;
 		}
 
 		public ScrollBox(HudParentBase parent) : this(true, parent)
@@ -254,6 +243,68 @@ namespace RichHudFramework.UI
 					else if (SharedBinds.MousewheelDown.IsPressed)
 						End++;
 				}
+			}
+		}
+
+		protected override void UpdateSize()
+		{
+			if ((SizingMode & HudChainSizingModes.IsSelfResizing) == 0 && (MinVisibleCount > 0 || MinLength > 0))
+				SizingMode |= HudChainSizingModes.FitChainAlignAxis;
+
+			// If self-resizing or size is uninitialized
+			if ((SizingMode & HudChainSizingModes.IsSelfResizing) > 0 || (UnpaddedSize.X == 0f || UnpaddedSize.Y == 0f))
+			{
+				Vector2 rangeSize = Vector2.Zero;
+
+				// Get minimum range size
+				if (hudCollectionList.Count > 0)
+				{
+					int visCount = 0;
+
+					for (int i = _intStart; i < hudCollectionList.Count; i++)
+					{
+						var entry = hudCollectionList[i];
+						TElement element = entry.Element;
+
+						if (entry.Enabled)
+						{
+							if (visCount >= MinVisibleCount && rangeSize[alignAxis] >= MinLength)
+								break;
+
+							Vector2 elementSize = element.UnpaddedSize + element.Padding;
+							rangeSize[offAxis] = Math.Max(rangeSize[offAxis], elementSize[offAxis]);
+							rangeSize[alignAxis] += elementSize[alignAxis];
+							visCount++;
+						}
+					}
+
+					rangeSize[alignAxis] += Spacing * (visCount - 1);
+				}
+
+				rangeSize[offAxis] += scrollBarPadding;
+				Vector2 chainSize = UnpaddedSize;
+
+				if (rangeSize[alignAxis] > 0f)
+				{
+					// Set align size equal to range size
+					if (chainSize[alignAxis] == 0f || (SizingMode & HudChainSizingModes.FitChainAlignAxis) == HudChainSizingModes.FitChainAlignAxis)
+						chainSize[alignAxis] = rangeSize[alignAxis];
+					// Keep align size at or above range size
+					else if ((SizingMode & HudChainSizingModes.ClampChainAlignAxis) == HudChainSizingModes.ClampChainAlignAxis)
+						chainSize[alignAxis] = Math.Max(chainSize[alignAxis], rangeSize[alignAxis]);
+				}
+
+				if (rangeSize[offAxis] > 0f)
+				{
+					// Set off axis size equal to range size
+					if (chainSize[offAxis] == 0f || (SizingMode & HudChainSizingModes.FitChainOffAxis) == HudChainSizingModes.FitChainOffAxis)
+						chainSize[offAxis] = rangeSize[offAxis];
+					// Keep off axis size at or above range size
+					else if ((SizingMode & HudChainSizingModes.ClampChainOffAxis) == HudChainSizingModes.ClampChainOffAxis)
+						chainSize[offAxis] = Math.Max(chainSize[offAxis], rangeSize[offAxis]);
+				}
+
+				UnpaddedSize = chainSize;
 			}
 		}
 
@@ -439,8 +490,12 @@ namespace RichHudFramework.UI
 
 			VisStart = GetVisibleIndex(_intStart);
 
+			// Set collection visibility
 			for (int i = 0; i < hudCollectionList.Count; i++)
-				hudCollectionList[i].Element.Visible = (i >= _intStart && i <= _intEnd) && hudCollectionList[i].Enabled;
+			{
+				var element = hudCollectionList[i].Element;
+				element.Visible = (i >= _intStart && i <= _intEnd) && hudCollectionList[i].Enabled;
+			}
 		}
 
 		/// <summary>

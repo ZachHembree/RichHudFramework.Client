@@ -155,19 +155,7 @@ namespace RichHudFramework
             {
                 Spacing = 0f;
                 SizingMode = HudChainSizingModes.ClampMembersOffAxis;
-
-                _alignVertical = alignVertical;
-
-                if (alignVertical)
-                {
-                    alignAxis = 1;
-                    offAxis = 0;
-                }
-                else
-                {
-                    alignAxis = 0;
-                    offAxis = 1;
-                }
+				AlignVertical = alignVertical;
             }
 
             public HudChain(HudParentBase parent) : this(false, parent)
@@ -270,15 +258,25 @@ namespace RichHudFramework
 					Vector2 rangeSize = GetRangeSize(),
                         chainSize = UnpaddedSize;
 
-                    if (chainSize[alignAxis] == 0f || (SizingMode & HudChainSizingModes.FitChainAlignAxis) == HudChainSizingModes.FitChainAlignAxis)
-                        chainSize[alignAxis] = rangeSize[alignAxis];
-					else if ((SizingMode & HudChainSizingModes.ClampChainAlignAxis) == HudChainSizingModes.ClampChainAlignAxis)
-						 chainSize[alignAxis] = Math.Max(chainSize[alignAxis], rangeSize[alignAxis]);
+					if (rangeSize[alignAxis] > 0f)
+					{
+						// Set align size equal to range size
+						if (chainSize[alignAxis] == 0f || (SizingMode & HudChainSizingModes.FitChainAlignAxis) == HudChainSizingModes.FitChainAlignAxis)
+							chainSize[alignAxis] = rangeSize[alignAxis];
+						// Keep align size at or above range size
+						else if ((SizingMode & HudChainSizingModes.ClampChainAlignAxis) == HudChainSizingModes.ClampChainAlignAxis)
+							chainSize[alignAxis] = Math.Max(chainSize[alignAxis], rangeSize[alignAxis]);
+					}
 
-                    if (chainSize[offAxis] == 0f || (SizingMode & HudChainSizingModes.FitChainOffAxis) == HudChainSizingModes.FitChainOffAxis)
-                        chainSize[offAxis] = rangeSize[offAxis];
-                    else if ((SizingMode & HudChainSizingModes.ClampChainOffAxis) == HudChainSizingModes.ClampChainOffAxis)
-                        chainSize[offAxis] = Math.Max(chainSize[offAxis], rangeSize[offAxis]);
+					if (rangeSize[offAxis] > 0f)
+					{
+						// Set off axis size equal to range size
+						if (chainSize[offAxis] == 0f || (SizingMode & HudChainSizingModes.FitChainOffAxis) == HudChainSizingModes.FitChainOffAxis)
+							chainSize[offAxis] = rangeSize[offAxis];
+						// Keep off axis size at or above range size
+						else if ((SizingMode & HudChainSizingModes.ClampChainOffAxis) == HudChainSizingModes.ClampChainOffAxis)
+							chainSize[offAxis] = Math.Max(chainSize[offAxis], rangeSize[offAxis]);
+					}
 
 					UnpaddedSize = chainSize;
 				}
