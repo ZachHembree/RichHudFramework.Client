@@ -1,11 +1,9 @@
 ﻿using System;
 using VRageMath;
 using RichHudFramework.UI.Rendering;
-using RichHudFramework.Internal;
 
 namespace RichHudFramework.UI
 {
-    using static NodeConfigIndices;
     using Client;
     using Server;
 
@@ -13,7 +11,7 @@ namespace RichHudFramework.UI
     /// Basic window type with a header, body and border. Supports dragging/resizing like pretty much every 
     /// other window ever.
     /// </summary>
-    public class Window : HudElementBase, IClickableElement
+    public abstract class WindowBase : HudElementBase, IClickableElement
     {
         /// <summary>
         /// Window header text
@@ -95,7 +93,7 @@ namespace RichHudFramework.UI
         protected bool canMoveWindow;
         protected Vector2 resizeDir, cursorOffset, _minimumSize;
 
-        public Window(HudParentBase parent) : base(parent)
+        public WindowBase(HudParentBase parent) : base(parent)
         {
             header = new LabelBoxButton(this)
             {
