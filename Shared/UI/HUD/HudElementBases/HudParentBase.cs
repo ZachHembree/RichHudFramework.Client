@@ -27,6 +27,8 @@ namespace RichHudFramework
 	{
 		using Internal;
 		using Server;
+		using Client;
+
 		using static RichHudFramework.UI.NodeConfigIndices;
 		// Read-only length-1 array containing raw UI node data
 		using HudNodeDataHandle = IReadOnlyList<HudNodeData>;
@@ -55,11 +57,12 @@ namespace RichHudFramework
 					if (value && ((Config[StateID] & (uint)HudElementStates.IsVisible) == 0))
 					{
 						// Depending on where this is called, the frame number might be off by one
-						bool isActive = Math.Abs((int)Config[FrameNumberID] - (int)HudMain.Root.Config[FrameNumberID]) < 2;
+						uint[] rootConfig = HudMain.Instance._root.Config;
+						bool isActive = Math.Abs((int)Config[FrameNumberID] - (int)rootConfig[FrameNumberID]) < 2;
 
-						if (!isActive && (HudMain.Root.Config[StateID] & (uint)HudElementStates.IsStructureStale) == 0)
+						if (!isActive && (rootConfig[StateID] & (uint)HudElementStates.IsStructureStale) == 0)
 						{
-							HudMain.Root.Config[StateID] |= (uint)HudElementStates.IsStructureStale;
+							rootConfig[StateID] |= (uint)HudElementStates.IsStructureStale;
 						}
 					}
 
@@ -100,7 +103,8 @@ namespace RichHudFramework
 
 					if (isVisible && Config[ZOffsetID] != (uint)value)
 					{
-						HudMain.Root.Config[StateID] |= (uint)HudElementStates.IsStructureStale;
+						uint[] rootConfig = HudMain.Instance._root.Config;
+						rootConfig[StateID] |= (uint)HudElementStates.IsStructureStale;
 					}
 
 					Config[ZOffsetID] = (uint)value;
@@ -219,11 +223,12 @@ namespace RichHudFramework
 					if ((Config[StateID] & Config[VisMaskID]) == Config[VisMaskID])
 					{
 						// Depending on where this is called, the frame number might be off by one
-						bool isActive = Math.Abs((int)Config[FrameNumberID] - (int)HudMain.Root.Config[FrameNumberID]) < 2;
+						uint[] rootConfig = HudMain.Instance._root.Config;
+						bool isActive = Math.Abs((int)Config[FrameNumberID] - (int)rootConfig[FrameNumberID]) < 2;
 
-						if (isActive && (HudMain.Root.Config[StateID] & (uint)HudElementStates.IsStructureStale) == 0)
+						if (isActive && (rootConfig[StateID] & (uint)HudElementStates.IsStructureStale) == 0)
 						{
-							HudMain.Root.Config[StateID] |= (uint)HudElementStates.IsStructureStale;
+							rootConfig[StateID] |= (uint)HudElementStates.IsStructureStale;
 						}
 					}
 

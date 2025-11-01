@@ -39,11 +39,12 @@ namespace RichHudFramework
 					if ((newParent.Config[StateID] & newParent.Config[VisMaskID]) == newParent.Config[VisMaskID])
 					{
 						// Depending on where this is called, the frame number might be off by one
-						bool isActive = Math.Abs((int)newParent.Config[FrameNumberID] - (int)HudMain.Root.Config[FrameNumberID]) < 2;
+						uint[] rootConfig = HudMain.Instance._root.Config;
+						bool isActive = Math.Abs((int)newParent.Config[FrameNumberID] - (int)rootConfig[FrameNumberID]) < 2;
 
-						if (isActive && (HudMain.Root.Config[StateID] & (uint)HudElementStates.IsStructureStale) == 0)
+						if (isActive && (rootConfig[StateID] & (uint)HudElementStates.IsStructureStale) == 0)
 						{
-							HudMain.Root.Config[StateID] |= (uint)HudElementStates.IsStructureStale;
+							rootConfig[StateID] |= (uint)HudElementStates.IsStructureStale;
 						}
 					}
 				}
@@ -73,11 +74,12 @@ namespace RichHudFramework
 					if ((newParent.Config[StateID] & newParent.Config[VisMaskID]) == newParent.Config[VisMaskID])
 					{
 						// Depending on where this is called, the frame number might be off by one
-						bool isActive = Math.Abs((int)newParent.Config[FrameNumberID] - (int)HudMain.Root.Config[FrameNumberID]) < 2;
+						uint[] rootConfig = HudMain.Instance._root.Config;
+						bool isActive = Math.Abs((int)newParent.Config[FrameNumberID] - (int)rootConfig[FrameNumberID]) < 2;
 
-						if (isActive && (HudMain.Root.Config[StateID] & (uint)HudElementStates.IsStructureStale) == 0)
+						if (isActive && (rootConfig[StateID] & (uint)HudElementStates.IsStructureStale) == 0)
 						{
-							HudMain.Root.Config[StateID] |= (uint)HudElementStates.IsStructureStale;
+							rootConfig[StateID] |= (uint)HudElementStates.IsStructureStale;
 						}
 					}
 				}
