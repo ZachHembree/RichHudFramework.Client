@@ -29,7 +29,7 @@ namespace RichHudFramework
 			/// <summary>
 			/// Parent object of the node.
 			/// </summary>
-			public HudParentBase Parent { get; set; }
+			public HudParentBase Parent { get; private set; }
 
 			/// <summary>
 			/// Indicates whether or not the element has been registered to a parent.
