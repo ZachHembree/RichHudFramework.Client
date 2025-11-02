@@ -124,28 +124,28 @@ namespace RichHudFramework
 				}
 
 				/// <summary>
-				/// Resolution scale normalized to 1080p for resolutions over 1080p. Returns a scale of 1f
+				/// Resolution scale normalized to 1080p, for resolutions over 1080p. Returns a scale of 1f
 				/// for lower resolutions.
 				/// </summary>
 				public static float ResScale { get; private set; }
 
 				/// <summary>
-				/// Matrix used to convert from 2D pixel-value screen space coordinates to worldspace.
+				/// Matrix used to convert from 2D screen space coordinates in pixels to 3D worldspace in meters.
 				/// </summary>
 				public static MatrixD PixelToWorld => PixelToWorldRef[0];
 
 				/// <summary>
-				/// Matrix used to convert from 2D pixel-value screen space coordinates to worldspace.
+				/// Matrix used to convert from 2D screen space coordinates in pixels to 3D worldspace in meters.
 				/// </summary>
 				public static MatrixD[] PixelToWorldRef { get; private set; }
 
 				/// <summary>
-				/// The current horizontal screen resolution in pixels.
+				/// Current horizontal screen resolution in pixels.
 				/// </summary>
 				public static float ScreenWidth { get; private set; }
 
 				/// <summary>
-				/// The current vertical resolution in pixels.
+				/// Current vertical resolution in pixels.
 				/// </summary>
 				public static float ScreenHeight { get; private set; }
 
@@ -160,12 +160,12 @@ namespace RichHudFramework
 				public static Vector2 ScreenDimHighDPI { get; private set; }
 
 				/// <summary>
-				/// The current aspect ratio (ScreenWidth/ScreenHeight).
+				/// Current aspect ratio (ScreenWidth/ScreenHeight).
 				/// </summary>
 				public static float AspectRatio { get; private set; }
 
 				/// <summary>
-				/// The current field of view
+				/// Current field of view
 				/// </summary>
 				public static float Fov { get; private set; }
 
@@ -181,7 +181,7 @@ namespace RichHudFramework
 				public static float UiBkOpacity { get; private set; }
 
 				/// <summary>
-				/// If true then the cursor will be visible
+				/// Enables the cursor and appropriate input mode
 				/// </summary>
 				public static bool EnableCursor { get; set; }
 
@@ -305,7 +305,7 @@ namespace RichHudFramework
 					
 
 				/// <summary>
-				/// Converts from a position in normalized coordinates to a position in pixels.
+				/// Converts from a vector in normalized units to pixels.
 				/// </summary>
 				public static Vector2 GetPixelVector(Vector2 scaledVec)
 				{
@@ -320,7 +320,7 @@ namespace RichHudFramework
 				}
 
 				/// <summary>
-				/// Converts from a coordinate given in pixels to a position in normalized units
+				/// Converts from a vector in pixels to normalized units
 				/// </summary>
 				public static Vector2 GetAbsoluteVector(Vector2 pixelVec)
 				{
@@ -335,7 +335,7 @@ namespace RichHudFramework
 				}
 
 				/// <summary>
-				/// Root UI element for the client. Registered directly to master root.
+				/// Root UI element for the client
 				/// </summary>
 				private class HudClientRoot : HudParentBase, IReadOnlyHudSpaceNode
 				{
@@ -353,8 +353,8 @@ namespace RichHudFramework
 
 					public Func<Vector3D> GetNodeOriginFunc
 					{
-						get { return _dataHandle[0].Item2[0]; }
-						private set { _dataHandle[0].Item2[0] = value; }
+						get { return DataHandle[0].Item2[0]; }
+						private set { DataHandle[0].Item2[0] = value; }
 					}
 
 					public bool IsInFront { get; }

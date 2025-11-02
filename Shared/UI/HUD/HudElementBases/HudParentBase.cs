@@ -120,7 +120,7 @@ namespace RichHudFramework
 			public HudNodeDataHandle DataHandle { get; }
 
 			/// <summary>
-			/// Internal state tracking fields. Do not modify.
+			/// Internal configuration and state. Do not modify.
 			/// </summary>
 			public uint[] Config { get; }
 
@@ -128,7 +128,16 @@ namespace RichHudFramework
 			/// Handle to node data used for registering with the Tree Manager. Do not modify.
 			/// </summary>
 			protected readonly HudNodeData[] _dataHandle;
+
+			/// <summary>
+			/// References to child API handles. Parallel with children list.
+			/// Do not modify.
+			/// </summary>
 			protected readonly List<object> childHandles;
+
+			/// <summary>
+			/// Registered chlid nodes. Do not modify.
+			/// </summary>
 			protected readonly List<HudNodeBase> children;
 
 			#endregion
@@ -138,7 +147,6 @@ namespace RichHudFramework
 				// Storage init
 				children = new List<HudNodeBase>();
 				childHandles = new List<object>();
-
 				Config = new uint[ConfigLength];
 
 				// Shared data handle
@@ -164,30 +172,20 @@ namespace RichHudFramework
 				Config[InputMaskID] = (uint)HudElementStates.IsInputEnabled;
 				Config[StateID] = (uint)(HudElementStates.IsRegistered | HudElementStates.IsInputEnabled | HudElementStates.IsVisible);
 			}
-
-			protected virtual void InputDepth()
-			{ }
-
+			
 			/// <summary>
-			/// Starts input update in a try-catch block. Useful for manually updating UI elements.
-			/// Exceptions are reported client-side. Do not override this unless you have a good reason for it.
-			/// If you need to update input, use HandleInputCallback.
+			/// Wraps HandleInput() input polling hook. Override HandleInput() for customization.
 			/// </summary>
-			public virtual void BeginInput()
+			protected virtual void BeginInput()
 			{
 				Vector3 cursorPos = HudSpace.CursorPos;
 				HandleInput(new Vector2(cursorPos.X, cursorPos.Y));
-			}
-
-			protected virtual void HandleInput(Vector2 cursorPos)
-			{ }
+			}	
 
 			/// <summary>
-			/// Starts layout update in a try-catch block. Useful for manually updating UI elements.
-			/// Exceptions are reported client-side. Do not override this unless you have a good reason for it.
-			/// If you need to update layout, use LayoutCallback.
+			/// Updates internal state. Override Layout() for customization.
 			/// </summary>
-			public virtual void BeginLayout(bool _)
+			protected virtual void BeginLayout(bool _)
 			{
 				if (HudSpace != null)
 					Config[StateID] |= (uint)HudElementStates.IsSpaceNodeReady;
@@ -197,19 +195,59 @@ namespace RichHudFramework
 				Layout();
 			}
 
+			/// <summary>
+			/// Automatic self-resizing and measurement hook. Required for correct and stable 
+			/// self-resizing. Unnecessary for elements that don't need to set their own size.
+			/// 
+			/// Updates in bottom-up order before anything else, with elements at the bottom of the node 
+			/// heirarchy (furthest from root) updating first, and nodes at the top (closer to root) 
+			/// updating last.
+			/// </summary>
 			protected virtual void UpdateSize()
 			{ }
 
+			/// <summary>
+			/// Custom element arrangement/layout hook. Used for sizing and arranging child nodes within 
+			/// the bounds of the element. 
+			/// 
+			/// Custom Layout updates should be designed to respect any size that may be set by a parent, 
+			/// whether it implements UpdateSize() or not.
+			/// 
+			/// Updates in top-down order, after UpdateSize().
+			/// </summary>
 			protected virtual void Layout()
 			{ }
 
+			/// <summary>
+			/// Custom drawing hook. Useful for drawing custom billboards.
+			/// 
+			/// Updates in back-to-front order after Layout(), with elements on the bottom drawing first, 
+			/// and elements in front drawing last.
+			/// </summary>
 			protected virtual void Draw()
 			{ }
 
 			/// <summary>
-			/// Registers a child node to the object.
+			/// Update hook for testing cursor bounding and depth tests. 
+			/// 
+			/// Updates in back-to-front order after Draw(). Elements on the bottom update first, and elements 
+			/// on top update last.
 			/// </summary>
-			/// <param name="preregister">Adds the element to the update tree without registering.</param>
+			protected virtual void InputDepth()
+			{ }
+
+			/// <summary>
+			/// Input polling hook. 
+			/// 
+			/// Updates in front-to-back order after InputDepth(), with elements on top updating first, and 
+			/// elements in the back updating last.
+			/// </summary>
+			protected virtual void HandleInput(Vector2 cursorPos)
+			{ }
+
+			/// <summary>
+			/// Registers a child node to the parent.
+			/// </summary>
 			public virtual bool RegisterChild(HudNodeBase child)
 			{
 				if (child.Parent == this && !child.Registered)
@@ -243,9 +281,6 @@ namespace RichHudFramework
 			/// <summary>
 			/// Unregisters the specified node from the parent.
 			/// </summary>
-			/// <param name="fast">Prevents registration from triggering a draw list
-			/// update. Meant to be used in conjunction with pooled elements being
-			/// unregistered/reregistered to the same parent.</param>
 			public virtual bool RemoveChild(HudNodeBase child)
 			{
 				if (child.Parent == this)
@@ -260,6 +295,9 @@ namespace RichHudFramework
 					return false;
 			}
 
+			/// <summary>
+			/// Internal debugging method
+			/// </summary>
 			protected virtual object GetOrSetApiMember(object data, int memberEnum)
 			{
 				switch ((HudElementAccessors)memberEnum)

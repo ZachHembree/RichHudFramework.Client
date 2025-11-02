@@ -10,8 +10,6 @@ namespace RichHudFramework
 		using Client;
 		using Internal;
 
-		// Read-only length-1 array containing raw UI node data
-
 		/// <summary>
 		/// Base class for hud elements that can be parented to other elements.
 		/// </summary>
@@ -22,7 +20,7 @@ namespace RichHudFramework
 				nodeInputEnabled = (uint)(HudElementStates.IsInputEnabled | HudElementStates.WasParentInputEnabled);
 
 			/// <summary>
-			/// Read-only parent object of the node.
+			/// Read-only reference to the node's parent
 			/// </summary>
 			IReadOnlyHudParent IReadOnlyHudNode.Parent => Parent;
 
@@ -32,7 +30,8 @@ namespace RichHudFramework
 			public HudParentBase Parent { get; private set; }
 
 			/// <summary>
-			/// Indicates whether or not the element has been registered to a parent.
+			/// Returns true if the node has been registered to a parent. Does not necessarilly indicate that 
+			/// the parent is registered or that the node is active.
 			/// </summary>
 			public bool Registered => (Config[StateID] & (uint)HudElementStates.IsRegistered) > 0;
 
@@ -79,21 +78,9 @@ namespace RichHudFramework
 			}
 
 			/// <summary>
-			/// Starts input update in a try-catch block. Useful for manually updating UI elements.
-			/// Exceptions are reported client-side. Do not override this unless you have a good reason for it.
-			/// If you need to update input, use HandleInputCallback.
+			/// Updates internal state. Override Layout() for customization.
 			/// </summary>
-			public override void BeginInput()
-			{
-				Vector3 cursorPos = HudSpace.CursorPos;
-				HandleInput(new Vector2(cursorPos.X, cursorPos.Y));
-			}
-
-			/// <summary>
-			/// Updates layout for the element and its children. Overriding this method is rarely necessary. 
-			/// If you need to update layout, use LayoutCallback.
-			/// </summary>
-			public override void BeginLayout(bool _)
+			protected override void BeginLayout(bool _)
 			{
 				if ((Config[StateID] & (uint)HudElementStates.IsSpaceNode) == 0)
 					HudSpace = Parent?.HudSpace;

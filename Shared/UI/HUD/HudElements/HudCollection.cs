@@ -13,7 +13,7 @@ namespace RichHudFramework
     namespace UI
     {
         /// <summary>
-        /// A collection of UI elements wrapped in container objects. UI elements in the containers are parented
+        /// A collection of UI elements wrapped in decorator wrappers. UI elements in the containers are parented
         /// to the collection, like any other HUD element.
         /// </summary>
         public class HudCollection<TElementContainer, TElement> : HudElementBase, IHudCollection<TElementContainer, TElement>
@@ -273,22 +273,22 @@ namespace RichHudFramework
             }
         }
 
-        /// <summary>
-        /// A collection of UI elements wrapped in container objects. UI elements in the containers are parented
-        /// to the collection, like any other HUD element.
-        /// </summary>
-        public class HudCollection<TElementContainer> : HudCollection<TElementContainer, HudNodeBase>
+		/// <summary>
+		/// A collection of UI elements wrapped in decorator wrappers. UI elements in the containers are parented
+		/// to the collection, like any other HUD element.
+		/// </summary>
+		public class HudCollection<TElementContainer> : HudCollection<TElementContainer, HudNodeBase>
             where TElementContainer : IHudElementContainer<HudNodeBase>, new()
         {
             public HudCollection(HudParentBase parent = null) : base(parent)
             { }
         }
 
-        /// <summary>
-        /// A collection of UI elements wrapped in container objects. UI elements in the containers are parented
-        /// to the collection, like any other HUD element.
-        /// </summary>
-        public class HudCollection : HudCollection<HudNodeContainer<HudNodeBase>, HudNodeBase>
+		/// <summary>
+		/// A collection of UI elements wrapped in decorator wrappers. UI elements in the containers are parented
+		/// to the collection, like any other HUD element.
+		/// </summary>
+		public class HudCollection : HudCollection<HudNodeContainer<HudNodeBase>, HudNodeBase>
         {
             public HudCollection(HudParentBase parent = null) : base(parent)
             { }

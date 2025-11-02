@@ -10,7 +10,7 @@ namespace RichHudFramework
         using Server;
 
         /// <summary>
-        /// Base type for hud elements that have text elements and a <see cref="TexturedBox"/> background.
+        /// Base type for elements combining Labels with textured backgrounds.
         /// </summary>
         public abstract class LabelBoxBase : HudElementBase
         {

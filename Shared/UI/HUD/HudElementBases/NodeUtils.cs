@@ -7,7 +7,6 @@ namespace RichHudFramework
 	{
 		using static RichHudFramework.UI.NodeConfigIndices;
 
-		// Read-only length-1 array containing raw UI node data
 		public abstract partial class HudNodeBase
 		{
 			/// <summary>

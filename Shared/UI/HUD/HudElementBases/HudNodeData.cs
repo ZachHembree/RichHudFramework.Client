@@ -32,7 +32,7 @@ namespace RichHudFramework
 		using HudNodeDataHandle = IReadOnlyList<HudNodeData>;
 
 		/// <summary>
-		/// Static class containing labeled indices for accessing UI node config
+		/// Internal indices for accessing UI node config
 		/// </summary>
 		public static class NodeConfigIndices
 		{
@@ -80,7 +80,8 @@ namespace RichHudFramework
 		}
 
 		/// <summary>
-		/// Wrapper around a shared reference to a UI element's shared tree data
+		/// Wrapper around a shared reference to a UI element's shared tree data.
+		/// Used internally for documentationn and compile-time validation. Do not use.
 		/// </summary>
 		public struct LinkedHudNode
 		{

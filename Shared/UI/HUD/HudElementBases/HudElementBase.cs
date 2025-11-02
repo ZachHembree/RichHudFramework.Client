@@ -10,14 +10,14 @@ namespace RichHudFramework
 		using Internal;
 
 		/// <summary>
-		/// Base type for all hud elements with definite size and position. Inherits from HudParentBase and HudNodeBase.
+		/// Base type for all UI elements with definite size and position. Extends HudParentBase and HudNodeBase.
 		/// </summary>
 		public abstract class HudElementBase : HudNodeBase, IReadOnlyHudElement
 		{
 			protected const float minMouseBounds = 8f;
 
 			/// <summary>
-			/// Size of the element. Units in pixels by default.
+			/// Size of the element. Units in pixels with HudMain.Root.
 			/// </summary>
 			public Vector2 Size
 			{
@@ -35,7 +35,7 @@ namespace RichHudFramework
 			}
 
 			/// <summary>
-			/// Width of the hud element. Units in pixels by default.
+			/// Width of the element. Units in pixels by HudMain.Root.
 			/// </summary>
 			public float Width
 			{
@@ -50,7 +50,7 @@ namespace RichHudFramework
 			}
 
 			/// <summary>
-			/// Height of the hud element. Units in pixels by default.
+			/// Height of the element. Units in pixels by HudMain.Root.
 			/// </summary>
 			public float Height
 			{
@@ -75,17 +75,18 @@ namespace RichHudFramework
 			public Vector2 UnpaddedSize { get; set; }
 
 			/// <summary>
-			/// Starting position of the hud element.
+			/// Starting position of the hud element. Starts in the center of the parent node 
+			/// by default. This behavior can be modified with ParentAlignment flags.
 			/// </summary>
 			public Vector2 Origin { get; private set; }
 
 			/// <summary>
-			/// Position of the element relative to its origin.
+			/// Position of the center of the UI element relative to its origin.
 			/// </summary>
 			public Vector2 Offset { get; set; }
 
 			/// <summary>
-			/// Current position of the hud element. Origin + Offset.
+			/// Current position of the center of the UI element. Origin + Offset.
 			/// </summary>
 			public Vector2 Position { get; private set; }
 
@@ -100,7 +101,7 @@ namespace RichHudFramework
 			public DimAlignments DimAlignment { get; set; }
 
 			/// <summary>
-			/// If set to true the hud element will be allowed to capture the cursor.
+			/// Enables or disables cursor input and capture
 			/// </summary>
 			public bool UseCursor
 			{
@@ -198,7 +199,7 @@ namespace RichHudFramework
 			protected BoundingBox2? maskingBox;
 
 			/// <summary>
-			/// Initializes a new hud element with cursor sharing enabled and scaling set to 1f.
+			/// Initializes a new UI element attached to the given parent.
 			/// </summary>
 			public HudElementBase(HudParentBase parent) : base(parent)
 			{
@@ -211,8 +212,10 @@ namespace RichHudFramework
 			}
 
 			/// <summary>
-			/// Used to check whether the cursor is moused over the element and whether its being
-			/// obstructed by another element.
+			/// Update hook for testing cursor bounding and depth tests. 
+			/// 
+			/// Updates in back-to-front order after Draw(). Elements on the bottom update first, and elements 
+			/// on top update last.
 			/// </summary>
 			protected override void InputDepth()
 			{
@@ -237,10 +240,10 @@ namespace RichHudFramework
 			}
 
 			/// <summary>
-			/// Updates input for the element and its children. Overriding this method is rarely necessary.
-			/// If you need to update input, use HandleInputCallback.
+			/// Updates input for the element and attempts to capture the cursor if mouse input is enabled.
+			/// Override HandleInput() for customization.
 			/// </summary>
-			public sealed override void BeginInput()
+			protected sealed override void BeginInput()
 			{
 				Vector3 cursorPos = HudSpace.CursorPos;
 				bool canUseCursor = (Config[StateID] & (uint)HudElementStates.CanUseCursor) > 0,
@@ -266,10 +269,9 @@ namespace RichHudFramework
 			}
 
 			/// <summary>
-			/// Updates layout for the element and its children. Overriding this method is rarely necessary. 
-			/// If you need to update layout, use LayoutCallback.
+			/// Updates internal state and child alignment. Override Layout() for customization.
 			/// </summary>
-			public sealed override void BeginLayout(bool _)
+			protected sealed override void BeginLayout(bool _)
 			{
 				var parentFull = Parent as HudElementBase;
 				HudSpace = Parent?.HudSpace;
@@ -337,7 +339,7 @@ namespace RichHudFramework
 			/// <summary>
 			/// Updates cached values as well as parent and dim alignment.
 			/// </summary>
-			protected void UpdateChildAlignment()
+			private void UpdateChildAlignment()
 			{
 				// Update size
 				for (int i = 0; i < children.Count; i++)
@@ -430,7 +432,7 @@ namespace RichHudFramework
 			/// <summary>
 			/// Updates masking state and bounding boxes used to mask billboards
 			/// </summary>
-			protected void UpdateMasking()
+			private void UpdateMasking()
 			{
 				Config[StateID] |= (uint)HudElementStates.IsMasked;
 
@@ -472,6 +474,9 @@ namespace RichHudFramework
 				maskingBox = box;
 			}
 
+			/// <summary>
+			/// Internal debugging method
+			/// </summary>
 			protected override object GetOrSetApiMember(object data, int memberEnum)
 			{
 				switch ((HudElementAccessors)memberEnum)

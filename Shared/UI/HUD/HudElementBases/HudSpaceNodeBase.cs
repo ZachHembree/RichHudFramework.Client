@@ -49,8 +49,8 @@ namespace RichHudFramework
 			/// </summary>
 			public Func<Vector3D> GetNodeOriginFunc
 			{
-				get { return _dataHandle[0].Item2[0]; }
-				protected set { _dataHandle[0].Item2[0] = value; }
+				get { return DataHandle[0].Item2[0]; }
+				protected set { DataHandle[0].Item2[0] = value; }
 			}
 
 			/// <summary>
