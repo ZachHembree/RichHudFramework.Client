@@ -52,18 +52,15 @@ namespace RichHudFramework
 				get { return (Config[StateID] & (uint)HudElementStates.IsVisible) > 0; }
 				set
 				{
-					// Signal potential structural change on invisible -> visible transitions, but 
-					// only if the node is inactive
-					if (value && ((Config[StateID] & (uint)HudElementStates.IsVisible) == 0))
+					// Signal potential structural change on invisible -> visible transitions
+					if (value)
 					{
 						// Depending on where this is called, the frame number might be off by one
 						uint[] rootConfig = HudMain.Instance._root.Config;
 						bool isActive = Math.Abs((int)Config[FrameNumberID] - (int)rootConfig[FrameNumberID]) < 2;
 
 						if (!isActive && (rootConfig[StateID] & (uint)HudElementStates.IsStructureStale) == 0)
-						{
 							rootConfig[StateID] |= (uint)HudElementStates.IsStructureStale;
-						}
 					}
 
 					if (value)
