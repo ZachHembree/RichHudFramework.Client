@@ -12,7 +12,8 @@ namespace RichHudFramework.UI
 	using Server;
 
     /// <summary>
-    /// Clickable text box. Supports text highlighting and has its own text caret. Text only, no background.
+    /// Interactive, clickable text box with caret and highlighting. Text only, no background or
+    /// scrollbars.
     /// </summary>
     public class TextBox : Label, IClickableElement
     {
@@ -214,7 +215,8 @@ namespace RichHudFramework.UI
 					if (SharedBinds.SelectAll.IsNewPressed)
 					{
 						caret.SetPosition(short.MaxValue);
-						selectionBox.SetSelection(Vector2I.Zero, new Vector2I(TextBoard.Count - 1, TextBoard[TextBoard.Count - 1].Count - 1));
+						lastCaretIndex = caret.CaretIndex;
+						selectionBox.SetSelection(new Vector2I(0, -1), new Vector2I(TextBoard.Count - 1, TextBoard[TextBoard.Count - 1].Count - 1));
                         isHighlighting = true;
 					}
                     // Copy selection
@@ -223,34 +225,34 @@ namespace RichHudFramework.UI
                     else if (caret.IsNavigating)
 					{
 						// Determine whether highlighting can start
-						if ((MouseInput.IsLeftClicked && (cursorPos - lastCursorPos).LengthSquared() > 1f) || SharedBinds.Shift.IsPressed)
+						if (MouseInput.IsLeftClicked || SharedBinds.Shift.IsPressed)
 							canHighlight = true;
 						else
 							canHighlight = false;
                             
 						// Track highlighted range
-						if (canHighlight)
+						if (canHighlight || isHighlighting)
 							selectionBox.UpdateSelection();
 
-						// Enable or disable highlighting on caret move
-						if (lastCaretIndex != caret.CaretIndex)
-						{
+                        // Start highlighting
+						if (!isHighlighting && lastCaretIndex != caret.CaretIndex)
 							isHighlighting = canHighlight;
-
-							if (!isHighlighting)
-								selectionBox.ClearSelection();
-						}
 					}
 				}	
 			}
 			else
-            {
 				canHighlight = false;
-            }
 
-            lastCursorPos = cursorPos;
+            // Stop highlighting
+			if (!canHighlight && lastCaretIndex != caret.CaretIndex)
+			{
+				isHighlighting = false;
+                selectionBox.ClearSelection();
+			}
+
 			lastCaretIndex = caret.CaretIndex;
-			selectionBox.Visible = useInput && isHighlighting;
+			lastCursorPos = cursorPos;
+			selectionBox.Visible = isHighlighting;
 		}
 
 		private void UpdateInputOpen()
@@ -547,10 +549,10 @@ namespace RichHudFramework.UI
                     Vector2 offset = cursorPos - textElement.Position;
                     Vector2I index = Vector2I.Max(CaretIndex, Vector2I.Zero),
                         newIndex = text.GetCharAtOffset(offset);
+                    IRichChar clickedCh = text[newIndex];
 
-                    // If clicking left of center on the char, move one char back.
-                    if ((text.Count > 0 && text[index.X].Count > 0 && text[index].Ch != '\n') && (offset.X < text[index].Offset.X))
-                        CaretIndex -= new Vector2I(0, 1);
+                    if (offset.X <= clickedCh.Offset.X)
+						newIndex -= new Vector2I(0, 1);
 
                     CaretIndex = ClampIndex(newIndex);
                     caretOffset = GetOffsetFromIndex(CaretIndex);
@@ -674,7 +676,8 @@ namespace RichHudFramework.UI
             {
                 Start = start;
                 End = end;
-                highlightStale = true;
+				selectionAnchor = start;
+				highlightStale = true;
             }
 
             public void ClearSelection()
@@ -683,14 +686,14 @@ namespace RichHudFramework.UI
                 End = -Vector2I.One;
 				selectionAnchor = -Vector2I.One;
 				highlightList.Clear();
-            }
+			}
 
 			public void UpdateSelection()
 			{
-				Vector2I caretIndex = caret.CaretIndex;
-
 				if (text.Count > 0)
 				{
+					Vector2I caretIndex = caret.CaretIndex;
+
 					// Set anchor on new selection
 					if (selectionAnchor == -Vector2I.One)
 						selectionAnchor = caretIndex;
