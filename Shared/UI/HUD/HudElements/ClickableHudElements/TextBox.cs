@@ -656,7 +656,8 @@ namespace RichHudFramework.UI
             private readonly List<HighlightBox> highlightList;
             private Vector2 lastTextSize;
             private Vector2I lastVisRange;
-            private bool highlightStale;
+			private Vector2I selectionAnchor;
+			private bool highlightStale;
 
             public SelectionBox(TextCaret caret, Label parent) : base(parent)
             {
@@ -664,7 +665,8 @@ namespace RichHudFramework.UI
                 this.caret = caret;
 
                 Start = -Vector2I.One;
-                highlightBoard = new MatBoard();
+                selectionAnchor = -Vector2I.One;
+				highlightBoard = new MatBoard();
                 highlightList = new List<HighlightBox>();
             }
 
@@ -679,50 +681,55 @@ namespace RichHudFramework.UI
             {
                 Start = -Vector2I.One;
                 End = -Vector2I.One;
-                highlightList.Clear();
+				selectionAnchor = -Vector2I.One;
+				highlightList.Clear();
             }
 
-            public void UpdateSelection()
-            {
-                Vector2I caretIndex = caret.CaretIndex;
+			public void UpdateSelection()
+			{
+				Vector2I caretIndex = caret.CaretIndex;
 
-                if (text.Count > 0)
-                {
-                    if (Start == -Vector2I.One)
-                    {
-                        Start = caretIndex;
-                        End = Start;
+				if (text.Count > 0)
+				{
+					// Set anchor on new selection
+					if (selectionAnchor == -Vector2I.One)
+						selectionAnchor = caretIndex;
 
-                        if (Start.Y < text[Start.X].Count - 1)
-                            Start += new Vector2I(0, 1);
-                    }
-                    else
-                    {
-                        // If caret after start
-                        if (caretIndex.X > Start.X || (caretIndex.X == Start.X && caretIndex.Y >= Start.Y))
-                            End = caretIndex;
-                        else
-                        {
-                            Start = caretIndex;
+					bool isAfterAnchor;
 
-                            if (Start.Y < text[Start.X].Count - 1)
-                                Start += new Vector2I(0, 1);
-                        }
-                    }
+					if (caretIndex.X < selectionAnchor.X)
+						isAfterAnchor = false;
+					else if (caretIndex.X > selectionAnchor.X)
+						isAfterAnchor = true;
+					else // Same line
+						isAfterAnchor = (caretIndex.Y >= selectionAnchor.Y);
 
-                    if (End.Y == -1)
-                        End += new Vector2I(0, 1);
+					// If the caret is after the anchor, anchor Start
+					if (isAfterAnchor)
+					{
+						Start = selectionAnchor;
+						End = caretIndex;
+					}
+					else
+					{
+						Start = caretIndex;
+						End = selectionAnchor;
+					}
+
+					if (Start.Y < text[Start.X].Count - 1)
+						Start += new Vector2I(0, 1);
 
 					highlightStale = true;
-                }
-                else
-                {
-                    Start = -Vector2I.One;
-                    End = -Vector2I.One;
-                }
-            }
+				}
+				else
+				{
+					Start = -Vector2I.One;
+					End = -Vector2I.One;
+					selectionAnchor = -Vector2I.One;
+				}
+			}
 
-            protected override void Draw()
+			protected override void Draw()
             {
 				if (lastTextSize != text.Size)
                 {
