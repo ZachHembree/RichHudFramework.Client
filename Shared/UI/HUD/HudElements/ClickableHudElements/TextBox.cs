@@ -62,6 +62,11 @@ namespace RichHudFramework.UI
         /// </summary>
         public bool ClearSelectionOnLoseFocus { get; set; }
 
+        /// <summary>
+        /// Alternative line break character. Useful if Enter/Return is unavailable.
+        /// </summary>
+        public char NewLineChar { get; set; }
+
         public IMouseInput MouseInput { get; }
 
         private readonly TextInput textInput;
@@ -69,7 +74,6 @@ namespace RichHudFramework.UI
         private readonly SelectionBox selectionBox;
         private readonly ToolTip warningToolTip;
         private bool canHighlight, isHighlighting, allowInput;
-        private Vector2 lastCursorPos;
         private Vector2I lastCaretIndex;
 
         public TextBox(HudParentBase parent) : base(parent)
@@ -93,6 +97,7 @@ namespace RichHudFramework.UI
             EnableEditing = true;
             EnableHighlighting = true;
             UseCursor = true;
+            NewLineChar = '\n';
 
             MoveToEndOnGainFocus = false;
             ClearSelectionOnLoseFocus = true;
@@ -251,7 +256,6 @@ namespace RichHudFramework.UI
 			}
 
 			lastCaretIndex = caret.CaretIndex;
-			lastCursorPos = cursorPos;
 			selectionBox.Visible = isHighlighting;
 		}
 
@@ -266,6 +270,8 @@ namespace RichHudFramework.UI
         /// </summary>
         private void AddChar(char ch)
         {
+            ch = (ch == NewLineChar) ? '\n' : ch;
+
             if (isHighlighting)
                 DeleteSelection();
             else
@@ -282,12 +288,17 @@ namespace RichHudFramework.UI
         {
             if (TextBoard.Count > 0 && TextBoard[caret.CaretIndex.X].Count > 0)
             {
-                DeleteSelection();
+				if (isHighlighting)
+					DeleteSelection();
+				else
+				{
+					ClearSelection();
 
-                if (caret.CaretIndex.Y >= 0)
-                    TextBoard.RemoveAt(ClampIndex(caret.CaretIndex));
+					if (caret.CaretIndex.Y >= 0)
+						TextBoard.RemoveAt(ClampIndex(caret.CaretIndex));
 
-                caret.Move(new Vector2I(0, -1));
+					caret.Move(new Vector2I(0, -1));
+				}
             }
         }
 
@@ -553,18 +564,22 @@ namespace RichHudFramework.UI
                     Vector2 offset = cursorPos - textElement.Position;
                     Vector2I index = Vector2I.Max(CaretIndex, Vector2I.Zero),
                         newIndex = text.GetCharAtOffset(offset);
-                    IRichChar clickedCh = text[newIndex];
 
-                    if (offset.X <= clickedCh.Offset.X)
-						newIndex -= new Vector2I(0, 1);
+                    if (text.Count > newIndex.X && text[newIndex.X].Count > newIndex.Y)
+                    {
+						IRichChar clickedCh = text[newIndex];
 
-                    CaretIndex = ClampIndex(newIndex);
-                    caretOffset = GetOffsetFromIndex(CaretIndex);
-                    lastCursorPos = cursorPos;
+						if (offset.X <= clickedCh.Offset.X)
+							newIndex -= new Vector2I(0, 1);
 
-                    blink = true;
-                    blinkTimer.Restart();
-                    IsNavigating = true;
+						CaretIndex = ClampIndex(newIndex);
+						caretOffset = GetOffsetFromIndex(CaretIndex);
+						lastCursorPos = cursorPos;
+
+						blink = true;
+						blinkTimer.Restart();
+						IsNavigating = true;
+					}
                 }
             }
 
