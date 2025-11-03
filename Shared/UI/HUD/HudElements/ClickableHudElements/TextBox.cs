@@ -84,7 +84,6 @@ namespace RichHudFramework.UI
                 bgColor = ToolTip.orangeWarningBG
             };
 
-            caret.CaretMoved += CaretMoved;
             MouseInput.GainedInputFocus += GainFocus;
             MouseInput.LostInputFocus += LoseFocus;
 
@@ -146,12 +145,6 @@ namespace RichHudFramework.UI
                 return CharFilterFunc(ch) && (ch >= ' ' || ch == '\n');
         }
 
-        private void CaretMoved()
-        {
-            if (canHighlight)
-                selectionBox.UpdateSelection();
-        }
-
         private void GainFocus(object sender, EventArgs args)
         {
             if (MoveToEndOnGainFocus)
@@ -167,11 +160,11 @@ namespace RichHudFramework.UI
 		protected override void HandleInput(Vector2 cursorPos)
         {
             bool useInput = allowInput || (MouseInput.HasFocus && HudMain.InputMode == HudInputMode.Full);
-
+            
             if (EnableEditing && IsMousedOver && HudMain.InputMode == HudInputMode.CursorOnly)
                 HudMain.Cursor.RegisterToolTip(warningToolTip);
 
-            if (useInput && EnableEditing)
+			if (useInput && EnableEditing)
             {
                 textInput.HandleInput();
 
@@ -238,14 +231,19 @@ namespace RichHudFramework.UI
 
                 if (SharedBinds.Copy.IsNewPressed && !selectionBox.Empty)
                     HudMain.ClipBoard = TextBoard.GetTextRange(selectionBox.Start, selectionBox.End);
+
+                if (canHighlight)
+                    selectionBox.UpdateSelection();
             }
             else
             {
                 canHighlight = false;
             }
-        }
 
-        private void UpdateInputOpen()
+			selectionBox.Visible = EnableHighlighting;
+		}
+
+		private void UpdateInputOpen()
         {
             bool useInput = allowInput || (MouseInput.HasFocus && HudMain.InputMode == HudInputMode.Full);
             InputOpen = useInput && (EnableHighlighting || EnableEditing);
@@ -328,12 +326,10 @@ namespace RichHudFramework.UI
             /// </summary>
             public bool ShowCaret { get; set; }
 
-            public event Action CaretMoved;
-
             private readonly TextBox textElement;
             private readonly ITextBoard text;
             private readonly Stopwatch blinkTimer;
-            private bool blink, caretMoved;
+            private bool blink;
             private int caretOffset;
             private Vector2 lastCursorPos;
 
@@ -390,7 +386,6 @@ namespace RichHudFramework.UI
                 }
 
                 CaretIndex = ClampIndex(newIndex);
-                caretMoved = true;
 
                 if (CaretIndex.Y >= 0)
                     text.MoveToChar(CaretIndex);
@@ -404,9 +399,6 @@ namespace RichHudFramework.UI
             public void SetPosition(Vector2I index)
             {
                 index = ClampIndex(index);
-                
-                if (CaretIndex != index)
-                    caretMoved = true;
 
                 CaretIndex = index;
                 caretOffset = Math.Max(GetOffsetFromIndex(CaretIndex), 0);
@@ -417,21 +409,9 @@ namespace RichHudFramework.UI
             {
                 Vector2I index = GetIndexFromOffset(offset);
 
-                if (CaretIndex != index)
-                    caretMoved = true;
-
                 CaretIndex = index;
                 caretOffset = Math.Max(GetOffsetFromIndex(CaretIndex), 0);
                 text.MoveToChar(index);
-            }
-
-			protected override void Layout()
-            {
-                if (caretMoved)
-                {
-                    CaretMoved?.Invoke();
-                    caretMoved = false;
-                }
             }
 
             protected override void Draw()
@@ -563,7 +543,6 @@ namespace RichHudFramework.UI
 
                     blink = true;
                     blinkTimer.Restart();
-                    caretMoved = true;
                 }
             }
 
@@ -719,7 +698,7 @@ namespace RichHudFramework.UI
                     if (End.Y == -1)
                         End += new Vector2I(0, 1);
 
-                    highlightStale = true;
+					highlightStale = true;
                 }
                 else
                 {
