@@ -9,7 +9,7 @@ using VRageMath;
 namespace RichHudFramework.UI
 {
     using Client;
-    using Server;
+	using Server;
 
     /// <summary>
     /// Clickable text box. Supports text highlighting and has its own text caret. Text only, no background.
@@ -794,40 +794,52 @@ namespace RichHudFramework.UI
                     highlightList.TrimExcess();
             }
 
-            /// <summary>
-            /// Adds an appropriately sized highlight box for the range of characters on the given line.
-            /// Does not take into account text clipping or text offset.
-            /// </summary>
-            private void AddHighlightBox(int line, int startCh, int endCh)
-            {
-                if (text[line].Count > 0)
-                {
-                    if (startCh < 0 || endCh < 0 || startCh >= text[line].Count || endCh >= text[line].Count)
-                        throw new Exception($"Char out of range. Line: {line} StartCh: {startCh}, EndCh: {endCh}, Count: {text[line].Count}");
+			/// <summary>
+			/// Adds an appropriately sized highlight box for the range of characters on the given line.
+			/// Does not take into account text clipping or text offset.
+			/// </summary>
+			private void AddHighlightBox(int lineIdx, int startCh, int endCh)
+			{
+				var line = text[lineIdx];
+				if (line.Count == 0) return;
 
-                    IRichChar left = text[line][startCh], right = text[line][endCh];
-                    var highlightBox = new HighlightBox
-                    {
-                        size = new Vector2()
-                        {
-                            X = right.Offset.X - left.Offset.X + (left.Size.X + right.Size.X) * .5f,
-                            Y = text[line].Size.Y
-                        },
-                        offset = new Vector2()
-                        {
-                            X = (right.Offset.X + left.Offset.X) * .5f - 2f,
-                            Y = text[line].VerticalOffset - text[line].Size.Y * .5f
-                        }
-                    };
+				// Clamp
+				startCh = Math.Max(0, Math.Min(startCh, line.Count - 1));
+				endCh = Math.Min(endCh, line.Count - 1);
 
-                    if (highlightBox.size.X > 1f)
-                        highlightBox.size.X += 4f;
+				IRichChar startChar = line[startCh],
+                    endChar = line[endCh],
+                    prevChar = startCh > 0 ? line[startCh - 1] : null;
 
-                    highlightList.Add(highlightBox);
-                }
-            }
+				// Left bound: Max of (start char left, prev char right)
+				float startLeft = startChar.Offset.X - 0.5f * startChar.Size.X;
 
-            private struct HighlightBox
+				if (prevChar != null)
+				{
+					float prevRight = prevChar.Offset.X + 0.5f * prevChar.Size.X;
+					startLeft = Math.Max(startLeft, prevRight);
+				}
+
+				// Right bound: End char's right edge
+				float endRight = endChar.Offset.X + 0.5f * endChar.Size.X;
+
+				// Final box
+				float width = endRight - startLeft;
+				if (width < 1f) width = 1f; // Minimum for cursor
+
+				float centerX = startLeft + width * 0.5f;
+				float centerY = line.VerticalOffset - line.Size.Y * 0.5f;
+
+				var box = new HighlightBox
+				{
+					size = new Vector2(width, line.Size.Y),
+					offset = new Vector2(centerX, centerY)
+				};
+
+				highlightList.Add(box);
+			}
+
+			private struct HighlightBox
             {
                 public Vector2 size, offset;
 
