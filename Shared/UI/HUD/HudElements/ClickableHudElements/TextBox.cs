@@ -266,7 +266,11 @@ namespace RichHudFramework.UI
         /// </summary>
         private void AddChar(char ch)
         {
-            DeleteSelection();
+            if (isHighlighting)
+                DeleteSelection();
+            else
+                ClearSelection();
+
             TextBoard.Insert(ch, caret.CaretIndex + new Vector2I(0, 1));
             caret.Move(new Vector2I(0, 1));
         }
@@ -656,10 +660,7 @@ namespace RichHudFramework.UI
             private readonly ITextBoard text;
             private readonly MatBoard highlightBoard;
             private readonly List<HighlightBox> highlightList;
-            private Vector2 lastTextSize;
-            private Vector2I lastVisRange;
 			private Vector2I selectionAnchor;
-			private bool highlightStale;
 
             public SelectionBox(TextCaret caret, Label parent) : base(parent)
             {
@@ -670,6 +671,8 @@ namespace RichHudFramework.UI
                 selectionAnchor = -Vector2I.One;
 				highlightBoard = new MatBoard();
                 highlightList = new List<HighlightBox>();
+
+                text.TextChanged += () => ClearSelection();
             }
 
             public void SetSelection(Vector2I start, Vector2I end)
@@ -677,7 +680,6 @@ namespace RichHudFramework.UI
                 Start = start;
                 End = end;
 				selectionAnchor = start;
-				highlightStale = true;
             }
 
             public void ClearSelection()
@@ -721,8 +723,6 @@ namespace RichHudFramework.UI
 
 					if (Start.Y < text[Start.X].Count - 1)
 						Start += new Vector2I(0, 1);
-
-					highlightStale = true;
 				}
 				else
 				{
@@ -734,24 +734,16 @@ namespace RichHudFramework.UI
 
 			protected override void Draw()
             {
-				if (lastTextSize != text.Size)
-                {
-                    lastTextSize = text.Size;
-                    ClearSelection();
-                }
-
                 if (!Empty)
                 {
-                    if (highlightStale || text.VisibleLineRange != lastVisRange)
-                    {
-                        lastVisRange = text.VisibleLineRange;
-                        UpdateHighlight();
-                    }
+					UpdateHighlight();
 
-                    Vector2 tbOffset = text.TextOffset, bounds = new Vector2(-text.Size.X * .5f, text.Size.X * .5f);
+					Vector2 highlightOffset = Origin + text.TextOffset;
+                    BoundingBox2 bounds = new BoundingBox2(-text.Size * .5f, text.Size * .5f);
+                    bounds.Translate(Origin + Offset);
 
                     for (int n = 0; n < highlightList.Count; n++)
-                        highlightList[n].Draw(highlightBoard, Origin, tbOffset, bounds, HudSpace.PlaneToWorldRef);
+                        highlightList[n].Draw(highlightBoard, highlightOffset, bounds, HudSpace.PlaneToWorldRef);
                 }
             }
 
@@ -760,7 +752,6 @@ namespace RichHudFramework.UI
             /// </summary>
             private void UpdateHighlight()
             {
-                highlightStale = false;
                 highlightList.Clear();
 
                 // Clamp line range
@@ -794,7 +785,7 @@ namespace RichHudFramework.UI
                     }
                 }
 
-                if (highlightList.Count > 0 && highlightList.Capacity > 3 * highlightList.Count)
+                if (highlightList.Count > 10 && highlightList.Capacity > 3 * highlightList.Count)
                     highlightList.TrimExcess();
             }
 
@@ -847,24 +838,14 @@ namespace RichHudFramework.UI
             {
                 public Vector2 size, offset;
 
-                public void Draw(MatBoard matBoard, Vector2 origin, Vector2 tbOffset, Vector2 xBounds, MatrixD[] matrixRef)
+                public void Draw(MatBoard matBoard, Vector2 highlightOffset, BoundingBox2 tbBounds, MatrixD[] matrixRef)
                 {
                     CroppedBox box = default(CroppedBox);
-                    Vector2 clipSize, clipPos;
-                    clipSize = size;
-                    clipPos = offset + tbOffset;
-
-                    // Determine the visible extents of the highlight box within the bounds of the textboard
-                    float leftBound = Math.Max(clipPos.X - clipSize.X * .5f, xBounds.X),
-                        rightBound = Math.Min(clipPos.X + clipSize.X * .5f, xBounds.Y);
-
-                    // Adjust highlight size and offset to compensate for textboard clipping and offset
-                    clipSize.X = Math.Max(0, rightBound - leftBound);
-                    clipPos.X = (rightBound + leftBound) * .5f;
-                    clipPos += origin;
-
-                    clipSize *= .5f;
-                    box.bounds = new BoundingBox2(clipPos - clipSize, clipPos + clipSize);
+                    Vector2  highlightPos = highlightOffset + offset,
+                        halfSize = 0.5f * size;
+                    
+                    box.bounds = new BoundingBox2(highlightPos - halfSize, highlightPos + halfSize);
+                    box.mask = tbBounds;
 
                     matBoard.Draw(ref box, matrixRef);
                 }
