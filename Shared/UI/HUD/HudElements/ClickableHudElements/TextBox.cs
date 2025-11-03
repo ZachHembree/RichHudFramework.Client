@@ -67,8 +67,9 @@ namespace RichHudFramework.UI
         private readonly TextCaret caret;
         private readonly SelectionBox selectionBox;
         private readonly ToolTip warningToolTip;
-        private bool canHighlight, allowInput;
-        private Vector2 cursorStart;
+        private bool canHighlight, isHighlighting, allowInput;
+        private Vector2 lastCursorPos;
+        private Vector2I lastCaretIndex;
 
         public TextBox(HudParentBase parent) : base(parent)
         {
@@ -164,6 +165,7 @@ namespace RichHudFramework.UI
             if (EnableEditing && IsMousedOver && HudMain.InputMode == HudInputMode.CursorOnly)
                 HudMain.Cursor.RegisterToolTip(warningToolTip);
 
+            // Editing
 			if (useInput && EnableEditing)
             {
                 textInput.HandleInput();
@@ -198,49 +200,57 @@ namespace RichHudFramework.UI
             UpdateInputOpen();
             caret.Visible = InputOpen;
 
+            // Copy and highlighting
             if (useInput && EnableHighlighting)
             {
-                bool isCursorHighlighting = false;
-
-                if (UseCursor)
+				if (MouseInput.IsNewLeftClicked || SharedBinds.Escape.IsNewPressed)
+				{
+					isHighlighting = false;
+					selectionBox.ClearSelection();
+				}
+                else 
                 {
-                    if (MouseInput.IsNewLeftClicked)
-                    {
-                        cursorStart = cursorPos;
-                        selectionBox.ClearSelection();
-                    }
-                    // Require some movement before enabling highlighting
-                    else if (!canHighlight && MouseInput.IsLeftClicked && (cursorPos - cursorStart).LengthSquared() > 16f)
-                    {
-                        canHighlight = true;
-                        isCursorHighlighting = true;
-                    }
-                    else if (!MouseInput.IsLeftClicked)
-                    {
-                        canHighlight = false;
-                    }
-                }
+                    // Highlight all text
+					if (SharedBinds.SelectAll.IsNewPressed)
+					{
+						caret.SetPosition(short.MaxValue);
+						selectionBox.SetSelection(Vector2I.Zero, new Vector2I(TextBoard.Count - 1, TextBoard[TextBoard.Count - 1].Count - 1));
+                        isHighlighting = true;
+					}
+                    // Copy selection
+					else if (SharedBinds.Copy.IsNewPressed && !selectionBox.Empty)
+						HudMain.ClipBoard = TextBoard.GetTextRange(selectionBox.Start, selectionBox.End);
+                    else if (caret.IsNavigating)
+					{
+						// Determine whether highlighting can start
+						if ((MouseInput.IsLeftClicked && (cursorPos - lastCursorPos).LengthSquared() > 1f) || SharedBinds.Shift.IsPressed)
+							canHighlight = true;
+						else
+							canHighlight = false;
+                            
+						// Track highlighted range
+						if (canHighlight)
+							selectionBox.UpdateSelection();
 
-                if (!isCursorHighlighting)
-                    canHighlight = SharedBinds.Shift.IsPressed;
+						// Enable or disable highlighting on caret move
+						if (lastCaretIndex != caret.CaretIndex)
+						{
+							isHighlighting = canHighlight;
 
-                if (SharedBinds.SelectAll.IsNewPressed)
-                    selectionBox.SetSelection(Vector2I.Zero, new Vector2I(TextBoard.Count - 1, TextBoard[TextBoard.Count - 1].Count - 1));
-                else if (SharedBinds.Escape.IsNewPressed)
-                    selectionBox.ClearSelection();
-
-                if (SharedBinds.Copy.IsNewPressed && !selectionBox.Empty)
-                    HudMain.ClipBoard = TextBoard.GetTextRange(selectionBox.Start, selectionBox.End);
-
-                if (canHighlight)
-                    selectionBox.UpdateSelection();
-            }
-            else
+							if (!isHighlighting)
+								selectionBox.ClearSelection();
+						}
+					}
+				}	
+			}
+			else
             {
-                canHighlight = false;
+				canHighlight = false;
             }
 
-			selectionBox.Visible = EnableHighlighting;
+            lastCursorPos = cursorPos;
+			lastCaretIndex = caret.CaretIndex;
+			selectionBox.Visible = useInput && isHighlighting;
 		}
 
 		private void UpdateInputOpen()
@@ -326,7 +336,12 @@ namespace RichHudFramework.UI
             /// </summary>
             public bool ShowCaret { get; set; }
 
-            private readonly TextBox textElement;
+            /// <summary>
+            /// True if the caret is being moved for navigation. False for insertions.
+            /// </summary>
+			public bool IsNavigating { get; private set; }
+
+			private readonly TextBox textElement;
             private readonly ITextBoard text;
             private readonly Stopwatch blinkTimer;
             private bool blink;
@@ -394,6 +409,8 @@ namespace RichHudFramework.UI
 
                 blink = true;
                 blinkTimer.Restart();
+
+                IsNavigating = navigate;
             }
 
             public void SetPosition(Vector2I index)
@@ -425,7 +442,6 @@ namespace RichHudFramework.UI
                     if ((text.Count > 0 && text[0].Count > 0) && 
                         (CaretIndex.X >= text.VisibleLineRange.X && CaretIndex.X <= text.VisibleLineRange.Y) )
                     {
-                        // Damned special cases
                         Vector2I index = Vector2I.Max(CaretIndex, Vector2I.Zero);
 
                         // Calculate visibilty on line
@@ -469,7 +485,6 @@ namespace RichHudFramework.UI
 
                     if (CaretIndex.Y == -1)
                     {
-                       
                         offset = ch.Offset + text.TextOffset;
                         offset.X -= ch.Size.X * .5f + 1f;
                     }
@@ -543,6 +558,7 @@ namespace RichHudFramework.UI
 
                     blink = true;
                     blinkTimer.Restart();
+                    IsNavigating = true;
                 }
             }
 
@@ -656,7 +672,6 @@ namespace RichHudFramework.UI
             {
                 Start = start;
                 End = end;
-
                 highlightStale = true;
             }
 
