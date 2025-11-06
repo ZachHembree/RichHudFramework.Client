@@ -214,7 +214,7 @@ namespace RichHudFramework.UI
             ListOpen = false;
         }
 
-		protected override void UpdateSize()
+		protected override void Measure()
 		{
 			selectionBox.Visible = ListOpen;
 

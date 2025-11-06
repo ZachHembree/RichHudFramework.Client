@@ -361,10 +361,10 @@ namespace RichHudFramework
 							if ((sizeFlags & DimAlignments.IgnorePadding) == DimAlignments.IgnorePadding)
 							{
 								if ((sizeFlags & DimAlignments.Width) == DimAlignments.Width)
-									size.X = CachedSize.X - Padding.X;
+									size.X = UnpaddedSize.X;
 
 								if ((sizeFlags & DimAlignments.Height) == DimAlignments.Height)
-									size.Y = CachedSize.Y - Padding.Y;
+									size.Y = UnpaddedSize.Y;
 							}
 							else
 							{

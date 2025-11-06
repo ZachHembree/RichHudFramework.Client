@@ -12,23 +12,23 @@ namespace RichHudFramework.UI
         /// <summary>
         /// Default: no blacklist.
         /// </summary>
-        None = 0x0,
+        None = 0,
 
         /// <summary>
         /// Set flag to disable mouse button keybinds. 
         /// </summary>
-        Mouse = 0x1,
+        Mouse = 1 << 0,
 
         /// <summary>
         /// Set flag to blacklist every blacklist-able bind. 
         /// Keep in mind that not every SE bind can be disabled.
         /// </summary>
-        AllKeys = 0x2 | Mouse,
+        AllKeys = 1 << 1 | Mouse,
 
         /// <summary>
         /// Set flag to disable camera rotation (does not disable look with alt)
         /// </summary>
-        CameraRot = 0x4,
+        CameraRot = 1 << 2,
 
         /// <summary>
         /// Set flag to disable mouse buttons as well as camera rotation.
@@ -38,7 +38,17 @@ namespace RichHudFramework.UI
         /// <summary>
         /// Set flag to disable all key binds as well as camera rotation
         /// </summary>
-        Full = AllKeys | CameraRot
+        Full = AllKeys | CameraRot,
+
+        /// <summary>
+        /// Set flag to intercept chat messages
+        /// </summary>
+        Chat = 1 << 3,
+
+        /// <summary>
+        /// Set to blacklist every possible bind and intercept chat messages
+        /// </summary>
+        FullWithChat = Full | Chat
     }
 
     public enum BindClientAccessors : int

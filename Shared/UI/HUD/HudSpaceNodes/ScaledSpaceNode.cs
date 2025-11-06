@@ -31,7 +31,10 @@ namespace RichHudFramework
 
                 IReadOnlyHudSpaceNode parentSpace = Parent.HudSpace;
 
-                PlaneToWorldRef[0] = MatrixD.CreateScale(PlaneScale, PlaneScale, 1d) * parentSpace.PlaneToWorldRef[0];
+                PlaneToWorldRef[0] = parentSpace.PlaneToWorldRef[0];
+                PlaneToWorldRef[0].Right *= PlaneScale;
+                PlaneToWorldRef[0].Up *= PlaneScale;
+
                 IsInFront = parentSpace.IsInFront;
                 IsFacingCamera = parentSpace.IsFacingCamera;
 

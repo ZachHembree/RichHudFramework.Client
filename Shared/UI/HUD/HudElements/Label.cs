@@ -51,12 +51,13 @@ namespace RichHudFramework.UI
 		{
 			TextBoard = new TextBoard();
 			TextBoard.SetText("NewLabel", GlyphFormat.White);
+			UnpaddedSize = new Vector2(50f);
 		}
 
 		public Label() : this(null)
 		{ }
 
-		protected override void UpdateSize()
+		protected override void Measure()
 		{
 			if (TextBoard.AutoResize)
 				UnpaddedSize = TextBoard.TextSize;

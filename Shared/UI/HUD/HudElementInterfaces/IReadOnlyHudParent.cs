@@ -113,12 +113,6 @@ namespace RichHudFramework
 			WasParentInputEnabled = 1 << 13,
 
 			/// <summary>
-			/// Set after the element's layout (positioning, sizing, alignment) has been successfully updated in 
-			/// the current cycle. Used for synchronizing first update on initial invisible->visible state transitions.
-			/// </summary>
-			IsLayoutReady = 1 << 14,
-
-			/// <summary>
 			/// Indicates the element defines its own HUD space (coordinate system, e.g., via HudSpace for 
 			/// pixel-to-world transformations). If not set, it inherits from the parent. This affects origin 
 			/// functions and space readiness.
@@ -137,7 +131,13 @@ namespace RichHudFramework
 			/// (or effective bounds). This is an optimization flag set during alignment/masking updates to
 			/// skip processing for fully obscured or out-of-bounds elements (e.g., in UpdateAlignment).
 			/// </summary>
-			IsDisjoint = 1 << 17
+			IsDisjoint = 1 << 17,
+
+			/// <summary>
+			/// Internal flag used to tag inactive leaf nodes that need to be monitored for visibility
+			/// transitions.
+			/// </summary>
+			IsInactiveLeaf = 1 << 18
 		}
 
 		/// <summary>

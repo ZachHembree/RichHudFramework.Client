@@ -52,17 +52,6 @@ namespace RichHudFramework
 				get { return (Config[StateID] & (uint)HudElementStates.IsVisible) > 0; }
 				set
 				{
-					// Signal potential structural change on invisible -> visible transitions
-					if (value)
-					{
-						// Depending on where this is called, the frame number might be off by one
-						uint[] rootConfig = HudMain.Instance._root.Config;
-						bool isActive = Math.Abs((int)Config[FrameNumberID] - (int)rootConfig[FrameNumberID]) < 2;
-
-						if (!isActive && (rootConfig[StateID] & (uint)HudElementStates.IsStructureStale) == 0)
-							rootConfig[StateID] |= (uint)HudElementStates.IsStructureStale;
-					}
-
 					if (value)
 						Config[StateID] |= (uint)HudElementStates.IsVisible;
 					else
@@ -101,7 +90,10 @@ namespace RichHudFramework
 					if (isVisible && Config[ZOffsetID] != (uint)value)
 					{
 						uint[] rootConfig = HudMain.Instance._root.Config;
-						rootConfig[StateID] |= (uint)HudElementStates.IsStructureStale;
+						bool isActive = Math.Abs((int)Config[FrameNumberID] - (int)rootConfig[FrameNumberID]) < 2;
+
+						if (isActive)
+							rootConfig[StateID] |= (uint)HudElementStates.IsStructureStale;
 					}
 
 					Config[ZOffsetID] = (uint)value;
@@ -155,7 +147,7 @@ namespace RichHudFramework
 				_dataHandle[0].Item3.Item1 = GetOrSetApiMember; // Required
 				_dataHandle[0].Item3.Item2 = InputDepth;
 				_dataHandle[0].Item3.Item3 = BeginInput;
-				_dataHandle[0].Item3.Item4 = UpdateSize;
+				_dataHandle[0].Item3.Item4 = Measure;
 				_dataHandle[0].Item3.Item5 = BeginLayout; // Required
 				_dataHandle[0].Item3.Item6 = Draw;
 				// Parent
@@ -200,7 +192,7 @@ namespace RichHudFramework
 			/// heirarchy (furthest from root) updating first, and nodes at the top (closer to root) 
 			/// updating last.
 			/// </summary>
-			protected virtual void UpdateSize()
+			protected virtual void Measure()
 			{ }
 
 			/// <summary>

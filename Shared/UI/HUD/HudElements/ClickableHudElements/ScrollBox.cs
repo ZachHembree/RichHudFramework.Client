@@ -226,6 +226,7 @@ namespace RichHudFramework.UI
 		protected override void HandleInput(Vector2 cursorPos)
 		{
 			ScrollBar.MouseInput.InputEnabled = EnableScrolling;
+			ShareCursor = ScrollBar.Max <= 0f;
 
 			if (hudCollectionList.Count > 0 && EnableScrolling && (IsMousedOver || ScrollBar.IsMousedOver))
 			{
@@ -246,13 +247,13 @@ namespace RichHudFramework.UI
 			}
 		}
 
-		protected override void UpdateSize()
+		protected override void Measure()
 		{
-			if ((SizingMode & HudChainSizingModes.IsSelfResizing) == 0 && (MinVisibleCount > 0 || MinLength > 0))
+			if ((SizingMode & chainAutoAlignAxisMask) == 0 && (MinVisibleCount > 0 || MinLength > 0))
 				SizingMode |= HudChainSizingModes.FitChainAlignAxis;
 
 			// If self-resizing or size is uninitialized
-			if ((SizingMode & HudChainSizingModes.IsSelfResizing) > 0 || (UnpaddedSize.X == 0f || UnpaddedSize.Y == 0f))
+			if ((SizingMode & chainSelfSizingMask) > 0 || (UnpaddedSize.X == 0f || UnpaddedSize.Y == 0f))
 			{
 				Vector2 rangeSize = Vector2.Zero;
 
@@ -282,29 +283,29 @@ namespace RichHudFramework.UI
 				}
 
 				rangeSize[offAxis] += scrollBarPadding;
-				Vector2 chainSize = UnpaddedSize;
+				Vector2 chainBounds = UnpaddedSize;
 
 				if (rangeSize[alignAxis] > 0f)
 				{
 					// Set align size equal to range size
-					if (chainSize[alignAxis] == 0f || (SizingMode & HudChainSizingModes.FitChainAlignAxis) == HudChainSizingModes.FitChainAlignAxis)
-						chainSize[alignAxis] = rangeSize[alignAxis];
+					if (chainBounds[alignAxis] == 0f || (SizingMode & HudChainSizingModes.FitChainAlignAxis) == HudChainSizingModes.FitChainAlignAxis)
+						chainBounds[alignAxis] = rangeSize[alignAxis];
 					// Keep align size at or above range size
 					else if ((SizingMode & HudChainSizingModes.ClampChainAlignAxis) == HudChainSizingModes.ClampChainAlignAxis)
-						chainSize[alignAxis] = Math.Max(chainSize[alignAxis], rangeSize[alignAxis]);
+						chainBounds[alignAxis] = Math.Max(chainBounds[alignAxis], rangeSize[alignAxis]);
 				}
 
 				if (rangeSize[offAxis] > 0f)
 				{
 					// Set off axis size equal to range size
-					if (chainSize[offAxis] == 0f || (SizingMode & HudChainSizingModes.FitChainOffAxis) == HudChainSizingModes.FitChainOffAxis)
-						chainSize[offAxis] = rangeSize[offAxis];
+					if (chainBounds[offAxis] == 0f || (SizingMode & HudChainSizingModes.FitChainOffAxis) == HudChainSizingModes.FitChainOffAxis)
+						chainBounds[offAxis] = rangeSize[offAxis];
 					// Keep off axis size at or above range size
 					else if ((SizingMode & HudChainSizingModes.ClampChainOffAxis) == HudChainSizingModes.ClampChainOffAxis)
-						chainSize[offAxis] = Math.Max(chainSize[offAxis], rangeSize[offAxis]);
+						chainBounds[offAxis] = Math.Max(chainBounds[offAxis], rangeSize[offAxis]);
 				}
 
-				UnpaddedSize = chainSize;
+				UnpaddedSize = chainBounds;
 			}
 		}
 
@@ -323,35 +324,32 @@ namespace RichHudFramework.UI
 				float totalEnabledLength, scrollOffset,
 					rangeLength = chainSize[alignAxis];
 
-				UpdateElementRange(rangeLength, out totalEnabledLength, out scrollOffset);
-
 				if (UseSmoothScrolling)
 				{
-					if (hudCollectionList.Count > 0)
-					{
-						hudCollectionList[_start].Element.Visible = true;
-						hudCollectionList[_end].Element.Visible = true;
-					}
+					UpdateSmoothRange(rangeLength, out totalEnabledLength, out scrollOffset);
 				}
 				else
+				{
+					UpdateNormalRange(rangeLength, out totalEnabledLength);
 					scrollOffset = 0f;
+				}
 
-				float elementSpanLength;
+				UpdateRangeSize(chainSize);
 
-				if (TryGetVisibleRange(chainSize[alignAxis], chainSize[offAxis], out elementSpanLength))
+				if (rangeLength > 0)
 				{
 					Vector2 startOffset, endOffset;
-					float rcpSpanLength = 1f / Math.Max(elementSpanLength, 1E-6f);
+					float rcpSpanLength = 1f / Math.Max(rangeSize[alignAxis], 1E-6f);
 
 					if (alignAxis == 1) // Vertical
 					{
 						startOffset = new Vector2(-.5f * scrollBarPadding, .5f * chainSize.Y + scrollOffset);
-						endOffset = new Vector2(startOffset.X, startOffset.Y - elementSpanLength);
+						endOffset = new Vector2(startOffset.X, startOffset.Y - rangeSize[alignAxis]);
 					}
 					else
 					{
 						startOffset = new Vector2(-.5f * chainSize.X - scrollOffset, .5f * scrollBarPadding);
-						endOffset = new Vector2(startOffset.X + elementSpanLength, startOffset.Y);
+						endOffset = new Vector2(startOffset.X + rangeSize[alignAxis], startOffset.Y);
 					}
 
 					UpdateMemberOffsets(startOffset, endOffset, rcpSpanLength);
@@ -369,7 +367,135 @@ namespace RichHudFramework.UI
 		/// <summary>
 		/// Updates the range of visible members starting with the given start index.
 		/// </summary>
-		private void UpdateElementRange(float maxLength, out float totalEnabledLength, out float scrollOffset)
+		private void UpdateSmoothRange(float maxLength, out float totalEnabledLength, out float scrollOffset)
+		{
+			// Get enabld range size and update scrollbar bounds
+			EnabledCount = 0;
+			firstEnabled = -1;
+			totalEnabledLength = 0f;
+
+			for (int i = 0; i < hudCollectionList.Count; i++)
+			{
+				if (hudCollectionList[i].Enabled)
+				{
+					// Get first enabled element
+					if (firstEnabled == -1)
+						firstEnabled = i;
+
+					TElement element = hudCollectionList[i].Element;
+					float elementSize = element.UnpaddedSize[alignAxis] + element.Padding[alignAxis];
+					element.Config[StateID] |= (uint)HudElementStates.IsSelectivelyMasked;
+
+					totalEnabledLength += elementSize;
+					EnabledCount++;
+				}
+			}
+
+			totalEnabledLength += (EnabledCount - 1) * Spacing;
+			ScrollBar.Percent = (float)Math.Round(ScrollBar.Percent, 6);
+			ScrollBar.Max = (float)Math.Round(Math.Max(totalEnabledLength - maxLength, 0f), 6);
+
+			// Calculate chain layout offset
+			float scrollCurrent = ScrollBar.Current,
+				epsilon = 1E-3f,
+				viewTop = scrollCurrent,
+				viewBottom = scrollCurrent + maxLength - epsilon;
+
+			_intStart = -1;
+			_intEnd = -1;
+			VisCount = 0;
+			scrollOffset = 0f;
+			float currentPos = 0f;
+
+			// Find all visible elements
+			for (int i = 0; i < hudCollectionList.Count; i++)
+			{
+				if (hudCollectionList[i].Enabled)
+				{
+					TElement element = hudCollectionList[i].Element;
+					float elementSize = element.UnpaddedSize[alignAxis] + element.Padding[alignAxis];
+					float elementTop = currentPos;
+					float elementBottom = currentPos + elementSize;
+
+					// Check if the element overlaps the visible viewport
+					bool isInRange = (elementBottom > viewTop) && (elementTop < viewBottom);
+
+					if (isInRange)
+					{
+						// Set start element
+						if (_intStart == -1)
+						{
+							_intStart = i;
+							scrollOffset = elementTop - scrollCurrent;
+						}
+
+						// Track last end
+						_intEnd = i;
+						VisCount++;
+					}
+					// Found a start point
+					else if (_intStart != -1)
+						break;
+
+					// Move to next element pos
+					currentPos += elementSize + Spacing;
+				}
+			}
+
+			int max = hudCollectionList.Count - 1;
+
+			if (firstEnabled == -1) // Empty list or scrolled past everything
+			{
+				_intStart = 0;
+				_intEnd = 0;
+				VisStart = 0;
+				scrollOffset = 0f;
+				return;
+			}
+
+			if (_intStart == -1) // No elements were in view
+			{
+				_intStart = firstEnabled;
+				_intEnd = firstEnabled;
+			}
+
+			// Negative offset expected
+			scrollOffset *= -1f;
+			_intStart = MathHelper.Clamp(_intStart, firstEnabled, max);
+			_intEnd = MathHelper.Clamp(_intEnd, _intStart, max);
+			_start = _intStart;
+			_end = _intEnd;
+
+			for (int i = _start - 1; i >= firstEnabled; i--)
+			{
+				if (hudCollectionList[i].Enabled)
+				{ _start = i; break; }
+			}
+
+			for (int i = _end + 1; i < hudCollectionList.Count; i++)
+			{
+				if (hudCollectionList[i].Enabled)
+				{ _end = i; break; }
+			}
+
+			if (_start != _intStart)
+				scrollOffset += hudCollectionList[_start].Element.Size[alignAxis] + Spacing;
+
+			VisStart = GetVisibleIndex(_intStart);
+
+			// Set collection visibility
+			for (int i = 0; i < hudCollectionList.Count; i++)
+			{
+				var element = hudCollectionList[i].Element;
+				bool isInRange = (i >= _start && i <= _end) && hudCollectionList[i].Enabled;
+				bool isVisible = (element.Config[StateID] & (uint)HudElementStates.IsVisible) > 0;
+
+				if (isVisible != isInRange)
+					element.Visible = isInRange;
+			}
+		}
+
+		private void UpdateNormalRange(float maxLength, out float totalEnabledLength)
 		{
 			// Get enabld range size and update scrollbar bounds
 			EnabledCount = 0;
@@ -400,14 +526,10 @@ namespace RichHudFramework.UI
 			totalEnabledLength -= Spacing;
 			ScrollBar.Percent = (float)Math.Round(ScrollBar.Percent, 2);
 			ScrollBar.Max = (float)Math.Round(Math.Max(totalEnabledLength - maxLength, 0f), 2);
-
-			// Calculate chain layout offset
-			float scrollCurrent = ScrollBar.Current,
-				epsilon = UseSmoothScrolling ? 1E-2f : 0f,
-				scrollDelta = (float)Math.Round(-scrollCurrent - maxLength + epsilon, 2);
-
 			_intEnd = -1;
-			scrollOffset = scrollCurrent;
+
+			float scrollCurrent = ScrollBar.Current,
+				scrollDelta = (float)Math.Round(-scrollCurrent - maxLength, 2);
 
 			for (int i = 0; i < hudCollectionList.Count; i++)
 			{
@@ -419,10 +541,7 @@ namespace RichHudFramework.UI
 
 					// Find logical end of visible range
 					if (scrollDelta <= 0f)
-					{
-						scrollOffset -= elementSize + Spacing;
 						_intEnd = i;
-					}
 					else
 						break;
 
@@ -430,14 +549,12 @@ namespace RichHudFramework.UI
 				}
 			}
 
-			VisCount = 0;
-
 			// Update logical range
-			// Clamp indices
 			int max = hudCollectionList.Count - 1;
 			firstEnabled = MathHelper.Clamp(firstEnabled, 0, max);
 			_intEnd = MathHelper.Clamp(_intEnd, firstEnabled, max);
 			_intStart = MathHelper.Clamp(_intEnd, firstEnabled, max);
+			VisCount = 0;
 
 			// Find start of visible range
 			for (int i = _intEnd; i >= firstEnabled; i--)
@@ -449,7 +566,6 @@ namespace RichHudFramework.UI
 
 					if (maxLength >= elementSize)
 					{
-						scrollOffset += elementSize + Spacing;
 						_intStart = i;
 						VisCount++;
 					}
@@ -460,41 +576,19 @@ namespace RichHudFramework.UI
 				}
 			}
 
-			// Find indices of nearest enabled element(s) before and after the logical visible range
 			_start = _intStart;
 			_end = _intEnd;
-
-			if (UseSmoothScrolling)
-			{
-				for (int i = _intStart - 1; i >= firstEnabled; i--)
-				{
-					if (hudCollectionList[i].Enabled)
-					{
-						_start = i;
-						break;
-					}
-				}
-
-				for (int i = _intEnd + 1; i < hudCollectionList.Count; i++)
-				{
-					if (hudCollectionList[i].Enabled)
-					{
-						_end = i;
-						break;
-					}
-				}
-
-				if (_start != _intStart)
-					scrollOffset += hudCollectionList[_start].Element.Size[alignAxis] + Spacing;
-			}
-
 			VisStart = GetVisibleIndex(_intStart);
 
 			// Set collection visibility
 			for (int i = 0; i < hudCollectionList.Count; i++)
 			{
 				var element = hudCollectionList[i].Element;
-				element.Visible = (i >= _intStart && i <= _intEnd) && hudCollectionList[i].Enabled;
+				bool isInRange = (i >= _start && i <= _end) && hudCollectionList[i].Enabled;
+				bool isVisible = (element.Config[StateID] & (uint)HudElementStates.IsVisible) > 0;
+
+				if (isVisible != isInRange)
+					element.Visible = isInRange;
 			}
 		}
 

@@ -36,8 +36,7 @@ namespace RichHudFramework
 			public bool Registered => (Config[StateID] & (uint)HudElementStates.IsRegistered) > 0;
 
 			/// <summary>
-			/// Specialized ZOffset range used for creating windows and custom overlays. Regular ZOffsets
-			/// are sufficient for most use cases.
+			/// Specialized ZOffset range used for creating windows.
 			/// </summary>
 			protected byte OverlayOffset
 			{

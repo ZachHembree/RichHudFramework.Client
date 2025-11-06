@@ -92,7 +92,7 @@ namespace RichHudFramework.UI
             Size = new Vector2(250f, 37f);
         }
 
-        protected override void UpdateSize()
+        protected override void Measure()
         {
             if (AutoResize)
                 UnpaddedSize = layout.GetRangeSize();

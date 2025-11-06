@@ -267,7 +267,7 @@ namespace RichHudFramework.UI
         /// </summary>
         public virtual Vector2 GetRangeSize(int start = 0, int end = -1)
         {
-            return hudChain.GetRangeSize(start, end) + Padding;
+            return hudChain.GetRangeSize(start, end);
         }
 
         protected override void Layout()

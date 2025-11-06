@@ -242,6 +242,8 @@ namespace RichHudFramework.UI
 		{
 			base.HandleInput(cursorPos);
 
+			ShareCursor = Min == Max;
+
 			if (!canMoveSlider && IsNewLeftClicked)
 			{
 				canMoveSlider = true;
