@@ -37,19 +37,25 @@ namespace RichHudFramework
                 FitAuto = 3,
             }
 
-            /// <summary>
-            /// Defines a texture used by <see cref="MatBoard"/>s. Supports sprite sheets.
-            /// </summary>
-            public class Material
+			/// <summary>
+			/// Defines a texture used by <see cref="MatBoard"/>s. Supports sprite sheets. Acts as a handle
+			/// to a Space Engineers Transparent Material, by SubtypeId, decorated with additional metadata for use 
+            /// with the <see cref="VRage.Game.MyTransparentGeometry"/> API.
+			/// </summary>
+			public class Material
             {
-                public static readonly Material Default = new Material("RichHudDefault", new Vector2(4f, 4f)),
+                public static readonly Material 
+                    // Blank solid texture - used for plain color UI elements
+                    Default = new Material("RichHudDefault", new Vector2(4f, 4f)),
+                    // A perfect circle 1024^2
                     CircleMat = new Material("RhfCircle", new Vector2(1024f)),
+                    // Donut shape 1024^2
                     AnnulusMat = new Material("RhfAnnulus", new Vector2(1024f));
 
-                /// <summary>
-                /// ID of the Texture the <see cref="Material"/> is based on.
-                /// </summary>
-                public readonly MyStringId TextureID;
+				/// <summary>
+				/// SubtypeId of the Transparent Material the <see cref="Material"/> is based on.
+				/// </summary>
+				public readonly MyStringId TextureID;
 
                 /// <summary>
                 /// The dimensions, in pixels, of the <see cref="Material"/>.
@@ -66,31 +72,34 @@ namespace RichHudFramework
                 /// </summary>
                 public readonly Vector2 uvOffset;
 
-                /// <summary>
-                /// Creates a <see cref="Material"/> using the name of the Texture's ID and its size in pixels.
-                /// </summary>
-                /// <param name="TextureName">Name of the texture ID</param>
-                /// <param name="size">Size of the material in pixels</param>
-                public Material(string TextureName, Vector2 size) : this(MyStringId.GetOrCompute(TextureName), size)
+				/// <summary>
+				/// Creates a <see cref="Material"/> using the SubtypeId of a Transparent Material 
+                /// and the original dimensions, in pixels.
+				/// </summary>
+				/// <param name="SubtypeId">Name of the texture ID</param>
+				/// <param name="size">Size of the material in pixels</param>
+				public Material(string SubtypeId, Vector2 size) : this(MyStringId.GetOrCompute(SubtypeId), size)
                 { }
 
-                /// <summary>
-                /// Creates a <see cref="Material"/> based on a Texture Atlas/Sprite with a given offset and size.
-                /// </summary>
-                /// <param name="TextureName">Name of the texture ID</param>
-                /// <param name="texSize">Size of the texture associated with the texture ID in pixels</param>
-                /// <param name="texCoords">UV offset starting from the upper left hand corner in pixels</param>
-                /// <param name="size">Size of the material starting from the given offset</param>
-                public Material(string TextureName, Vector2 texSize, Vector2 texCoords, Vector2 size)
-                    : this(MyStringId.GetOrCompute(TextureName), texSize, texCoords, size)
+				/// <summary>
+				/// Creates a <see cref="Material"/> from a subsection of a texture atlas based on a 
+				/// Transparent Material with a given SubtypeId.
+				/// </summary>
+				/// <param name="SubtypeId">Name of the texture ID</param>
+				/// <param name="texSize">Size of the texture associated with the SubtypeId in pixels</param>
+				/// <param name="texCoords">UV offset starting from the upper left hand corner in pixels</param>
+				/// <param name="size">Size of the material starting from the given offset</param>
+				public Material(string SubtypeId, Vector2 texSize, Vector2 texCoords, Vector2 size)
+                    : this(MyStringId.GetOrCompute(SubtypeId), texSize, texCoords, size)
                 { }
 
-                /// <summary>
-                /// Creates a <see cref="Material"/> using the name of the Texture's ID and its size in pixels.
-                /// </summary>
-                /// <param name="TextureID">MyStringID associated with the texture</param>
-                /// <param name="size">Size of the material in pixels</param>
-                public Material(MyStringId TextureID, Vector2 size)
+				/// <summary>
+				/// Creates a <see cref="Material"/> using the SubtypeId of a Transparent Material 
+				/// and the original dimensions, in pixels.
+				/// </summary>
+				/// <param name="TextureID">MyStringID associated with the texture SubtypeId</param>
+				/// <param name="size">Size of the material in pixels</param>
+				public Material(MyStringId TextureID, Vector2 size)
                 {
                     this.TextureID = TextureID;
                     this.size = size;
@@ -99,16 +108,17 @@ namespace RichHudFramework
                     uvOffset = uvSize * .5f;
                 }
 
-                /// <summary>
-                /// Creates a <see cref="Material"/> based on a Texture Atlas/Sprite with a given offset and size.
-                /// </summary>
-                /// <param name="TextureID">MyStringID associated with the texture</param>
-                /// <param name="texSize">Size of the texture associated with the texture ID in pixels</param>
-                /// <param name="texCoords">UV offset starting from the upper left hand corner in pixels</param>
-                /// <param name="size">Size of the material starting from the given offset</param>
-                public Material(MyStringId TextureID, Vector2 textureSize, Vector2 offset, Vector2 size)
+				/// <summary>
+				/// Creates a <see cref="Material"/> from a subsection of a texture atlas based on a 
+				/// Transparent Material with a given SubtypeId.
+				/// </summary>
+				/// <param name="SubtypeId">MyStringID associated with the texture SubtypeId</param>
+				/// <param name="texSize">Size of the texture associated with the SubtypeId in pixels</param>
+				/// <param name="texCoords">UV offset starting from the upper left hand corner in pixels</param>
+				/// <param name="size">Size of the material starting from the given offset</param>
+				public Material(MyStringId SubtypeId, Vector2 textureSize, Vector2 offset, Vector2 size)
                 {
-                    this.TextureID = TextureID;
+                    this.TextureID = SubtypeId;
                     this.size = size;
 
                     size.X /= textureSize.X;

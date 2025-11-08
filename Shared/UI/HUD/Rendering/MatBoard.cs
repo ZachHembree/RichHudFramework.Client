@@ -12,10 +12,14 @@ namespace RichHudFramework
             using Client;
             using Server;
 
-            public class MatBoard
+			/// <summary>
+			/// Wrapper for drawing a textured rectangular billboard using the <see cref="VRage.Game.MyTransparentGeometry"/> API
+            /// and <see cref="Rendering.Material"/> for custom texturing.
+			/// </summary>
+			public class MatBoard
             {
                 /// <summary>
-                /// Coloring applied to the material.
+                /// Coloring applied to the material
                 /// </summary>
                 public Color Color
                 {
@@ -30,7 +34,7 @@ namespace RichHudFramework
                 }
 
                 /// <summary>
-                /// Texture applied to the billboard.
+                /// Texture applied to the billboard
                 /// </summary>
                 public Material Material
                 {
@@ -47,7 +51,7 @@ namespace RichHudFramework
                 }
 
                 /// <summary>
-                /// Determines how the texture scales with the MatBoard's dimensions.
+                /// Determines how the texture scales with the MatBoard's dimensions
                 /// </summary>
                 public MaterialAlignment MatAlignment
                 {
@@ -90,7 +94,7 @@ namespace RichHudFramework
 
                 /// <summary>
                 /// Draws a billboard in world space facing the +Z direction of the matrix given. Units in meters,
-                /// matrix transform notwithstanding. Dont forget to compensate for perspective scaling!
+                /// matrix scaling notwithstanding.
                 /// </summary
                 public void Draw(ref CroppedBox box, MatrixD[] matrixRef)
                 {
