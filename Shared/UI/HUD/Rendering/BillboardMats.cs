@@ -17,7 +17,7 @@ namespace RichHudFramework
             {
                 public static readonly TriMaterial Default = new TriMaterial()
                 {
-                    textureID = Material.Default.TextureID,
+                    textureID = Material.Default.textureID,
                     bbColor = Vector4.One,
                     texCoords = new Triangle(
                         new Vector2(0f, 0f),
@@ -49,7 +49,7 @@ namespace RichHudFramework
             {
                 public static readonly QuadMaterial Default = new QuadMaterial()
                 {
-                    textureID = Material.Default.TextureID,
+                    textureID = Material.Default.textureID,
                     bbColor = Vector4.One,
                     texCoords = new FlatQuad(
                         new Vector2(0f, 0f),
@@ -82,7 +82,7 @@ namespace RichHudFramework
             {
                 public static readonly BoundedQuadMaterial Default = new BoundedQuadMaterial()
                 {
-                    textureID = Material.Default.TextureID,
+                    textureID = Material.Default.textureID,
                     bbColor = Vector4.One,
                     texBounds = new BoundingBox2(Vector2.Zero, Vector2.One)
                 };
@@ -110,7 +110,7 @@ namespace RichHudFramework
             {
                 public static readonly PolyMaterial Default = new PolyMaterial()
                 {
-                    textureID = Material.Default.TextureID,
+                    textureID = Material.Default.textureID,
                     bbColor = Vector4.One,
                     texCoords = null
                 };

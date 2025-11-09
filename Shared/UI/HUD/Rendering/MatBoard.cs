@@ -45,7 +45,7 @@ namespace RichHudFramework
                         {
                             bbAspect = -1f;
                             matFrame.Material = value;
-                            minBoard.materialData.textureID = value.TextureID;
+                            minBoard.materialData.textureID = value.textureID;
                         }
                     }
                 }
@@ -68,6 +68,7 @@ namespace RichHudFramework
 
                 private Color color;
                 private float bbAspect;
+                private Vector2 matScale;
 
                 private QuadBoard minBoard;
                 private readonly MaterialFrame matFrame;
@@ -116,12 +117,19 @@ namespace RichHudFramework
                             Vector2 boxSize = box.bounds.Size;
                             float newAspect = (boxSize.X / boxSize.Y);
 
-                            if (Math.Abs(bbAspect - newAspect) > 1E-5f)
+							if (Math.Abs(bbAspect - newAspect) > 1E-5f)
                             {
-                                bbAspect = newAspect;
-                                minBoard.materialData.texBounds = matFrame.GetMaterialAlignment(bbAspect);
-                            }
-                        }
+								bbAspect = newAspect;
+								minBoard.materialData.texBounds = Material.uvBounds;
+
+                                // Clip billboard to bound texture
+                                if (matFrame.Alignment != MaterialAlignment.StretchToFit)
+                                    matScale = matFrame.GetAlignmentScale(bbAspect);
+							}
+
+							if (matFrame.Alignment != MaterialAlignment.StretchToFit)
+								box.bounds.Scale(matScale);
+						}
 
                         minBoard.Draw(ref box, matrixRef);
                     }

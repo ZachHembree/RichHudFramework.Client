@@ -18,11 +18,6 @@ namespace RichHudFramework
                 /// </summary>
                 Material Material { get;}
 
-                /// <summary>
-                /// Texture coordinate offset
-                /// </summary>
-                Vector2 UvOffset { get; }
-
                 BoundingBox2 GetMaterialAlignment(float bbAspectRatio);
             }
 
@@ -41,16 +36,10 @@ namespace RichHudFramework
                 /// </summary>
                 public MaterialAlignment Alignment { get; set; }
 
-                /// <summary>
-                /// Texture coordinate offset
-                /// </summary>
-                public Vector2 UvOffset { get; set; }
-
                 public MaterialFrame()
                 {
                     Material = Material.Default;
                     Alignment = MaterialAlignment.StretchToFit;
-                    UvOffset = Vector2.Zero;
                 }
 
                 /// <summary>
@@ -59,39 +48,68 @@ namespace RichHudFramework
                 /// </summary>
                 public BoundingBox2 GetMaterialAlignment(float bbAspectRatio)
                 {
-                    Vector2 matOrigin = Material.uvOffset + UvOffset,
-                        matStep = Material.uvSize * .5f;
+					BoundingBox2 bounds = Material.uvBounds;
 
-                    if (Alignment != MaterialAlignment.StretchToFit)
+					if (Alignment != MaterialAlignment.StretchToFit)
                     {
-                        float matAspectRatio = Material.size.X / Material.size.Y;
-                        Vector2 localUV = new Vector2(1f);
+						Vector2 uvScale = new Vector2(1f);
+						float matAspectRatio = Material.size.X / Material.size.Y;
 
                         if (Alignment == MaterialAlignment.FitAuto)
                         {
                             if (matAspectRatio > bbAspectRatio) // If material is too wide, make it shorter
-                                localUV = new Vector2(1f, matAspectRatio / bbAspectRatio);
+                                uvScale = new Vector2(1f, matAspectRatio / bbAspectRatio);
                             else // If the material is too tall, make it narrower
-                                localUV = new Vector2(bbAspectRatio / matAspectRatio, 1f);
+                                uvScale = new Vector2(bbAspectRatio / matAspectRatio, 1f);
                         }
                         else if (Alignment == MaterialAlignment.FitVertical)
                         {
-                            localUV = new Vector2(bbAspectRatio / matAspectRatio, 1f);
+                            uvScale = new Vector2(bbAspectRatio / matAspectRatio, 1f);
                         }
                         else if (Alignment == MaterialAlignment.FitHorizontal)
                         {
-                            localUV = new Vector2(1f, matAspectRatio / bbAspectRatio);
+                            uvScale = new Vector2(1f, matAspectRatio / bbAspectRatio);
                         }
 
-                        matStep *= localUV;
-                    }
+						bounds.Scale(uvScale);
+					}
 
-                    return new BoundingBox2
-                    (
-                        matOrigin - matStep, // Bottom left
-                        matOrigin + matStep // Upper right
-                    );
+					return bounds;
                 }
+
+                /// <summary>
+                /// Returns scaling that needs to be applied to a billboard with the given aspect 
+                /// ratio to remain consistent with the given Material Alignment without warping 
+                /// texture coordinates.
+                /// </summary>
+                public Vector2 GetAlignmentScale(float bbAspectRatio) 
+                {
+                    if (Alignment != MaterialAlignment.StretchToFit)
+                    {
+                        float matAspectRatio = Material.size.X / Material.size.Y;
+                        Vector2 bbScale = new Vector2(1f);
+
+                        if (Alignment == MaterialAlignment.FitAuto)
+                        {
+                            if (matAspectRatio < bbAspectRatio)
+                                bbScale = new Vector2(matAspectRatio / bbAspectRatio, 1f);
+                            else
+                                bbScale = new Vector2(1f, bbAspectRatio / matAspectRatio);
+                        }
+                        else if (Alignment == MaterialAlignment.FitHorizontal)
+                        {
+                            bbScale = new Vector2(1f, bbAspectRatio / matAspectRatio);
+                        }
+                        else if (Alignment == MaterialAlignment.FitVertical)
+                        {
+                            bbScale = new Vector2(matAspectRatio / bbAspectRatio, 1f);
+                        }
+
+                        return bbScale;
+                    }
+                    else
+                        return Vector2.One;
+				}
             }
         }
     }

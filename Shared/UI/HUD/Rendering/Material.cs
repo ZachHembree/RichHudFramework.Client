@@ -1,4 +1,5 @@
-﻿using VRage.Utils;
+﻿using System.Net;
+using VRage.Utils;
 using VRageMath;
 
 namespace RichHudFramework
@@ -55,7 +56,7 @@ namespace RichHudFramework
 				/// <summary>
 				/// SubtypeId of the Transparent Material the <see cref="Material"/> is based on.
 				/// </summary>
-				public readonly MyStringId TextureID;
+				public readonly MyStringId textureID;
 
                 /// <summary>
                 /// The dimensions, in pixels, of the <see cref="Material"/>.
@@ -63,14 +64,9 @@ namespace RichHudFramework
                 public readonly Vector2 size;
 
                 /// <summary>
-                /// The dimensions of the <see cref="Material"/> in normalized texture coordinates.
+                /// Minimum and maximum bounds in normalized texture coordinates
                 /// </summary>
-                public readonly Vector2 uvSize;
-
-                /// <summary>
-                /// Center of the <see cref="Material"/> in normalized texture coordinates.
-                /// </summary>
-                public readonly Vector2 uvOffset;
+                public readonly BoundingBox2 uvBounds;
 
 				/// <summary>
 				/// Creates a <see cref="Material"/> using the SubtypeId of a Transparent Material 
@@ -101,11 +97,9 @@ namespace RichHudFramework
 				/// <param name="size">Size of the material in pixels</param>
 				public Material(MyStringId TextureID, Vector2 size)
                 {
-                    this.TextureID = TextureID;
+                    this.textureID = TextureID;
                     this.size = size;
-
-                    uvSize = Vector2.One;
-                    uvOffset = uvSize * .5f;
+                    uvBounds = new BoundingBox2(Vector2.Zero, Vector2.One);
                 }
 
 				/// <summary>
@@ -114,22 +108,18 @@ namespace RichHudFramework
 				/// </summary>
 				/// <param name="SubtypeId">MyStringID associated with the texture SubtypeId</param>
 				/// <param name="texSize">Size of the texture associated with the SubtypeId in pixels</param>
-				/// <param name="texCoords">UV offset starting from the upper left hand corner in pixels</param>
+				/// <param name="offset">Texture offset starting from the upper left hand corner in pixels</param>
 				/// <param name="size">Size of the material starting from the given offset</param>
-				public Material(MyStringId SubtypeId, Vector2 textureSize, Vector2 offset, Vector2 size)
+				public Material(MyStringId SubtypeId, Vector2 texSize, Vector2 offset, Vector2 size)
                 {
-                    this.TextureID = SubtypeId;
+                    this.textureID = SubtypeId;
                     this.size = size;
 
-                    size.X /= textureSize.X;
-                    size.Y /= textureSize.Y;
+                    Vector2 rcpTexSize = 1f / texSize,
+                        halfUVSize = .5f * size * rcpTexSize,
+                        uvOffset = (offset * rcpTexSize) + halfUVSize;
 
-                    uvSize = size;
-
-                    offset.X /= textureSize.X;
-                    offset.Y /= textureSize.Y;
-
-                    uvOffset = offset + (uvSize * .5f);
+                    uvBounds = new BoundingBox2(uvOffset - halfUVSize, uvOffset + halfUVSize);
                 }
             }
 
