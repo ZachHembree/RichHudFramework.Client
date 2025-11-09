@@ -446,7 +446,7 @@ namespace RichHudFramework
 					float totalSpacing = Spacing * (rangeLength - 1),
 						fixedLength = Math.Max(chainBounds[alignAxis] - constantSpanLength - totalSpacing, 0f),
 						rcpTotalScale = Math.Min(1f / Math.Max(totalScale, 1f), 1f),
-						maxAlignMemberSize = (chainBounds[alignAxis] / rangeLength) - totalSpacing;
+						maxAlignMemberSize = (chainBounds[alignAxis] - totalSpacing) / rangeLength;
 
 					// Update min/max sizes
 					Vector2 minSize = MemberMinSize,
