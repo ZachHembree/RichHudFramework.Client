@@ -85,13 +85,19 @@ namespace RichHudFramework.UI
         private int _highlightIndex;
         private int _focusIndex;
 
-        public ListInputElement(IReadOnlyHudCollection<TElementContainer, TElement> entries, HudElementBase parent = null) : base(parent)
+        public ListInputElement(
+            IReadOnlyHudCollection<TElementContainer, TElement> entries, 
+            HudElementBase parent = null, 
+            IClickableElement inputOwner = null
+        ) 
+            : base(parent, inputOwner)
         {
             Entries = entries;
             _selectionIndex = -1;
         }
 
-        public ListInputElement(HudChain<TElementContainer, TElement> parent = null) : this(parent, parent)
+        public ListInputElement(HudChain<TElementContainer, TElement> parent = null, IClickableElement inputOwner = null) 
+            : this(parent, parent, inputOwner)
         { }
 
         /// <summary>

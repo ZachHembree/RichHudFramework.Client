@@ -8,7 +8,7 @@
         /// <summary>
         /// Handles mouse input for the button.
         /// </summary>
-        public IMouseInput MouseInput => _mouseInput;
+        public IMouseInput MouseInput { get; }
 
         /// <summary>
         /// Indicates whether or not the cursor is currently positioned over the button.
@@ -20,6 +20,7 @@
         public LabelButton(HudParentBase parent) : base(parent)
         {
             _mouseInput = new MouseInputElement(this);
+            MouseInput = _mouseInput;
         }
 
         public LabelButton() : this(null)

@@ -215,7 +215,7 @@ namespace RichHudFramework.UI
             selectionBox = new HighlightBox(hudChain) { Visible = false };
             highlightBox = new HighlightBox(hudChain) { Visible = false, CanDrawTab = false };
 
-            listInput = new ListInputElement<TContainer, TElement>(hudChain);
+            listInput = new ListInputElement<TContainer, TElement>(hudChain, this);
 
             HighlightColor = TerminalFormatting.Atomic;
             FocusColor = TerminalFormatting.Mint;

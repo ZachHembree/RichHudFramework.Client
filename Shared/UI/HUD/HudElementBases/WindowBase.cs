@@ -69,7 +69,7 @@ namespace RichHudFramework.UI
         /// <summary>
         /// Mouse input element for the window
         /// </summary>
-        public IMouseInput MouseInput => resizeInput;
+        public IMouseInput MouseInput { get; }
 
         /// <summary>
         /// Window header element
@@ -132,7 +132,7 @@ namespace RichHudFramework.UI
                 CanIgnoreMasking = true
             };
             
-            inputInner = new MouseInputElement(resizeInput)
+            inputInner = new MouseInputElement(resizeInput, this)
             {
                 DimAlignment = DimAlignments.UnpaddedSize,
             };
@@ -144,6 +144,7 @@ namespace RichHudFramework.UI
             ShareCursor = false;
             IsMasking = true;
             MinimumSize = new Vector2(200f, 200f);
+            MouseInput = resizeInput;
 
 			GetWindowFocus();
         }

@@ -206,7 +206,7 @@ namespace RichHudFramework.UI
 		protected float _min, _max, _current, _percent;
 		protected bool canMoveSlider;
 
-		public SliderBar(HudParentBase parent) : base(parent)
+		public SliderBar(HudParentBase parent, IClickableElement inputOwner = null) : base(parent, inputOwner)
 		{
 			bar = new TexturedBox(this);
 			slider = new TexturedBox(bar) { UseCursor = true, ShareCursor = true };

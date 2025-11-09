@@ -275,7 +275,7 @@ namespace RichHudFramework.UI
                 downArrow = new Material("RichHudDownArrow", new Vector2(64f, 64f)),
                 rightArrow = new Material("RichHudRightArrow", new Vector2(64f, 64f));
 
-            public TreeBoxDisplay(HudParentBase parent = null) : base(parent)
+            public TreeBoxDisplay(HudParentBase parent) : base(parent)
             {
                 background = new TexturedBox(this)
                 {
@@ -313,7 +313,7 @@ namespace RichHudFramework.UI
                     CollectionContainer = { arrow, divider, { name, 1f } }
                 };
 
-                mouseInput = new MouseInputElement(this)
+                mouseInput = new MouseInputElement(this, parent as IClickableElement)
                 {
                     DimAlignment = DimAlignments.Size
                 };

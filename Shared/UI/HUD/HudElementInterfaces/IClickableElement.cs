@@ -11,6 +11,11 @@ namespace RichHudFramework
         public interface IMouseInput
         {
             /// <summary>
+            /// Owner of the mouse input that is sent in EventHandler invocations
+            /// </summary>
+            IClickableElement InputOwner { get; }
+
+            /// <summary>
             /// Invoked when the cursor enters the element's bounds
             /// </summary>
             event EventHandler CursorEntered;
@@ -50,10 +55,15 @@ namespace RichHudFramework
             /// </summary>
             event EventHandler LostInputFocus;
 
-            /// <summary>
-            /// Determines whether the input element is enabled and accepting input
-            /// </summary>
-            bool InputEnabled { get; set; }
+			/// <summary>
+			/// Optional tooltip shown when the element is moused over
+			/// </summary>
+			ToolTip ToolTip { get; set; }
+
+			/// <summary>
+			/// Determines whether the input element is enabled and accepting input
+			/// </summary>
+			bool InputEnabled { get; set; }
 
             /// <summary>
             /// True if the element is being clicked with the left mouse button
@@ -109,6 +119,9 @@ namespace RichHudFramework
 
         public interface IClickableElement : IReadOnlyHudElement
         {
+            /// <summary>
+            /// Mouse input interface owned by the clickable element
+            /// </summary>
             IMouseInput MouseInput { get; }
         }
     }

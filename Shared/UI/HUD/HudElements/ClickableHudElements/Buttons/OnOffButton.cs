@@ -94,7 +94,7 @@ namespace RichHudFramework.UI
         /// <summary>
         /// Mouse input element for the button
         /// </summary>
-        public IMouseInput MouseInput => mouseInput;
+        public IMouseInput MouseInput { get; }
 
         protected readonly LabelBox on, off;
         protected readonly BorderBox onBorder, offBorder;
@@ -103,12 +103,13 @@ namespace RichHudFramework.UI
         protected readonly TexturedBox background;
         protected readonly BorderBox bgBorder;
 
-        protected readonly MouseInputElement mouseInput;
+        protected readonly MouseInputElement _mouseInput;
         protected Color _backgroundColor;
 
         public OnOffButton(HudParentBase parent) : base(parent)
         {
-            mouseInput = new MouseInputElement(this);
+            _mouseInput = new MouseInputElement(this);
+            MouseInput = _mouseInput;
 
             background = new TexturedBox(this)
             {
@@ -170,7 +171,7 @@ namespace RichHudFramework.UI
             HighlightEnabled = true;
             UseFocusFormatting = true;
 
-            mouseInput.LeftClicked += LeftClick;
+            _mouseInput.LeftClicked += LeftClick;
         }
 
         public OnOffButton() : this(null)
@@ -194,11 +195,11 @@ namespace RichHudFramework.UI
                 on.Color = UnselectedColor;
             }
 
-            if (HighlightEnabled && mouseInput.IsMousedOver)
+            if (HighlightEnabled && _mouseInput.IsMousedOver)
             {
                 background.Color = HighlightColor;
             }
-            else if (UseFocusFormatting && mouseInput.HasFocus)
+            else if (UseFocusFormatting && _mouseInput.HasFocus)
             {
                 background.Color = FocusColor;
             }
@@ -210,9 +211,9 @@ namespace RichHudFramework.UI
 
 		protected override void HandleInput(Vector2 cursorPos)
         {
-            if (mouseInput.HasFocus && SharedBinds.Space.IsNewPressed)
+            if (_mouseInput.HasFocus && SharedBinds.Space.IsNewPressed)
             {
-                mouseInput.OnLeftClick();
+                _mouseInput.OnLeftClick();
             }
         }
     }

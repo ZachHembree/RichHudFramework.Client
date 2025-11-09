@@ -111,7 +111,7 @@ namespace RichHudFramework.UI
                 DimAlignment = DimAlignments.Size,
             };
 
-            slide = new SliderBar(this)
+            slide = new SliderBar(this, this)
             {
                 DimAlignment = DimAlignments.UnpaddedSize,
                 SliderSize = new Vector2(14f, 28f),
