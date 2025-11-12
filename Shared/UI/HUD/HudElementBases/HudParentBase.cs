@@ -25,10 +25,9 @@ namespace RichHudFramework
 
 	namespace UI
 	{
-		using Internal;
-		using Server;
 		using Client;
-
+		using Internal;
+		using System.Reflection;
 		using static RichHudFramework.UI.NodeConfigIndices;
 		// Read-only length-1 array containing raw UI node data
 		using HudNodeDataHandle = IReadOnlyList<HudNodeData>;
@@ -131,48 +130,196 @@ namespace RichHudFramework
 
 			#endregion
 
+			/// <summary>
+			/// Internal flag set for indicating update hook usage
+			/// </summary>
+			private struct HookUsages
+			{
+				public bool IsInputDepthCustom;
+				public bool IsHandleInputCustom;
+				public bool IsMeasureCustom;
+				public bool IsLayoutCustom;
+				public bool IsDrawCustom;
+			}
+
+			/// <summary>
+			/// Internal collection of reflected metadata for detecting UI node hook usage within
+			/// the constraints of the SE whitelist
+			/// </summary>
+			private sealed class HookCanary : HudParentBase
+			{
+				public static readonly bool IsInitialized;		
+
+				/// <summary>
+				/// Maps types to a set of flags indicating which hooks are overridden
+				/// </summary>
+				public static readonly IReadOnlyDictionary<Type, HookUsages> TypeHookMap;
+
+				/// <summary>
+				/// Unique MemberInfo for the base implementation of HudParentBase.InputDepth()
+				/// </summary>
+				public static readonly MemberInfo InputDepthBase;
+
+				/// <summary>
+				/// Unique MemberInfo for the base implementation of HudParentBase.HandleInput()
+				/// </summary>
+				public static readonly MemberInfo HandleInputBase;
+				
+				/// <summary>
+				/// Unique MemberInfo for the base implementation of HudParentBase.Measure()
+				/// </summary>
+				public static readonly MemberInfo MeasureBase;
+
+				/// <summary>
+				/// Unique MemberInfo for the base implementation of HudParentBase.Layout()
+				/// </summary>
+				public static readonly MemberInfo LayoutBase;
+
+				/// <summary>
+				/// Unique MemberInfo for the base implementation of HudParentBase.Draw()
+				/// </summary>
+				public static readonly MemberInfo DrawBase;
+
+				/// <summary>
+				/// Adds a new type to the hook usage map
+				/// </summary>
+				public static void AddType(HudParentBase node, Type objType)
+				{
+					var usages = default(HookUsages);
+
+					// InputDepth
+					{
+						Action InputDepthAction = node.InputDepth;
+
+						if (InputDepthAction.Method != InputDepthBase)
+							usages.IsInputDepthCustom = true;
+					}
+					// HandleInput
+					{
+						Action<Vector2> HandleInputAction = node.HandleInput;
+
+						if (HandleInputAction.Method != HandleInputBase)
+							usages.IsHandleInputCustom = true;
+					}
+					// Measure
+					{
+						Action MeasureAction = node.Measure;
+
+						if (MeasureAction.Method != MeasureBase)
+							usages.IsMeasureCustom = true;
+					}
+					// Layout
+					{
+						Action LayoutAction = node.Layout;
+
+						if (LayoutAction.Method != LayoutBase)
+							usages.IsLayoutCustom = true;
+					}
+					// Draw
+					{
+						Action DrawAction = node.Draw;
+
+						if (DrawAction.Method != DrawBase)
+							usages.IsDrawCustom = true;
+					}
+
+					_typeHookMap.Add(objType, usages);
+				}
+
+				private static readonly Dictionary<Type, HookUsages> _typeHookMap;
+
+				static HookCanary()
+				{
+					var temp = new HookCanary();
+
+					InputDepthBase = ((Action)temp.InputDepth).Method;
+					HandleInputBase = ((Action<Vector2>)temp.HandleInput).Method;
+					MeasureBase = ((Action)temp.Measure).Method;
+					LayoutBase = ((Action)temp.Layout).Method;
+					DrawBase = ((Action)temp.Draw).Method;
+
+					_typeHookMap = new Dictionary<Type, HookUsages>();
+					TypeHookMap = _typeHookMap;
+
+					IsInitialized = true;
+				}
+
+				private HookCanary() { }
+			}
+
 			public HudParentBase()
 			{
-				// Storage init
-				children = new List<HudNodeBase>();
-				childHandles = new List<object>();
-				Config = new uint[ConfigLength];
+				if (HookCanary.IsInitialized)
+				{
+					// Storage init
+					children = new List<HudNodeBase>();
+					childHandles = new List<object>();
+					Config = new uint[ConfigLength];
 
-				// Shared data handle
-				_dataHandle = new HudNodeData[1];
-				// Shared state
-				_dataHandle[0].Item1 = Config;
-				_dataHandle[0].Item2 = new HudSpaceOriginFunc[1];
-				// Hooks
-				_dataHandle[0].Item3.Item1 = GetOrSetApiMember; // Required
-				_dataHandle[0].Item3.Item2 = InputDepth;
-				_dataHandle[0].Item3.Item3 = BeginInput;
-				_dataHandle[0].Item3.Item4 = Measure;
-				_dataHandle[0].Item3.Item5 = BeginLayout; // Required
-				_dataHandle[0].Item3.Item6 = Draw;
-				// Parent
-				_dataHandle[0].Item4 = null;
-				// Child handle list
-				_dataHandle[0].Item5 = childHandles;
-				DataHandle = _dataHandle;
+					// Shared data handle
+					_dataHandle = new HudNodeData[1];
+					// Shared state
+					_dataHandle[0].Item1 = Config;
+					_dataHandle[0].Item2 = new HudSpaceOriginFunc[1];
+					// Mandatory hooks
+					_dataHandle[0].Item3.Item1 = GetOrSetApiMember;
+					_dataHandle[0].Item3.Item5 = BeginLayout;
 
-				// Initial state
-				Config[VisMaskID] = (uint)HudElementStates.IsVisible;
-				Config[InputMaskID] = (uint)HudElementStates.IsInputEnabled;
-				Config[StateID] = (uint)(HudElementStates.IsRegistered | HudElementStates.IsInputEnabled | HudElementStates.IsVisible);
-			}
+					// Parent
+					_dataHandle[0].Item4 = null;
+					// Child handle list
+					_dataHandle[0].Item5 = childHandles;
+					DataHandle = _dataHandle;
+
+					// Initial state
+					Config[VisMaskID] = (uint)HudElementStates.IsVisible;
+					Config[InputMaskID] = (uint)HudElementStates.IsInputEnabled;
+					Config[StateID] = (uint)(HudElementStates.IsRegistered | HudElementStates.IsInputEnabled | HudElementStates.IsVisible);
 			
+					Type nodeType = GetType();
+
+					// Add usage flags if this type hasn't been seen before
+					if (!HookCanary.TypeHookMap.ContainsKey(nodeType))
+						HookCanary.AddType(this, nodeType);
+
+					// Get usage flags
+					HookUsages usages = HookCanary.TypeHookMap[nodeType];
+
+					// Optional hooks
+					if (usages.IsInputDepthCustom)
+						_dataHandle[0].Item3.Item2 = InputDepth;
+
+					if (usages.IsHandleInputCustom)
+					{
+						_dataHandle[0].Item3.Item3 = BeginInput;
+						Config[StateID] |= (uint)HudElementStates.IsInputHandlerCustom;
+					}
+
+					if (usages.IsMeasureCustom)
+						_dataHandle[0].Item3.Item4 = Measure;
+
+					if (usages.IsLayoutCustom)
+						Config[StateID] |= (uint)HudElementStates.IsLayoutCustom;
+
+					if (usages.IsDrawCustom)
+						_dataHandle[0].Item3.Item6 = Draw;
+				}
+			}
+
 			/// <summary>
 			/// Wraps HandleInput() input polling hook. Override HandleInput() for customization.
 			/// </summary>
 			protected virtual void BeginInput()
 			{
-				Vector3 cursorPos = HudSpace.CursorPos;
-				HandleInput(new Vector2(cursorPos.X, cursorPos.Y));
-			}	
+				if ((Config[StateID] & (uint)HudElementStates.IsInputHandlerCustom) > 0)
+				{
+					Vector3 cursorPos = HudSpace.CursorPos;
+					HandleInput(new Vector2(cursorPos.X, cursorPos.Y));
+				}
+			}
 
 			/// <summary>
-			/// Updates internal state. Override Layout() for customization.
+			/// Updates internal state. Override Layout() for customization. Do not override.
 			/// </summary>
 			protected virtual void BeginLayout(bool _)
 			{
@@ -181,7 +328,8 @@ namespace RichHudFramework
 				else
 					Config[StateID] &= ~(uint)HudElementStates.IsSpaceNodeReady;
 
-				Layout();
+				if ((Config[StateID] & (uint)HudElementStates.IsLayoutCustom) > 0)
+					Layout();
 			}
 
 			/// <summary>

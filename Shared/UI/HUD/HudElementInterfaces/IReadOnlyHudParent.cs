@@ -137,7 +137,17 @@ namespace RichHudFramework
 			/// Internal flag used to tag inactive leaf nodes that need to be monitored for visibility
 			/// transitions.
 			/// </summary>
-			IsInactiveLeaf = 1 << 18
+			IsInactiveLeaf = 1 << 18,
+
+			/// <summary>
+			/// Internal optimization flag used to indicate whether HandleInput() has been overridden on a node.
+			/// </summary>
+			IsInputHandlerCustom = 1 << 19,
+
+			/// <summary>
+			/// Internal optimization flag used to indicate whether Layout() has been overridden on a node.
+			/// </summary>
+			IsLayoutCustom = 1 << 20,
 		}
 
 		/// <summary>

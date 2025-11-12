@@ -257,12 +257,13 @@ namespace RichHudFramework
 					if (isMousedOver)
 						Config[StateID] |= (uint)HudElementStates.IsMousedOver;
 
-					HandleInput(new Vector2(cursorPos.X, cursorPos.Y));
+					if ((Config[StateID] & (uint)HudElementStates.IsInputHandlerCustom) > 0)
+						HandleInput(new Vector2(cursorPos.X, cursorPos.Y));
 
 					if (!canShareCursor)
 						HudMain.Cursor.Capture(DataHandle[0].Item3.Item1);
 				}
-				else
+				else if ((Config[StateID] & (uint)HudElementStates.IsInputHandlerCustom) > 0)
 				{
 					HandleInput(new Vector2(cursorPos.X, cursorPos.Y));
 				}
@@ -293,7 +294,8 @@ namespace RichHudFramework
 					CachedSize = UnpaddedSize + Padding;
 				}
 
-				Layout();
+				if ((Config[StateID] & (uint)HudElementStates.IsLayoutCustom) > 0)
+					Layout();
 
 				// Masking configuration
 				if (parentFull != null && (parentFull.Config[StateID] & (uint)HudElementStates.IsMasked) > 0 &&

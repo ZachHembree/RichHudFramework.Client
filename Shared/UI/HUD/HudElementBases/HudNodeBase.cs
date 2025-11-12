@@ -71,7 +71,7 @@ namespace RichHudFramework
 			{
 				Config[VisMaskID] = nodeVisible;
 				Config[InputMaskID] = nodeInputEnabled;
-				Config[StateID] = (uint)(HudElementStates.IsInputEnabled | HudElementStates.IsVisible);
+				Config[StateID] &= ~(uint)(HudElementStates.IsRegistered);
 
 				Register(parent);
 			}
@@ -89,7 +89,8 @@ namespace RichHudFramework
 				else
 					Config[StateID] &= ~(uint)HudElementStates.IsSpaceNodeReady;
 
-				Layout();
+				if ((Config[StateID] & (uint)HudElementStates.IsLayoutCustom) > 0)
+					Layout();
 			}
 
 			/// <summary>
