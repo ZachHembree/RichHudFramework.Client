@@ -90,8 +90,8 @@ namespace RichHudFramework
                 /// </summary>
                 public void Draw(ref MyQuadD quad)
                 {
-                    minBoard.Draw(ref quad);
-                }
+					BillBoardUtils.AddQuad(ref minBoard.materialData, ref quad);
+				}
 
                 /// <summary>
                 /// Draws a billboard in world space facing the +Z direction of the matrix given. Units in meters,
@@ -131,7 +131,26 @@ namespace RichHudFramework
 								box.bounds.Scale(matScale);
 						}
 
-                        minBoard.Draw(ref box, matrixRef);
+						FlatQuad quad = new FlatQuad()
+						{
+							Point0 = box.bounds.Max,
+							Point1 = new Vector2(box.bounds.Max.X, box.bounds.Min.Y),
+							Point2 = box.bounds.Min,
+							Point3 = new Vector2(box.bounds.Min.X, box.bounds.Max.Y),
+						};
+
+						if (minBoard.skewRatio != 0f)
+						{
+							Vector2 start = quad.Point0, end = quad.Point3,
+								offset = (end - start) * minBoard.skewRatio * .5f;
+
+							quad.Point0 = Vector2.Lerp(start, end, minBoard.skewRatio) - offset;
+							quad.Point3 = Vector2.Lerp(start, end, 1f + minBoard.skewRatio) - offset;
+							quad.Point1 -= offset;
+							quad.Point2 -= offset;
+						}
+
+						BillBoardUtils.AddQuad(ref quad, ref minBoard.materialData, matrixRef, box.mask);
                     }
                 }     
             }
