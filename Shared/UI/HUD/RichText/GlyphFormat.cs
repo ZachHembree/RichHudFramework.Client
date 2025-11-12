@@ -69,6 +69,11 @@ namespace RichHudFramework
             /// </summary>
             public GlyphFormatMembers Data { get; set; }
 
+            public GlyphFormat(Color color, TextAlignment alignment, float textSize, 
+                string fontName, FontStyles style = FontStyles.Regular) :
+                this(color, alignment, textSize, style, FontManager.GetFont(fontName))
+            { }
+
             public GlyphFormat(Color color, TextAlignment alignment, float textSize, Vector2I fontStyle)
             {
                 if (color == default(Color))
@@ -77,7 +82,8 @@ namespace RichHudFramework
                 Data = new GlyphFormatMembers((byte)alignment, textSize, fontStyle, color);
             }
 
-            public GlyphFormat(Color color = default(Color), TextAlignment alignment = TextAlignment.Left, float textSize = 1f, FontStyles style = FontStyles.Regular, IFontMin font = null)
+            public GlyphFormat(Color color = default(Color), TextAlignment alignment = TextAlignment.Left, 
+                float textSize = 1f, FontStyles style = FontStyles.Regular, IFontMin font = null)
             {
                 if (color == default(Color))
                     color = Color.Black;
@@ -116,17 +122,22 @@ namespace RichHudFramework
             public GlyphFormat WithFont(int font) =>
                 new GlyphFormat(Color, Alignment, TextSize, new Vector2I(font, 0));
 
-            /// <summary>
-            /// Returns a copy of the <see cref="GlyphFormat"/> using the given font interface. Assumes regular
-            /// styling.
-            /// </summary>
-            public GlyphFormat WithFont(IFontMin font) =>
-                new GlyphFormat(Color, Alignment, TextSize, font.Regular);
+			/// <summary>
+			/// Returns a copy of the <see cref="GlyphFormat"/> using the given font interface and style
+			/// </summary>
+			public GlyphFormat WithFont(IFontMin font, FontStyles style = FontStyles.Regular) =>
+				new GlyphFormat(Color, Alignment, TextSize, style, font);
 
-            /// <summary>
-            /// Returns a copy of the <see cref="GlyphFormat"/> using the font style associated with the given index.
-            /// </summary>
-            public GlyphFormat WithFont(Vector2I fontStyle) =>
+			/// <summary>
+			/// Returns a copy of the <see cref="GlyphFormat"/> using the given font interface and style
+			/// </summary>
+			public GlyphFormat WithFont(string fontName, FontStyles style = FontStyles.Regular) =>
+				new GlyphFormat(Color, Alignment, TextSize, style, FontManager.GetFont(fontName));
+
+			/// <summary>
+			/// Returns a copy of the <see cref="GlyphFormat"/> using the font style associated with the given index.
+			/// </summary>
+			public GlyphFormat WithFont(Vector2I fontStyle) =>
                 new GlyphFormat(Color, Alignment, TextSize, fontStyle);
 
             /// <summary>
