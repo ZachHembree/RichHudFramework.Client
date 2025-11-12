@@ -204,7 +204,7 @@ namespace RichHudFramework
             protected Vector2 measuredSize, rangeSize;
             protected int rangeLength;
 
-            public HudChain(bool alignVertical, HudParentBase parent = null) : base(parent)
+            public HudChain(bool alignVertical = false, HudParentBase parent = null) : base(parent)
             {
                 Spacing = 0f;
                 SizingMode = HudChainSizingModes.FitChainBoth;
@@ -552,7 +552,7 @@ namespace RichHudFramework
         public class HudChain<TElementContainer> : HudChain<TElementContainer, HudElementBase>
             where TElementContainer : IChainElementContainer<HudElementBase>, new()
         {
-            public HudChain(bool alignVertical, HudParentBase parent = null) : base(alignVertical, parent)
+            public HudChain(bool alignVertical = false, HudParentBase parent = null) : base(alignVertical, parent)
             { }
 
             public HudChain(HudParentBase parent) : base(true, parent)
@@ -564,7 +564,7 @@ namespace RichHudFramework
         /// </summary>
         public class HudChain : HudChain<HudElementContainer<HudElementBase>, HudElementBase>
         {
-            public HudChain(bool alignVertical, HudParentBase parent = null) : base(alignVertical, parent)
+            public HudChain(bool alignVertical = false, HudParentBase parent = null) : base(alignVertical, parent)
             { }
 
             public HudChain(HudParentBase parent) : base(true, parent)

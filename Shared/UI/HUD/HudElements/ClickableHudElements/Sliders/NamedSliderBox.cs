@@ -14,10 +14,27 @@ namespace RichHudFramework.UI
     /// </summary>
     public class NamedSliderBox : HudElementBase, IClickableElement
     {
+		/// <summary>
+		/// Invoked when the current value changes
+		/// </summary>
+		public event EventHandler ValueChanged
+		{
+			add { sliderBox.ValueChanged += value; }
+			remove { sliderBox.ValueChanged -= value; }
+		}
+
         /// <summary>
-        /// The name of the control
+        /// Registers a value update callback. Useful in initializers.
         /// </summary>
-        public RichText Name { get { return name.TextBoard.GetText(); } set { name.TextBoard.SetText(value); } }
+        public EventHandler UpdateValueCallback
+        {
+            set { sliderBox.ValueChanged += value; }
+        }
+
+		/// <summary>
+		/// The name of the control
+		/// </summary>
+		public RichText Name { get { return name.TextBoard.GetText(); } set { name.TextBoard.SetText(value); } }
 
         /// <summary>
         /// Text indicating the current value of the slider. Does not automatically reflect changes to the slider value.
@@ -63,7 +80,7 @@ namespace RichHudFramework.UI
 
         public NamedSliderBox(HudParentBase parent) : base(parent)
         {
-            sliderBox = new SliderBox(this)
+            sliderBox = new SliderBox(this, this)
             {
                 DimAlignment = DimAlignments.UnpaddedWidth,
                 ParentAlignment = ParentAlignments.InnerBottom,

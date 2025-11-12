@@ -10,6 +10,19 @@ namespace RichHudFramework.UI
 	public class SliderBar : MouseInputElement, IClickableElement
 	{
 		/// <summary>
+		/// Invoked when the current value changes
+		/// </summary>
+		public event EventHandler ValueChanged;
+
+		/// <summary>
+		/// Registers a value update callback. Useful in initializers.
+		/// </summary>
+		public EventHandler UpdateValueCallback
+		{
+			set { ValueChanged += value; }
+		}
+
+		/// <summary>
 		/// Lower limit.
 		/// </summary>
 		public float Min
@@ -203,7 +216,7 @@ namespace RichHudFramework.UI
 		protected Vector2 _barSize, _sliderSize;
 		protected Vector2 startCursorOffset, lastPos;
 
-		protected float _min, _max, _current, _percent;
+		protected float _min, _max, _current, _percent, lastValue;
 		protected bool canMoveSlider;
 
 		public SliderBar(HudParentBase parent, IClickableElement inputOwner = null) : base(parent, inputOwner)
@@ -228,6 +241,7 @@ namespace RichHudFramework.UI
 			_min = 0f;
 			_max = 1f;
 
+			lastValue = float.PositiveInfinity;
 			Current = 0f;
 			Percent = 0f;
 
@@ -279,6 +293,14 @@ namespace RichHudFramework.UI
 					Percent = 1f - ((pos - minOffset) / (maxOffset - minOffset));
 				else
 					Percent = (pos - minOffset) / (maxOffset - minOffset);
+			}
+
+			_current = (float)Math.Round(_current, 6);
+
+			if (Math.Abs(_current - lastValue) > 1e-6f)
+			{
+				ValueChanged?.Invoke(MouseInput.InputOwner, EventArgs.Empty);
+				lastValue = _current;
 			}
 		}
 

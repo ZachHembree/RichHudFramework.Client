@@ -8,10 +8,27 @@ namespace RichHudFramework.UI
     /// </summary>
     public class SliderBox : HudElementBase, IClickableElement
     {
-        /// <summary>
-        /// Lower limit.
-        /// </summary>
-        public float Min { get { return slide.Min; } set { slide.Min = value; } }
+		/// <summary>
+		/// Invoked when the current value changes
+		/// </summary>
+		public event EventHandler ValueChanged
+        {
+            add { slide.ValueChanged += value; }
+            remove { slide.ValueChanged -= value; }
+        }
+
+		/// <summary>
+		/// Registers a value update callback. Useful in initializers.
+		/// </summary>
+		public EventHandler UpdateValueCallback
+		{
+			set { slide.ValueChanged += value; }
+		}
+
+		/// <summary>
+		/// Lower limit.
+		/// </summary>
+		public float Min { get { return slide.Min; } set { slide.Min = value; } }
 
         /// <summary>
         /// Upper limit.
@@ -98,8 +115,10 @@ namespace RichHudFramework.UI
 
         protected Color lastBarColor, lastSliderColor, lastBackgroundColor;
 
-        public SliderBox(HudParentBase parent) : base(parent)
+        public SliderBox(HudParentBase parent, IClickableElement inputOwner = null) : base(parent)
         {
+            inputOwner = inputOwner ?? this;
+
             background = new TexturedBox(this)
             {
                 DimAlignment = DimAlignments.Size
@@ -111,7 +130,7 @@ namespace RichHudFramework.UI
                 DimAlignment = DimAlignments.Size,
             };
 
-            slide = new SliderBar(this, this)
+            slide = new SliderBar(this, inputOwner)
             {
                 DimAlignment = DimAlignments.UnpaddedSize,
                 SliderSize = new Vector2(14f, 28f),
