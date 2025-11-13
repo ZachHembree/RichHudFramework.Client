@@ -91,10 +91,15 @@ namespace RichHudFramework.UI
         /// </summary>
         public virtual bool HighlightEnabled { get; set; }
 
-        /// <summary>
-        /// Mouse input element for the button
-        /// </summary>
-        public IMouseInput MouseInput { get; }
+		/// <summary>
+		/// Interface for managing gaining/losing input focus
+		/// </summary>
+		public IFocusHandler FocusHandler { get; }
+
+		/// <summary>
+		/// Mouse input element for the button
+		/// </summary>
+		public IMouseInput MouseInput { get; }
 
         protected readonly LabelBox on, off;
         protected readonly BorderBox onBorder, offBorder;
@@ -108,6 +113,7 @@ namespace RichHudFramework.UI
 
         public OnOffButton(HudParentBase parent) : base(parent)
         {
+            FocusHandler = new InputFocusHandler(this);
             _mouseInput = new MouseInputElement(this);
             MouseInput = _mouseInput;
 
@@ -199,7 +205,7 @@ namespace RichHudFramework.UI
             {
                 background.Color = HighlightColor;
             }
-            else if (UseFocusFormatting && _mouseInput.HasFocus)
+            else if (UseFocusFormatting && FocusHandler.HasFocus)
             {
                 background.Color = FocusColor;
             }
@@ -211,7 +217,7 @@ namespace RichHudFramework.UI
 
 		protected override void HandleInput(Vector2 cursorPos)
         {
-            if (_mouseInput.HasFocus && SharedBinds.Space.IsNewPressed)
+            if (FocusHandler.HasFocus && SharedBinds.Space.IsNewPressed)
             {
                 _mouseInput.OnLeftClick();
             }

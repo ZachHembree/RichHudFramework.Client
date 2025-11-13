@@ -56,10 +56,15 @@ namespace RichHudFramework.UI
         /// </summary>
         public ITextBuilder NameBuilder => name.TextBoard;
 
-        /// <summary>
-        /// Checkbox mouse input
-        /// </summary>
-        public IMouseInput MouseInput => checkbox.MouseInput;
+		/// <summary>
+		/// Interface for managing gaining/losing input focus
+		/// </summary>
+		public IFocusHandler FocusHandler => checkbox.FocusHandler;
+
+		/// <summary>
+		/// Checkbox mouse input
+		/// </summary>
+		public IMouseInput MouseInput => checkbox.MouseInput;
 
         /// <summary>
         /// Indicates whether or not the box is checked.
@@ -88,6 +93,7 @@ namespace RichHudFramework.UI
                 CollectionContainer = { { name, 0f }, { checkbox, 0f } }
             };
 
+            FocusHandler.InputOwner = this;
             AutoResize = true;
             Size = new Vector2(250f, 37f);
         }

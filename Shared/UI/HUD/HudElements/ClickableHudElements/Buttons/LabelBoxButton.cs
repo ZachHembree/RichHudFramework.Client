@@ -23,17 +23,25 @@ namespace RichHudFramework.UI
         /// </summary>
         public override bool IsMousedOver => _mouseInput.IsMousedOver;
 
-        /// <summary>
-        /// Mouse input for the button.
-        /// </summary>
-        public IMouseInput MouseInput => _mouseInput;
+		/// <summary>
+		/// Interface used to manage the element's input focus state
+		/// </summary>
+		public IFocusHandler FocusHandler { get; }
+
+		/// <summary>
+		/// Mouse input for the button.
+		/// </summary>
+		public IMouseInput MouseInput { get; }
 
         protected MouseInputElement _mouseInput;
         protected Color oldColor;
 
         public LabelBoxButton(HudParentBase parent) : base(parent)
         {
-            _mouseInput = new MouseInputElement(this);
+			FocusHandler = new InputFocusHandler(this);
+			_mouseInput = new MouseInputElement(this);
+            MouseInput = _mouseInput;
+
             Color = Color.DarkGray;
             HighlightColor = Color.Gray;
             HighlightEnabled = true;

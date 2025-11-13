@@ -17,10 +17,20 @@ namespace RichHudFramework.UI
     /// </summary>
     public class TextBox : Label, IClickableElement
     {
+		/// <summary>
+		/// Invoked whenever a change is made to the text. Invokes once every 500ms, at most.
+		/// </summary>
+		public event EventHandler TextChanged;
+
         /// <summary>
-        /// Determines whether or not the textbox will allow the user to edit its contents
+        /// Registers a text update callback. For use in object initializers.
         /// </summary>
-        public bool EnableEditing { get { return caret.ShowCaret; } set { caret.ShowCaret = value; } }
+        public EventHandler TextUpdateCallback {  set { TextChanged += value; } }
+
+		/// <summary>
+		/// Determines whether or not the textbox will allow the user to edit its contents
+		/// </summary>
+		public bool EnableEditing { get { return caret.ShowCaret; } set { caret.ShowCaret = value; } }
 
         /// <summary>
         /// Determines whether the user will be allowed to highlight text
@@ -67,17 +77,26 @@ namespace RichHudFramework.UI
         /// </summary>
         public char NewLineChar { get; set; }
 
-        public IMouseInput MouseInput { get; }
+		/// <summary>
+		/// Interface used to manage the element's input focus state
+		/// </summary>
+		public IFocusHandler FocusHandler { get; }
+
+		/// <summary>
+		/// Mouse input interface for this clickable element
+		/// </summary>
+		public IMouseInput MouseInput { get; }
 
         private readonly TextInput textInput;
         private readonly TextCaret caret;
         private readonly SelectionBox selectionBox;
         private readonly ToolTip warningToolTip;
-        private bool canHighlight, isHighlighting, allowInput;
+        private bool canHighlight, isHighlighting, allowInput, textUpdatePending;
         private Vector2I lastCaretIndex;
 
         public TextBox(HudParentBase parent) : base(parent)
         {
+            FocusHandler = new InputFocusHandler(this);
             MouseInput = new MouseInputElement(this) { ShareCursor = true, ZOffset = 1 };
             textInput = new TextInput(AddChar, RemoveLastChar, TextInputFilter);
 
@@ -90,10 +109,11 @@ namespace RichHudFramework.UI
                 bgColor = ToolTip.orangeWarningBG
             };
 
-            MouseInput.GainedInputFocus += GainFocus;
-            MouseInput.LostInputFocus += LoseFocus;
+			FocusHandler.GainedInputFocus += GainFocus;
+			FocusHandler.LostInputFocus += LoseFocus;
+			TextBoard.TextChanged += OnTextChanged;
 
-            ShareCursor = true;
+			ShareCursor = true;
             EnableEditing = true;
             EnableHighlighting = true;
             UseCursor = true;
@@ -117,6 +137,7 @@ namespace RichHudFramework.UI
             UpdateInputOpen();
             caret.SetPosition(0);
             caret.SetPosition(short.MaxValue);
+            textUpdatePending = false;
         }
         
         /// <summary>
@@ -129,10 +150,10 @@ namespace RichHudFramework.UI
             selectionBox.ClearSelection();
         }
 
-        /// <summary>
-        /// Highlights the range of text specified.
-        /// </summary>
-        public void SetSelection(Vector2I start, Vector2I end) =>
+		/// <summary>
+		/// Highlights the range of text specified.
+		/// </summary>
+		public void SetSelection(Vector2I start, Vector2I end) =>
             selectionBox.SetSelection(start, end);
 
         /// <summary>
@@ -141,10 +162,16 @@ namespace RichHudFramework.UI
         public void ClearSelection() =>
             selectionBox.ClearSelection();
 
-        /// <summary>
-        /// Determines whether or not the given character is within the accepted range for input.
-        /// </summary>
-        private bool TextInputFilter(char ch)
+		protected virtual void OnTextChanged()
+		{
+            if (TextChanged != null)
+                textUpdatePending = true;
+		}
+
+		/// <summary>
+		/// Determines whether or not the given character is within the accepted range for input.
+		/// </summary>
+		private bool TextInputFilter(char ch)
         {
             if (CharFilterFunc == null)
                 return ch >= ' ' || ch == '\n' || ch == '\t';
@@ -166,7 +193,7 @@ namespace RichHudFramework.UI
 
 		protected override void HandleInput(Vector2 cursorPos)
         {
-            bool useInput = allowInput || (MouseInput.HasFocus && HudMain.InputMode == HudInputMode.Full);
+            bool useInput = allowInput || (FocusHandler.HasFocus && HudMain.InputMode == HudInputMode.Full);
             
             if (EnableEditing && IsMousedOver && HudMain.InputMode == HudInputMode.CursorOnly)
                 HudMain.Cursor.RegisterToolTip(warningToolTip);
@@ -257,11 +284,17 @@ namespace RichHudFramework.UI
 
 			lastCaretIndex = caret.CaretIndex;
 			selectionBox.Visible = isHighlighting;
+
+            if (!InputOpen && textUpdatePending)
+            {
+                TextChanged?.Invoke(this, EventArgs.Empty);
+                textUpdatePending = false;
+            }
 		}
 
 		private void UpdateInputOpen()
         {
-            bool useInput = allowInput || (MouseInput.HasFocus && HudMain.InputMode == HudInputMode.Full);
+            bool useInput = allowInput || (FocusHandler.HasFocus && HudMain.InputMode == HudInputMode.Full);
             InputOpen = useInput && (EnableHighlighting || EnableEditing);
         }
 

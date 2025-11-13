@@ -12,7 +12,7 @@ namespace RichHudFramework.UI
     /// other window ever.
     /// </summary>
     public abstract class WindowBase : HudElementBase, IClickableElement
-    {
+	{
         /// <summary>
         /// Window header text
         /// </summary>
@@ -71,10 +71,15 @@ namespace RichHudFramework.UI
         /// </summary>
         public IMouseInput MouseInput { get; }
 
-        /// <summary>
-        /// Window header element
-        /// </summary>
-        public readonly LabelBoxButton header;
+		/// <summary>
+		/// Interface used to manage the element's input focus state
+		/// </summary>
+		public IFocusHandler FocusHandler { get; }
+
+		/// <summary>
+		/// Window header element
+		/// </summary>
+		public readonly LabelBoxButton header;
 
         /// <summary>
         /// Textured background. Body of the window
@@ -93,7 +98,7 @@ namespace RichHudFramework.UI
         protected bool canMoveWindow;
         protected Vector2 resizeDir, cursorOffset;
 
-        public WindowBase(HudParentBase parent) : base(parent)
+		public WindowBase(HudParentBase parent) : base(parent)
         {
             header = new LabelBoxButton(this)
             {
@@ -124,15 +129,15 @@ namespace RichHudFramework.UI
                 DimAlignment = DimAlignments.Size,
             };
 
+            FocusHandler = new InputFocusHandler(this);
             resizeInput = new MouseInputElement(this)
             {
                 ZOffset = sbyte.MaxValue,
                 Padding = new Vector2(16f),
                 DimAlignment = DimAlignments.Size,
                 CanIgnoreMasking = true
-            };
-            
-            inputInner = new MouseInputElement(resizeInput, this)
+            };        
+            inputInner = new MouseInputElement(resizeInput)
             {
                 DimAlignment = DimAlignments.UnpaddedSize,
             };

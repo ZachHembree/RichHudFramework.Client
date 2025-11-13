@@ -219,7 +219,7 @@ namespace RichHudFramework.UI
 		protected float _min, _max, _current, _percent, lastValue;
 		protected bool canMoveSlider;
 
-		public SliderBar(HudParentBase parent, IClickableElement inputOwner = null) : base(parent, inputOwner)
+		public SliderBar(HudParentBase parent) : base(parent)
 		{
 			bar = new TexturedBox(this);
 			slider = new TexturedBox(bar) { UseCursor = true, ShareCursor = true };
@@ -299,7 +299,7 @@ namespace RichHudFramework.UI
 
 			if (Math.Abs(_current - lastValue) > 1e-6f)
 			{
-				ValueChanged?.Invoke(MouseInput.InputOwner, EventArgs.Empty);
+				ValueChanged?.Invoke(FocusHandler?.InputOwner ?? this, EventArgs.Empty);
 				lastValue = _current;
 			}
 		}

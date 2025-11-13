@@ -5,124 +5,91 @@ namespace RichHudFramework
 {
     namespace UI
     {
-        /// <summary>
-        /// Interface for mouse input of a UI element.
-        /// </summary>
-        public interface IMouseInput
-        {
-            /// <summary>
-            /// Owner of the mouse input that is sent in EventHandler invocations
-            /// </summary>
-            IClickableElement InputOwner { get; }
-
-            /// <summary>
-            /// Invoked when the cursor enters the element's bounds
-            /// </summary>
-            event EventHandler CursorEntered;
-
-            /// <summary>
-            /// Invoked when the cursor leaves the element's bounds
-            /// </summary>
-            event EventHandler CursorExited;
-
-            /// <summary>
-            /// Invoked when the element is clicked with the left mouse button
-            /// </summary>
-            event EventHandler LeftClicked;
-
-            /// <summary>
-            /// Invoked when the left click is released
-            /// </summary>
-            event EventHandler LeftReleased;
-
-            /// <summary>
-            /// Invoked when the element is clicked with the right mouse button
-            /// </summary>
-            event EventHandler RightClicked;
-
-            /// <summary>
-            /// Invoked when the right click is released
-            /// </summary>
-            event EventHandler RightReleased;
-
-            /// <summary>
-            /// Invoked when taking focus
-            /// </summary>
-            event EventHandler GainedInputFocus;
-
-            /// <summary>
-            /// Invoked when focus is lost
-            /// </summary>
-            event EventHandler LostInputFocus;
+		/// <summary>
+		/// Defines properties and events for managing mouse input on a UI element.
+		/// </summary>
+		public interface IMouseInput : IFocusableElement
+		{
+			/// <summary>
+			/// Invoked when the mouse cursor enters the element's interactive area.
+			/// </summary>
+			event EventHandler CursorEntered;
 
 			/// <summary>
-			/// Optional tooltip shown when the element is moused over
+			/// Invoked when the mouse cursor leaves the element's interactive area.
+			/// </summary>
+			event EventHandler CursorExited;
+
+			/// <summary>
+			/// Invoked when the element is clicked with the left mouse button.
+			/// </summary>
+			event EventHandler LeftClicked;
+
+			/// <summary>
+			/// Invoked when the left mouse button is released over the element.
+			/// </summary>
+			event EventHandler LeftReleased;
+
+			/// <summary>
+			/// Invoked when the element is clicked with the right mouse button.
+			/// </summary>
+			event EventHandler RightClicked;
+
+			/// <summary>
+			/// Invoked when the right mouse button is released over the element.
+			/// </summary>
+			event EventHandler RightReleased;
+
+			/// <summary>
+			/// Optional tooltip text shown when the element is moused over.
 			/// </summary>
 			ToolTip ToolTip { get; set; }
 
 			/// <summary>
-			/// Determines whether the input element is enabled and accepting input
+			/// Returns true if the element is currently being held down with the left mouse button.
 			/// </summary>
-			bool InputEnabled { get; set; }
+			bool IsLeftClicked { get; }
 
-            /// <summary>
-            /// True if the element is being clicked with the left mouse button
-            /// </summary>
-            bool IsLeftClicked { get; }
+			/// <summary>
+			/// Returns true if the element is currently being held down with the right mouse button.
+			/// </summary>
+			bool IsRightClicked { get; }
 
-            /// <summary>
-            /// True if the element is being clicked with the right mouse button
-            /// </summary>
-            bool IsRightClicked { get; }
+			/// <summary>
+			/// Returns true if the element was just clicked with the left mouse button this frame.
+			/// </summary>
+			bool IsNewLeftClicked { get; }
 
-            /// <summary>
-            /// True if the element was just clicked with the left mouse button
-            /// </summary>
-            bool IsNewLeftClicked { get; }
+			/// <summary>
+			/// Returns true if the element was just clicked with the right mouse button this frame.
+			/// </summary>
+			bool IsNewRightClicked { get; }
 
-            /// <summary>
-            /// True if the element was just clicked with the right mouse button
-            /// </summary>
-            bool IsNewRightClicked { get; }
+			/// <summary>
+			/// Returns true if the element was just released after being left-clicked this frame.
+			/// </summary>
+			bool IsLeftReleased { get; }
 
-            /// <summary>
-            /// True if the element was just released after being left clicked
-            /// </summary>
-            bool IsLeftReleased { get; }
+			/// <summary>
+			/// Returns true if the element was just released after being right-clicked this frame.
+			/// </summary>
+			bool IsRightReleased { get; }
 
-            /// <summary>
-            /// True if the element was just released after being right clicked
-            /// </summary>
-            bool IsRightReleased { get; }
+			/// <summary>
+			/// Returns true if the mouse cursor is currently over the element.
+			/// </summary>
+			bool IsMousedOver { get; }
+		}
 
-            /// <summary>
-            /// Indicates whether or not the cursor is currently over this element.
-            /// </summary>
-            bool HasFocus { get; }
-
-            /// <summary>
-            /// Returns true if the element is moused over
-            /// </summary>
-            bool IsMousedOver { get; }
-
-            /// <summary>
-            /// Gets input focus for keyboard controls. Input focus normally taken when an
-            /// element with mouse input is clicked.
-            /// </summary>
-            void GetInputFocus();
-
-            /// <summary>
-            /// Clears all subscribers to mouse input events.
-            /// </summary>
-            void ClearSubscribers();
-        }
-
-        public interface IClickableElement : IReadOnlyHudElement
-        {
-            /// <summary>
-            /// Mouse input interface owned by the clickable element
-            /// </summary>
-            IMouseInput MouseInput { get; }
-        }
-    }
+		/// <summary>
+		/// Represents a UI element that can be interacted with via the mouse
+		/// </summary>
+		public interface IClickableElement : IFocusableElement
+		{
+			/// <summary>
+			/// Mouse input interface for this clickable element
+			/// </summary>
+			IMouseInput MouseInput { get; }
+		}
+	}
 }

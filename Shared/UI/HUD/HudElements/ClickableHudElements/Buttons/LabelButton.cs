@@ -5,10 +5,15 @@
     /// </summary>
     public class LabelButton : Label, IClickableElement
     {
-        /// <summary>
-        /// Handles mouse input for the button.
-        /// </summary>
-        public IMouseInput MouseInput { get; }
+		/// <summary>
+		/// Interface for managing gaining/losing input focus
+		/// </summary>
+		public IFocusHandler FocusHandler { get; }
+
+		/// <summary>
+		/// Handles mouse input for the button.
+		/// </summary>
+		public IMouseInput MouseInput { get; }
 
         /// <summary>
         /// Indicates whether or not the cursor is currently positioned over the button.
@@ -19,7 +24,8 @@
 
         public LabelButton(HudParentBase parent) : base(parent)
         {
-            _mouseInput = new MouseInputElement(this);
+			FocusHandler = new InputFocusHandler(this);
+			_mouseInput = new MouseInputElement(this);
             MouseInput = _mouseInput;
         }
 

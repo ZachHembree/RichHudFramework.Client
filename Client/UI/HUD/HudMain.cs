@@ -284,12 +284,12 @@ namespace RichHudFramework
 				/// Registers a callback for UI elements taking input focus. Callback
 				/// invoked when another element takes focus.
 				/// </summary>
-				public static void GetInputFocus(Action LoseFocusCallback)
+                public static void GetInputFocus(IFocusHandler handler)
 				{
 					if (Instance == null)
 						Init();
 
-					Instance.GetOrSetMemberFunc(LoseFocusCallback, (int)HudMainAccessors.GetInputFocus);
+                    Instance.GetOrSetMemberFunc(new Action(handler.ReleaseFocus), (int)HudMainAccessors.GetInputFocus);
 				}
 
 				/// <summary>

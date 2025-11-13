@@ -71,16 +71,24 @@ namespace RichHudFramework.UI
         /// </summary>
         public float Percent { get { return sliderBox.Percent; } set { sliderBox.Percent = value; } }
 
-        public IMouseInput MouseInput => sliderBox.MouseInput;
+		/// <summary>
+		/// Interface used to manage the element's input focus state
+		/// </summary>
+		public IFocusHandler FocusHandler => sliderBox.FocusHandler;
 
-        public override bool IsMousedOver => sliderBox.IsMousedOver;
+		/// <summary>
+		/// Mouse input interface for this clickable element
+		/// </summary>
+		public IMouseInput MouseInput => sliderBox.MouseInput;
+
+		public override bool IsMousedOver => sliderBox.IsMousedOver;
 
         protected readonly Label name, current;
         protected readonly SliderBox sliderBox;
 
         public NamedSliderBox(HudParentBase parent) : base(parent)
         {
-            sliderBox = new SliderBox(this, this)
+            sliderBox = new SliderBox(this)
             {
                 DimAlignment = DimAlignments.UnpaddedWidth,
                 ParentAlignment = ParentAlignments.InnerBottom,
@@ -105,6 +113,7 @@ namespace RichHudFramework.UI
                 ParentAlignment = ParentAlignments.PaddedInnerRight | ParentAlignments.Top
             };
 
+            FocusHandler.InputOwner = this;
             Padding = new Vector2(40f, 0f);
             Size = new Vector2(317f, 70f);
         }

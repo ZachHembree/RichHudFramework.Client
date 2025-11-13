@@ -82,8 +82,8 @@ namespace RichHudFramework.UI
             UseFocusFormatting = true;
 
             MouseInput.LeftClicked += ToggleValue;
-            MouseInput.GainedInputFocus += GainFocus;
-            MouseInput.LostInputFocus += LoseFocus;
+            FocusHandler.GainedInputFocus += GainFocus;
+			FocusHandler.LostInputFocus += LoseFocus;
         }
 
         public BorderedCheckBox() : this(null)
@@ -93,7 +93,7 @@ namespace RichHudFramework.UI
         {
             tickBox.Visible = IsBoxChecked;
 
-            if (MouseInput.HasFocus)
+            if (FocusHandler.HasFocus)
             {
                 if (SharedBinds.Space.IsNewPressed)
                 {
@@ -111,7 +111,7 @@ namespace RichHudFramework.UI
         {
             if (HighlightEnabled)
             {
-                if (!(UseFocusFormatting && MouseInput.HasFocus))
+                if (!(UseFocusFormatting && FocusHandler.HasFocus))
                 {
                     lastBackgroundColor = Color;
                     lastTickColor = TickBoxColor;
@@ -126,7 +126,7 @@ namespace RichHudFramework.UI
         {
             if (HighlightEnabled)
             {
-                if (UseFocusFormatting && MouseInput.HasFocus)
+                if (UseFocusFormatting && FocusHandler.HasFocus)
                 {
                     Color = FocusColor;
                     TickBoxColor = TickBoxFocusColor;

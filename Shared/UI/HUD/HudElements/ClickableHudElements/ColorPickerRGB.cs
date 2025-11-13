@@ -180,7 +180,7 @@ namespace RichHudFramework.UI
         {
             channel = MathHelper.Clamp(channel, 0, 2);
 
-            if (!sliders[channel].MouseInput.HasFocus)
+            if (!sliders[channel].FocusHandler.HasFocus)
                 focusedChannel = channel;
         }
 
@@ -216,23 +216,23 @@ namespace RichHudFramework.UI
         {
             if (focusedChannel != -1)
             {
-                sliders[focusedChannel].MouseInput.GetInputFocus();
+                sliders[focusedChannel].FocusHandler.GetInputFocus();
                 focusedChannel = -1;
             }
 
             for (int i = 0; i < sliders.Length; i++)
             {
-                if (sliders[i].MouseInput.HasFocus)
+                if (sliders[i].FocusHandler.HasFocus)
                 {
                     if (SharedBinds.UpArrow.IsNewPressed)
                     {
                         i = MathHelper.Clamp(i - 1, 0, sliders.Length - 1);
-                        sliders[i].MouseInput.GetInputFocus();
+                        sliders[i].FocusHandler.GetInputFocus();
                     }
                     else if (SharedBinds.DownArrow.IsNewPressed)
                     {
                         i = MathHelper.Clamp(i + 1, 0, sliders.Length - 1);
-                        sliders[i].MouseInput.GetInputFocus();
+                        sliders[i].FocusHandler.GetInputFocus();
                     }
 
                     break;

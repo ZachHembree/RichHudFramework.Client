@@ -46,12 +46,21 @@ namespace RichHudFramework.UI
         /// </summary>
         public override bool IsMousedOver => slide.IsMousedOver;
 
-        public IMouseInput MouseInput => slide.MouseInput;
+		/// <summary>
+		/// Interface used to manage the element's input focus state
+		/// </summary>
+		public IFocusHandler FocusHandler { get; }
+
+		/// <summary>
+		/// Mouse input interface for this clickable element
+		/// </summary>
+		public IMouseInput MouseInput => slide.MouseInput;
 
         public readonly SliderBar slide;
 
         public ScrollBar(HudParentBase parent) : base(parent)
         {
+            FocusHandler = new InputFocusHandler(this);
             slide = new SliderBar(this)
             {
                 Reverse = true,

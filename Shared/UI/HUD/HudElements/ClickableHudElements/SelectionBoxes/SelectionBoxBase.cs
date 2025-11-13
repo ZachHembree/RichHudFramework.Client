@@ -167,6 +167,11 @@ namespace RichHudFramework.UI
         /// </summary>
         public int Count => hudChain.Count;
 
+		/// <summary>
+		/// Interface used to manage the element's input focus state
+		/// </summary>
+		public IFocusHandler FocusHandler { get;}
+
         /// <summary>
         /// Mouse input element for the selection box
         /// </summary>
@@ -215,6 +220,7 @@ namespace RichHudFramework.UI
             selectionBox = new HighlightBox(hudChain) { Visible = false };
             highlightBox = new HighlightBox(hudChain) { Visible = false, CanDrawTab = false };
 
+            FocusHandler = new InputFocusHandler(this);
             listInput = new ListInputElement<TContainer, TElement>(hudChain, this);
 
             HighlightColor = TerminalFormatting.Atomic;
@@ -325,8 +331,7 @@ namespace RichHudFramework.UI
                 Vector2 offset = entry.Element.Position - highlightBox.Origin;
                 offset.X -= (ListSize.X - entryWidth - HighlightPadding.X) / 2f;
 
-                highlightBox.Visible = 
-                    (listInput.IsMousedOver || listInput.HasFocus) 
+                highlightBox.Visible = (listInput.IsMousedOver || FocusHandler.HasFocus) 
                     && entry.Element.Visible && entry.AllowHighlighting;
 
                 highlightBox.Height = entry.Element.Height - HighlightPadding.Y;

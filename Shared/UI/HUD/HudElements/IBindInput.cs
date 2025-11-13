@@ -1,49 +1,49 @@
 ﻿namespace RichHudFramework.UI
 {
+	/// <summary>
+	/// Provides input events for a specific custom UI binding.
+	/// </summary>
 	public interface IBindEventProxy
 	{
 		/// <summary>
-		/// Invoked when the bind is first pressed.
+		/// Invoked immediately when the bound input is first pressed
 		/// </summary>
 		event EventHandler NewPressed;
 
 		/// <summary>
-		/// Invoked after the bind has been held and pressed for at least 500ms.
+		/// Invoked after the bound input has been held and pressed for at least 500ms
 		/// </summary>
 		event EventHandler PressedAndHeld;
 
 		/// <summary>
-		/// Invoked after the bind has been released.
+		/// Invoked immediately after the bound input is released
 		/// </summary>
 		event EventHandler Released;
 	}
 
 	/// <summary>
-	/// Interface for invoking bind input events tied to a specific UI element
+	/// Defines a set of custom bind inputs for a UI element
 	/// </summary>
-	public interface IBindInput
+	public interface IBindInput : IFocusableElement
 	{
 		/// <summary>
-		/// Owner of the bind input element that is sent in event callbacks
-		/// </summary>
-		IBindInputElement InputOwner { get; }
-
-		/// <summary>
-		/// Retrieves event group assocated with the given bind object for this 
-		/// UI node
+		/// Retrieves the event proxy (press/release events) for a specific bind on this UI element
 		/// </summary>
 		IBindEventProxy this[IBind bind] { get; }
 
 		/// <summary>
-		/// Returns true if the given bind is used by the element
+		/// Returns true if the given bind is actively used and handled by this element
 		/// </summary>
 		bool GetHasBind(IBind bind);
 	}
 
-	public interface IBindInputElement : IReadOnlyHudElement
+	/// <summary>
+	/// Represents a UI element that can respond to custom bind inputs
+	/// </summary>
+	public interface IBindInputElement : IFocusableElement
 	{
 		/// <summary>
-		/// Bind input interface for the element
+		/// Custom bind input interface for this element
 		/// </summary>
 		IBindInput BindInput { get; }
 	}

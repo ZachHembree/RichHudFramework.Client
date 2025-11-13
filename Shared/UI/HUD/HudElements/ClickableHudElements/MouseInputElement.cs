@@ -13,103 +13,83 @@ namespace RichHudFramework.UI
 	public class MouseInputElement : HudElementBase, IMouseInput
 	{
 		/// <summary>
-		/// Mouse input owner sent in EventHandler invocations
+		/// Element that owns this input, used for event callbacks.
 		/// </summary>
-		public IClickableElement InputOwner { get; set; }
+		public IFocusHandler FocusHandler { get; protected set; }
 
 		/// <summary>
-		/// Invoked when the cursor enters the element's bounds
+		/// Invoked when the mouse cursor enters the element's interactive area.
 		/// </summary>
 		public event EventHandler CursorEntered;
 
 		/// <summary>
-		/// Invoked when the cursor leaves the element's bounds
+		/// Invoked when the mouse cursor leaves the element's interactive area.
 		/// </summary>
 		public event EventHandler CursorExited;
 
 		/// <summary>
-		/// Invoked when the element is clicked with the left mouse button
+		/// Invoked when the element is clicked with the left mouse button.
 		/// </summary>
 		public event EventHandler LeftClicked;
 
 		/// <summary>
-		/// Invoked when the left click is released
+		/// Invoked when the left mouse button is released over the element.
 		/// </summary>
 		public event EventHandler LeftReleased;
 
 		/// <summary>
-		/// Invoked when the element is clicked with the right mouse button
+		/// Invoked when the element is clicked with the right mouse button.
 		/// </summary>
 		public event EventHandler RightClicked;
 
 		/// <summary>
-		/// Invoked when the right click is released
+		/// Invoked when the right mouse button is released over the element.
 		/// </summary>
 		public event EventHandler RightReleased;
 
 		/// <summary>
-		/// Invoked when taking focus
-		/// </summary>
-		public event EventHandler GainedInputFocus;
-
-		/// <summary>
-		/// Invoked when focus is lost
-		/// </summary>
-		public event EventHandler LostInputFocus;
-
-		/// <summary>
-		/// Optional tooltip shown when the element is moused over
+		/// Optional tooltip text shown when the element is moused over.
 		/// </summary>
 		public ToolTip ToolTip { get; set; }
 
 		/// <summary>
-		/// Indicates whether or not the element has input focus.
-		/// </summary>
-		public bool HasFocus { get { return hasFocus && Visible; } private set { hasFocus = value; } }
-
-		/// <summary>
-		/// True if the element is being clicked with the left mouse button
+		/// Returns true if the element is currently being held down with the left mouse button.
 		/// </summary>
 		public bool IsLeftClicked { get; private set; }
 
 		/// <summary>
-		/// True if the element is being clicked with the right mouse button
+		/// Returns true if the element is currently being held down with the right mouse button.
 		/// </summary>
 		public bool IsRightClicked { get; private set; }
 
 		/// <summary>
-		/// True if the element was just clicked with the left mouse button
+		/// Returns true if the element was just clicked with the left mouse button this frame.
 		/// </summary>
 		public bool IsNewLeftClicked { get; private set; }
 
 		/// <summary>
-		/// True if the element was just clicked with the right mouse button
+		/// Returns true if the element was just clicked with the right mouse button this frame.
 		/// </summary>
 		public bool IsNewRightClicked { get; private set; }
 
 		/// <summary>
-		/// True if the element was just released after being left clicked
+		/// Returns true if the element was just released after being left-clicked this frame.
 		/// </summary>
 		public bool IsLeftReleased { get; private set; }
 
 		/// <summary>
-		/// True if the element was just released after being right clicked
+		/// Returns true if the element was just released after being right-clicked this frame.
 		/// </summary>
 		public bool IsRightReleased { get; private set; }
 
 		private bool mouseCursorEntered;
-		private bool hasFocus;
-		protected readonly Action LoseFocusCallback;
 
-		public MouseInputElement(HudParentBase parent, IClickableElement inputOwner = null) : base(parent)
+		public MouseInputElement(HudParentBase parent) : base(parent)
 		{
-			InputOwner = inputOwner ?? parent as IClickableElement;
+			FocusHandler = (parent as IFocusableElement)?.FocusHandler;
 			UseCursor = true;
 			ShareCursor = true;
-			HasFocus = false;
 			DimAlignment = DimAlignments.UnpaddedSize;
-
-			LoseFocusCallback = LoseFocus;
 		}
 
 		public MouseInputElement() : this(null)
@@ -158,17 +138,19 @@ namespace RichHudFramework.UI
 
 		protected override void HandleInput(Vector2 cursorPos)
 		{
+			FocusHandler = (Parent as IFocusableElement)?.FocusHandler;
+
 			if (IsMousedOver)
 			{
 				if (!mouseCursorEntered)
 				{
 					mouseCursorEntered = true;
-					CursorEntered?.Invoke(InputOwner, EventArgs.Empty);
+					CursorEntered?.Invoke(FocusHandler?.InputOwner, EventArgs.Empty);
 				}
 
 				if (SharedBinds.LeftButton.IsNewPressed)
 				{
-					GetInputFocus();
+					FocusHandler?.GetInputFocus();
 					OnLeftClick();
 				}
 				else
@@ -176,7 +158,7 @@ namespace RichHudFramework.UI
 
 				if (SharedBinds.RightButton.IsNewPressed)
 				{
-					GetInputFocus();
+					FocusHandler?.GetInputFocus();
 					OnRightClick();
 				}
 				else
@@ -190,11 +172,13 @@ namespace RichHudFramework.UI
 				if (mouseCursorEntered)
 				{
 					mouseCursorEntered = false;
-					CursorExited?.Invoke(InputOwner, EventArgs.Empty);
+					CursorExited?.Invoke(FocusHandler?.InputOwner, EventArgs.Empty);
 				}
 
-				if (HasFocus && (SharedBinds.LeftButton.IsNewPressed || SharedBinds.RightButton.IsNewPressed))
-					LoseFocus();
+				bool hasFocus = FocusHandler?.HasFocus ?? false;
+
+				if (hasFocus && (SharedBinds.LeftButton.IsNewPressed || SharedBinds.RightButton.IsNewPressed))
+					FocusHandler.ReleaseFocus();
 
 				IsNewLeftClicked = false;
 				IsNewRightClicked = false;
@@ -202,7 +186,7 @@ namespace RichHudFramework.UI
 
 			if (!SharedBinds.LeftButton.IsPressed && IsLeftClicked)
 			{
-				LeftReleased?.Invoke(InputOwner, EventArgs.Empty);
+				LeftReleased?.Invoke(FocusHandler?.InputOwner, EventArgs.Empty);
 				IsLeftReleased = true;
 				IsLeftClicked = false;
 			}
@@ -211,7 +195,7 @@ namespace RichHudFramework.UI
 
 			if (!SharedBinds.RightButton.IsPressed && IsRightClicked)
 			{
-				RightReleased?.Invoke(InputOwner, EventArgs.Empty);
+				RightReleased?.Invoke(FocusHandler?.InputOwner, EventArgs.Empty);
 				IsRightReleased = true;
 				IsRightClicked = false;
 			}
@@ -224,7 +208,7 @@ namespace RichHudFramework.UI
 		/// </summary>
 		public virtual void OnLeftClick()
 		{
-			LeftClicked?.Invoke(InputOwner, EventArgs.Empty);
+			LeftClicked?.Invoke(FocusHandler?.InputOwner, EventArgs.Empty);
 			IsLeftClicked = true;
 			IsNewLeftClicked = true;
 			IsLeftReleased = false;
@@ -235,33 +219,10 @@ namespace RichHudFramework.UI
 		/// </summary>
 		public virtual void OnRightClick()
 		{
-			RightClicked?.Invoke(InputOwner, EventArgs.Empty);
+			RightClicked?.Invoke(FocusHandler?.InputOwner, EventArgs.Empty);
 			IsRightClicked = true;
 			IsNewRightClicked = true;
 			IsRightReleased = false;
-		}
-
-		/// <summary>
-		/// Gets input focus for keyboard controls. Input focus normally taken when an
-		/// element with mouse input is clicked.
-		/// </summary>
-		public virtual void GetInputFocus()
-		{
-			if (!hasFocus)
-			{
-				hasFocus = true;
-				HudMain.GetInputFocus(LoseFocusCallback);
-				GainedInputFocus?.Invoke(InputOwner, EventArgs.Empty);
-			}
-		}
-
-		protected virtual void LoseFocus()
-		{
-			if (hasFocus)
-			{
-				hasFocus = false;
-				LostInputFocus?.Invoke(InputOwner, EventArgs.Empty);
-			}
 		}
 	}
 }

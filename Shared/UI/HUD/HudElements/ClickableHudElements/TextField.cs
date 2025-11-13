@@ -13,12 +13,21 @@ namespace RichHudFramework.UI
         /// <summary>
         /// Invoked whenever a change is made to the text. Invokes once every 500ms, at most.
         /// </summary>
-        public event EventHandler TextChanged;
+        public event EventHandler TextChanged
+        { 
+            add { textBox.TextChanged += value; }
+            remove { textBox.TextChanged -= value; }
+        }
 
-        /// <summary>
-        /// Text rendered by the text field.
-        /// </summary>
-        public RichText Text { get { return textBox.TextBoard.GetText(); } set { textBox.TextBoard.SetText(value); } }
+		/// <summary>
+		/// Registers a text update callback. For use in object initializers.
+		/// </summary>
+		public EventHandler TextUpdateCallback { set { textBox.TextChanged += value; } }
+
+		/// <summary>
+		/// Text rendered by the text field.
+		/// </summary>
+		public RichText Text { get { return textBox.TextBoard.GetText(); } set { textBox.TextBoard.SetText(value); } }
 
         /// <summary>
         /// TextBoard backing the text field.
@@ -115,7 +124,15 @@ namespace RichHudFramework.UI
         /// </summary>
         public bool UseFocusFormatting { get; set; }
 
-        public IMouseInput MouseInput => textBox.MouseInput;
+        /// <summary>
+        /// Interface used to manage the element's input focus state
+        /// </summary>
+        public IFocusHandler FocusHandler => textBox.FocusHandler;
+
+		/// <summary>
+		/// Mouse input interface for this clickable element
+		/// </summary>
+		public IMouseInput MouseInput => textBox.MouseInput;
 
         public override bool IsMousedOver => textBox.IsMousedOver;
 
@@ -149,6 +166,7 @@ namespace RichHudFramework.UI
                 MoveToEndOnGainFocus = true,
                 ClearSelectionOnLoseFocus = true
             };
+            textBox.FocusHandler.InputOwner = this;
 
             Format = TerminalFormatting.ControlFormat;
             FocusTextColor = TerminalFormatting.Charcoal;
@@ -164,11 +182,10 @@ namespace RichHudFramework.UI
 
             Size = new Vector2(250f, 40);
 
-            textBox.TextBoard.TextChanged += OnTextChanged;
             MouseInput.CursorEntered += CursorEnter;
             MouseInput.CursorExited += CursorExit;
-            MouseInput.GainedInputFocus += GainFocus;
-            MouseInput.LostInputFocus += LoseFocus;
+            FocusHandler.GainedInputFocus += GainFocus;
+			FocusHandler.LostInputFocus += LoseFocus;
         }
 
         public TextField() : this(null)
@@ -180,23 +197,18 @@ namespace RichHudFramework.UI
         public void CloseInput() =>
             textBox.CloseInput();
 
-        private void OnTextChanged()
-        {
-            TextChanged?.Invoke(this, EventArgs.Empty);
-        }
-
         protected virtual void CursorEnter(object sender, EventArgs args)
         {
             if (HighlightEnabled)
             {
-                if (!UseFocusFormatting || !MouseInput.HasFocus)
+                if (!UseFocusFormatting || !FocusHandler.HasFocus)
                 {
                     lastColor = Color;
                 }
 
                 if (UseFocusFormatting)
                 {
-					if (!MouseInput.HasFocus)
+					if (!FocusHandler.HasFocus)
 						lastTextColor = Format.Color;
 
 					TextBoard.SetFormatting(TextBoard.Format.WithColor(lastTextColor));
@@ -210,7 +222,7 @@ namespace RichHudFramework.UI
         {
             if (HighlightEnabled)
             {
-                if (UseFocusFormatting && MouseInput.HasFocus)
+                if (UseFocusFormatting && FocusHandler.HasFocus)
                 {
                     Color = FocusColor;
                     TextBoard.SetFormatting(TextBoard.Format.WithColor(FocusTextColor));

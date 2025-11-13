@@ -139,9 +139,14 @@ namespace RichHudFramework.UI
         public int Count => selectionBox.Count;
 
         /// <summary>
-        /// Handles mouse input for the header.
+        /// Interface used to manage the element's input focus state.
         /// </summary>
-        public IMouseInput MouseInput => labelButton.MouseInput;
+        public IFocusHandler FocusHandler => labelButton.FocusHandler;
+
+		/// <summary>
+		/// Handles mouse input for the header.
+		/// </summary>
+		public IMouseInput MouseInput => labelButton.MouseInput;
 
         public readonly TSelectionBox selectionBox;
         protected readonly TreeBoxDisplay labelButton;
@@ -161,6 +166,7 @@ namespace RichHudFramework.UI
                 HighlightPadding = Vector2.Zero
             };
             selectionBox.Register(labelButton);
+            selectionBox.FocusHandler.InputOwner = this;
             selectionBox.hudChain.SizingMode = HudChainSizingModes.FitMembersOffAxis;
 
             Width = 200f;
@@ -168,6 +174,7 @@ namespace RichHudFramework.UI
             IndentSize = 20f;
             DropdownHeight = 100f;
 
+            FocusHandler.InputOwner = this;
             Format = GlyphFormat.Blueish;
             labelButton.Name = "NewTreeBox";
             labelButton.MouseInput.LeftClicked += ToggleList;
@@ -241,7 +248,7 @@ namespace RichHudFramework.UI
         /// Modified dropdown header with a rotating arrow on the left side indicating
         /// whether the list is open.
         /// </summary>
-        protected class TreeBoxDisplay : HudElementBase
+        protected class TreeBoxDisplay : HudElementBase, IClickableElement
         {
             public RichText Name { get { return name.Text; } set { name.Text = value; } }
 
@@ -249,7 +256,9 @@ namespace RichHudFramework.UI
 
             public Color Color { get { return background.Color; } set { background.Color = value; } }
 
-            public IMouseInput MouseInput => mouseInput;
+			public IFocusHandler FocusHandler { get; }
+
+			public IMouseInput MouseInput => mouseInput;
 
             public bool Open
             {
@@ -313,7 +322,8 @@ namespace RichHudFramework.UI
                     CollectionContainer = { arrow, divider, { name, 1f } }
                 };
 
-                mouseInput = new MouseInputElement(this, parent as IClickableElement)
+                FocusHandler = new InputFocusHandler(this);
+                mouseInput = new MouseInputElement(this)
                 {
                     DimAlignment = DimAlignments.Size
                 };

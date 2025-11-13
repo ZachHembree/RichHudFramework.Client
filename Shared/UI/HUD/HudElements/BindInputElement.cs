@@ -7,26 +7,32 @@ namespace RichHudFramework.UI
 	using System.Collections.Generic;
 
 	/// <summary>
-	/// UI element for invoking bind input events tied to a specific UI element
+	/// Defines a set of custom bind inputs for a UI element
 	/// </summary>
 	public class BindInputElement : HudNodeBase, IBindInput
 	{
 		/// <summary>
-		/// Owner of the bind input element that is sent in event callbacks
+		/// Element that owns this input, used for event callbacks
 		/// </summary>
-		public IBindInputElement InputOwner { get; set; }
+		public IFocusHandler FocusHandler { get; protected set; }
 
 		/// <summary>
-		/// Retrieves event group assocated with the given bind object for this 
-		/// UI node
+		/// Retrieves the event proxy (press/release events) for a specific bind on this UI element
 		/// </summary>
 		public IBindEventProxy this[IBind bind] => binds[bind];
 
+		/// <summary>
+		/// If true, then input events will only fire if the element has input focus.
+		/// False by default.
+		/// </summary>
+		public bool IsFocusRequired { get; set; }
+
 		protected readonly Dictionary<IBind, BindEventProxy> binds;
 
-		public BindInputElement(HudParentBase parent = null, IBindInputElement inputOwner = null) : base(parent)
+		public BindInputElement(HudParentBase parent = null) : base(parent)
 		{
-			InputOwner = inputOwner ?? parent as IBindInputElement;
+			FocusHandler = (parent as IFocusableElement)?.FocusHandler;
+			IsFocusRequired = false;
 		}
 
 		/// <summary>
@@ -41,61 +47,51 @@ namespace RichHudFramework.UI
 		/// <summary>
 		/// Removes all binds from the element
 		/// </summary>
-		public void Reset()
-		{
-			binds.Clear();
-		}
+		public void Reset() { binds.Clear(); }
 
 		/// <summary>
-		/// Unregisters all subscribers from all bind events
-		/// </summary>
-		public void ClearSubscribers()
-		{
-			foreach (var pair in binds)
-				pair.Value.ClearSubscribers();
-		}
-
-		/// <summary>
-		/// Returns true if the given bind is used by the element
+		/// Returns true if the given bind is actively used and handled by this element
 		/// </summary>
 		public bool GetHasBind(IBind bind) =>
 			binds.ContainsKey(bind);
 
 		protected override void HandleInput(Vector2 cursorPos)
 		{
-			foreach (var pair in binds)
+			FocusHandler = (Parent as IFocusableElement)?.FocusHandler;
+
+			if (IsFocusRequired && !(FocusHandler?.HasFocus ?? false))
+				return;
+
+			foreach (KeyValuePair<IBind, BindEventProxy> pair in binds)
 			{
 				if (pair.Key.IsNewPressed)
-				{
-					pair.Value.InvokeNewPressed(InputOwner, EventArgs.Empty);
-				}
+					pair.Value.InvokeNewPressed(FocusHandler, EventArgs.Empty);
 
 				if (pair.Key.IsPressedAndHeld)
-				{
-					pair.Value.InvokePressedAndHeld(InputOwner, EventArgs.Empty);
-				}
+					pair.Value.InvokePressedAndHeld(FocusHandler, EventArgs.Empty);
 
 				if (pair.Key.IsReleased)
-				{
-					pair.Value.InvokeReleased(InputOwner, EventArgs.Empty);
-				}
+					pair.Value.InvokeReleased(FocusHandler, EventArgs.Empty);
 			}
 		}
 
+		/// <summary>
+		/// Provides input events for a specific custom UI binding.
+		/// </summary>
 		protected class BindEventProxy : IBindEventProxy
 		{
 			/// <summary>
-			/// Invoked when the bind is first pressed.
+			/// Invoked immediately when the bound input is first pressed
 			/// </summary>
 			public event EventHandler NewPressed;
 
 			/// <summary>
-			/// Invoked after the bind has been held and pressed for at least 500ms.
+			/// Invoked after the bound input has been held and pressed for at least 500ms
 			/// </summary>
 			public event EventHandler PressedAndHeld;
 
 			/// <summary>
-			/// Invoked after the bind has been released.
+			/// Invoked immediately after the bound input is released
 			/// </summary>
 			public event EventHandler Released;
 

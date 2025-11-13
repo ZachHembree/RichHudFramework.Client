@@ -89,8 +89,7 @@ namespace RichHudFramework.UI
             IReadOnlyHudCollection<TElementContainer, TElement> entries, 
             HudElementBase parent = null, 
             IClickableElement inputOwner = null
-        ) 
-            : base(parent, inputOwner)
+        )  : base(parent)
         {
             Entries = entries;
             _selectionIndex = -1;
@@ -204,7 +203,7 @@ namespace RichHudFramework.UI
                 _focusIndex = _selectionIndex;
 
             // Keyboard input
-            if (HasFocus)
+            if (FocusHandler?.HasFocus ?? true)
             {
                 if (SharedBinds.UpArrow.IsNewPressed || SharedBinds.UpArrow.IsPressedAndHeld)
                 {
@@ -286,7 +285,8 @@ namespace RichHudFramework.UI
                 }
             }
 
-            if ((listMousedOver && SharedBinds.LeftButton.IsNewPressed) || (HasFocus && SharedBinds.Space.IsNewPressed))
+            if ((listMousedOver && SharedBinds.LeftButton.IsNewPressed) || 
+                ((FocusHandler?.HasFocus ?? true) && SharedBinds.Space.IsNewPressed))
             {
                 _selectionIndex = _highlightIndex;
                 SelectionChanged?.Invoke(this, EventArgs.Empty);
