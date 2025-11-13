@@ -13,10 +13,23 @@ namespace RichHudFramework.UI
     /// </summary>
     public class ColorPickerRGB : HudElementBase
     {
-        /// <summary>
-        /// Text rendered by the label
-        /// </summary>
-        public RichText Name { get { return name.TextBoard.GetText(); } set { name.TextBoard.SetText(value); } }
+		/// <summary>
+		/// Invoked when the current value changes
+		/// </summary>
+		public event EventHandler ValueChanged;
+
+		/// <summary>
+		/// Registers a value update callback. Useful in initializers.
+		/// </summary>
+		public EventHandler UpdateValueCallback
+		{
+			set { ValueChanged += value; }
+		}
+
+		/// <summary>
+		/// Text rendered by the label
+		/// </summary>
+		public RichText Name { get { return name.TextBoard.GetText(); } set { name.TextBoard.SetText(value); } }
 
         /// <summary>
         /// Text builder backing the label
@@ -68,8 +81,7 @@ namespace RichHudFramework.UI
         protected readonly HudChain<HudElementContainer<SliderBox>, SliderBox> colorSliderColumn;
 
         protected readonly HudChain colorChain;
-        protected readonly StringBuilder valueBuilder;
-        protected Color _color;
+        protected Color _color, lastColor;
         protected int focusedChannel;
 
         public ColorPickerRGB(HudParentBase parent) : base(parent)
@@ -126,9 +138,21 @@ namespace RichHudFramework.UI
 
             sliders = new SliderBox[] 
             {
-                new SliderBox() { Min = 0f, Max = 255f, Height = 47f },
-                new SliderBox() { Min = 0f, Max = 255f, Height = 47f },
-                new SliderBox() { Min = 0f, Max = 255f, Height = 47f }
+                new SliderBox() 
+                { 
+                    Min = 0f, Max = 255f, Height = 47f, 
+                    UpdateValueCallback = UpdateChannelR
+                },
+                new SliderBox() 
+                { 
+                    Min = 0f, Max = 255f, Height = 47f,
+					UpdateValueCallback = UpdateChannelG
+				},
+                new SliderBox() 
+                { 
+                    Min = 0f, Max = 255f, Height = 47f,
+					UpdateValueCallback = UpdateChannelB
+				}
             };
 
             colorSliderColumn = new HudChain<HudElementContainer<SliderBox>, SliderBox>(true)
@@ -163,11 +187,10 @@ namespace RichHudFramework.UI
             };
 
             Size = new Vector2(318f, 163f);
-            valueBuilder = new StringBuilder();
-
             UseCursor = true;
             ShareCursor = true;
             focusedChannel = -1;
+            lastColor = _color;
         }
 
         public ColorPickerRGB() : this(null)
@@ -184,36 +207,38 @@ namespace RichHudFramework.UI
                 focusedChannel = channel;
         }
 
-		protected override void Layout()
+        protected virtual void UpdateChannelR(object sender, EventArgs args)
         {
-            _color = new Color()
-            {
-                R = (byte)Math.Round(sliders[0].Current),
-                G = (byte)Math.Round(sliders[1].Current),
-                B = (byte)Math.Round(sliders[2].Current),
-                A = 255
-            };
+			var slider = sender as SliderBox;
+			_color.R = (byte)Math.Round(slider.Current);
+			sliderText[0].TextBoard.SetText($"R: {_color.R}");
+			display.Color = _color;
+		}
 
-            valueBuilder.Clear();
-            valueBuilder.Append("R: ");
-            valueBuilder.Append(_color.R);
-            sliderText[0].TextBoard.SetText(valueBuilder);
+		protected virtual void UpdateChannelG(object sender, EventArgs args)
+		{
+			var slider = sender as SliderBox;
+			_color.G = (byte)Math.Round(slider.Current);
+			sliderText[1].TextBoard.SetText($"G: {_color.G}");
+			display.Color = _color;
+		}
 
-            valueBuilder.Clear();
-            valueBuilder.Append("G: ");
-            valueBuilder.Append(_color.G);
-            sliderText[1].TextBoard.SetText(valueBuilder);
-
-            valueBuilder.Clear();
-            valueBuilder.Append("B: ");
-            valueBuilder.Append(_color.B);
-            sliderText[2].TextBoard.SetText(valueBuilder);
-
-            display.Color = _color;
-        }
+		protected virtual void UpdateChannelB(object sender, EventArgs args)
+		{
+			var slider = sender as SliderBox;
+			_color.B = (byte)Math.Round(slider.Current);
+			sliderText[2].TextBoard.SetText($"B: {_color.B}");
+			display.Color = _color;
+		}
 
 		protected override void HandleInput(Vector2 cursorPos)
         {
+            if (_color != lastColor)
+            {
+                ValueChanged?.Invoke(this, EventArgs.Empty);
+                lastColor = _color;
+            }
+
             if (focusedChannel != -1)
             {
                 sliders[focusedChannel].FocusHandler.GetInputFocus();

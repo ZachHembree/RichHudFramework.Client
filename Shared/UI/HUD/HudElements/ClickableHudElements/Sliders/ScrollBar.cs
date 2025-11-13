@@ -8,10 +8,27 @@ namespace RichHudFramework.UI
     /// </summary>
     public class ScrollBar : HudElementBase, IClickableElement
     {
-        /// <summary>
-        /// Minimum allowable value.
-        /// </summary>
-        public float Min
+		/// <summary>
+		/// Invoked when the current value changes
+		/// </summary>
+		public event EventHandler ValueChanged
+		{
+			add { slide.ValueChanged += value; }
+			remove { slide.ValueChanged -= value; }
+		}
+
+		/// <summary>
+		/// Registers a value update callback. Useful in initializers.
+		/// </summary>
+		public EventHandler UpdateValueCallback
+		{
+			set { slide.ValueChanged += value; }
+		}
+
+		/// <summary>
+		/// Minimum allowable value.
+		/// </summary>
+		public float Min
         {
             get { return slide.Min; }
             set { slide.Min = value; }

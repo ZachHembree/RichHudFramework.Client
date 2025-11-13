@@ -98,11 +98,19 @@ namespace RichHudFramework.UI
             remove { listInput.SelectionChanged -= value; }
         }
 
-        /// <summary>
-        /// Used to allow the addition of list entries using collection-initializer syntax in
-        /// conjunction with normal initializers.
-        /// </summary>
-        public SelectionBoxBase<TChain, TContainer, TElement> ListContainer => this;
+		/// <summary>
+		/// Registers a selection update callback. Useful in initializers.
+		/// </summary>
+		public EventHandler SelectionChangedCallback
+		{
+			set { listInput.SelectionChanged += value; }
+		}
+
+		/// <summary>
+		/// Used to allow the addition of list entries using collection-initializer syntax in
+		/// conjunction with normal initializers.
+		/// </summary>
+		public SelectionBoxBase<TChain, TContainer, TElement> ListContainer => this;
 
         /// <summary>
         /// Read-only collection of list entries.

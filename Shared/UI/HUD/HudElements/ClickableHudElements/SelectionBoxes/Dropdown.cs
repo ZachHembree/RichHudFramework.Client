@@ -58,10 +58,18 @@ namespace RichHudFramework.UI
             remove { listBox.SelectionChanged -= value; } 
         }
 
-        /// <summary>
-        /// List of entries in the dropdown.
-        /// </summary>
-        public IReadOnlyList<TContainer> EntryList => listBox.EntryList;
+		/// <summary>
+		/// Registers a selection update callback. Useful in initializers.
+		/// </summary>
+		public EventHandler SelectionChangedCallback
+		{
+			set { listBox.SelectionChanged += value; }
+		}
+
+		/// <summary>
+		/// List of entries in the dropdown.
+		/// </summary>
+		public IReadOnlyList<TContainer> EntryList => listBox.EntryList;
 
         /// <summary>
         /// Read-only collection of list entries.

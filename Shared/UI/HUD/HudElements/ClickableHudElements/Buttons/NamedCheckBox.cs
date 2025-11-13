@@ -8,10 +8,27 @@ namespace RichHudFramework.UI
     /// </summary>
     public class NamedCheckBox : HudElementBase, IClickableElement
     {
-        /// <summary>
-        /// Text rendered by the label.
-        /// </summary>
-        public RichText Name { get { return name.TextBoard.GetText(); } set { name.TextBoard.SetText(value); } }
+		/// <summary>
+		/// Invoked when the current value changes
+		/// </summary>
+		public event EventHandler ValueChanged
+		{
+			add { checkbox.ValueChanged += value; }
+			remove { checkbox.ValueChanged -= value; }
+		}
+
+		/// <summary>
+		/// Registers a value update callback. Useful in initializers.
+		/// </summary>
+		public EventHandler UpdateValueCallback
+		{
+			set { checkbox.ValueChanged += value; }
+		}
+
+		/// <summary>
+		/// Text rendered by the label.
+		/// </summary>
+		public RichText Name { get { return name.TextBoard.GetText(); } set { name.TextBoard.SetText(value); } }
 
         /// <summary>
         /// Default formatting used by the label.

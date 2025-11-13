@@ -11,11 +11,24 @@ namespace RichHudFramework.UI
     /// resemble on/off button used in the SE terminal, sans name tag.
     /// </summary>
     public class OnOffButton : HudElementBase, IClickableElement
-    {   
-        /// <summary>
-        /// Distance between the on and off buttons
-        /// </summary>
-        public float ButtonSpacing { get { return buttonChain.Spacing; } set { buttonChain.Spacing = value; } }
+    {
+		/// <summary>
+		/// Invoked when the current value changes
+		/// </summary>
+		public event EventHandler ValueChanged;
+
+		/// <summary>
+		/// Registers a value update callback. Useful in initializers.
+		/// </summary>
+		public EventHandler UpdateValueCallback
+		{
+			set { ValueChanged += value; }
+		}
+
+		/// <summary>
+		/// Distance between the on and off buttons
+		/// </summary>
+		public float ButtonSpacing { get { return buttonChain.Spacing; } set { buttonChain.Spacing = value; } }
 
         /// <summary>
         /// Color of the border surrounding the on and off buttons
@@ -110,6 +123,7 @@ namespace RichHudFramework.UI
 
         protected readonly MouseInputElement _mouseInput;
         protected Color _backgroundColor;
+        protected bool lastValue;
 
         public OnOffButton(HudParentBase parent) : base(parent)
         {
@@ -178,6 +192,7 @@ namespace RichHudFramework.UI
             UseFocusFormatting = true;
 
             _mouseInput.LeftClicked += LeftClick;
+            lastValue = Value;
         }
 
         public OnOffButton() : this(null)
@@ -217,6 +232,12 @@ namespace RichHudFramework.UI
 
 		protected override void HandleInput(Vector2 cursorPos)
         {
+            if (lastValue != Value)
+            {
+                ValueChanged?.Invoke(FocusHandler?.InputOwner, EventArgs.Empty);
+                lastValue = Value;
+            }
+
             if (FocusHandler.HasFocus && SharedBinds.Space.IsNewPressed)
             {
                 _mouseInput.OnLeftClick();

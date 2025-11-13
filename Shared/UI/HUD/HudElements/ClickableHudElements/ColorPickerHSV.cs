@@ -13,32 +13,28 @@ namespace RichHudFramework.UI
     /// </summary>
     public class ColorPickerHSV : ColorPickerRGB
     {
-        protected override void Layout()
-        {
-            _color = new Color()
-            {
-                R = (byte)Math.Round(sliders[0].Current),
-                G = (byte)Math.Round(sliders[1].Current),
-                B = (byte)Math.Round(sliders[2].Current),
-                A = 255
-            };
+		protected override void UpdateChannelR(object sender, EventArgs args)
+		{
+			var slider = sender as SliderBox;
+			_color.R = (byte)Math.Round(slider.Current);
+			sliderText[0].TextBoard.SetText($"H: {_color.R}");
+			display.Color = (_color / new Vector3(360f, 100f, 100f)).HSVtoColor();
+		}
 
-            valueBuilder.Clear();
-            valueBuilder.Append("H: ");
-            valueBuilder.Append(_color.R);
-            sliderText[0].TextBoard.SetText(valueBuilder);
+		protected override void UpdateChannelG(object sender, EventArgs args)
+		{
+			var slider = sender as SliderBox;
+			_color.G = (byte)Math.Round(slider.Current);
+			sliderText[1].TextBoard.SetText($"S: {_color.G}");
+			display.Color = (_color / new Vector3(360f, 100f, 100f)).HSVtoColor();
+		}
 
-            valueBuilder.Clear();
-            valueBuilder.Append("S: ");
-            valueBuilder.Append(_color.G);
-            sliderText[1].TextBoard.SetText(valueBuilder);
-
-            valueBuilder.Clear();
-            valueBuilder.Append("V: ");
-            valueBuilder.Append(_color.B);
-            sliderText[2].TextBoard.SetText(valueBuilder);
-
-            display.Color = (_color / new Vector3(360f, 100f, 100f)).HSVtoColor();
-        }
+		protected override void UpdateChannelB(object sender, EventArgs args)
+		{
+			var slider = sender as SliderBox;
+			_color.B = (byte)Math.Round(slider.Current);
+			sliderText[2].TextBoard.SetText($"V: {_color.B}");
+			display.Color = (_color / new Vector3(360f, 100f, 100f)).HSVtoColor();
+		}
     }
 }

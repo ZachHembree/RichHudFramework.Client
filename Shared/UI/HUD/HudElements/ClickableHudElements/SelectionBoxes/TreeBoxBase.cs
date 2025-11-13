@@ -52,10 +52,18 @@ namespace RichHudFramework.UI
             remove { selectionBox.SelectionChanged -= value; }
         }
 
-        /// <summary>
-        /// List of entries in the treebox.
-        /// </summary>
-        public IReadOnlyList<TContainer> EntryList => selectionBox.EntryList;
+		/// <summary>
+		/// Registers a selection update callback. Useful in initializers.
+		/// </summary>
+		public EventHandler SelectionChangedCallback
+		{
+			set { selectionBox.SelectionChanged += value; }
+		}
+
+		/// <summary>
+		/// List of entries in the treebox.
+		/// </summary>
+		public IReadOnlyList<TContainer> EntryList => selectionBox.EntryList;
 
         /// <summary>
         /// Used to allow the addition of list entries using collection-initializer syntax in
