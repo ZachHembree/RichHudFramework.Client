@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using VRageMath;
 
 namespace RichHudFramework
 {
@@ -154,6 +155,42 @@ namespace RichHudFramework
 							{
 								nodes[i].Element.Config[StateID] |= (uint)state;
 							}
+						}
+					}
+				}
+			}
+		}
+
+		public abstract partial class HudElementBase
+		{
+			public static class ElementUtils
+			{
+				public static void UpdateRootAnchoring(Vector2 size, IReadOnlyList<HudNodeBase> children)
+				{
+					// Update position
+					for (int i = 0; i < children.Count; i++)
+					{
+						var child = children[i] as HudElementBase;
+
+						if (child != null && (child.Config[StateID] & (child.Config[VisMaskID])) == child.Config[VisMaskID])
+						{
+							ParentAlignments originFlags = child.ParentAlignment;
+							Vector2 delta = Vector2.Zero,
+								childSize = child.UnpaddedSize + child.Padding,
+								max = (size - childSize) * .5f,
+								min = -max;
+
+							if ((originFlags & ParentAlignments.Bottom) == ParentAlignments.Bottom)
+								delta.Y = min.Y;
+							else if ((originFlags & ParentAlignments.Top) == ParentAlignments.Top)
+								delta.Y = max.Y;
+
+							if ((originFlags & ParentAlignments.Left) == ParentAlignments.Left)
+								delta.X = min.X;
+							else if ((originFlags & ParentAlignments.Right) == ParentAlignments.Right)
+								delta.X = max.X;
+
+							child.Origin = delta;
 						}
 					}
 				}

@@ -8,11 +8,12 @@ namespace RichHudFramework
 		using Server;
 		using Client;
 		using Internal;
+		using System.Collections.Generic;
 
 		/// <summary>
 		/// Base type for all UI elements with definite size and position. Extends HudParentBase and HudNodeBase.
 		/// </summary>
-		public abstract class HudElementBase : HudNodeBase, IReadOnlyHudElement
+		public abstract partial class HudElementBase : HudNodeBase, IReadOnlyHudElement
 		{
 			protected const float minMouseBounds = 8f;
 
@@ -288,8 +289,7 @@ namespace RichHudFramework
 				}
 				else
 				{
-					Origin = Vector2.Zero;
-					Position = Offset;
+					Position = Origin + Offset;
 					Padding = Padding;
 					CachedSize = UnpaddedSize + Padding;
 				}
@@ -336,10 +336,10 @@ namespace RichHudFramework
 
 				if (children.Count > 0)
 					UpdateChildAlignment();
-			}
+			}			
 
 			/// <summary>
-			/// Updates cached values as well as parent and dim alignment.
+			/// Updates child anchoring and automatic sizing
 			/// </summary>
 			private void UpdateChildAlignment()
 			{
@@ -348,14 +348,16 @@ namespace RichHudFramework
 				{
 					var child = children[i] as HudElementBase;
 
-					if (child != null)
-						child.Config[StateID] |= (uint)HudElementStates.WasParentVisible;
+					if (child == null)
+						continue;
+
+					child.Config[StateID] |= (uint)HudElementStates.WasParentVisible;
 
 					if (child != null && (child.Config[StateID] & (child.Config[VisMaskID])) == child.Config[VisMaskID])
 					{
 						child.Padding = child.Padding;
 
-						Vector2 size = child.UnpaddedSize + child.Padding;
+						Vector2 childSize = child.UnpaddedSize + child.Padding;
 						DimAlignments sizeFlags = child.DimAlignment;
 
 						if (sizeFlags != DimAlignments.None)
@@ -363,24 +365,24 @@ namespace RichHudFramework
 							if ((sizeFlags & DimAlignments.IgnorePadding) == DimAlignments.IgnorePadding)
 							{
 								if ((sizeFlags & DimAlignments.Width) == DimAlignments.Width)
-									size.X = UnpaddedSize.X;
+									childSize.X = UnpaddedSize.X;
 
 								if ((sizeFlags & DimAlignments.Height) == DimAlignments.Height)
-									size.Y = UnpaddedSize.Y;
+									childSize.Y = UnpaddedSize.Y;
 							}
 							else
 							{
 								if ((sizeFlags & DimAlignments.Width) == DimAlignments.Width)
-									size.X = CachedSize.X;
+									childSize.X = CachedSize.X;
 
 								if ((sizeFlags & DimAlignments.Height) == DimAlignments.Height)
-									size.Y = CachedSize.Y;
+									childSize.Y = CachedSize.Y;
 							}
 
-							child.UnpaddedSize = size - child.Padding;
+							child.UnpaddedSize = childSize - child.Padding;
 						}
 
-						child.CachedSize = size;
+						child.CachedSize = childSize;
 					}
 				}
 
