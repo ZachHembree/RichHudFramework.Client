@@ -32,6 +32,16 @@ namespace RichHudFramework
 			/// </summary>
 			public event EventHandler LostInputFocus;
 
+			/// <summary>
+			/// Invoked when this UI element gains input focus. Event initializer.
+			/// </summary>
+			public EventHandler GainedInputFocusCallback { set { GainedInputFocus += value; } }
+
+			/// <summary>
+			/// Invoked when this UI element loses input focus. Event initializer.
+			/// </summary>
+			public EventHandler LostInputFocusCallback { set { LostInputFocus += value; } }
+
 			public InputFocusHandler(IFocusableElement inputOwner)
 			{
 				InputOwner = inputOwner;

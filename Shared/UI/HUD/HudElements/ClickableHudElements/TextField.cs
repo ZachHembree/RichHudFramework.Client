@@ -169,7 +169,17 @@ namespace RichHudFramework.UI
                 DimAlignment = DimAlignments.UnpaddedSize,
                 Padding = new Vector2(24f, 0f),
                 MoveToEndOnGainFocus = true,
-                ClearSelectionOnLoseFocus = true
+                ClearSelectionOnLoseFocus = true,
+                MouseInput = 
+                {
+                    CursorEnteredCallback = CursorEnter,
+                    CursorExitedCallback = CursorExit
+                },
+                FocusHandler = 
+                {
+                    GainedInputFocusCallback = GainFocus,
+                    LostInputFocusCallback = LoseFocus
+                }
             };
             textBox.FocusHandler.InputOwner = this;
 
@@ -186,11 +196,6 @@ namespace RichHudFramework.UI
             HighlightEnabled = true;
 
             Size = new Vector2(250f, 40);
-
-            MouseInput.CursorEntered += CursorEnter;
-            MouseInput.CursorExited += CursorExit;
-            FocusHandler.GainedInputFocus += GainFocus;
-			FocusHandler.LostInputFocus += LoseFocus;
         }
 
         public TextField() : this(null)

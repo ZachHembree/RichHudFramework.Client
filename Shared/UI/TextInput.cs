@@ -18,24 +18,17 @@ namespace RichHudFramework.UI
 			this.IsCharAllowedFunc = IsCharAllowedFunc;
 		}
 
-		private void Backspace()
-		{
-			OnBackspaceAction?.Invoke();
-		}
-
 		public void HandleInput()
 		{
 			IReadOnlyList<char> input = MyAPIGateway.Input.TextInput;
 
 			if (SharedBinds.Back.IsPressedAndHeld || SharedBinds.Back.IsNewPressed)
-				Backspace();
+				OnBackspaceAction?.Invoke();
 
 			for (int n = 0; n < input.Count; n++)
 			{
 				if (input[n] != '\b' && (IsCharAllowedFunc == null || IsCharAllowedFunc(input[n])))
-				{
 					OnAppendAction?.Invoke(input[n]);
-				}
 			}
 		}
 	}

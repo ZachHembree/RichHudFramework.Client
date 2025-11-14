@@ -25,6 +25,16 @@
 			event EventHandler LostInputFocus;
 
 			/// <summary>
+			/// Invoked when this UI element gains input focus. Event initializer.
+			/// </summary>
+			EventHandler GainedInputFocusCallback { set; }
+
+			/// <summary>
+			/// Invoked when this UI element loses input focus. Event initializer.
+			/// </summary>
+			EventHandler LostInputFocusCallback { set; }
+
+			/// <summary>
 			/// Returns true if the UI element currently has input focus
 			/// </summary>
 			bool HasFocus { get; }

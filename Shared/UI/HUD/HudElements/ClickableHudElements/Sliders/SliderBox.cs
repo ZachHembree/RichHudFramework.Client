@@ -136,12 +136,21 @@ namespace RichHudFramework.UI
                 DimAlignment = DimAlignments.Size,
             };
 
-            FocusHandler = new InputFocusHandler(this);
+            FocusHandler = new InputFocusHandler(this)
+            { 
+                GainedInputFocusCallback = GainFocus,
+                LostInputFocusCallback = LoseFocus
+            };
             slide = new SliderBar(this)
             {
                 DimAlignment = DimAlignments.UnpaddedSize,
                 SliderSize = new Vector2(14f, 28f),
-                BarHeight = 5f
+                BarHeight = 5f,
+                MouseInput = 
+                {
+                    CursorEnteredCallback = CursorEnter,
+                    CursorExitedCallback = CursorExit
+                }
             };
 
             BackgroundColor = TerminalFormatting.OuterSpace;
@@ -162,11 +171,6 @@ namespace RichHudFramework.UI
 
             Padding = new Vector2(18f, 18f);
             Size = new Vector2(317f, 47f);
-
-            slide.MouseInput.CursorEntered += CursorEnter;
-            slide.MouseInput.CursorExited += CursorExit;
-            FocusHandler.GainedInputFocus += GainFocus;
-			FocusHandler.LostInputFocus += LoseFocus;
         }
 
         public SliderBox() : this(null)

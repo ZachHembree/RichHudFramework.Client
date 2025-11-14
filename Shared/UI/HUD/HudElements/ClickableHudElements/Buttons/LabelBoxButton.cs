@@ -39,15 +39,16 @@ namespace RichHudFramework.UI
         public LabelBoxButton(HudParentBase parent) : base(parent)
         {
 			FocusHandler = new InputFocusHandler(this);
-			_mouseInput = new MouseInputElement(this);
-            MouseInput = _mouseInput;
+            _mouseInput = new MouseInputElement(this)
+            { 
+                CursorEnteredCallback = CursorEnter,
+                CursorExitedCallback = CursorExit
+            };
 
+            MouseInput = _mouseInput;
             Color = Color.DarkGray;
             HighlightColor = Color.Gray;
             HighlightEnabled = true;
-
-            _mouseInput.CursorEntered += CursorEnter;
-            _mouseInput.CursorExited += CursorExit;
         }
 
         public LabelBoxButton() : this(null)

@@ -92,6 +92,8 @@ namespace RichHudFramework.UI
 		/// </summary>
 		public IMouseInput MouseInput { get; }
 
+		private readonly MouseInputElement _mouseInput;
+		private readonly BindInputElement _bindInput;
 		private readonly TextInput textInput;
 		private readonly TextCaret caret;
 		private readonly SelectionBox selectionBox;
@@ -101,14 +103,18 @@ namespace RichHudFramework.UI
 
 		public TextBox(HudParentBase parent) : base(parent)
 		{
-			FocusHandler = new InputFocusHandler(this);
-			MouseInput = new MouseInputElement(this)
+			FocusHandler = new InputFocusHandler(this) 
+			{
+				GainedInputFocusCallback = GainFocus,
+				LostInputFocusCallback = LoseFocus
+			};
+			_mouseInput = new MouseInputElement(this)
 			{
 				ShareCursor = true,
 				ZOffset = 1,
 				LeftClickedCallback = OnClearSelection
 			};
-			BindInput = new BindInputElement(this)
+			_bindInput = new BindInputElement(this)
 			{
 				{ SharedBinds.Copy, OnCopyText },
 				{ SharedBinds.Cut, OnCutText },
@@ -117,6 +123,8 @@ namespace RichHudFramework.UI
 				{ SharedBinds.Escape, OnClearSelection }
 			};
 
+			MouseInput = _mouseInput;
+			BindInput = _bindInput;
 			textInput = new TextInput(AddChar, RemoveLastChar, TextInputFilter);
 			caret = new TextCaret(this) { Visible = false };
 			selectionBox = new SelectionBox(caret, this) { Color = new Color(255, 255, 255, 140) };
@@ -127,8 +135,6 @@ namespace RichHudFramework.UI
 				bgColor = ToolTip.orangeWarningBG
 			};
 
-			FocusHandler.GainedInputFocus += GainFocus;
-			FocusHandler.LostInputFocus += LoseFocus;
 			TextBoard.TextChanged += OnTextChanged;
 
 			ShareCursor = true;
@@ -151,9 +157,7 @@ namespace RichHudFramework.UI
 		/// </summary>
 		protected virtual void OnCopyText(object sender, EventArgs args)
 		{
-			bool useInput = allowInput || (FocusHandler.HasFocus && HudMain.InputMode == HudInputMode.Full);
-
-			if (useInput && EnableHighlighting && !selectionBox.Empty)
+			if (EnableHighlighting && !selectionBox.Empty)
 			{
 				HudMain.ClipBoard = TextBoard.GetTextRange(selectionBox.Start, selectionBox.End);
 			}
@@ -165,9 +169,7 @@ namespace RichHudFramework.UI
 		/// </summary>
 		protected virtual void OnCutText(object sender, EventArgs args)
 		{
-			bool useInput = allowInput || (FocusHandler.HasFocus && HudMain.InputMode == HudInputMode.Full);
-
-			if (useInput && EnableEditing && !selectionBox.Empty && EnableHighlighting)
+			if (EnableEditing && !selectionBox.Empty && EnableHighlighting)
 			{
 				RichText text = TextBoard.GetTextRange(selectionBox.Start, selectionBox.End);
 				DeleteSelection();
@@ -182,9 +184,7 @@ namespace RichHudFramework.UI
 		/// </summary>
 		protected virtual void OnPasteText(object sender, EventArgs args)
 		{
-			bool useInput = allowInput || (FocusHandler.HasFocus && HudMain.InputMode == HudInputMode.Full);
-
-			if (useInput && EnableEditing)
+			if (EnableEditing)
 			{
 				if (!HudMain.ClipBoard.Equals(default(RichText)))
 				{
@@ -209,9 +209,7 @@ namespace RichHudFramework.UI
 		/// </summary>
 		protected virtual void OnSelectAllText(object sender, EventArgs args)
 		{
-			bool useInput = allowInput || (FocusHandler.HasFocus && HudMain.InputMode == HudInputMode.Full);
-
-			if (useInput && EnableHighlighting)
+			if (EnableHighlighting)
 			{
 				caret.SetPosition(short.MaxValue);
 				lastCaretIndex = caret.CaretIndex;
@@ -225,8 +223,7 @@ namespace RichHudFramework.UI
 		/// </summary>
 		protected virtual void OnClearSelection(object sender, EventArgs args)
 		{
-			bool useInput = allowInput || (FocusHandler.HasFocus && HudMain.InputMode == HudInputMode.Full);
-			if (useInput && EnableHighlighting)
+			if (EnableHighlighting)
 			{
 				isHighlighting = false;
 				selectionBox.ClearSelection();
@@ -312,6 +309,8 @@ namespace RichHudFramework.UI
 		protected override void HandleInput(Vector2 cursorPos)
 		{
 			bool useInput = allowInput || (FocusHandler.HasFocus && HudMain.InputMode == HudInputMode.Full);
+
+			_bindInput.InputEnabled = useInput;
 
 			if (EnableEditing && IsMousedOver && HudMain.InputMode == HudInputMode.CursorOnly)
 				HudMain.Cursor.RegisterToolTip(warningToolTip);
@@ -803,7 +802,7 @@ namespace RichHudFramework.UI
 				highlightBoard = new MatBoard();
 				highlightList = new List<HighlightBox>();
 
-				text.TextChanged += () => ClearSelection();
+				text.TextChanged += ClearSelection;
 			}
 
 			/// <summary>
@@ -944,8 +943,8 @@ namespace RichHudFramework.UI
 				endCh = Math.Min(endCh, line.Count - 1);
 
 				IRichChar startChar = line[startCh],
-						endChar = line[endCh],
-						prevChar = startCh > 0 ? line[startCh - 1] : null;
+					endChar = line[endCh],
+					prevChar = startCh > 0 ? line[startCh - 1] : null;
 
 				// Left bound: Max of (start char left, prev char right)
 				float startLeft = startChar.Offset.X - 0.5f * startChar.Size.X;
