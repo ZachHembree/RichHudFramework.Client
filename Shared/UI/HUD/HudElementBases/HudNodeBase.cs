@@ -43,7 +43,7 @@ namespace RichHudFramework
 				get { return (byte)Config[ZOffsetInnerID]; }
 				set
 				{
-					Config[ZOffsetInnerID] = value;
+					_config[ZOffsetInnerID] = value;
 
 					// Update combined ZOffset for layer sorting
 					{
@@ -62,16 +62,16 @@ namespace RichHudFramework
 							innerOffset = (ushort)Math.Min(innerOffset + parentInner, 0xFF00);
 						}
 
-						Config[FullZOffsetID] = (ushort)(innerOffset | outerOffset);
+						_config[FullZOffsetID] = (ushort)(innerOffset | outerOffset);
 					}
 				}
 			}
 
 			public HudNodeBase(HudParentBase parent)
 			{
-				Config[VisMaskID] = nodeVisible;
-				Config[InputMaskID] = nodeInputEnabled;
-				Config[StateID] &= ~(uint)(HudElementStates.IsRegistered);
+				_config[VisMaskID] = nodeVisible;
+				_config[InputMaskID] = nodeInputEnabled;
+				_config[StateID] &= ~(uint)(HudElementStates.IsRegistered);
 
 				Register(parent);
 			}
@@ -85,9 +85,9 @@ namespace RichHudFramework
 					HudSpace = Parent?.HudSpace;
 
 				if (HudSpace != null)
-					Config[StateID] |= (uint)HudElementStates.IsSpaceNodeReady;
+					_config[StateID] |= (uint)HudElementStates.IsSpaceNodeReady;
 				else
-					Config[StateID] &= ~(uint)HudElementStates.IsSpaceNodeReady;
+					_config[StateID] &= ~(uint)HudElementStates.IsSpaceNodeReady;
 
 				if ((Config[StateID] & (uint)HudElementStates.IsLayoutCustom) > 0)
 					Layout();
@@ -106,14 +106,14 @@ namespace RichHudFramework
 					Parent = newParent;
 
 					if (Parent.RegisterChild(this))
-						Config[StateID] |= (uint)HudElementStates.IsRegistered;
+						_config[StateID] |= (uint)HudElementStates.IsRegistered;
 					else
-						Config[StateID] &= ~(uint)HudElementStates.IsRegistered;
+						_config[StateID] &= ~(uint)HudElementStates.IsRegistered;
 				}
 
 				if ((Config[StateID] & (uint)HudElementStates.IsRegistered) > 0)
 				{
-					Config[StateID] &= ~(uint)HudElementStates.WasParentVisible;
+					_config[StateID] &= ~(uint)HudElementStates.WasParentVisible;
 					return true;
 				}
 				else
@@ -131,7 +131,7 @@ namespace RichHudFramework
 					Parent = null;
 
 					lastParent.RemoveChild(this);
-					Config[StateID] &= (uint)~(HudElementStates.IsRegistered | HudElementStates.WasParentVisible);
+					_config[StateID] &= (uint)~(HudElementStates.IsRegistered | HudElementStates.WasParentVisible);
 				}
 
 				return !((Config[StateID] & (uint)HudElementStates.IsRegistered) > 0);

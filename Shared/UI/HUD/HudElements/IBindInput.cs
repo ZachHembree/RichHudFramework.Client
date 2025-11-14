@@ -1,4 +1,7 @@
-﻿namespace RichHudFramework.UI
+﻿using System.Collections;
+using System.Collections.Generic;
+
+namespace RichHudFramework.UI
 {
 	/// <summary>
 	/// Provides input events for a specific custom UI binding.
@@ -24,12 +27,18 @@
 	/// <summary>
 	/// Defines a set of custom bind inputs for a UI element
 	/// </summary>
-	public interface IBindInput : IFocusableElement
+	public interface IBindInput : IFocusableElement, IEnumerable<IBindEventProxy>
 	{
 		/// <summary>
 		/// Retrieves the event proxy (press/release events) for a specific bind on this UI element
 		/// </summary>
 		IBindEventProxy this[IBind bind] { get; }
+
+		/// <summary>
+		/// Adds a new bind to the input element if it hasn't been added before, and/or 
+		/// registers the given event handlers to it.
+		/// </summary>
+		void Add(IBind bind, EventHandler NewPressed = null, EventHandler PressedAndHeld = null, EventHandler Released = null);
 
 		/// <summary>
 		/// Returns true if the given bind is actively used and handled by this element

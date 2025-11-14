@@ -107,7 +107,7 @@ namespace RichHudFramework.UI
 		public bool EnableScrolling { get; set; }
 
 		/// <summary>
-		/// Enable/disable smooth scrolling and range clipping
+		/// Enable/disable smooth scrolling and range clipping. Enables masking.
 		/// </summary>
 		public bool UseSmoothScrolling { get; set; }
 
@@ -249,6 +249,9 @@ namespace RichHudFramework.UI
 
 		protected override void Measure()
 		{
+			if (UseSmoothScrolling)
+				_config[StateID] |= (uint)HudElementStates.IsMasking;
+
 			if ((SizingMode & chainAutoAlignAxisMask) == 0 && (MinVisibleCount > 0 || MinLength > 0))
 				SizingMode |= HudChainSizingModes.FitChainAlignAxis;
 
@@ -386,7 +389,6 @@ namespace RichHudFramework.UI
 
 					TElement element = hudCollectionList[i].Element;
 					float elementSize = element.UnpaddedSize[alignAxis] + element.Padding[alignAxis];
-					element.Config[StateID] |= (uint)HudElementStates.IsSelectivelyMasked;
 
 					totalEnabledLength += elementSize;
 					EnabledCount++;
@@ -514,11 +516,6 @@ namespace RichHudFramework.UI
 
 					TElement element = hudCollectionList[i].Element;
 					float elementSize = element.UnpaddedSize[alignAxis] + element.Padding[alignAxis];
-
-					if (UseSmoothScrolling)
-						element.Config[StateID] |= (uint)HudElementStates.IsSelectivelyMasked;
-					else
-						element.Config[StateID] &= ~(uint)HudElementStates.IsSelectivelyMasked;
 
 					totalEnabledLength += elementSize + Spacing;
 					EnabledCount++;

@@ -26,6 +26,7 @@ namespace RichHudFramework
 	namespace UI
 	{
 		using Client;
+		using Server;
 		using Internal;
 		using System.Reflection;
 		using static RichHudFramework.UI.NodeConfigIndices;
@@ -52,9 +53,9 @@ namespace RichHudFramework
 				set
 				{
 					if (value)
-						Config[StateID] |= (uint)HudElementStates.IsVisible;
+						_config[StateID] |= (uint)HudElementStates.IsVisible;
 					else
-						Config[StateID] &= ~(uint)HudElementStates.IsVisible;
+						_config[StateID] &= ~(uint)HudElementStates.IsVisible;
 				}
 			}
 
@@ -67,9 +68,9 @@ namespace RichHudFramework
 				set
 				{
 					if (value)
-						Config[StateID] |= (uint)HudElementStates.IsInputEnabled;
+						_config[StateID] |= (uint)HudElementStates.IsInputEnabled;
 					else
-						Config[StateID] &= ~(uint)HudElementStates.IsInputEnabled;
+						_config[StateID] &= ~(uint)HudElementStates.IsInputEnabled;
 				}
 			}
 
@@ -88,14 +89,14 @@ namespace RichHudFramework
 
 					if (isVisible && Config[ZOffsetID] != (uint)value)
 					{
-						uint[] rootConfig = HudMain.Instance._root.Config;
+						uint[] rootConfig = HudMain.Instance._root._config;
 						bool isActive = Math.Abs((int)Config[FrameNumberID] - (int)rootConfig[FrameNumberID]) < 2;
 
 						if (isActive)
 							rootConfig[StateID] |= (uint)HudElementStates.IsStructureStale;
 					}
 
-					Config[ZOffsetID] = (uint)value;
+					_config[ZOffsetID] = (uint)value;
 				}
 			}
 
@@ -110,7 +111,12 @@ namespace RichHudFramework
 			/// <summary>
 			/// Internal configuration and state. Do not modify.
 			/// </summary>
-			public uint[] Config { get; }
+			public IReadOnlyList<uint> Config { get; }
+
+			/// <summary>
+			/// Internal configuration and state. Do not modify.
+			/// </summary>
+			protected readonly uint[] _config;
 
 			/// <summary>
 			/// Handle to node data used for registering with the Tree Manager. Do not modify.
@@ -127,8 +133,6 @@ namespace RichHudFramework
 			/// Registered chlid nodes. Do not modify.
 			/// </summary>
 			protected readonly List<HudNodeBase> children;
-
-			#endregion
 
 			/// <summary>
 			/// Internal flag set for indicating update hook usage
@@ -247,6 +251,8 @@ namespace RichHudFramework
 				private HookCanary() { }
 			}
 
+			#endregion
+
 			public HudParentBase()
 			{
 				if (HookCanary.IsInitialized)
@@ -254,12 +260,13 @@ namespace RichHudFramework
 					// Storage init
 					children = new List<HudNodeBase>();
 					childHandles = new List<object>();
-					Config = new uint[ConfigLength];
+					_config = new uint[ConfigLength];
+					Config = _config;
 
 					// Shared data handle
 					_dataHandle = new HudNodeData[1];
 					// Shared state
-					_dataHandle[0].Item1 = Config;
+					_dataHandle[0].Item1 = _config;
 					_dataHandle[0].Item2 = new HudSpaceOriginFunc[1];
 					// Mandatory hooks
 					_dataHandle[0].Item3.Item1 = GetOrSetApiMember;
@@ -272,9 +279,9 @@ namespace RichHudFramework
 					DataHandle = _dataHandle;
 
 					// Initial state
-					Config[VisMaskID] = (uint)HudElementStates.IsVisible;
-					Config[InputMaskID] = (uint)HudElementStates.IsInputEnabled;
-					Config[StateID] = (uint)(HudElementStates.IsRegistered | HudElementStates.IsInputEnabled | HudElementStates.IsVisible);
+					_config[VisMaskID] = (uint)HudElementStates.IsVisible;
+					_config[InputMaskID] = (uint)HudElementStates.IsInputEnabled;
+					_config[StateID] = (uint)(HudElementStates.IsRegistered | HudElementStates.IsInputEnabled | HudElementStates.IsVisible);
 			
 					Type nodeType = GetType();
 
@@ -292,14 +299,14 @@ namespace RichHudFramework
 					if (usages.IsHandleInputCustom)
 					{
 						_dataHandle[0].Item3.Item3 = BeginInput;
-						Config[StateID] |= (uint)HudElementStates.IsInputHandlerCustom;
+						_config[StateID] |= (uint)HudElementStates.IsInputHandlerCustom;
 					}
 
 					if (usages.IsMeasureCustom)
 						_dataHandle[0].Item3.Item4 = Measure;
 
 					if (usages.IsLayoutCustom)
-						Config[StateID] |= (uint)HudElementStates.IsLayoutCustom;
+						_config[StateID] |= (uint)HudElementStates.IsLayoutCustom;
 
 					if (usages.IsDrawCustom)
 						_dataHandle[0].Item3.Item6 = Draw;
@@ -324,9 +331,9 @@ namespace RichHudFramework
 			protected virtual void BeginLayout(bool _)
 			{
 				if (HudSpace != null)
-					Config[StateID] |= (uint)HudElementStates.IsSpaceNodeReady;
+					_config[StateID] |= (uint)HudElementStates.IsSpaceNodeReady;
 				else
-					Config[StateID] &= ~(uint)HudElementStates.IsSpaceNodeReady;
+					_config[StateID] &= ~(uint)HudElementStates.IsSpaceNodeReady;
 
 				if ((Config[StateID] & (uint)HudElementStates.IsLayoutCustom) > 0)
 					Layout();
@@ -398,7 +405,7 @@ namespace RichHudFramework
 					if ((Config[StateID] & Config[VisMaskID]) == Config[VisMaskID])
 					{
 						// Depending on where this is called, the frame number might be off by one
-						uint[] rootConfig = HudMain.Instance._root.Config;
+						uint[] rootConfig = HudMain.Instance._root._config;
 						bool isActive = Math.Abs((int)Config[FrameNumberID] - (int)rootConfig[FrameNumberID]) < 2;
 
 						if (isActive && (rootConfig[StateID] & (uint)HudElementStates.IsStructureStale) == 0)

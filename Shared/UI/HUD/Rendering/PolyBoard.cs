@@ -36,7 +36,7 @@ namespace RichHudFramework.UI.Rendering
 				{
 					updateMatFit = true;
 					matFrame.Material = value;
-					polyMat.textureID = value.textureID;
+					polyMat.textureID = value.TextureID;
 				}
 			}
 		}

@@ -74,7 +74,7 @@ namespace RichHudFramework
 				GetHudSpaceFunc = () => new MyTuple<bool, float, MatrixD>(DrawCursorInHudSpace, 1f, PlaneToWorldRef[0]);
 				GetNodeOriginFunc = () => PlaneToWorldRef[0].Translation;
 				PlaneToWorldRef = new MatrixD[1];
-				Config[StateID] |= (uint)HudElementStates.IsSpaceNode;
+				_config[StateID] |= (uint)HudElementStates.IsSpaceNode;
 			}
 
 			protected override void Layout()

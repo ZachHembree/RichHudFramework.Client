@@ -8,7 +8,7 @@ namespace RichHudFramework.UI
     /// Unlined clickable textbox with a background and border designed to look like text fields in the SE
     /// terminal.
     /// </summary>
-    public class TextField : LabelBoxBase, IClickableElement, ILabelElement
+    public class TextField : LabelBoxBase, IClickableElement, IBindInputElement, ILabelElement
     {
         /// <summary>
         /// Invoked whenever a change is made to the text. Invokes once every 500ms, at most.
@@ -128,6 +128,11 @@ namespace RichHudFramework.UI
         /// Interface used to manage the element's input focus state
         /// </summary>
         public IFocusHandler FocusHandler => textBox.FocusHandler;
+
+        /// <summary>
+        /// Custom bind input interface for this element
+        /// </summary>
+        public IBindInput BindInput => textBox.BindInput;
 
 		/// <summary>
 		/// Mouse input interface for this clickable element

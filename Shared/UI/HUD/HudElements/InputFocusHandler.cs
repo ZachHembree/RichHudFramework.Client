@@ -5,6 +5,7 @@ namespace RichHudFramework
 	namespace UI
 	{
 		using Client;
+		using Server;
 
 		/// <summary>
 		/// Handles input focus for a UI node
@@ -40,7 +41,7 @@ namespace RichHudFramework
 			/// Gets input focus for controls. Input focus is normally taken automatically when an
 			/// element with mouse input is clicked, but can be taken manually.
 			/// </summary>
-			public void GetInputFocus()
+			public virtual void GetInputFocus()
 			{
 				if (!HasFocus)
 				{
@@ -53,9 +54,9 @@ namespace RichHudFramework
 			/// <summary>
 			/// Releases input focus. Typically used for focus lost callback.
 			/// </summary>
-			public void ReleaseFocus()
+			public virtual void ReleaseFocus()
 			{
-				if (!HasFocus)
+				if (HasFocus)
 				{
 					HasFocus = false;
 					LostInputFocus?.Invoke(InputOwner, EventArgs.Empty);

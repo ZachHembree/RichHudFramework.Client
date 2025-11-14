@@ -48,12 +48,12 @@ namespace RichHudFramework
                 /// </summary>
                 public BoundingBox2 GetMaterialAlignment(float bbAspectRatio)
                 {
-					BoundingBox2 bounds = Material.uvBounds;
+					BoundingBox2 bounds = Material.UVBounds;
 
 					if (Alignment != MaterialAlignment.StretchToFit)
                     {
 						Vector2 uvScale = new Vector2(1f);
-						float matAspectRatio = Material.size.X / Material.size.Y;
+						float matAspectRatio = Material.Size.X / Material.Size.Y;
 
                         if (Alignment == MaterialAlignment.FitAuto)
                         {
@@ -86,7 +86,7 @@ namespace RichHudFramework
                 {
                     if (Alignment != MaterialAlignment.StretchToFit)
                     {
-                        float matAspectRatio = Material.size.X / Material.size.Y;
+                        float matAspectRatio = Material.Size.X / Material.Size.Y;
                         Vector2 bbScale = new Vector2(1f);
 
                         if (Alignment == MaterialAlignment.FitAuto)

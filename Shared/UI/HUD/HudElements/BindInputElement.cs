@@ -4,6 +4,7 @@ using VRageMath;
 namespace RichHudFramework.UI
 {
 	using Client;
+	using System.Collections;
 	using System.Collections.Generic;
 
 	/// <summary>
@@ -11,6 +12,11 @@ namespace RichHudFramework.UI
 	/// </summary>
 	public class BindInputElement : HudNodeBase, IBindInput
 	{
+		/// <summary>
+		/// Allows the addition of binds in conjunction with normal property initialization
+		/// </summary>
+		public IBindInput CollectionInitializer => this;
+
 		/// <summary>
 		/// Element that owns this input, used for event callbacks
 		/// </summary>
@@ -33,15 +39,31 @@ namespace RichHudFramework.UI
 		{
 			FocusHandler = (parent as IFocusableElement)?.FocusHandler;
 			IsFocusRequired = false;
+			binds = new Dictionary<IBind, BindEventProxy>();
 		}
 
 		/// <summary>
-		/// Adds a new bind to the input element if it hasn't been added before
+		/// Adds a new bind to the input element if it hasn't been added before, and/or 
+		/// registers the given event handlers to it.
 		/// </summary>
-		public void Add(IBind bind)
+		public void Add(IBind bind, EventHandler NewPressed = null, EventHandler PressedAndHeld = null, EventHandler Released = null)
 		{
 			if (!binds.ContainsKey(bind))
 				binds.Add(bind, new BindEventProxy());
+
+			if (NewPressed != null || PressedAndHeld != null | Released != null)
+			{
+				var proxy = binds[bind];
+
+				if (NewPressed != null)
+					proxy.NewPressed += NewPressed;
+
+				if (PressedAndHeld != null)
+					proxy.PressedAndHeld += PressedAndHeld;
+
+				if (Released != null)
+					proxy.Released += Released;
+			}
 		}
 
 		/// <summary>
@@ -74,6 +96,11 @@ namespace RichHudFramework.UI
 					pair.Value.InvokeReleased(FocusHandler, EventArgs.Empty);
 			}
 		}
+
+		public IEnumerator<IBindEventProxy> GetEnumerator() =>
+			binds.Values.GetEnumerator();
+
+		IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 
 		/// <summary>
 		/// Provides input events for a specific custom UI binding.

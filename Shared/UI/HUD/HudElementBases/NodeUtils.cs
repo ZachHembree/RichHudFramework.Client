@@ -27,8 +27,8 @@ namespace RichHudFramework
 						HudNodeBase node = nodes[n];
 						node.Parent = newParent;
 
-						node.Config[StateID] |= (uint)HudElementStates.IsRegistered;
-						node.Config[StateID] &= ~(uint)HudElementStates.WasParentVisible;
+						node._config[StateID] |= (uint)HudElementStates.IsRegistered;
+						node._config[StateID] &= ~(uint)HudElementStates.WasParentVisible;
 					}
 				}
 
@@ -46,8 +46,8 @@ namespace RichHudFramework
 						HudNodeBase node = nodes[n].Element;
 						node.Parent = newParent;
 
-						node.Config[StateID] |= (uint)HudElementStates.IsRegistered;
-						node.Config[StateID] &= ~(uint)HudElementStates.WasParentVisible;
+						node._config[StateID] |= (uint)HudElementStates.IsRegistered;
+						node._config[StateID] &= ~(uint)HudElementStates.WasParentVisible;
 					}
 				}
 
@@ -71,7 +71,7 @@ namespace RichHudFramework
 
 							node.Parent = null;
 							node._dataHandle[0].Item4 = null;
-							node.Config[StateID] &= (uint)~(HudElementStates.IsRegistered | HudElementStates.WasParentVisible);
+							node._config[StateID] &= (uint)~(HudElementStates.IsRegistered | HudElementStates.WasParentVisible);
 						}
 					}
 				}
@@ -98,7 +98,7 @@ namespace RichHudFramework
 
 							node.Parent = null;
 							node._dataHandle[0].Item4 = null;
-							node.Config[StateID] &= (uint)~(HudElementStates.IsRegistered | HudElementStates.WasParentVisible);
+							node._config[StateID] &= (uint)~(HudElementStates.IsRegistered | HudElementStates.WasParentVisible);
 						}
 					}
 				}
@@ -117,14 +117,14 @@ namespace RichHudFramework
 						{
 							for (int i = index; i <= end; i++)
 							{
-								nodes[i].Config[StateID] &= (uint)~state;
+								nodes[i]._config[StateID] &= (uint)~state;
 							}
 						}
 						else
 						{
 							for (int i = index; i <= end; i++)
 							{
-								nodes[i].Config[StateID] |= (uint)state;
+								nodes[i]._config[StateID] |= (uint)state;
 							}
 						}
 					}
@@ -146,14 +146,14 @@ namespace RichHudFramework
 						{
 							for (int i = index; i <= end; i++)
 							{
-								nodes[i].Element.Config[StateID] &= (uint)~state;
+								nodes[i].Element._config[StateID] &= (uint)~state;
 							}
 						}
 						else
 						{
 							for (int i = index; i <= end; i++)
 							{
-								nodes[i].Element.Config[StateID] |= (uint)state;
+								nodes[i].Element._config[StateID] |= (uint)state;
 							}
 						}
 					}

@@ -229,7 +229,7 @@ namespace RichHudFramework.UI
             highlightBox = new HighlightBox(hudChain) { Visible = false, CanDrawTab = false };
 
             FocusHandler = new InputFocusHandler(this);
-            listInput = new ListInputElement<TContainer, TElement>(hudChain, this);
+            listInput = new ListInputElement<TContainer, TElement>(this, hudChain) { ZOffset = 1 };
 
             HighlightColor = TerminalFormatting.Atomic;
             FocusColor = TerminalFormatting.Mint;

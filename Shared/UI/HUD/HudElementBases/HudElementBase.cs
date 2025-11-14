@@ -110,9 +110,9 @@ namespace RichHudFramework
 				set
 				{
 					if (value)
-						Config[StateID] |= (uint)HudElementStates.CanUseCursor;
+						_config[StateID] |= (uint)HudElementStates.CanUseCursor;
 					else
-						Config[StateID] &= ~(uint)HudElementStates.CanUseCursor;
+						_config[StateID] &= ~(uint)HudElementStates.CanUseCursor;
 
 					if (value && _dataHandle[0].Item3.Item3 == null)
 						_dataHandle[0].Item3.Item3 = BeginInput;
@@ -128,9 +128,9 @@ namespace RichHudFramework
 				set
 				{
 					if (value)
-						Config[StateID] |= (uint)HudElementStates.CanShareCursor;
+						_config[StateID] |= (uint)HudElementStates.CanShareCursor;
 					else
-						Config[StateID] &= ~(uint)HudElementStates.CanShareCursor;
+						_config[StateID] &= ~(uint)HudElementStates.CanShareCursor;
 				}
 			}
 
@@ -144,9 +144,9 @@ namespace RichHudFramework
 				set
 				{
 					if (value)
-						Config[StateID] |= (uint)HudElementStates.IsMasking;
+						_config[StateID] |= (uint)HudElementStates.IsMasking;
 					else
-						Config[StateID] &= ~(uint)HudElementStates.IsMasking;
+						_config[StateID] &= ~(uint)HudElementStates.IsMasking;
 				}
 			}
 
@@ -160,9 +160,9 @@ namespace RichHudFramework
 				set
 				{
 					if (value)
-						Config[StateID] |= (uint)HudElementStates.IsSelectivelyMasked;
+						_config[StateID] |= (uint)HudElementStates.IsSelectivelyMasked;
 					else
-						Config[StateID] &= ~(uint)HudElementStates.IsSelectivelyMasked;
+						_config[StateID] &= ~(uint)HudElementStates.IsSelectivelyMasked;
 				}
 			}
 
@@ -176,9 +176,9 @@ namespace RichHudFramework
 				set
 				{
 					if (value)
-						Config[StateID] |= (uint)HudElementStates.CanIgnoreMasking;
+						_config[StateID] |= (uint)HudElementStates.CanIgnoreMasking;
 					else
-						Config[StateID] &= ~(uint)HudElementStates.CanIgnoreMasking;
+						_config[StateID] &= ~(uint)HudElementStates.CanIgnoreMasking;
 				}
 			}
 
@@ -234,7 +234,7 @@ namespace RichHudFramework
 
 					if (mouseInBounds)
 					{
-						Config[StateID] |= (uint)HudElementStates.IsMouseInBounds;
+						_config[StateID] |= (uint)HudElementStates.IsMouseInBounds;
 						HudMain.Cursor.TryCaptureHudSpace(cursorPos.Z, HudSpace.GetHudSpaceFunc);
 					}
 				}
@@ -256,7 +256,7 @@ namespace RichHudFramework
 					bool isMousedOver = mouseInBounds;
 
 					if (isMousedOver)
-						Config[StateID] |= (uint)HudElementStates.IsMousedOver;
+						_config[StateID] |= (uint)HudElementStates.IsMousedOver;
 
 					if ((Config[StateID] & (uint)HudElementStates.IsInputHandlerCustom) > 0)
 						HandleInput(new Vector2(cursorPos.X, cursorPos.Y));
@@ -279,9 +279,9 @@ namespace RichHudFramework
 				HudSpace = Parent?.HudSpace;
 
 				if (HudSpace != null)
-					Config[StateID] |= (uint)HudElementStates.IsSpaceNodeReady;
+					_config[StateID] |= (uint)HudElementStates.IsSpaceNodeReady;
 				else
-					Config[StateID] &= ~(uint)HudElementStates.IsSpaceNodeReady;
+					_config[StateID] &= ~(uint)HudElementStates.IsSpaceNodeReady;
 
 				if (parentFull != null)
 				{
@@ -301,9 +301,9 @@ namespace RichHudFramework
 				if (parentFull != null && (parentFull.Config[StateID] & (uint)HudElementStates.IsMasked) > 0 &&
 					(Config[StateID] & (uint)HudElementStates.CanIgnoreMasking) == 0
 				)
-					Config[StateID] |= (uint)HudElementStates.IsMasked;
+					_config[StateID] |= (uint)HudElementStates.IsMasked;
 				else
-					Config[StateID] &= ~(uint)HudElementStates.IsMasked;
+					_config[StateID] &= ~(uint)HudElementStates.IsMasked;
 
 				if ((Config[StateID] & (uint)HudElementStates.IsMasking) > 0 ||
 					(parentFull != null && (Config[StateID] & (uint)HudElementStates.IsSelectivelyMasked) > 0))
@@ -330,9 +330,9 @@ namespace RichHudFramework
 				}
 
 				if (isDisjoint)
-					Config[StateID] |= (uint)HudElementStates.IsDisjoint;
+					_config[StateID] |= (uint)HudElementStates.IsDisjoint;
 				else
-					Config[StateID] &= ~(uint)HudElementStates.IsDisjoint;
+					_config[StateID] &= ~(uint)HudElementStates.IsDisjoint;
 
 				if (children.Count > 0)
 					UpdateChildAlignment();
@@ -351,7 +351,7 @@ namespace RichHudFramework
 					if (child == null)
 						continue;
 
-					child.Config[StateID] |= (uint)HudElementStates.WasParentVisible;
+					child._config[StateID] |= (uint)HudElementStates.WasParentVisible;
 
 					if (child != null && (child.Config[StateID] & (child.Config[VisMaskID])) == child.Config[VisMaskID])
 					{
@@ -438,7 +438,7 @@ namespace RichHudFramework
 			/// </summary>
 			private void UpdateMasking()
 			{
-				Config[StateID] |= (uint)HudElementStates.IsMasked;
+				_config[StateID] |= (uint)HudElementStates.IsMasked;
 
 				BoundingBox2? parentBox, box = null;
 				var parentFull = Parent as HudElementBase;

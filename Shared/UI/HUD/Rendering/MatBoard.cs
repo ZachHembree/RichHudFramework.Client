@@ -45,7 +45,7 @@ namespace RichHudFramework
                         {
                             bbAspect = -1f;
                             matFrame.Material = value;
-                            minBoard.materialData.textureID = value.textureID;
+                            minBoard.materialData.textureID = value.TextureID;
                         }
                     }
                 }
@@ -120,7 +120,7 @@ namespace RichHudFramework
 							if (Math.Abs(bbAspect - newAspect) > 1E-5f)
                             {
 								bbAspect = newAspect;
-								minBoard.materialData.texBounds = Material.uvBounds;
+								minBoard.materialData.texBounds = Material.UVBounds;
 
                                 // Clip billboard to bound texture
                                 if (matFrame.Alignment != MaterialAlignment.StretchToFit)

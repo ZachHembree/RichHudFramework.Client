@@ -190,6 +190,7 @@ namespace RichHudFramework.UI
             UseCursor = true;
             ShareCursor = true;
             focusedChannel = -1;
+            Color = Color.White;
             lastColor = _color;
         }
 

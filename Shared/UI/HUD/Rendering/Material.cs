@@ -56,17 +56,17 @@ namespace RichHudFramework
 				/// <summary>
 				/// SubtypeId of the Transparent Material the <see cref="Material"/> is based on.
 				/// </summary>
-				public readonly MyStringId textureID;
+				public readonly MyStringId TextureID;
 
                 /// <summary>
                 /// The dimensions, in pixels, of the <see cref="Material"/>.
                 /// </summary>
-                public readonly Vector2 size;
+                public readonly Vector2 Size;
 
                 /// <summary>
                 /// Minimum and maximum bounds in normalized texture coordinates
                 /// </summary>
-                public readonly BoundingBox2 uvBounds;
+                public readonly BoundingBox2 UVBounds;
 
 				/// <summary>
 				/// Creates a <see cref="Material"/> using the SubtypeId of a Transparent Material 
@@ -97,9 +97,9 @@ namespace RichHudFramework
 				/// <param name="size">Size of the material in pixels</param>
 				public Material(MyStringId TextureID, Vector2 size)
                 {
-                    this.textureID = TextureID;
-                    this.size = size;
-                    uvBounds = new BoundingBox2(Vector2.Zero, Vector2.One);
+                    this.TextureID = TextureID;
+                    this.Size = size;
+                    UVBounds = new BoundingBox2(Vector2.Zero, Vector2.One);
                 }
 
 				/// <summary>
@@ -112,14 +112,14 @@ namespace RichHudFramework
 				/// <param name="size">Size of the material starting from the given offset</param>
 				public Material(MyStringId SubtypeId, Vector2 texSize, Vector2 offset, Vector2 size)
                 {
-                    this.textureID = SubtypeId;
-                    this.size = size;
+                    this.TextureID = SubtypeId;
+                    this.Size = size;
 
                     Vector2 rcpTexSize = 1f / texSize,
                         halfUVSize = .5f * size * rcpTexSize,
                         uvOffset = (offset * rcpTexSize) + halfUVSize;
 
-                    uvBounds = new BoundingBox2(uvOffset - halfUVSize, uvOffset + halfUVSize);
+                    UVBounds = new BoundingBox2(uvOffset - halfUVSize, uvOffset + halfUVSize);
                 }
             }
 

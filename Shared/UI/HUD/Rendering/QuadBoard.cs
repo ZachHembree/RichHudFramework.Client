@@ -66,7 +66,7 @@ namespace RichHudFramework
                 static QuadBoard()
                 {
                     var matFit = new BoundingBox2(new Vector2(0f, 0f), new Vector2(1f, 1f));
-                    Default = new QuadBoard(Material.Default.textureID, matFit, Color.White);
+                    Default = new QuadBoard(Material.Default.TextureID, matFit, Color.White);
                 }
 
                 public QuadBoard(MyStringId textureID, BoundingBox2 matFit, Vector4 bbColor, float skewRatio = 0f)

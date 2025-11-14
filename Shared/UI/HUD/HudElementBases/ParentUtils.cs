@@ -39,7 +39,7 @@ namespace RichHudFramework
 					if ((newParent.Config[StateID] & newParent.Config[VisMaskID]) == newParent.Config[VisMaskID])
 					{
 						// Depending on where this is called, the frame number might be off by one
-						uint[] rootConfig = HudMain.Instance._root.Config;
+						uint[] rootConfig = HudMain.Instance._root._config;
 						bool isActive = Math.Abs((int)newParent.Config[FrameNumberID] - (int)rootConfig[FrameNumberID]) < 2;
 
 						if (isActive && (rootConfig[StateID] & (uint)HudElementStates.IsStructureStale) == 0)
@@ -74,7 +74,7 @@ namespace RichHudFramework
 					if ((newParent.Config[StateID] & newParent.Config[VisMaskID]) == newParent.Config[VisMaskID])
 					{
 						// Depending on where this is called, the frame number might be off by one
-						uint[] rootConfig = HudMain.Instance._root.Config;
+						uint[] rootConfig = HudMain.Instance._root._config;
 						bool isActive = Math.Abs((int)newParent.Config[FrameNumberID] - (int)rootConfig[FrameNumberID]) < 2;
 
 						if (isActive && (rootConfig[StateID] & (uint)HudElementStates.IsStructureStale) == 0)
