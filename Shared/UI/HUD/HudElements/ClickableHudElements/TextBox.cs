@@ -92,6 +92,8 @@ namespace RichHudFramework.UI
 		/// </summary>
 		public IMouseInput MouseInput { get; }
 
+		public override bool IsMousedOver => MouseInput.IsMousedOver;
+
 		protected readonly MouseInputElement _mouseInput;
 		protected readonly BindInputElement _bindInput;
 		protected readonly ToolTip warningToolTip;
@@ -365,7 +367,7 @@ namespace RichHudFramework.UI
 			bool useInput = allowInput || (FocusHandler.HasFocus && HudMain.InputMode == HudInputMode.Full);
 			_bindInput.Visible = useInput;
 
-			if (EnableEditing && IsMousedOver && HudMain.InputMode == HudInputMode.CursorOnly)
+			if (EnableEditing && MouseInput.IsMousedOver && HudMain.InputMode == HudInputMode.CursorOnly)
 				HudMain.Cursor.RegisterToolTip(warningToolTip);
 
 			// Editing
