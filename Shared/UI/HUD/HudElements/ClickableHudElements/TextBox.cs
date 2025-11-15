@@ -140,15 +140,12 @@ namespace RichHudFramework.UI
 
 			TextBoard.TextChanged += OnTextChanged;
 
-			ShareCursor = true;
 			EnableEditing = true;
 			EnableHighlighting = true;
-			UseCursor = true;
 			NewLineChar = '\n';
 
 			MoveToEndOnGainFocus = false;
 			ClearSelectionOnLoseFocus = true;
-
 			Size = new Vector2(60f, 200f);
 		}
 
@@ -363,10 +360,6 @@ namespace RichHudFramework.UI
 			InputOpen = useInput && (EnableHighlighting || EnableEditing);
 		}
 
-		/// <summary>
-		/// Handles overall input for the textbox, including text editing, highlighting, navigation, and focus-related updates.
-		/// Processes keyboard input for characters and deletions, mouse for selection, and invokes callbacks as needed.
-		/// </summary>
 		protected override void HandleInput(Vector2 cursorPos)
 		{
 			bool useInput = allowInput || (FocusHandler.HasFocus && HudMain.InputMode == HudInputMode.Full);
@@ -389,7 +382,7 @@ namespace RichHudFramework.UI
 				if (caret.IsNavigating)
 				{
 					// Determine whether highlighting can start
-					if (MouseInput.IsLeftClicked || SharedBinds.Shift.IsPressed)
+					if ((!MouseInput.IsNewLeftClicked && MouseInput.IsLeftClicked) || SharedBinds.Shift.IsPressed)
 						canHighlight = true;
 					else
 						canHighlight = false;
@@ -397,6 +390,10 @@ namespace RichHudFramework.UI
 					// Track highlighted range
 					if (canHighlight || isHighlighting)
 						selectionBox.UpdateSelection();
+
+					// Incomplete selections need to be tracked, but not highlighted
+					if (isHighlighting && selectionBox.Start.X == selectionBox.End.X)
+						isHighlighting = selectionBox.End.Y >= selectionBox.Start.Y;
 
 					// Start highlighting
 					if (!isHighlighting && lastCaretIndex != caret.CaretIndex)
@@ -535,7 +532,7 @@ namespace RichHudFramework.UI
 						newIndex.Y = -1;
 				}
 
-				CaretIndex = ClampCaret(newIndex);
+				CaretIndex = newIndex;
 
 				if (CaretIndex.Y >= 0)
 					text.MoveToChar(CaretIndex);
@@ -663,11 +660,8 @@ namespace RichHudFramework.UI
 				if (SharedBinds.LeftArrow.IsPressedAndHeld || SharedBinds.LeftArrow.IsNewPressed)
 					Move(new Vector2I(0, -1), true);
 
-				if (textElement.UseCursor)
-				{
-					if (textElement.MouseInput.IsLeftClicked)
-						GetClickedChar(cursorPos);
-				}
+				if (textElement.MouseInput.IsLeftClicked)
+					GetClickedChar(cursorPos);
 			}
 
 			/// <summary>
@@ -733,7 +727,7 @@ namespace RichHudFramework.UI
 				}
 
 				offset += index.Y;
-				return offset;
+				return Math.Max(offset, 0);
 			}
 
 			/// <summary>
@@ -840,7 +834,7 @@ namespace RichHudFramework.UI
 			{
 				if (text.Count > 0)
 				{
-					Vector2I caretIndex = ClampIndex(caret.CaretIndex, text);
+					Vector2I caretIndex = caret.CaretIndex;
 
 					// Set anchor on new selection
 					if (selectionAnchor == -Vector2I.One)
@@ -865,10 +859,14 @@ namespace RichHudFramework.UI
 					{
 						Start = caretIndex;
 						End = selectionAnchor;
+
+						if (Start.Y < text[Start.X].Count - 1)
+							Start += new Vector2I(0, 1);
 					}
 
-					if (Start.Y < text[Start.X].Count - 1)
-						Start += new Vector2I(0, 1);
+					Start = ClampIndex(Start, text);
+					End = ClampIndex(End, text);
+					selectionAnchor = ClampIndex(selectionAnchor, text);
 				}
 				else
 				{
