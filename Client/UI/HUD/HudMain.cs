@@ -130,7 +130,7 @@ namespace RichHudFramework
 
 				/// <summary>
 				/// The resolution scaling factor normalized to a 1080p baseline. For resolutions above 1080p,
-				/// this provides a multiplier (e.g., ~1.78 for 4K) to adjust UI sizing. For resolutions at or
+				/// this provides a multiplier (e.g., 2.0 for 4K) to adjust UI sizing. For resolutions at or
 				/// below 1080p, it returns 1.0f to avoid unnecessary scaling.
 				/// </summary>
 				public static float ResScale { get; private set; }
@@ -272,7 +272,7 @@ namespace RichHudFramework
 				}
 
 				/// <summary>
-				/// Updates internal caches with the latest values from the game's API, including screen
+				/// Updates internal caches with the latest values from the RHF API, including screen
 				/// resolution, FOV, input mode, and transformation matrices. Computes derived values like
 				/// ScreenDim and synchronizes the EnableCursor state.
 				/// </summary>
@@ -300,7 +300,7 @@ namespace RichHudFramework
 				}
 
 				/// <summary>
-				/// Retrieves a overlay offset (as a byte value) for layering a focused UI window and registers
+				/// Retrieves a overlay offset for layering a focused UI window and registers
 				/// a callback that will be invoked if another element gains focus, passing the new offset.
 				/// This helps manage UI overlap and depth sorting in 3D HUD space.
 				/// </summary>
@@ -338,7 +338,7 @@ namespace RichHudFramework
 
 
 				/// <summary>
-				/// Converts a vector from normalized screen coordinates (0.0f to 1.0f, where 0.5f is screen center)
+				/// Converts a vector from normalized screen coordinates (0.5f to 0.5f, where 0.0f is screen center)
 				/// to normalized pixel coordinates based on the current ScreenDim.
 				/// </summary>
 				/// <param name="scaledVec">The input vector in normalized units.</param>
@@ -357,7 +357,7 @@ namespace RichHudFramework
 
 				/// <summary>
 				/// Converts a vector from absolute pixel coordinates to normalized screen coordinates
-				/// (0.0f to 1.0f, where 0.5f is screen center) based on the current ScreenDim.
+				/// (-0.5f to 0.5f, where 0.0f is screen center) based on the current ScreenDim.
 				/// </summary>
 				/// <param name="pixelVec">The input vector in pixel units.</param>
 				/// <returns>The equivalent vector in normalized units.</returns>
@@ -427,7 +427,7 @@ namespace RichHudFramework
 
 					/// <summary>
 					/// Initializes the root node, configuring it as the primary HUD space with cursor support,
-					/// full visibility, and shared transformation references. Registers it with the game's API
+					/// full visibility, and shared transformation references. Registers it with the RHF API
 					/// for pixel-space queries and origins.
 					/// </summary>
 					public HudClientRoot()
