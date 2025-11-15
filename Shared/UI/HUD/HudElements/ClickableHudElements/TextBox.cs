@@ -102,6 +102,8 @@ namespace RichHudFramework.UI
 		private bool canHighlight, isHighlighting, allowInput, textUpdatePending;
 		private Vector2I lastCaretIndex;
 
+		protected static readonly Vector2I caretMin = new Vector2I(0, -1);
+
 		public TextBox(HudParentBase parent) : base(parent)
 		{
 			FocusHandler = new InputFocusHandler(this) 
@@ -324,7 +326,7 @@ namespace RichHudFramework.UI
 		/// </summary>
 		private void RemoveLastChar()
 		{
-			if (TextBoard.Count > 0 && TextBoard[caret.CaretIndex.X].Count > 0)
+			if (TextBoard.Count > 0 && TextBoard[caret.CaretIndex.X].Count > 0 && caret.CaretIndex != caretMin)
 			{
 				if (isHighlighting)
 					DeleteSelection();
@@ -491,16 +493,20 @@ namespace RichHudFramework.UI
 			/// <param name="dir">Index direction vector</param>
 			public void Move(Vector2I dir, bool navigate = false)
 			{
-				Vector2I newIndex, min = new Vector2I(0, -1);
+				bool moveLeft = dir.Y < 0,
+					moveRight = dir.Y > 0;
 
-				if (dir.Y < 0 && CaretIndex == min)
-					dir.Y = 0;
+				if (CaretIndex == caretMin && moveLeft || (text.Count == 0 || text.Count == 1 && text[0].Count == 0))
+					return;
 
-				bool moveLeft = dir.Y < 0, moveRight = dir.Y > 0,
-					prepending = CaretIndex.Y == -1,
-					startPrepend = moveLeft && CaretIndex.Y == 0;
+				IRichChar ch = text[ClampIndex(CaretIndex, text)];
+				Vector2I newIndex;
 
-				if (startPrepend || (dir.Y == 0 && prepending))
+				bool isPrepending = CaretIndex.Y == -1,
+					isPrependStarting = CaretIndex.Y == 0 && (moveLeft && (navigate || CaretIndex.X == 0)) && ch.Ch != '\n';
+
+				// Start prepend. If at start of line set -1 special case
+				if (isPrependStarting || (dir.Y == 0 && isPrepending))
 				{
 					newIndex = CaretIndex + new Vector2I(dir.X, 0);
 					newIndex.Y = -1;
@@ -513,14 +519,19 @@ namespace RichHudFramework.UI
 					int newOffset = Math.Max(caretOffset + dir.Y, 0);
 
 					// Stop prepending
-					if ((prepending && moveRight) && (CaretIndex.X > 0 || text[0].Count > 1))
+					if ((isPrepending && moveRight) && (CaretIndex.X > 0 || text[0].Count > 1))
 						newOffset -= 1;
 
+					// Combine horz character and vertical offset
 					newIndex = GetIndexFromOffset(newOffset) + new Vector2I(dir.X, 0);
 					newIndex = ClampCaret(newIndex);
+					// Get offset from combined index
 					caretOffset = GetOffsetFromIndex(newIndex);
 
-					if (navigate && moveRight && newIndex.X > CaretIndex.X)
+					// Start prepending on first char on move to next line, unless it's a manual break
+					ch = text[ClampIndex(newIndex, text)];
+
+					if (navigate && moveRight && newIndex.X > CaretIndex.X && ch.Ch != '\n')
 						newIndex.Y = -1;
 				}
 
@@ -542,8 +553,7 @@ namespace RichHudFramework.UI
 			/// </summary>
 			public void SetPosition(Vector2I index)
 			{
-				index = ClampCaret(index);
-				CaretIndex = index;
+				CaretIndex = ClampCaret(index);
 				caretOffset = Math.Max(GetOffsetFromIndex(CaretIndex), 0);
 				text.MoveToChar(CaretIndex);
 			}
@@ -700,6 +710,9 @@ namespace RichHudFramework.UI
 				{
 					index.X = MathHelper.Clamp(index.X, 0, text.Count - 1);
 					index.Y = MathHelper.Clamp(index.Y, -1, text[index.X].Count - 1);
+
+					if (index.Y == -1 && text[index.X].Count > 0 && text[index.X][0].Ch == '\n')
+						index.Y = 0;
 
 					return index;
 				}
