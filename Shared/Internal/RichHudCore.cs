@@ -9,6 +9,10 @@ using RichHudFramework.UI;
 
 namespace RichHudFramework.Internal
 {
+    /// <summary>
+    /// Shared session component for managing module lifetimes
+    /// </summary>
+    /// <exclude/>
     [MySessionComponentDescriptor(MyUpdateOrder.NoUpdate)]
     public sealed class RichHudCore : ModBase
     {

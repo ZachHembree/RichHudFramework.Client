@@ -9,6 +9,10 @@ namespace RichHudFramework.UI.Client
 {
     using RichStringMembers = MyTuple<StringBuilder, GlyphFormatMembers>;
 
+    /// <summary>
+    /// Internal API member accessor indices
+    /// </summary>
+    /// <exclude/>
     public enum TextFieldAccessors : int
     {
         CharFilterFunc = 16,

@@ -6,9 +6,15 @@ namespace RichHudFramework
 {
     namespace UI
     {
+        /// <summary>
+        /// Automatic size matching flags
+        /// </summary>
         [Flags]
         public enum DimAlignments : byte
         {
+            /// <summary>
+            /// No size matching
+            /// </summary>
             None = 0x0,
 
             /// <summary>

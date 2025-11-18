@@ -86,7 +86,7 @@ namespace RichHudFramework.UI
     }
 
     /// <summary>
-    /// Manages chat commands. Independent session component. Use only after load data.
+    /// Singleton chat command manager. Independent session component. Use only after load data.
     /// </summary>
     [MySessionComponentDescriptor(MyUpdateOrder.NoUpdate, 0)]
     public sealed class CmdManager : MySessionComponentBase
@@ -101,6 +101,11 @@ namespace RichHudFramework.UI
         private readonly List<CommandGroup> commandGroups;
         private readonly Dictionary<string, Command> commands;
 
+        /// <summary>
+        /// Initializes a new <see cref="CmdManager"/> instance. Singleton. Do not initialize manually.
+        /// Initialization is handled via normal MySessionComponent init.
+        /// </summary>
+        /// <exclude/>
         public CmdManager()
         {
             if (instance == null)
@@ -114,6 +119,10 @@ namespace RichHudFramework.UI
             RichHudCore.LateMessageEntered += MessageHandler;
         }
 
+        /// <summary>
+        /// Session component unload callback
+        /// </summary>
+        /// <exclude/>
         protected override void UnloadData()
         {
             RichHudCore.LateMessageEntered -= MessageHandler;

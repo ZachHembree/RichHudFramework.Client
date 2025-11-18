@@ -151,9 +151,25 @@ namespace RichHudFramework.UI
         /// </summary>
         public bool VertCenterText { get { return textBox.VertCenterText; } set { textBox.VertCenterText = value; } }
 
+        /// <summary>
+        /// Interactable text element backing the field
+        /// </summary>
         protected readonly TextBox textBox;
+
+        /// <summary>
+        /// Border around the text field
+        /// </summary>
         protected readonly BorderBox border;
-        protected Color lastColor, lastTextColor;
+
+        /// <summary>
+        /// Last color set before highlighting/taking focus
+        /// </summary>
+        protected Color lastColor;
+        
+        /// <summary>
+        /// Last text color set before highlighting/taking focus
+        /// </summary>
+        protected Color lastTextColor;
 
         public TextField(HudParentBase parent) : base(parent)
         {

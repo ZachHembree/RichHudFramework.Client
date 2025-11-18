@@ -33,6 +33,9 @@ namespace RichHudFramework.UI.Client
         /// </summary>
         public IReadOnlyList<TerminalControlBase> Controls { get; }
 
+        /// <summary>
+        /// Initializer property for adding control tiles in a nested collection initializer
+        /// </summary>
         public IControlTile ControlContainer => this;
 
         /// <summary>
@@ -52,7 +55,7 @@ namespace RichHudFramework.UI.Client
         private ApiMemberAccessor GetOrSetMemberFunc => tileMembers.Item1;
         private readonly ControlContainerMembers tileMembers;
 
-        public ControlTile() : this(RichHudTerminal.GetNewMenuTile())
+        public ControlTile() : this(RichHudTerminal.Instance.GetNewMenuTile())
         { }
 
         public ControlTile(ControlContainerMembers data)

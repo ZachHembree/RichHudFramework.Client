@@ -70,7 +70,7 @@ namespace RichHudFramework
 				GetEnumerator();
 
 			/// <summary>
-			/// Adds an element of type <see cref="TElement"/> to the chain.
+			/// Adds an element of type TElement to the chain.
 			/// </summary>
 			public virtual void Add(TElement element)
 			{
@@ -80,7 +80,7 @@ namespace RichHudFramework
 			}
 
 			/// <summary>
-			/// Adds an element of type <see cref="TElementContainer"/> to the chain.
+			/// Adds an element of type TElementContainer to the chain.
 			/// </summary>
 			public virtual void Add(TElementContainer container)
 			{
@@ -103,7 +103,7 @@ namespace RichHudFramework
 			}
 
 			/// <summary>
-			/// Adds an element of type <see cref="TElementContainer"/> at the given index.
+			/// Adds an element of type TElementContainer at the given index.
 			/// </summary>
 			public virtual void Insert(int index, TElementContainer container)
 			{

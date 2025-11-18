@@ -7,6 +7,10 @@ namespace RichHudFramework
 
         namespace Rendering
         {
+            /// <summary>
+            /// Internal API accessor indices for querying rendering information for an individual character
+            /// </summary>
+            /// <exclude/>
             public enum RichCharAccessors : int
             {
                 /// <summary>

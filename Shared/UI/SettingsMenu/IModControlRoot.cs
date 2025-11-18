@@ -18,6 +18,10 @@ namespace RichHudFramework
             object // ID
         >;
 
+        /// <summary>
+        /// Internal API accessor enums for controlling the RHF terminal
+        /// </summary>
+        /// <exclude/>
         public enum TerminalAccessors : int
         {
             ToggleMenu = 0,
@@ -34,8 +38,9 @@ namespace RichHudFramework
         }
 
         /// <summary>
-        /// Used by the API to specify to request a given type of settings menu control
+        /// Internal enums used by the API to request a given type of settings menu control
         /// </summary>
+        /// <exclude/>
         public enum MenuControls : int
         {
             Checkbox = 1,
@@ -50,12 +55,20 @@ namespace RichHudFramework
             Label = 10,
         }
 
+        /// <summary>
+        /// Internal enums listing supported control containers in the RHF terminal
+        /// </summary>
+        /// <exclude/>
         public enum ControlContainers : int
         {
             Tile = 1,
             Category = 2,
         }
 
+        /// <summary>
+        /// Internal enums listing supported page types in the RHF terminal
+        /// </summary>
+        /// <exclude/>
         public enum ModPages : int
         {
             ControlPage = 1,
@@ -63,6 +76,10 @@ namespace RichHudFramework
             TextPage = 3,
         }
 
+        /// <summary>
+        /// Internal API accessor enums for configuring the RHF terminal root for a mod
+        /// </summary>
+        /// <exclude/>
         public enum ModControlRootAccessors : int
         {
             /// <summary>
@@ -81,6 +98,10 @@ namespace RichHudFramework
             AddSubcategory = 8
         }
 
+        /// <summary>
+        /// Internal interface for items that can be listed under a control root
+        /// </summary>
+        /// <exclude/>
         public interface IModRootMember
         {
             /// <summary>
@@ -104,6 +125,7 @@ namespace RichHudFramework
         /// Indented dropdown list of terminal pages and page categories. Root UI element for all terminal controls
         /// associated with a given mod.
         /// </summary>
+        /// <exclude/>
         public interface IModControlRoot : ITerminalPageCategory
         {
             /// <summary>

@@ -18,6 +18,10 @@ namespace RichHudFramework
             object // ID
         >;
 
+        /// <summary>
+        /// Internal API accessor enums for RHF terminal control tiles
+        /// </summary>
+        /// <exclude/>
         public enum ControlTileAccessors : int
         {
             /// <summary>
@@ -31,12 +35,13 @@ namespace RichHudFramework
             Enabled = 2,
         }
 
-        /// <summary>
-        /// Small collection of terminal controls organized into a single block. No more than 1-3
-        /// controls should be added to a tile. If a group of controls can't fit on a tile, then they
-        /// will be drawn outside its bounds.
-        /// </summary>
-        public interface IControlTile : IEnumerable<ITerminalControl>
+		/// <summary>
+		/// Small collection of terminal controls organized into a single block. No more than 1-3
+		/// controls should be added to a tile. If a group of controls can't fit on a tile, then they
+		/// will be drawn outside its bounds.
+		/// </summary>
+		/// <exclude/>
+		public interface IControlTile : IEnumerable<ITerminalControl>
         {
             /// <summary>
             /// Read only collection of <see cref="TerminalControlBase"/>s attached to the tile

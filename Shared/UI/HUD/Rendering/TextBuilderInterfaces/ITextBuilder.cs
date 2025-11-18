@@ -28,6 +28,10 @@ namespace RichHudFramework
 
         namespace Rendering
         {
+            /// <summary>
+            /// Internal API accessor indices for TextBuilder/TextBoard
+            /// </summary>
+            /// <exclude/>
             public enum TextBuilderAccessors : int
             {
                 /// <summary>

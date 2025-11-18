@@ -51,6 +51,9 @@ namespace RichHudFramework
             /// </summary>
             public struct QuadBoard
             {
+                /// <summary>
+                /// Default tintable quad. Blank texture.
+                /// </summary>
                 public static readonly QuadBoard Default;
 
                 /// <summary>

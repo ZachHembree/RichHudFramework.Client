@@ -9,6 +9,7 @@ namespace RichHudFramework
     /// <summary>
     /// Read-only collection of cached and indexed RHF API wrappers
     /// </summary>
+    /// <exclude/>
     public class ReadOnlyApiCollection<TValue> : IReadOnlyList<TValue>, IIndexedCollection<TValue>
     {
         /// <summary>
@@ -39,10 +40,10 @@ namespace RichHudFramework
             }
         }
 
-        /// <summary>
-        /// Returns the number of elements in the collection
-        /// </summary>
-        public virtual int Count => GetCountFunc();
+		/// <summary>
+		/// Returns the number of elements in the collection
+		/// </summary>
+		public virtual int Count => GetCountFunc();
 
         protected readonly Func<int, TValue> GetNewWrapperFunc;
         protected readonly Func<int> GetCountFunc;
@@ -72,6 +73,7 @@ namespace RichHudFramework
     /// <summary>
     /// Read-only collection backed by delegates
     /// </summary>
+    /// <exclude/>
     public class ReadOnlyCollectionData<TValue> : IReadOnlyList<TValue>, IIndexedCollection<TValue>
     {
         /// <summary>

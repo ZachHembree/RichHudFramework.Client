@@ -49,6 +49,10 @@
             float AnalogValue { get; }
         }
 
+        /// <summary>
+        /// Internal API member accessor enums
+        /// </summary>
+        /// <exclude/>
         public enum ControlAccessors : int
         {
             /// <summary>

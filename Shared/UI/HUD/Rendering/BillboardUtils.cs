@@ -30,6 +30,10 @@ namespace RichHudFramework
 
 		namespace Rendering
 		{
+			/// <summary>
+			/// Internal billboard pool API member access indices
+			/// </summary>
+			/// <exclude/>
 			public enum BillBoardUtilAccessors : int
 			{
 				/// <summary>

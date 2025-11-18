@@ -12,11 +12,19 @@ namespace RichHudFramework
         using Client;
         using Server;
 
+        /// <summary>
+        /// Internal rebind page API accessor enums
+        /// </summary>
+        /// <exclude/>
         public enum RebindPageAccessors : int
         {
             Add = 10,
         }
 
+        /// <summary>
+        /// Internal interface for terminal bind update pages implemented in the master and client modules
+        /// </summary>
+        /// <exclude/>
         public interface IRebindPage : ITerminalPage, IEnumerable<IBindGroup>
         {
             /// <summary>

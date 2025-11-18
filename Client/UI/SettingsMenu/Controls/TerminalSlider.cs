@@ -10,7 +10,11 @@ namespace RichHudFramework.UI.Client
 {
     using RichStringMembers = MyTuple<StringBuilder, GlyphFormatMembers>;
 
-    public enum SliderSettingsAccessors : int
+	/// <summary>
+	/// Internal API member accessor indices
+	/// </summary>
+	/// <exclude/>
+	public enum SliderSettingsAccessors : int
     {
         /// <summary>
         /// Float

@@ -71,8 +71,8 @@ namespace RichHudFramework.UI
 			if (!TextBoard.AutoResize)
 				TextBoard.FixedSize = UnpaddedSize;
 
-			if (maskingBox != null)
-				TextBoard.Draw(box, maskingBox.Value, HudSpace.PlaneToWorldRef);
+			if (MaskingBox != null)
+				TextBoard.Draw(box, MaskingBox.Value, HudSpace.PlaneToWorldRef);
 			else
 				TextBoard.Draw(box, CroppedBox.defaultMask, HudSpace.PlaneToWorldRef);
 		}

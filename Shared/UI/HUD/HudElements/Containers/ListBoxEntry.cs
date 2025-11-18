@@ -33,6 +33,10 @@ namespace RichHudFramework.UI
             Element.TextBoard.Clear();
         }
 
+        /// <summary>
+        /// API interop method used by the Rich HUD Terminal
+        /// </summary>
+        /// <exclude/>
         public object GetOrSetMember(object data, int memberEnum)
         {
             var member = (ListBoxEntryAccessors)memberEnum;

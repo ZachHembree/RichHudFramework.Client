@@ -70,7 +70,7 @@ namespace RichHudFramework
             private ApiMemberAccessor GetOrSetMemberFunc => data.Item1;
             private readonly ControlContainerMembers data;
 
-            public ControlCategory() : this(RichHudTerminal.GetNewMenuCategory())
+            public ControlCategory() : this(RichHudTerminal.Instance.GetNewMenuCategory())
             { }
 
             public ControlCategory(ControlContainerMembers data)
@@ -95,7 +95,11 @@ namespace RichHudFramework
             public void Add(ControlTile tile) =>
                 GetOrSetMemberFunc(tile.ID, (int)ControlCatAccessors.AddMember);
 
-            public ControlContainerMembers GetApiData() =>
+			/// <summary>
+			/// Returns internal API data tuple
+			/// </summary>
+			/// <exclude/>
+			public ControlContainerMembers GetApiData() =>
                 data;
         }
     }

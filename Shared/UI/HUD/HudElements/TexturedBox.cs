@@ -23,7 +23,9 @@ namespace RichHudFramework.UI
         /// </summary>
         public Color Color { get { return hudBoard.Color; } set { hudBoard.Color = value; } }
 
-        protected float lastScale;
+        /// <summary>
+        /// Internal billboard wrapper for drawing a textured quad
+        /// </summary>
         protected readonly MatBoard hudBoard;
 
         public TexturedBox(HudParentBase parent) : base(parent)
@@ -43,7 +45,7 @@ namespace RichHudFramework.UI
                 Vector2 halfSize = (UnpaddedSize) * .5f;
 
                 box.bounds = new BoundingBox2(Position - halfSize, Position + halfSize);
-                box.mask = maskingBox;
+                box.mask = MaskingBox;
                 hudBoard.Draw(ref box, HudSpace.PlaneToWorldRef);
             }
         }

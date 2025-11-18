@@ -14,7 +14,8 @@ namespace RichHudFramework
 			/// <summary>
 			/// Utilities used internally to access parent node members
 			/// </summary>
-			protected static class ParentUtils
+			/// <exclude/>
+			protected static partial class ParentUtils
 			{
 				/// <summary>
 				/// Used internally quickly register a list of child nodes to a parent.

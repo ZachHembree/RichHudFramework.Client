@@ -10,7 +10,11 @@ namespace RichHudFramework.UI
     using RichStringMembers = MyTuple<StringBuilder, GlyphFormatMembers>;
     using CollectionData = MyTuple<Func<int, ApiMemberAccessor>, Func<int>>;
 
-    public class ListBoxData<T> : ReadOnlyApiCollection<EntryData<T>>
+	/// <summary>
+	/// Interface to a ListBox owned by the master module and shared by the RHF terminal
+	/// </summary>
+	/// <exclude/>
+	public class ListBoxData<T> : ReadOnlyApiCollection<EntryData<T>>
     {
         /// <summary>
         /// Current selection. Null if empty.
@@ -121,7 +125,11 @@ namespace RichHudFramework.UI
             GetOrSetMemberFunc(index, (int)ListBoxAccessors.SelectionIndex);
     }
 
-    public class EntryData<T>
+	/// <summary>
+	/// Interface to a ListBox entry owned by the master module and shared via the RHF terminal
+	/// </summary>
+	/// <exclude/>
+	public class EntryData<T>
     {
         /// <summary>
         /// Name of the list box entry as shown in the UI

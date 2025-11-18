@@ -106,32 +106,38 @@ namespace RichHudFramework
 			/// <summary>
 			/// Handle to node data used for registering with the Tree Manager. Do not modify.
 			/// </summary>
+			/// <exclude/>
 			public HudNodeDataHandle DataHandle { get; }
 
 			/// <summary>
 			/// Internal configuration and state. Do not modify.
 			/// </summary>
+			/// <exclude/>
 			public IReadOnlyList<uint> Config { get; }
 
 			/// <summary>
 			/// Internal configuration and state. Do not modify.
 			/// </summary>
+			/// <exclude/>
 			protected readonly uint[] _config;
 
 			/// <summary>
 			/// Handle to node data used for registering with the Tree Manager. Do not modify.
 			/// </summary>
+			/// <exclude/>
 			protected readonly HudNodeData[] _dataHandle;
 
 			/// <summary>
 			/// References to child API handles. Parallel with children list.
 			/// Do not modify.
 			/// </summary>
+			/// <exclude/>
 			protected readonly List<object> childHandles;
 
 			/// <summary>
 			/// Registered chlid nodes. Do not modify.
 			/// </summary>
+			/// <exclude/>
 			protected readonly List<HudNodeBase> children;
 
 			/// <summary>
@@ -316,6 +322,7 @@ namespace RichHudFramework
 			/// <summary>
 			/// Wraps HandleInput() input polling hook. Override HandleInput() for customization.
 			/// </summary>
+			/// <exclude/>
 			protected virtual void BeginInput()
 			{
 				if ((Config[StateID] & (uint)HudElementStates.IsInputHandlerCustom) > 0)
@@ -328,6 +335,7 @@ namespace RichHudFramework
 			/// <summary>
 			/// Updates internal state. Override Layout() for customization. Do not override.
 			/// </summary>
+			/// <exclude/>
 			protected virtual void BeginLayout(bool _)
 			{
 				if (HudSpace != null)
@@ -442,6 +450,7 @@ namespace RichHudFramework
 			/// <summary>
 			/// Internal debugging method
 			/// </summary>
+			/// <exclude/>
 			protected virtual object GetOrSetApiMember(object data, int memberEnum)
 			{
 				switch ((HudElementAccessors)memberEnum)

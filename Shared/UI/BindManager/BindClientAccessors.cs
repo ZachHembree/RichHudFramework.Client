@@ -51,6 +51,10 @@ namespace RichHudFramework.UI
         FullWithChat = Full | Chat
     }
 
+    /// <summary>
+    /// Internal bind client API enums
+    /// </summary>
+    /// <exclude/>
     public enum BindClientAccessors : int
     {
         /// <summary>

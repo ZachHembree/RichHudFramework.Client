@@ -8,7 +8,7 @@ namespace RichHudFramework.UI.Rendering
     using Server;
 
     /// <summary>
-    /// Renders a 2D polygon using billboards with the center punched out.
+    /// Renders a circular 2D polygon using billboards with the center punched out
     /// </summary>
     public class PuncturedPolyBoard : PolyBoard
     {

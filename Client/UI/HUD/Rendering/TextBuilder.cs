@@ -28,6 +28,10 @@ namespace RichHudFramework
 
         namespace Rendering.Client
         {
+            /// <summary>
+            /// Client-side interface to UI element text formatter implementing <see cref="ITextBuilder"/>
+            /// </summary>
+            /// <exclude/>
             public abstract class TextBuilder : ITextBuilder
             {
                 /// <summary>
@@ -73,6 +77,10 @@ namespace RichHudFramework
                     set { GetOrSetMemberFunc(value, (int)TextBuilderAccessors.BuilderMode); }
                 }
 
+                /// <summary>
+                /// Internal API access delegate
+                /// </summary>
+                /// <exclude/>
                 protected readonly Func<object, int, object> GetOrSetMemberFunc;
                 private readonly Func<int, int, object> GetLineMemberFunc;
                 private readonly Func<int> GetLineCountFunc;
@@ -84,6 +92,10 @@ namespace RichHudFramework
                 private readonly ReadOnlyApiCollection<ILine> lines;
                 private RichText lastText;
 
+                /// <summary>
+                /// Initializes formatter interface from API tuple
+                /// </summary>
+                /// <exclude/>
                 public TextBuilder(TextBuilderMembers data)
                 {
                     GetLineMemberFunc = data.Item1.Item1;
@@ -297,6 +309,10 @@ namespace RichHudFramework
                     return start;
                 }
 
+                /// <summary>
+                /// Internal wrapper for accessing information for individual lines
+                /// </summary>
+                /// <exclude/>
                 protected class LineData : ILine
                 {
                     public IRichChar this[int ch] => characters[ch];
@@ -321,7 +337,11 @@ namespace RichHudFramework
                     }
                 }
 
-                protected class RichCharData : IRichChar
+				/// <summary>
+				/// Internal wrapper for accessing information for individual characters
+				/// </summary>
+				/// <exclude/>
+				protected class RichCharData : IRichChar
                 {
                     public char Ch => (char)parent.GetCharMemberFunc(index, (int)RichCharAccessors.Ch);
                     public GlyphFormat Format => new GlyphFormat((GlyphFormatMembers)parent.GetCharMemberFunc(index, (int)RichCharAccessors.Format));

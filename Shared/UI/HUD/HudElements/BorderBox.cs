@@ -45,7 +45,7 @@ namespace RichHudFramework.UI
             if (Color.A > 0)
             {
                 CroppedBox box = default(CroppedBox);
-                box.mask = maskingBox;
+                box.mask = MaskingBox;
 
                 float thickness = _thickness, 
                     height = UnpaddedSize.Y, 

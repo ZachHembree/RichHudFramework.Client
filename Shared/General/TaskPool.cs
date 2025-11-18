@@ -76,6 +76,10 @@ namespace RichHudFramework
             tasksWaiting = new Queue<Action>();
         }
 
+        /// <summary>
+        /// Component unload callback
+        /// </summary>
+        /// <exclude/>
         public override void Close()
         {
             tasksRunningCount = 0;
@@ -84,6 +88,7 @@ namespace RichHudFramework
         /// <summary>
         /// Updates public task/action queues and runs exception handling.
         /// </summary>
+        /// <exclude/>
         public override void Draw()
         {
             TryStartWaitingTasks();

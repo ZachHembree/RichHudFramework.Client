@@ -67,6 +67,7 @@ namespace RichHudFramework
             /// <summary>
             /// Internal format storage
             /// </summary>
+            /// <exclude/>
             public GlyphFormatMembers Data { get; set; }
 
             public GlyphFormat(Color color, TextAlignment alignment, float textSize, 
@@ -94,11 +95,18 @@ namespace RichHudFramework
                 Data = new GlyphFormatMembers((byte)alignment, textSize, font.GetStyleIndex(style), color);
             }
 
+            /// <summary>
+            /// Wraps raw API format tuple in new GlyphFormat instance
+            /// </summary>
+            /// <exclude/>
             public GlyphFormat(GlyphFormatMembers data)
             {
                 this.Data = data;
             }
 
+            /// <summary>
+            /// Initializes a new copy of the given format
+            /// </summary>
             public GlyphFormat(GlyphFormat original)
             {
                 Data = original.Data;
@@ -195,6 +203,10 @@ namespace RichHudFramework
                     && Data.Item4 == format.Data.Item4;
             }
 
+            /// <summary>
+            /// Returns true if the given API format tuple is equivalent to this format object
+            /// </summary>
+            /// <exclude/>
             public bool DataEqual(GlyphFormatMembers data)
             {
                 return Data.Item1 == data.Item1

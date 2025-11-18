@@ -6,6 +6,10 @@ namespace RichHudFramework
     {
         namespace Rendering
         {
+            /// <summary>
+            /// Internal API accessor indices for querying the contents of a textbuilder line
+            /// </summary>
+            /// <exclude/>
             public enum LineAccessors : int
             {
                 /// <summary>

@@ -108,6 +108,10 @@ namespace RichHudFramework
             void ClearSubscribers();
         }
 
+        /// <summary>
+        /// Internal API member accessor enums for groups of binds
+        /// </summary>
+        /// <exclude/>
         public enum BindGroupAccessors : int
         {
             /// <summary>

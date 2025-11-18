@@ -16,6 +16,10 @@ namespace RichHudFramework
         using Client;
         using Server;
 
+        /// <summary>
+        /// Internal terminal page member data enums
+        /// </summary>
+        /// <exclude/>
         public enum TerminalPageAccessors : int
         {
             /// <summary>
@@ -29,6 +33,10 @@ namespace RichHudFramework
             Enabled = 2,
         }
 
+        /// <summary>
+        /// Internal interface for RHF terminal pages. Shared with client and master modules.
+        /// </summary>
+        /// <exclude/>
         public interface ITerminalPage : IModRootMember
         {
             /// <summary>

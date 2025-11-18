@@ -27,16 +27,16 @@ namespace RichHudFramework.UI
         public TreeBox() : base(null)
         { }
 
-        /// <summary>
-        /// Adds an element of type <see cref="TElement"/> to the collection.
-        /// </summary>
-        public void Add(TElement element) =>
+		/// <summary>
+		/// Adds an element of type TElement to the collection.
+		/// </summary>
+		public void Add(TElement element) =>
             selectionBox.hudChain.Add(element);
 
-        /// <summary>
-        /// Adds an element of type <see cref="TContainer"/> to the collection.
-        /// </summary>
-        public void Add(TContainer element) =>
+		/// <summary>
+		/// Adds an element of type TContainer to the collection.
+		/// </summary>
+		public void Add(TContainer element) =>
             selectionBox.hudChain.Add(element);
 
         /// <summary>
@@ -63,10 +63,10 @@ namespace RichHudFramework.UI
         public int FindIndex(Func<TContainer, bool> predicate) =>
             selectionBox.hudChain.FindIndex(predicate);
 
-        /// <summary>
-        /// Adds an element of type <see cref="TContainer"/> at the given index.
-        /// </summary>
-        public void Insert(int index, TContainer container) =>
+		/// <summary>
+		/// Adds an element of type TContainer at the given index.
+		/// </summary>
+		public void Insert(int index, TContainer container) =>
             selectionBox.hudChain.Insert(index, container);
 
         /// <summary>

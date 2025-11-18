@@ -12,6 +12,10 @@ namespace RichHudFramework
         using Client;
         using Server;
 
+        /// <summary>
+        /// Internal text page data accessor enums
+        /// </summary>
+        /// <exclude/>
         public enum TextPageAccessors : int
         {
             /// <summary>
@@ -36,8 +40,9 @@ namespace RichHudFramework
         }
 
         /// <summary>
-        /// Scrollable text page used in the terminal.
+        /// Internal TextPage interface implemented by client and master modules
         /// </summary>
+        /// <exclude/>
         public interface ITextPage : ITerminalPage
         {
             /// <summary>

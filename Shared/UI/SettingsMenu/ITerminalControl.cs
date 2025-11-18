@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Text;
 using VRage;
 using ApiMemberAccessor = System.Func<object, int, object>;
-using GlyphFormatMembers = VRage.MyTuple<byte, float, VRageMath.Vector2I, VRageMath.Color>;
 
 namespace RichHudFramework
 {
@@ -16,6 +14,10 @@ namespace RichHudFramework
         using Server;
         using Client;
 
+        /// <summary>
+        /// Internal member accessor enums for terminal controls
+        /// </summary>
+        /// <exclude/>
         public enum TerminalControlAccessors : int
         {
             /// <summary>
@@ -50,8 +52,9 @@ namespace RichHudFramework
         }
 
         /// <summary>
-        /// Clickable control used in conjunction by the settings menu.
+        /// Internal interface for clickable terminal controls implemented in the client and master modules.
         /// </summary>
+        /// <exclude/>
         public interface ITerminalControl
         {
             /// <summary>
@@ -88,8 +91,10 @@ namespace RichHudFramework
         }
 
         /// <summary>
-        /// Settings menu control associated with a value of a given type.
+        /// Internal interface for terminal controls associated with a value of a given type.
+        /// Implemented by shared and master modules.
         /// </summary>
+        /// <exclude/>
         public interface ITerminalValue<TValue> : ITerminalControl
         {
             /// <summary>

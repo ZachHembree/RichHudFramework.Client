@@ -13,6 +13,7 @@ namespace RichHudFramework
 			/// <summary>
 			/// Collection of utilities used internally to manage HUD nodes
 			/// </summary>
+			/// <exclude/>
 			protected static class NodeUtils
 			{
 				/// <summary>

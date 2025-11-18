@@ -137,7 +137,7 @@ namespace RichHudFramework.UI
 			warningToolTip = new ToolTip()
 			{
 				text = "Open Chat to Enable Text Editing",
-				bgColor = ToolTip.orangeWarningBG
+				bgColor = ToolTip.OrangeWarningBG
 			};
 
 			TextBoard.TextChanged += OnTextChanged;

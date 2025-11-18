@@ -18,13 +18,19 @@ namespace RichHudFramework
 
     namespace UI.Client
     {
+        /// <summary>
+        /// A collapsable group of RHF terminal pages that can be added to a mod's control root
+        /// </summary>
         public class TerminalPageCategory : TerminalPageCategoryBase
         { 
-            public TerminalPageCategory() : base(RichHudTerminal.GetNewPageCategory())
+            public TerminalPageCategory() : base(RichHudTerminal.Instance.GetNewPageCategory())
             { }
         }
 
-        public abstract class TerminalPageCategoryBase : ITerminalPageCategory
+		/// <summary>
+		/// Abstract base for terminal page selection containers
+		/// </summary>
+		public abstract class TerminalPageCategoryBase : ITerminalPageCategory
         {
             /// <summary>
             /// Name of the mod as it appears in the <see cref="RichHudTerminal"/> mod list
@@ -40,6 +46,9 @@ namespace RichHudFramework
             /// </summary>
             public IReadOnlyList<TerminalPageBase> Pages { get; }
 
+            /// <summary>
+            /// 
+            /// </summary>
             public ITerminalPageCategory PageContainer => this;
 
             /// <summary>
@@ -79,10 +88,23 @@ namespace RichHudFramework
                 set { GetOrSetMemberFunc(value, (int)TerminalPageCategoryAccessors.Enabled); }
             }
 
-            protected ApiMemberAccessor GetOrSetMemberFunc => data.Item1;
-            protected readonly ControlContainerMembers data;
+			/// <summary>
+			/// Internal page member accessor delegate
+			/// </summary>
+			/// <exclude/>
+			protected ApiMemberAccessor GetOrSetMemberFunc => data.Item1;
 
-            public TerminalPageCategoryBase(ControlContainerMembers data)
+			/// <summary>
+			/// Internal API data tuple
+			/// </summary>
+			/// <exclude/>
+			protected readonly ControlContainerMembers data;
+
+			/// <summary>
+			/// Initializes a new control page interface from an API accessor tuple
+			/// </summary>
+			/// <exclude/>
+			public TerminalPageCategoryBase(ControlContainerMembers data)
             {
                 this.data = data;
 
@@ -106,10 +128,11 @@ namespace RichHudFramework
                     GetOrSetMemberFunc(page.ID, (int)TerminalPageCategoryAccessors.AddPage);
             }
 
-            /// <summary>
-            /// Retrieves data used by the Framework API
-            /// </summary>
-            public ControlContainerMembers GetApiData() =>
+			/// <summary>
+			/// Retrieves data used by the Framework API
+			/// </summary>
+			/// <exclude/>
+			public ControlContainerMembers GetApiData() =>
                 data;
 
             public IEnumerator<TerminalPageBase> GetEnumerator() =>

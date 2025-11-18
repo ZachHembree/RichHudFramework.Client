@@ -1,12 +1,13 @@
 ﻿using System;
-using VRage;
-using VRageMath;
-using ApiMemberAccessor = System.Func<object, int, object>;
 
 namespace RichHudFramework
 {
 	namespace UI
 	{
+		/// <summary>
+		/// Internal UI node configuration flags
+		/// </summary>
+		/// <exclude/>
 		[Flags]
 		public enum HudElementStates : uint
 		{
@@ -153,6 +154,7 @@ namespace RichHudFramework
 		/// <summary>
 		/// Internal debug enums
 		/// </summary>
+		/// <exclude/>
 		public enum HudElementAccessors : int
 		{
 			/// <summary>

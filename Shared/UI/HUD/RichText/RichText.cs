@@ -23,6 +23,10 @@ namespace RichHudFramework
             /// </summary>
             public GlyphFormat? defaultFormat;
 
+            /// <summary>
+            /// Internal API-native storage for rich text
+            /// </summary>
+            /// <exclude/>
             public readonly List<RichStringMembers> apiData;
             private ObjectPool<StringBuilder> sbPool;
 
@@ -36,8 +40,10 @@ namespace RichHudFramework
             }
 
             /// <summary>
-            /// Initializes a new RichText instance backed by the given List.
+            /// Wraps native rich text API representation in a new RichText instance.
+            /// Used internally for client-master text sharing.
             /// </summary>
+            /// <exclude/>
             public RichText(List<RichStringMembers> apiData, bool copy = false)
             {
                 this.apiData = copy ? GetDataCopy(apiData) : apiData;
@@ -386,6 +392,7 @@ namespace RichHudFramework
             /// <summary>
             /// Returns a copy of the api data backing the rich text object
             /// </summary>
+            /// <exclude/>
             public static List<RichStringMembers> GetDataCopy(List<RichStringMembers> original)
             {
                 var newData = new List<RichStringMembers>(original.Count);
@@ -441,6 +448,7 @@ namespace RichHudFramework
             public static implicit operator RichText(StringBuilder text) =>
                 new RichText(text);
 
+            /// <exclude/>
             public static implicit operator RichText(List<RichStringMembers> text) =>
                 new RichText(text);
         }

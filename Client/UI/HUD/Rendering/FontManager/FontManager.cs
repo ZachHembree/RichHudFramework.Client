@@ -45,9 +45,9 @@ namespace RichHudFramework
             >;
 
             /// <summary>
-            /// Manages fonts used by the Rich Hud Framework
+            /// Client-side interface to RHM font management system
             /// </summary>
-            public sealed partial class FontManager : RichHudClient.ApiModule<FontManagerMembers>
+            public sealed partial class FontManager : RichHudClient.ApiModule
             {
                 /// <summary>
                 /// Retrieves default font for Space Engineers with regular styling.
@@ -72,7 +72,7 @@ namespace RichHudFramework
 
                 private FontManager() : base(ApiModuleTypes.FontManager, false, true)
                 {
-                    var members = GetApiData();
+                    var members = (FontManagerMembers)GetApiData();
 
                     Func<int, IFontMin> fontGetter = x => new FontData(members.Item1.Item1(x));
                     fonts = new ReadOnlyApiCollection<IFontMin>(fontGetter, members.Item1.Item2);

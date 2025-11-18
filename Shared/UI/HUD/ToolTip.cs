@@ -21,9 +21,10 @@ namespace RichHudFramework
         public class ToolTip
         {
             public static readonly GlyphFormat DefaultText = GlyphFormat.Blueish.WithSize(.75f);
-            public static readonly Color DefaultBG = new Color(73, 86, 95),
-                orangeWarningBG = new Color(180, 110, 0),
-                redWarningBG = new Color(126, 39, 44);
+            public static readonly Color 
+                DefaultBG = new Color(73, 86, 95),
+                OrangeWarningBG = new Color(180, 110, 0),
+                RedWarningBG = new Color(126, 39, 44);
 
             /// <summary>
             /// Text to be assigned to the tooltip. Multiline tooltips are allowed, but
@@ -52,6 +53,10 @@ namespace RichHudFramework
                 };
             }
 
+            /// <summary>
+            /// Creates a ToolTip wrapper for the delegate. Used internally by ICursor implementation.
+            /// </summary>
+            /// <exclude/>
             public ToolTip(Func<ToolTipMembers> GetToolTipFunc)
             {
                 bgColor = DefaultBG;

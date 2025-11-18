@@ -51,8 +51,7 @@ namespace RichHudFramework
 				Action // Unregister
 			>;
 
-
-			public sealed partial class HudMain : RichHudClient.ApiModule<HudClientMembers>
+			public sealed partial class HudMain : RichHudClient.ApiModule
 			{
 				/// <summary>
 				/// The root parent node for all HUD elements in the framework. All UI elements added by mods
@@ -205,9 +204,18 @@ namespace RichHudFramework
 				/// </summary>
 				public static HudInputMode InputMode { get; private set; }
 
+				/// <summary>
+				/// Singleton instance of HudMain
+				/// </summary>
+				/// <exclude/>
 				public static HudMain Instance { get; private set; }
 
+				/// <summary>
+				/// Internal root field
+				/// </summary>
+				/// <exclude/>
 				public readonly HudParentBase _root;
+
 				private readonly HudParentBase _highDpiRoot;
 				private readonly HudCursor _cursor;
 				private bool enableCursorLast;
@@ -222,7 +230,7 @@ namespace RichHudFramework
 						throw new Exception("Only one instance of HudMain can exist at any given time!");
 
 					Instance = this;
-					var members = GetApiData();
+					var members = (HudClientMembers)GetApiData();
 
 					_cursor = new HudCursor(members.Item1);
 					GetTextBoardDataFunc = members.Item2;
@@ -244,6 +252,7 @@ namespace RichHudFramework
 				/// Initializes the HudMain singleton instance, setting up billboard utilities, the root nodes,
 				/// cursor, and registering necessary callbacks with the game's API.
 				/// </summary>
+				/// <exclude/>
 				public static void Init()
 				{
 					BillBoardUtils.Init();
@@ -265,6 +274,7 @@ namespace RichHudFramework
 				/// <summary>
 				/// Closes the HudMain instance by unregistering all API callbacks and releasing resources.
 				/// </summary>
+				/// <exclude/>
 				public override void Close()
 				{
 					UnregisterAction?.Invoke();
@@ -328,6 +338,7 @@ namespace RichHudFramework
 				/// <summary>
 				/// Returns internal accessors for a new TextBoard
 				/// </summary>
+				/// <exclude/>
 				public static TextBoardMembers GetTextBoardData()
 				{
 					if (Instance == null)

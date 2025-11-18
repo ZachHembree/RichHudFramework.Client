@@ -19,6 +19,9 @@ namespace RichHudFramework
             /// </summary>
             public float PlaneScale { get; set; }
 
+            /// <summary>
+            /// Callback delegate for updating plane scaling
+            /// </summary>
             public Func<float> UpdateScaleFunc { get; set; }
 
             public ScaledSpaceNode(HudParentBase parent = null) : base(parent)
