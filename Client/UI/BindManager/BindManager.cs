@@ -37,7 +37,7 @@ namespace RichHudFramework
 
             /// <summary>
             /// Read-only collection of all available controls for use with key binds
-            /// </summary
+            /// </summary>
             public static IReadOnlyList<IControl> Controls => Instance.controls;
 
             /// <summary>

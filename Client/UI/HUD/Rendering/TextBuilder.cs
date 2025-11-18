@@ -180,7 +180,9 @@ namespace RichHudFramework
                     InsertTextAction(lastText.apiData, GetLastIndex());
                 }
 
-                /// Inserts the given text to the end of the text at the specified starting index using the <see cref="GlyphFormat"/>ting specified in the <see cref="RichText"/>.
+                /// <summary>
+                /// Inserts the given text to the end of the text at the specified starting index using 
+                /// the <see cref="GlyphFormat"/>ting specified in the <see cref="RichText"/>.
                 /// </summary>
                 public void Insert(RichText text, Vector2I start)
                 {

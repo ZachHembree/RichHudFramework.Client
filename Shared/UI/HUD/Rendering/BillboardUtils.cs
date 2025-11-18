@@ -34,7 +34,7 @@ namespace RichHudFramework
 			{
 				/// <summary>
 				/// Deprecated
-				/// out: List<MyTriangleBillboard>
+				/// out: List{MyTriangleBillboard}
 				/// </summary>
 				GetPoolBack = 1
 			}

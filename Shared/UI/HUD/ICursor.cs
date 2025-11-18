@@ -38,7 +38,7 @@ namespace RichHudFramework
             WorldLine = 4,
 
             /// <summary>
-            /// in: Func<ToolTipMembers>
+            /// in: Func{ToolTipMembers}
             /// </summary>
             RegisterToolTip = 5,
 

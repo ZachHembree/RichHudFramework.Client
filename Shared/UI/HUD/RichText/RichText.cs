@@ -385,7 +385,7 @@ namespace RichHudFramework
 
             /// <summary>
             /// Returns a copy of the api data backing the rich text object
-            /// <returns></returns>
+            /// </summary>
             public static List<RichStringMembers> GetDataCopy(List<RichStringMembers> original)
             {
                 var newData = new List<RichStringMembers>(original.Count);

@@ -42,7 +42,7 @@ namespace RichHudFramework
                 /// </summary>
                 public bool IsReleased => (bool)(_instance.GetControlMember(Index, (int)ControlAccessors.IsReleased) ?? false);
 
-                // <summary>
+                /// <summary>
                 /// Returns true if the control doesn't represent a boolean value. For example, MwUp/Dn
                 /// represent scroll wheel movement, but don't return an exact position/displacement.
                 /// </summary>

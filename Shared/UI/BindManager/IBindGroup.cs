@@ -7,7 +7,7 @@ namespace RichHudFramework
 
     namespace UI
     {
-        // <summary>
+        /// <summary>
         /// A collection of unique keybinds.
         /// </summary>
         public interface IBindGroup : IReadOnlyList<IBind>
@@ -182,7 +182,7 @@ namespace RichHudFramework
 
             /// <summary>
             /// in: MyTuple{string, IReadOnlyList{string}}, out: Vector2I
-            /// Deprecated API vID < 11
+            /// Deprecated on API vID 11
             /// </summary>
             AddBindWithNames = 15,
 

@@ -37,7 +37,7 @@
             /// </summary>
             bool IsReleased { get; }
 
-            // <summary>
+            /// <summary>
             /// Returns true if the control doesn't represent a boolean value. For example, MwUp/Dn
             /// represent scroll wheel movement, but don't return an exact position/displacement.
             /// </summary>

@@ -65,7 +65,7 @@ namespace RichHudFramework
             RefreshDrawList = 11,
 
             /// <summary>
-            /// in/out: Action<List<HudUpdateAccessors>, byte>
+            /// in/out: Action{List{HudUpdateAccessors}, byte}
             /// Deprecated
             /// </summary>
             GetUpdateAccessorsOld = 12,
@@ -144,7 +144,7 @@ namespace RichHudFramework
         public enum ListBoxEntryAccessors : int
         {
             /// <summary>
-            /// IList<RichStringMembers>
+            /// IList{RichStringMembers}
             /// </summary>
             Name = 1,
 
@@ -172,7 +172,7 @@ namespace RichHudFramework
             ListMembers = 1,
 
             /// <summary>
-            /// in: MyTuple<IList<RichStringMembers>, T>, out: ApiMemberAccessor
+            /// in: MyTuple{IList{RichStringMembers}, T}, out: ApiMemberAccessor
             /// </summary>
             Add = 2,
 
@@ -192,7 +192,7 @@ namespace RichHudFramework
             SetSelectionAtData = 5,
 
             /// <summary>
-            /// in: MyTuple<int, IList<RichStringMembers>, T>
+            /// in: MyTuple{int, IList{RichStringMembers}, T}
             /// </summary>
             Insert = 6,
 

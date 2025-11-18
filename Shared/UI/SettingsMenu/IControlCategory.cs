@@ -21,12 +21,12 @@ namespace RichHudFramework
         public enum ControlCatAccessors : int
         {
             /// <summary>
-            /// IList<RichStringMembers>
+            /// IList{RichStringMembers}
             /// </summary>
             HeaderText = 1,
 
             /// <summary>
-            /// IList<RichStringMembers>
+            /// IList{RichStringMembers}
             /// </summary>
             SubheaderText = 2,
 

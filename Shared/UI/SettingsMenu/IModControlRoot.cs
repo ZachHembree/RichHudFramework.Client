@@ -27,10 +27,10 @@ namespace RichHudFramework
             SetPage = 4,
             GetMenuOpen = 5,
 
-            /// <summary>
-            /// out: Func<ControlContainerMembers>
-            /// </summary>
-            GetNewPageCategoryFunc = 6
+			/// <summary>
+			/// out: Func{ControlContainerMembers}
+			/// </summary>
+			GetNewPageCategoryFunc = 6
         }
 
         /// <summary>
@@ -71,7 +71,7 @@ namespace RichHudFramework
             GetOrSetCallback = 1,
 
             /// <summary>
-            /// out: MyTuple<object, Func<int>>
+            /// out: MyTuple{object, Func{int}}
             /// </summary>
             GetCategoryAccessors = 7,
 

@@ -142,7 +142,7 @@ namespace RichHudFramework
 				/// </summary>
 				public static MatrixD PixelToWorld => PixelToWorldRef[0];
 
-				//// <summary>
+				/// <summary>
 				/// The primary transformation matrix used to convert 2D screen-space coordinates (in pixels)
 				/// to 3D world-space positions (in meters). This is essential for aligning HUD elements with
 				/// in-game objects or camera projections.

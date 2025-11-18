@@ -33,7 +33,7 @@ namespace RichHudFramework
             AddPage = 5,
 
             /// <summary>
-            /// in: IReadOnlyList<TerminalPageBase>
+            /// in: IReadOnlyList{TerminalPageBase}
             /// </summary>
             AddPageRange = 6,
         }

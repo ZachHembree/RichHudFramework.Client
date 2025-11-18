@@ -41,7 +41,7 @@ namespace RichHudFramework
                 BuilderMode = 2,
 
                 /// <summary>
-                /// in: Vector2I, Vector2I, out: List<RichStringMembers>
+                /// in: Vector2I, Vector2I, out: List{RichStringMembers}
                 /// </summary>
                 GetRange = 3,
 

@@ -96,7 +96,7 @@ namespace RichHudFramework
                 /// <summary>
                 /// Draws a billboard in world space facing the +Z direction of the matrix given. Units in meters,
                 /// matrix scaling notwithstanding.
-                /// </summary
+                /// </summary>
                 public void Draw(ref CroppedBox box, MatrixD[] matrixRef)
                 {
                     bool isDisjoint = false;

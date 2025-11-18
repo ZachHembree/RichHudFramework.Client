@@ -34,7 +34,7 @@ namespace RichHudFramework
             Enabled = 3,
 
             /// <summary>
-            /// in: Func<ToolTipMembers>
+            /// in: Func{ToolTipMembers}
             /// </summary>
             ToolTip = 4,
 
