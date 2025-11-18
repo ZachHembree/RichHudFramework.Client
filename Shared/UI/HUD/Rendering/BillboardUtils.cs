@@ -571,6 +571,116 @@ namespace RichHudFramework
 				}
 
 				/// <summary>
+				/// Adds a group of adjacent quads in continuous a strip with a shared material, and each quad sharing a side with the last
+				/// </summary>
+				public static void AddQuadStrip(IReadOnlyList<Vector2> vertices, BoundedQuadMaterial material, MatrixD[] matrixRef, BoundingBox2? mask = null)
+				{
+					var bbPool = instance.flatTriPoolBack[0];
+					var bbDataBack = instance.flatTriangleList;
+					var bbBuf = instance.bbBuf;
+					var matList = instance.matrixBuf;
+					var matTable = instance.matrixTable;
+
+					// Find matrix index in table or add it
+					int matrixID;
+
+					if (!matTable.TryGetValue(matrixRef, out matrixID))
+					{
+						matrixID = matList.Count;
+						matList.Add(matrixRef[0]);
+						matTable.Add(matrixRef, matrixID);
+					}
+
+					// Calculate maximum triangle count and preallocate
+					int triangleCount = 2 * ((vertices.Count - 2) / 2);
+					int bbDataStart = bbDataBack.Count;
+					bbDataBack.EnsureCapacity(bbDataBack.Count + triangleCount);
+
+					for (int i = 0; i < vertices.Count - 2; i += 2)
+					{
+						bool isDisjoint = false;
+
+						if (mask != null)
+						{
+							Vector2 min = new Vector2
+							{
+								X = Math.Min(Math.Min(Math.Min(vertices[i].X, vertices[i + 1].X), vertices[i + 2].X), vertices[i + 3].X),
+								Y = Math.Min(Math.Min(Math.Min(vertices[i].Y, vertices[i + 1].Y), vertices[i + 2].Y), vertices[i + 3].Y)
+							};
+							Vector2 max = new Vector2
+							{
+								X = Math.Max(Math.Max(Math.Max(vertices[i].X, vertices[i + 1].X), vertices[i + 2].X), vertices[i + 3].X),
+								Y = Math.Max(Math.Max(Math.Max(vertices[i].Y, vertices[i + 1].Y), vertices[i + 2].Y), vertices[i + 3].Y)
+							};
+
+							isDisjoint =
+								(max.X < mask.Value.Min.X) ||
+								(min.X > mask.Value.Max.X) ||
+								(max.Y < mask.Value.Min.Y) ||
+								(min.Y > mask.Value.Max.Y);
+						}
+
+						if (!isDisjoint)
+						{
+							var bbL = new FlatTriangleBillboardData
+							{
+								Item1 = BlendTypeEnum.PostPP,
+								Item2 = new Vector2I(bbDataBack.Count, matrixID),
+								Item3 = material.textureID,
+								Item4 = new MyTuple<Vector4, BoundingBox2?>(material.bbColor, mask),
+								Item5 = new MyTuple<Vector2, Vector2, Vector2>
+								(
+									material.texBounds.Max, // 0
+									new Vector2(material.texBounds.Max.X, material.texBounds.Min.Y), // 1
+									material.texBounds.Min // 2
+								),
+								Item6 = new MyTuple<Vector2, Vector2, Vector2>
+								(
+									vertices[i],
+									vertices[i + 1],
+									vertices[i + 3]
+								),
+							};
+							var bbR = new FlatTriangleBillboardData
+							{
+								Item1 = BlendTypeEnum.PostPP,
+								Item2 = new Vector2I(bbDataBack.Count + 1, matrixID),
+								Item3 = material.textureID,
+								Item4 = new MyTuple<Vector4, BoundingBox2?>(material.bbColor, mask),
+								Item5 = new MyTuple<Vector2, Vector2, Vector2>
+								(
+									material.texBounds.Max, // 0
+									material.texBounds.Min, // 2
+									new Vector2(material.texBounds.Min.X, material.texBounds.Max.Y) // 3
+								),
+								Item6 = new MyTuple<Vector2, Vector2, Vector2>
+								(
+									vertices[i],
+									vertices[i + 3],
+									vertices[i + 2]
+								),
+							};
+
+							bbDataBack.Add(bbL);
+							bbDataBack.Add(bbR);
+						}
+					}
+
+					// Get actual triangles used
+					triangleCount = bbDataBack.Count - bbDataStart;
+					int bbRemaining = bbPool.Count - bbDataStart,
+						bbToAdd = Math.Max(triangleCount - bbRemaining, 0);
+
+					instance.AddNewFlatBB(bbToAdd);
+					bbBuf.Clear();
+
+					for (int i = bbDataStart; i < bbDataBack.Count; i++)
+						bbBuf.Add(bbPool[i]);
+
+					MyTransparentGeometry.AddBillboards(bbBuf, false);
+				}
+
+				/// <summary>
 				/// Renders a polygon from a given set of unique vertex coordinates. Triangles are defined by their
 				/// indices and the tex coords are parallel to the vertex list.
 				/// </summary>
