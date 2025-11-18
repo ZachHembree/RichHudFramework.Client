@@ -13,28 +13,50 @@ namespace RichHudFramework.UI
     /// </summary>
     public class ColorPickerHSV : ColorPickerRGB
     {
+		protected static readonly Vector3 HSVScale = 1f / new Vector3(360f, 100f, 100f);
+
+		/// <summary>
+		/// Currently selected color in HSV format
+		/// </summary>
+		public Vector3 ColorHSV => _hsvColor;
+
+		protected Vector3 _hsvColor;
+
+		public ColorPickerHSV(HudParentBase parent = null) : base(parent)
+		{
+			sliders[0].Max = 360f;
+			sliders[1].Max = 100f;
+			sliders[2].Max = 100f;
+		}
+
 		protected override void UpdateChannelR(object sender, EventArgs args)
 		{
 			var slider = sender as SliderBox;
-			_color.R = (byte)Math.Round(slider.Current);
-			sliderText[0].TextBoard.SetText($"H: {_color.R}");
-			display.Color = (_color / new Vector3(360f, 100f, 100f)).HSVtoColor();
+			_hsvColor.X = (float)Math.Round(slider.Current);
+			sliderText[0].TextBoard.SetText($"H: {_hsvColor.X}");
+
+			_color = (_hsvColor * HSVScale).HSVtoColor();
+			display.Color = _color;
 		}
 
 		protected override void UpdateChannelG(object sender, EventArgs args)
 		{
 			var slider = sender as SliderBox;
-			_color.G = (byte)Math.Round(slider.Current);
-			sliderText[1].TextBoard.SetText($"S: {_color.G}");
-			display.Color = (_color / new Vector3(360f, 100f, 100f)).HSVtoColor();
+			_hsvColor.Y = (float)Math.Round(slider.Current);
+			sliderText[1].TextBoard.SetText($"S: {_hsvColor.Y}");
+
+			_color = (_hsvColor * HSVScale).HSVtoColor();
+			display.Color = _color;
 		}
 
 		protected override void UpdateChannelB(object sender, EventArgs args)
 		{
 			var slider = sender as SliderBox;
-			_color.B = (byte)Math.Round(slider.Current);
-			sliderText[2].TextBoard.SetText($"V: {_color.B}");
-			display.Color = (_color / new Vector3(360f, 100f, 100f)).HSVtoColor();
+			_hsvColor.Z = (float)Math.Round(slider.Current);
+			sliderText[2].TextBoard.SetText($"V: {_hsvColor.Z}");
+
+			_color = (_hsvColor * HSVScale).HSVtoColor();
+			display.Color = _color;
 		}
     }
 }

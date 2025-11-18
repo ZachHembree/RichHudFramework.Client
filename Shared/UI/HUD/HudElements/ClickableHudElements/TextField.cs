@@ -22,7 +22,7 @@ namespace RichHudFramework.UI
 		/// <summary>
 		/// Registers a text update callback. For use in object initializers.
 		/// </summary>
-		public EventHandler TextUpdateCallback { set { textBox.TextChanged += value; } }
+		public EventHandler TextChangedCallback { set { textBox.TextChanged += value; } }
 
 		/// <summary>
 		/// Text rendered by the text field.

@@ -25,7 +25,7 @@ namespace RichHudFramework.UI
 		/// <summary>
 		/// Registers a text update callback. For use in object initializers.
 		/// </summary>
-		public EventHandler TextUpdateCallback { set { TextChanged += value; } }
+		public EventHandler TextChangedCallback { set { TextChanged += value; } }
 
 		/// <summary>
 		/// Determines whether or not the textbox will allow the user to edit its contents
