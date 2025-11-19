@@ -5,7 +5,6 @@ namespace RichHudFramework
 {
     namespace UI
     {
-
         namespace Rendering
         {
             /// <summary>
@@ -50,70 +49,89 @@ namespace RichHudFramework
                 VisibleLineRange = 135,
             }
 
+            /// <summary>
+            /// Represents a renderable text element that supports rich text formatting, scrolling, and advanced layout.
+            /// <para>
+            /// This interface combines text manipulation (via <see cref="ITextBuilder"/>) with rendering logic. 
+            /// It handles text clipping, auto-resizing, text alignment, and coordinate-based character lookups.
+            /// </para>
+            /// </summary>
             public interface ITextBoard : ITextBuilder
             {
                 /// <summary>
-                /// Invoked whenever a change is made to the text. Invokes once every 500ms, at most.
+                /// Invoked whenever a change is made to the text. 
+                /// This event is rate-limited and invokes once every 500ms at most.
                 /// </summary>
                 event Action TextChanged;
 
                 /// <summary>
-                /// Scale of the text board. Applied after scaling specified in GlyphFormat.
+                /// The base visual scale of the text board. 
+                /// This is applied multiplicatively after the scaling specified in <see cref="GlyphFormat"/>.
                 /// </summary>
                 float Scale { get; set; }
 
                 /// <summary>
-                /// Size of the text box as rendered
+                /// The current boundaries of the text box as rendered. 
+                /// If <see cref="AutoResize"/> is true, this matches <see cref="TextSize"/>.
+                /// If false, this returns <see cref="FixedSize"/>.
                 /// </summary>
                 Vector2 Size { get; }
 
-				/// <summary>
-				/// Full text size including any text outside the visible range. Updates immediately.
-				/// </summary>
-				Vector2 TextSize { get; }
+                /// <summary>
+                /// The total dimensions of the text content, including text currently outside the visible range. 
+                /// This value updates immediately upon modification.
+                /// </summary>
+                Vector2 TextSize { get; }
 
                 /// <summary>
-                /// Used to change the position of the text within the text element. Clamped to maximize visible text.
-                /// AutoResize must be disabled for this to work.
+                /// The render offset of the text content (scrolling/panning). 
+                /// <para>Note: <see cref="AutoResize"/> must be disabled for this to take effect.</para>
+                /// <para>The value is automatically clamped to ensure the text remains within visible bounds.</para>
                 /// </summary>
                 Vector2 TextOffset { get; set; }
 
                 /// <summary>
-                /// Returns the range of lines visible.
+                /// Returns the index range of the lines currently visible within the text board's bounds.
+                /// X = Start Line Index, Y = End Line Index.
                 /// </summary>
                 Vector2I VisibleLineRange { get; }
 
                 /// <summary>
-                /// Size of the text box when AutoResize is set to false. Does nothing otherwise.
+                /// The fixed dimensions of the text box used when <see cref="AutoResize"/> is false. 
+                /// This property is ignored if AutoResize is enabled.
                 /// </summary>
                 Vector2 FixedSize { get; set; }
 
                 /// <summary>
-                /// If true, the text board will automatically resize to fit the text.
+                /// If true, the text board's <see cref="Size"/> will automatically expand or contract to fit the <see cref="TextSize"/>.
                 /// </summary>
                 bool AutoResize { get; set; }
 
                 /// <summary>
-                /// If true, the text will be vertically aligned to the center of the text board.
+                /// If true, the text content will be vertically aligned to the center of the text board.
                 /// </summary>
                 bool VertCenterText { get; set; }
 
-                /// <summary>
-                /// Calculates and applies the minimum offset needed to ensure that the character at the specified index
-                /// is within the visible range, while maximizing visible text.
-                /// </summary>
-                void MoveToChar(Vector2I index);
+				/// <summary>
+				/// Calculates and applies the minimum scroll offset required to bring the character at the specified index into view.
+				/// </summary>
+				/// <param name="index">The index of the character (X: Line/Char, Y: Column).</param>
+				void MoveToChar(Vector2I index);
 
                 /// <summary>
-                /// Returns the index of the character at the given offset. Position is relative to the center of 
-                /// the TextBoard.
+                /// Retrieves the index of the character located at the specified local offset.
                 /// </summary>
+                /// <param name="localPos">Position relative to the center of the TextBoard.</param>
+                /// <returns>The index of the character (X: Line/Char, Y: Column).</returns>
                 Vector2I GetCharAtOffset(Vector2 localPos);
 
                 /// <summary>
-                /// Draws the text board in world space on the XY plane of the matrix, facing in the +Z
-                /// direction.
+                /// Renders the text board on the X/Y (Right/Up) plane of the given matrix tranform
                 /// </summary>
+                /// <param name="box">The bounding box defining the drawing area.</param>
+                /// <param name="mask">The masking box for clipping text.</param>
+                /// <param name="matrix">The orientation matrix. The text is drawn on the XY plane, facing +Z.</param>
+                /// <exclude/>
                 void Draw(BoundingBox2 box, BoundingBox2 mask, MatrixD[] matrix);
             }
         }
