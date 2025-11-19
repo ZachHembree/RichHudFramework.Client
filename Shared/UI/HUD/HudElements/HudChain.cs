@@ -1,8 +1,4 @@
-﻿using RichHudFramework.Internal;
-using System;
-using System.ComponentModel;
-using System.Security.Claims;
-using VRage;
+﻿using System;
 using VRageMath;
 
 namespace RichHudFramework
@@ -10,7 +6,6 @@ namespace RichHudFramework
 	namespace UI
 	{
 		using static NodeConfigIndices;
-		using static VRage.Game.MyObjectBuilder_CubeBlockDefinition;
 
 		/// <summary>
 		/// Controls the sizing behavior of the <see cref="HudChain{TElementContainer, TElement}"/> and its members. 
@@ -118,7 +113,7 @@ namespace RichHudFramework
 
 		/// <summary>
 		/// Organizes child elements into a linear stack, either horizontally or vertically.
-		/// Similar to a CSS Flexbox or a UI StackPanel.
+		/// Conceptually similar to a CSS Flexbox or a UI StackPanel.
 		/// </summary>
 		/// <remarks>
 		/// Layout Constraints:
@@ -148,7 +143,7 @@ namespace RichHudFramework
 			protected const HudChainSizingModes memberVariableOffAxisMask = HudChainSizingModes.FitMembersOffAxis | HudChainSizingModes.ClampMembersOffAxis;
 
 			/// <summary>
-			/// Helper property for collection-initializer syntax.
+			/// Enables nested collection-initializer syntax.
 			/// </summary>
 			public new HudChain<TElementContainer, TElement> CollectionContainer => this;
 

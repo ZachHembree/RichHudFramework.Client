@@ -698,7 +698,9 @@ namespace RichHudFramework.UI
 	/// <summary>
 	/// A scrollable container for HUD elements, based on <see cref="HudChain{TElementContainer, TElement}"/>. 
 	/// It clips content that exceeds its bounds and provides a scrollbar for navigation. 
-	/// <para>Alias of <see cref="ScrollBox{TElementContainer, TElement}"/>.</para>
+	/// <para>
+	/// Alias of <see cref="ScrollBox{TElementContainer, TElement}"/> with <see cref="HudElementBase"/> as the element type.
+	/// </para>
 	/// </summary>
 	public class ScrollBox<TElementContainer> : ScrollBox<TElementContainer, HudElementBase>
 		where TElementContainer : IScrollBoxEntry<HudElementBase>, new()
@@ -713,7 +715,10 @@ namespace RichHudFramework.UI
 	/// <summary>
 	/// A scrollable container for HUD elements, based on <see cref="HudChain{TElementContainer, TElement}"/>. 
 	/// It clips content that exceeds its bounds and provides a scrollbar for navigation.
-	/// <para>Alias of <see cref="ScrollBox{TElementContainer, TElement}"/>.</para>
+	/// <para>
+	/// Alias of <see cref="ScrollBox{TElementContainer, TElement}"/> with 
+	/// <see cref="ScrollBoxEntry{TElement}"/> as the container and <see cref="HudElementBase"/> as the element.
+	/// </para>
 	/// </summary>
 	public class ScrollBox : ScrollBox<ScrollBoxEntry>
 	{

@@ -80,7 +80,7 @@ namespace RichHudFramework
 				var rotation = MatrixD.CreateFromAxisAngle(RotationAxis, RotationAngle);
 				var translation = MatrixD.CreateTranslation(TransformOffset);
 
-				// Order: scale → rotate → translate → multiply by camera matrix
+				// Order: scale -> rotate -> translate -> multiply by camera matrix
 				PlaneToWorldRef[0] = scaling * rotation * translation * MyAPIGateway.Session.Camera.WorldMatrix;
 
 				base.Layout();

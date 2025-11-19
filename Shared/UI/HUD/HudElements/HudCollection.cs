@@ -7,26 +7,33 @@ namespace RichHudFramework
 	namespace UI
 	{
 		/// <summary>
-		/// A collection of UI elements wrapped in decorator wrappers. UI elements in the containers are parented
-		/// to the collection, like any other HUD element.
+		/// Generic collection of HUD elements, each wrapped in a decorator container.
+		/// Elements inside containers are parented directly to this collection (not to their containers).
+		/// Supports full IList-like manipulation while ensuring proper registration/unregistration with the HUD tree.
 		/// </summary>
+		/// <typeparam name="TElementContainer">
+		/// Type of the container/decorator wrapping each element. Must implement <see cref="IHudElementContainer{TElement}"/>.
+		/// </typeparam>
+		/// <typeparam name="TElement">
+		/// Actual HUD element type stored in each container.
+		/// </typeparam>
 		public class HudCollection<TElementContainer, TElement> : HudElementBase, IHudCollection<TElementContainer, TElement>
 			where TElementContainer : IHudElementContainer<TElement>, new()
 			where TElement : HudNodeBase
 		{
 			/// <summary>
-			/// UI elements in the collection
+			/// Read-only access to the list of element containers in this collection.
 			/// </summary>
 			public IReadOnlyList<TElementContainer> Collection { get; }
 
 			/// <summary>
-			/// Used to allow the addition of child elements using collection-initializer syntax in
-			/// conjunction with normal initializers.
+			/// Enables collection-initializer syntax (e.g., new HudCollection { element1, element2 }).
+			/// Returns this instance so initializers can chain with container additions.
 			/// </summary>
 			public HudCollection<TElementContainer, TElement> CollectionContainer => this;
 
 			/// <summary>
-			/// Retrieves the element container at the given index.
+			/// Indexer providing access to the container at the specified position.
 			/// </summary>
 			public TElementContainer this[int index]
 			{
@@ -40,61 +47,59 @@ namespace RichHudFramework
 			}
 
 			/// <summary>
-			/// Returns the number of containers in the collection.
+			/// Number of containers currently in the collection.
 			/// </summary>
 			public int Count => hudCollectionList.Count;
 
 			/// <summary>
-			/// Indicates whether the collection is read-only
+			/// Always false — this collection is mutable.
 			/// </summary>
-			public bool IsReadOnly => false;
+			public bool IsReadOnly { get; }
 
 			/// <summary>
-			/// UI elements in the chain
+			/// Internal backing list holding the containers.
 			/// </summary>
 			protected readonly List<TElementContainer> hudCollectionList;
 
-			public HudCollection(HudParentBase parent) : base(parent)
+			public HudCollection(HudParentBase parent = null) : base(parent)
 			{
+				IsReadOnly = false;
 				hudCollectionList = new List<TElementContainer>();
 				Collection = hudCollectionList;
 			}
 
-			public HudCollection() : this(null)
-			{ }
-
-			public IEnumerator<TElementContainer> GetEnumerator() =>
-				hudCollectionList.GetEnumerator();
-
-			IEnumerator IEnumerable.GetEnumerator() =>
-				GetEnumerator();
+			public IEnumerator<TElementContainer> GetEnumerator() => hudCollectionList.GetEnumerator();
+			IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 
 			/// <summary>
-			/// Adds an element of type TElement to the chain.
+			/// Adds a raw <typeparamref name="TElement"/> by automatically wrapping it in a new <typeparamref name="TElementContainer"/>.
 			/// </summary>
 			public virtual void Add(TElement element)
 			{
-				var newContainer = new TElementContainer();
-				newContainer.SetElement(element);
-				Add(newContainer);
+				var container = new TElementContainer();
+				container.SetElement(element);
+				Add(container);
 			}
 
 			/// <summary>
-			/// Adds an element of type TElementContainer to the chain.
+			/// Adds a pre-constructed container to the end of the collection.
+			/// The container's element will be registered as a child of this collection.
 			/// </summary>
+			/// <exception cref="Exception">Thrown if the element is already registered elsewhere or registration fails.</exception>
 			public virtual void Add(TElementContainer container)
 			{
 				if (container.Element.Registered)
-					throw new Exception("HUD Element already registered!");
+					throw new Exception("HUD element is already registered to another parent.");
 
-				if (container.Element.Register(this))
-					hudCollectionList.Add(container);
-				else
-					throw new Exception("HUD Element registration failed.");
+				if (!container.Element.Register(this))
+					throw new Exception("Failed to register HUD element with this collection.");
+
+				hudCollectionList.Add(container);
 			}
 
 			/// <summary>
-			/// Add the given range to the end of the chain.
+			/// Adds multiple pre-constructed containers to the end of the collection in a single operation.
+			/// All elements are registered as children of this collection.
 			/// </summary>
 			public virtual void AddRange(IReadOnlyList<TElementContainer> newContainers)
 			{
@@ -103,18 +108,18 @@ namespace RichHudFramework
 			}
 
 			/// <summary>
-			/// Adds an element of type TElementContainer at the given index.
+			/// Inserts a container at the specified index.
 			/// </summary>
 			public virtual void Insert(int index, TElementContainer container)
 			{
-				if (container.Element.Register(this))
-					hudCollectionList.Insert(index, container);
-				else
-					throw new Exception("HUD Element registration failed.");
+				if (!container.Element.Register(this))
+					throw new Exception("Failed to register HUD element with this collection.");
+
+				hudCollectionList.Insert(index, container);
 			}
 
 			/// <summary>
-			/// Insert the given range into the chain.
+			/// Inserts a range of containers starting at the specified index.
 			/// </summary>
 			public virtual void InsertRange(int index, IReadOnlyList<TElementContainer> newContainers)
 			{
@@ -123,66 +128,53 @@ namespace RichHudFramework
 			}
 
 			/// <summary>
-			/// Removes the specified element from the collection.
+			/// Removes the specified container if it belongs to this collection.
 			/// </summary>
+			/// <returns>true if the container was removed and its element unregistered successfully.</returns>
 			public virtual bool Remove(TElementContainer entry)
 			{
-				if (entry.Element.Parent == this && hudCollectionList.Count > 0)
-				{
-					if (hudCollectionList.Remove(entry))
-					{
-						bool success = entry.Element.Unregister();
+				if (entry?.Element.Parent != this || hudCollectionList.Count == 0)
+					return false;
 
-						return success;
-					}
-				}
+				if (hudCollectionList.Remove(entry))
+					return entry.Element.Unregister();
 
 				return false;
 			}
 
 			/// <summary>
-			/// Removes the chain member that meets the conditions required by the predicate.
+			/// Removes the first container that matches the given predicate.
 			/// </summary>
+			/// <returns>true if a matching container was found and removed.</returns>
 			public virtual bool Remove(Func<TElementContainer, bool> predicate)
 			{
-				if (hudCollectionList.Count > 0)
-				{
-					int index = hudCollectionList.FindIndex(x => predicate(x));
-					TElement element = hudCollectionList[index].Element;
-					bool success = false;
+				int index = hudCollectionList.FindIndex(x => predicate(x));
 
-					if (index != -1 && index < hudCollectionList.Count)
-					{
-						hudCollectionList.RemoveAt(index);
-						success = element.Unregister();
-					}
+				if (index == -1)
+					return false;
 
-					return success;
-				}
-
-				return false;
+				var element = hudCollectionList[index].Element;
+				hudCollectionList.RemoveAt(index);
+				return element.Unregister();
 			}
 
 			/// <summary>
-			/// Remove the element at the given index.
+			/// Removes the container at the specified index.
 			/// </summary>
+			/// <returns>true if removal and unregistration succeeded.</returns>
 			public virtual bool RemoveAt(int index)
 			{
-				if (hudCollectionList[index].Element.Parent == this && hudCollectionList.Count > 0)
-				{
-					TElement element = hudCollectionList[index].Element;
-					hudCollectionList.RemoveAt(index);
+				if (index < 0 || index >= hudCollectionList.Count || hudCollectionList[index].Element.Parent != this)
+					return false;
 
-					bool success = element.Unregister();
-
-					return success;
-				}
-
-				return false;
+				var element = hudCollectionList[index].Element;
+				hudCollectionList.RemoveAt(index);
+				return element.Unregister();
 			}
 
 			/// <summary>
-			/// Removes the specfied range from the collection. Normal child elements not affected.
+			/// Removes a contiguous range of containers starting at <paramref name="index"/>.
+			/// Only affects collection members — regular (non-collection) children are untouched.
 			/// </summary>
 			public virtual void RemoveRange(int index, int count)
 			{
@@ -191,7 +183,8 @@ namespace RichHudFramework
 			}
 
 			/// <summary>
-			/// Remove all elements in the collection. Does not affect normal child elements.
+			/// Removes all containers from the collection.
+			/// Regular child elements (added directly via normal parenting) are not affected.
 			/// </summary>
 			public virtual void Clear()
 			{
@@ -200,42 +193,39 @@ namespace RichHudFramework
 			}
 
 			/// <summary>
-			/// Finds the chain member that meets the conditions required by the predicate.
+			/// Returns the first container matching the predicate, or default(<typeparamref name="TElementContainer"/>) if none found.
 			/// </summary>
 			public virtual TElementContainer Find(Func<TElementContainer, bool> predicate)
-			{
-				return hudCollectionList.Find(x => predicate(x));
-			}
+				=> hudCollectionList.Find(x => predicate(x));
 
 			/// <summary>
-			/// Finds the index of the chain member that meets the conditions required by the predicate.
+			/// Returns the index of the first container matching the predicate, or -1 if none found.
 			/// </summary>
 			public virtual int FindIndex(Func<TElementContainer, bool> predicate)
-			{
-				return hudCollectionList.FindIndex(x => predicate(x));
-			}
+				=> hudCollectionList.FindIndex(x => predicate(x));
 
 			/// <summary>
-			/// Returns true if the given element is in the collection.
+			/// Determines whether the collection contains the specified container.
 			/// </summary>
-			public virtual bool Contains(TElementContainer item) =>
-				hudCollectionList.Contains(item);
+			public virtual bool Contains(TElementContainer item) => hudCollectionList.Contains(item);
 
 			/// <summary>
-			/// Copies the contents of the collection to the given array starting at the index specified in the target array.
+			/// Copies the collection's containers to an array starting at the specified index.
 			/// </summary>
-			public virtual void CopyTo(TElementContainer[] array, int arrayIndex) =>
-				hudCollectionList.CopyTo(array, arrayIndex);
+			public virtual void CopyTo(TElementContainer[] array, int arrayIndex)
+				=> hudCollectionList.CopyTo(array, arrayIndex);
 
+			/// <summary>
+			/// Overrides <see cref="HudParentBase.RemoveChild"/> to handle removal of elements that were added via the collection.
+			/// Ensures both the container list and regular child tracking stay in sync.
+			/// </summary>
 			public override bool RemoveChild(HudNodeBase child)
 			{
 				if (child.Parent == this)
 				{
 					bool success = child.Unregister();
-
 					if (success)
 						RemoveChild(child);
-
 					return success;
 				}
 				else if (child.Parent == null && children.Remove(child))
@@ -253,30 +243,41 @@ namespace RichHudFramework
 
 					return true;
 				}
-				else
-					return false;
+
+				return false;
 			}
 		}
 
 		/// <summary>
-		/// A collection of UI elements wrapped in decorator wrappers. UI elements in the containers are parented
-		/// to the collection, like any other HUD element.
+		/// Generic collection of HUD elements, each wrapped in a decorator container.
+		/// Elements inside containers are parented directly to this collection (not to their containers).
+		/// Supports full IList-like manipulation while ensuring proper registration/unregistration with the HUD tree.
+		/// <para>
+		/// Alias for <see cref="HudCollection{TElementContainer, TElement}"/> where the element type is 
+		/// <see cref="HudElementBase"/>.
+		/// </para>
 		/// </summary>
-		public class HudCollection<TElementContainer> : HudCollection<TElementContainer, HudNodeBase>
-			where TElementContainer : IHudElementContainer<HudNodeBase>, new()
+		/// <typeparam name="TElementContainer">
+		/// Type of the container/decorator wrapping each element. Must implement <see cref="IHudElementContainer{TElement}"/>.
+		/// </typeparam>
+		public class HudCollection<TElementContainer> : HudCollection<TElementContainer, HudElementBase>
+			where TElementContainer : IHudElementContainer<HudElementBase>, new()
 		{
-			public HudCollection(HudParentBase parent = null) : base(parent)
-			{ }
+			public HudCollection(HudParentBase parent = null) : base(parent) { }
 		}
 
 		/// <summary>
-		/// A collection of UI elements wrapped in decorator wrappers. UI elements in the containers are parented
-		/// to the collection, like any other HUD element.
+		/// Generic collection of HUD elements, each wrapped in a decorator container.
+		/// Elements inside containers are parented directly to this collection (not to their containers).
+		/// Supports full IList-like manipulation while ensuring proper registration/unregistration with the HUD tree.
+		/// <para>
+		/// Alias for <see cref="HudCollection{TElementContainer, TElement}"/> using 
+		/// <see cref="HudElementContainer"/> as the wrapper and <see cref="HudElementBase"/> as the element type.
+		/// </para>
 		/// </summary>
-		public class HudCollection : HudCollection<HudNodeContainer<HudNodeBase>, HudNodeBase>
+		public class HudCollection : HudCollection<HudElementContainer, HudElementBase>
 		{
-			public HudCollection(HudParentBase parent = null) : base(parent)
-			{ }
+			public HudCollection(HudParentBase parent = null) : base(parent) { }
 		}
 	}
 }

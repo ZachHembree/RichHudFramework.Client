@@ -3,25 +3,30 @@ using System.Collections.Generic;
 
 namespace RichHudFramework.UI
 {
-    /// <summary>
-    /// Generic tree box supporting custom entry types of arbitrary height.
-    /// </summary>
-    /// <typeparam name="TContainer">Container element type wrapping the UI element</typeparam>
-    /// <typeparam name="TElement">UI element in the list</typeparam>
-    public class TreeBox<TContainer, TElement> : TreeBoxBase<TContainer, TElement>
+	/// <summary>
+	/// Generic tree box supporting custom entry types of arbitrary height.
+	/// </summary>
+	/// <typeparam name="TContainer">
+    /// Container type that wraps each entry's UI element and provides selection/association data.
+    /// </typeparam>
+	/// <typeparam name="TElement">
+    /// The actual UI element displayed for each entry (must support minimal labeling).
+    /// </typeparam>
+	public class TreeBox<TContainer, TElement> : TreeBoxBase<TContainer, TElement>
         where TElement : HudElementBase, IMinLabelElement
         where TContainer : class, ISelectionBoxEntry<TElement>, new()
     {
-        public TContainer this[int index] => selectionBox.hudChain[index];
-
         /// <summary>
-        /// UI elements in the collection
+        /// Returns the entry at the given index
         /// </summary>
-        public IReadOnlyList<TContainer> Collection => selectionBox.hudChain.Collection;
+        public TContainer this[int index] => selectionBox.EntryChain[index];
 
-        public TreeBox<TContainer, TElement> CollectionContainer => this;
+		/// <summary>
+		/// Enables collection-initializer syntax (e.g., new MyTreeBox { ListContainer = { entry1, entry2 } })
+		/// </summary>
+		public new TreeBox<TContainer, TElement> ListContainer => this;
 
-        public TreeBox(HudParentBase parent) : base(parent)
+		public TreeBox(HudParentBase parent) : base(parent)
         { }
 
         public TreeBox() : base(null)
@@ -31,72 +36,72 @@ namespace RichHudFramework.UI
 		/// Adds an element of type TElement to the collection.
 		/// </summary>
 		public void Add(TElement element) =>
-            selectionBox.hudChain.Add(element);
+            selectionBox.EntryChain.Add(element);
 
 		/// <summary>
 		/// Adds an element of type TContainer to the collection.
 		/// </summary>
 		public void Add(TContainer element) =>
-            selectionBox.hudChain.Add(element);
+            selectionBox.EntryChain.Add(element);
 
         /// <summary>
         /// Add the given range to the end of the collection.
         /// </summary>
         public void AddRange(IReadOnlyList<TContainer> newContainers) =>
-            selectionBox.hudChain.AddRange(newContainers);
+            selectionBox.EntryChain.AddRange(newContainers);
 
         /// <summary>
         /// Remove all elements in the collection. Does not affect normal child elements.
         /// </summary>
         public void Clear() =>
-            selectionBox.hudChain.Clear();
+            selectionBox.EntryChain.Clear();
 
         /// <summary>
         /// Finds the collection member that meets the conditions required by the predicate.
         /// </summary>
         public TContainer Find(Func<TContainer, bool> predicate) =>
-            selectionBox.hudChain.Find(predicate);
+            selectionBox.EntryChain.Find(predicate);
 
         /// <summary>
         /// Finds the index of the collection member that meets the conditions required by the predicate.
         /// </summary>
         public int FindIndex(Func<TContainer, bool> predicate) =>
-            selectionBox.hudChain.FindIndex(predicate);
+            selectionBox.EntryChain.FindIndex(predicate);
 
 		/// <summary>
 		/// Adds an element of type TContainer at the given index.
 		/// </summary>
 		public void Insert(int index, TContainer container) =>
-            selectionBox.hudChain.Insert(index, container);
+            selectionBox.EntryChain.Insert(index, container);
 
         /// <summary>
         /// Insert the given range into the collection.
         /// </summary>
         public void InsertRange(int index, IReadOnlyList<TContainer> newContainers) =>
-            selectionBox.hudChain.InsertRange(index, newContainers);
+            selectionBox.EntryChain.InsertRange(index, newContainers);
 
         /// <summary>
         /// Removes the specified element from the collection.
         /// </summary>
         public bool Remove(TContainer collectionElement) =>
-            selectionBox.hudChain.Remove(collectionElement);
+            selectionBox.EntryChain.Remove(collectionElement);
 
         /// <summary>
         /// Removes the collection member that meets the conditions required by the predicate.
         /// </summary>
         public bool Remove(Func<TContainer, bool> predicate) =>
-            selectionBox.hudChain.Remove(predicate);
+            selectionBox.EntryChain.Remove(predicate);
 
         /// <summary>
         /// Remove the collection element at the given index.
         /// </summary>
         public bool RemoveAt(int index) =>
-            selectionBox.hudChain.RemoveAt(index);
+            selectionBox.EntryChain.RemoveAt(index);
 
         /// <summary>
         /// Removes the specfied range from the collection. Normal child elements not affected.
         /// </summary>
         public void RemoveRange(int index, int count) =>
-            selectionBox.hudChain.RemoveRange(index, count);
+            selectionBox.EntryChain.RemoveRange(index, count);
     }
 }
