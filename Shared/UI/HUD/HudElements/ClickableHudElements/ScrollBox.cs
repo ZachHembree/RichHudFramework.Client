@@ -6,25 +6,28 @@ namespace RichHudFramework.UI
 	using static NodeConfigIndices;
 
 	/// <summary>
-	/// Scrollable list of hud elements. Can be oriented vertically or horizontally.
+	/// A scrollable container for HUD elements, based on <see cref="HudChain{TElementContainer, TElement}"/>. 
+	/// It clips content that exceeds its bounds and provides a scrollbar for navigation.
 	/// </summary>
 	public class ScrollBox<TElementContainer, TElement> : HudChain<TElementContainer, TElement>
 		where TElementContainer : IScrollBoxEntry<TElement>, new()
 		where TElement : HudElementBase
 	{
 		/// <summary>
-		/// Minimum number of visible elements allowed. Zero/disabled by default.
+		/// Minimum number of visible elements allowed in the viewport. 
+		/// <para>If non-zero, the ScrollBox will expand to fit at least this many elements if possible.</para>
 		/// </summary>
 		public int MinVisibleCount { get; set; }
 
 		/// <summary>
 		/// Minimum total length (on the align axis) of visible members allowed in the scrollbox.
-		/// Zero/disabled by default.
+		/// <para>If non-zero, the ScrollBox will expand to meet this length if the content supports it.</para>
 		/// </summary>
 		public float MinLength { get; set; }
 
 		/// <summary>
-		/// Index of the first element in the visible range in the chain.
+		/// The index of the first element within the visible range of the chain.
+		/// Setting this updates the scrollbar position.
 		/// </summary>
 		public int Start
 		{
@@ -40,7 +43,8 @@ namespace RichHudFramework.UI
 		}
 
 		/// <summary>
-		/// Index of the last element in the visible range in the chain.
+		/// The index of the last element within the visible range of the chain.
+		/// Setting this updates the scrollbar position.
 		/// </summary>
 		public int End
 		{
@@ -56,23 +60,23 @@ namespace RichHudFramework.UI
 		}
 
 		/// <summary>
-		/// Range of elements including elements immediately before and after the logical visible
-		/// range to allow for clipping.
+		/// Range of element indices representing the visible area, plus padding to allow for smooth clipping.
+		/// Used for scissor rect masking.
 		/// </summary>
 		public Vector2I ClipRange => new Vector2I(_start, _end);
 
 		/// <summary>
-		/// Position of the first visible element as it appears in the UI. Does not correspond to actual index.
+		/// The index relative to the *visible* elements, not the absolute collection index.
 		/// </summary>
 		public int VisStart { get; private set; }
 
 		/// <summary>
-		/// Number of elements visible starting from the Start index
+		/// Number of elements currently visible (or partially visible) in the viewport.
 		/// </summary>
 		public int VisCount { get; private set; }
 
 		/// <summary>
-		/// Total number of enabled elements
+		/// Total number of enabled elements in the list.
 		/// </summary>
 		public int EnabledCount { get; private set; }
 
@@ -82,35 +86,41 @@ namespace RichHudFramework.UI
 		public Color Color { get { return Background.Color; } set { Background.Color = value; } }
 
 		/// <summary>
-		/// Color of the slider bar
+		/// Color of the scrollbar track.
 		/// </summary>
 		public Color BarColor { get { return ScrollBar.slide.BarColor; } set { ScrollBar.slide.BarColor = value; } }
 
 		/// <summary>
-		/// Bar color when moused over
+		/// Color of the scrollbar track when moused over.
 		/// </summary>
 		public Color BarHighlight { get { return ScrollBar.slide.BarHighlight; } set { ScrollBar.slide.BarHighlight = value; } }
 
 		/// <summary>
-		/// Color of the slider box when not moused over
+		/// Color of the slider (thumb) when not moused over.
 		/// </summary>
 		public Color SliderColor { get { return ScrollBar.slide.SliderColor; } set { ScrollBar.slide.SliderColor = value; } }
 
 		/// <summary>
-		/// Color of the slider button when moused over
+		/// Color of the slider (thumb) when moused over.
 		/// </summary>
 		public Color SliderHighlight { get { return ScrollBar.slide.SliderHighlight; } set { ScrollBar.slide.SliderHighlight = value; } }
 
 		/// <summary>
-		/// If enabled scrolling using the scrollbar and mousewheel will be allowed
+		/// If true, scrolling via mouse wheel or scrollbar interaction is enabled.
 		/// </summary>
 		public bool EnableScrolling { get; set; }
 
 		/// <summary>
-		/// Enable/disable smooth scrolling and range clipping. Enables masking.
+		/// Enables pixel-perfect scrolling and range masking.
+		/// <para>If false, scrolling snaps to element indices.</para>
 		/// </summary>
 		public bool UseSmoothScrolling { get; set; }
 
+		/// <summary>
+		/// If true, ScrollBox members are arranged vertically (top to bottom).
+		/// If false, members are arranged horizontally (left to right).
+		/// <para>Also reconfigures the ScrollBar and Divider orientation.</para>
+		/// </summary>
 		public override bool AlignVertical
 		{
 			set
@@ -155,12 +165,35 @@ namespace RichHudFramework.UI
 			}
 		}
 
+		/// <summary>
+		/// The slider UI element controlling the scroll position.
+		/// </summary>
 		public ScrollBar ScrollBar { get; protected set; }
+
+		/// <summary>
+		/// Visual divider line between the content area and the scrollbar.
+		/// </summary>
 		public TexturedBox Divider { get; protected set; }
+
+		/// <summary>
+		/// Textured, tintable background behind the scrollbox content.
+		/// </summary>
 		public TexturedBox Background { get; protected set; }
 
-		protected float scrollBarPadding;
-		protected int _intStart, _intEnd, _start, _end, firstEnabled;
+		/// <summary>
+		/// Additional vertical or horizontal padding representing the area taken by the scrollbar.
+		/// </summary>
+		/// <exclude/>
+		private float scrollBarPadding;
+		private int _intStart;
+		private int _intEnd;
+		private int _start;
+		private int _end;
+
+		/// <summary>
+		/// Index of the first enabled element in the list.
+		/// </summary>
+		private int firstEnabled;
 
 		public ScrollBox(bool alignVertical, HudParentBase parent = null) : base(alignVertical, parent)
 		{
@@ -188,6 +221,9 @@ namespace RichHudFramework.UI
 		public ScrollBox() : this(true, null)
 		{ }
 
+		/// <summary>
+		/// Returns the total size of the ScrollBox's contents, including the scrollbar area.
+		/// </summary>
 		public override Vector2 GetRangeSize(int start = 0, int end = -1)
 		{
 			Vector2 size = base.GetRangeSize(start, end);
@@ -195,6 +231,10 @@ namespace RichHudFramework.UI
 			return size;
 		}
 
+		/// <summary>
+		/// Returns the index of the last enabled element that fits within the count limit, 
+		/// starting from the given index.
+		/// </summary>
 		public int GetRangeEnd(int count, int start = 0)
 		{
 			start = MathHelper.Clamp(start, 0, hudCollectionList.Count - 1);
@@ -223,6 +263,10 @@ namespace RichHudFramework.UI
 			return -1;
 		}
 
+		/// <summary>
+		/// Handles mouse input for scrolling (wheel, drag).
+		/// </summary>
+		/// <exclude/>
 		protected override void HandleInput(Vector2 cursorPos)
 		{
 			ScrollBar.InputEnabled = EnableScrolling;
@@ -247,6 +291,10 @@ namespace RichHudFramework.UI
 			}
 		}
 
+		/// <summary>
+		/// Updates the size of the ScrollBox based on its contents and constraints (MinVisibleCount/MinLength).
+		/// </summary>
+		/// <exclude/>
 		protected override void Measure()
 		{
 			if (UseSmoothScrolling)
@@ -314,6 +362,10 @@ namespace RichHudFramework.UI
 			}
 		}
 
+		/// <summary>
+		/// Calculates layout, updates the scrollbar, determines the visible range, and positions elements.
+		/// </summary>
+		/// <exclude/>
 		protected override void Layout()
 		{
 			Vector2 effectivePadding = Padding;
@@ -370,7 +422,7 @@ namespace RichHudFramework.UI
 		}
 
 		/// <summary>
-		/// Updates the range of visible members starting with the given start index.
+		/// Updates the visible range and scrollbar for smooth (pixel-based) scrolling.
 		/// </summary>
 		private void UpdateSmoothRange(float maxLength, out float totalEnabledLength, out float scrollOffset)
 		{
@@ -592,7 +644,7 @@ namespace RichHudFramework.UI
 		}
 
 		/// <summary>
-		/// Returns the number of enabled elements before the one at the given index
+		/// Returns the number of enabled elements that occur before the specified index.
 		/// </summary>
 		private int GetVisibleIndex(int index)
 		{
@@ -609,7 +661,7 @@ namespace RichHudFramework.UI
 
 		/// <summary>
 		/// Returns the shortest offset required to bring a member at the given index to either
-		/// end of the scrollbox.
+		/// end of the scrollbox (Top/Bottom or Left/Right).
 		/// </summary>
 		private float GetMinScrollOffset(int index, bool getEnd)
 		{
@@ -644,7 +696,9 @@ namespace RichHudFramework.UI
 	}
 
 	/// <summary>
-	/// Scrollable list of hud elements. Can be oriented vertically or horizontally.
+	/// A scrollable container for HUD elements, based on <see cref="HudChain{TElementContainer, TElement}"/>. 
+	/// It clips content that exceeds its bounds and provides a scrollbar for navigation. 
+	/// <para>Alias of <see cref="ScrollBox{TElementContainer, TElement}"/>.</para>
 	/// </summary>
 	public class ScrollBox<TElementContainer> : ScrollBox<TElementContainer, HudElementBase>
 		where TElementContainer : IScrollBoxEntry<HudElementBase>, new()
@@ -657,7 +711,9 @@ namespace RichHudFramework.UI
 	}
 
 	/// <summary>
-	/// Scrollable list of hud elements. Can be oriented vertically or horizontally.
+	/// A scrollable container for HUD elements, based on <see cref="HudChain{TElementContainer, TElement}"/>. 
+	/// It clips content that exceeds its bounds and provides a scrollbar for navigation.
+	/// <para>Alias of <see cref="ScrollBox{TElementContainer, TElement}"/>.</para>
 	/// </summary>
 	public class ScrollBox : ScrollBox<ScrollBoxEntry>
 	{

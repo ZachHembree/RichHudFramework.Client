@@ -4,25 +4,31 @@ using VRageMath;
 namespace RichHudFramework.UI
 {
 	/// <summary>
-	/// MouseInputElement subtype designed to manage selection, highlighting of vertically or horizontally scrolling 
-	/// lists.
+	/// Specialized <see cref="MouseInputElement"/> that manages selection, mouse highlighting, and keyboard navigation
+	/// for scrollable lists (vertical or horizontal). Supports both mouse and keyboard-driven selection.
 	/// </summary>
+	/// <typeparam name="TElementContainer">
+	/// Container type that holds each list entry (must implement <see cref="IScrollBoxEntry{T}"/>)
+	/// </typeparam>
+	/// <typeparam name="TElement">
+	/// The actual UI element type displayed in each entry (must be a labeled element)
+	/// </typeparam>
 	public class ListInputElement<TElementContainer, TElement> : MouseInputElement
 		where TElement : HudElementBase, IMinLabelElement
 		where TElementContainer : class, IScrollBoxEntry<TElement>, new()
 	{
 		/// <summary>
-		/// Invoked when an entry is selected.
+		/// Invoked whenever the selected entry changes (including clearing selection).
 		/// </summary>
 		public event EventHandler SelectionChanged;
 
 		/// <summary>
-		/// Read-only collection of list entries
+		/// Read-only view of all entries managed by this input element.
 		/// </summary>
 		public IReadOnlyHudCollection<TElementContainer, TElement> Entries { get; }
 
 		/// <summary>
-		/// Current selection. Null if empty.
+		/// Currently selected entry. Returns null/default if no selection or list is empty.
 		/// </summary>
 		public TElementContainer Selection
 		{
@@ -40,42 +46,46 @@ namespace RichHudFramework.UI
 		}
 
 		/// <summary>
-		/// Index of the current selection. -1 if empty.
+		/// Index of the currently selected entry. Returns -1 if nothing is selected.
 		/// </summary>
 		public int SelectionIndex => MathHelper.Clamp(_selectionIndex, -1, Entries.Count - 1);
 
 		/// <summary>
-		/// Index of the highlighted entry
+		/// Index of the entry currently highlighted by the mouse cursor (or keyboard navigation when active).
+		/// Always valid (clamped) even if the list is empty.
 		/// </summary>
 		public int HighlightIndex => MathHelper.Clamp(_highlightIndex, 0, Entries.Count - 1);
 
 		/// <summary>
-		/// Index of the entry with input focus 
+		/// Index of the entry that currently has keyboard focus for navigation.
 		/// </summary>
 		public int FocusIndex => MathHelper.Clamp(_focusIndex, 0, Entries.Count - 1);
 
 		/// <summary>
-		/// If true, then the element is using the keyboard for scrolling
+		/// Indicates whether keyboard arrow keys are currently being used to navigate the list.
+		/// When true, mouse movement will temporarily disable keyboard scrolling until a new key is pressed.
 		/// </summary>
 		public bool KeyboardScroll { get; protected set; }
 
 		/// <summary>
-		/// Range of entries visible to the input element
+		/// Range of entry indices currently visible within the scrollable viewport (inclusive).
+		/// X = first visible index, Y = last visible index.
 		/// </summary>
 		public Vector2I ListRange { get; set; }
 
 		/// <summary>
-		/// Visible size of list entries
+		/// Total size of the visible portion of the list (width × height).
 		/// </summary>
 		public Vector2 ListSize { get; set; }
 
 		/// <summary>
-		/// Position of list entries
+		/// Local position of the top-left corner of the visible list area relative to this element.
 		/// </summary>
 		public Vector2 ListPos { get; set; }
 
+		/// <exclude/>
 		protected Vector2 lastCursorPos;
-		private int _selectionIndex;
+		private int _selectionIndex; // -1 == no selection
 		private int _highlightIndex;
 		private int _focusIndex;
 
@@ -93,7 +103,8 @@ namespace RichHudFramework.UI
 		{ }
 
 		/// <summary>
-		/// Sets the selection to the member associated with the given object.
+		/// Selects the entry at the specified index (clamped to valid range). Disabled entries are skipped automatically.
+		/// Triggers <see cref="SelectionChanged"/> if the selection actually changes.
 		/// </summary>
 		public void SetSelectionAt(int index)
 		{
@@ -121,8 +132,8 @@ namespace RichHudFramework.UI
 		}
 
 		/// <summary>
-		/// Offsets selection index in the direction of the offset. If wrap == true, the index will wrap around
-		/// if the offset places it out of range.
+		/// Moves the current selection up/down by the given offset.
+		/// Skips disabled entries. If <paramref name="wrap"/> is true, selection wraps around the list edges.
 		/// </summary>
 		public void OffsetSelectionIndex(int offset, bool wrap = false)
 		{
@@ -162,7 +173,7 @@ namespace RichHudFramework.UI
 		}
 
 		/// <summary>
-		/// Clears the current selection
+		/// Removes the current selection and resets highlight/focus to the first entry.
 		/// </summary>
 		public void ClearSelection()
 		{
@@ -171,6 +182,10 @@ namespace RichHudFramework.UI
 			_focusIndex = 0;
 		}
 
+		/// <summary>
+		/// Updates list selection input
+		/// </summary>
+		/// <exclude/>
 		protected override void HandleInput(Vector2 cursorPos)
 		{
 			if (Entries.Count > 0)
@@ -183,6 +198,7 @@ namespace RichHudFramework.UI
 		/// <summary>
 		/// Update selection and highlight based on user input
 		/// </summary>
+		/// <exclude/>
 		protected virtual void UpdateSelectionInput(Vector2 cursorPos)
 		{
 			_selectionIndex = MathHelper.Clamp(_selectionIndex, -1, Entries.Count - 1);

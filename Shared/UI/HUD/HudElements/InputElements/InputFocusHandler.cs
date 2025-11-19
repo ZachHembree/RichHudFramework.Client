@@ -8,17 +8,18 @@ namespace RichHudFramework
 		using Server;
 
 		/// <summary>
-		/// Handles input focus for a UI node
+		/// Default implementation of <see cref="IFocusHandler"/>. Handles acquiring and releasing global input focus
+		/// through <see cref="HudMain"/> and raises the appropriate events.
 		/// </summary>
 		public class InputFocusHandler : IFocusHandler
 		{
 			/// <summary>
-			/// Owner of the input that is sent in EventHandler invocations
+			/// The UI element that owns this handler. Used as the sender for all focus-related events.
 			/// </summary>
 			public IFocusableElement InputOwner { get; set; }
 
 			/// <summary>
-			/// Indicates whether the UI element has input focus
+			/// True if this element currently holds global input focus.
 			/// </summary>
 			public bool HasFocus { get; private set; }
 
@@ -48,8 +49,8 @@ namespace RichHudFramework
 			}
 
 			/// <summary>
-			/// Gets input focus for controls. Input focus is normally taken automatically when an
-			/// element with mouse input is clicked, but can be taken manually.
+			/// Requests global input focus for the owning element. Automatically called on mouse click for most elements.
+			/// Does nothing if already focused.
 			/// </summary>
 			public virtual void GetInputFocus()
 			{
@@ -62,7 +63,7 @@ namespace RichHudFramework
 			}
 
 			/// <summary>
-			/// Releases input focus. Typically used for focus lost callback.
+			/// Releases global input focus from this element. Called automatically when clicking outside a focused element.
 			/// </summary>
 			public virtual void ReleaseFocus()
 			{

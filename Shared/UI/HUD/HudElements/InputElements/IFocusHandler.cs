@@ -2,10 +2,9 @@
 {
 	namespace UI
 	{
-		using Server;
-
 		/// <summary>
-		/// Interface for managing input focus for a UI node
+		/// Manages keyboard/input focus for a UI element. Only one element in the entire UI can have focus at a time.
+		/// Input-related events use <see cref="InputOwner"/> as the sender object.
 		/// </summary>
 		public interface IFocusHandler
 		{
@@ -51,7 +50,7 @@
 		}
 
 		/// <summary>
-		/// Represents a UI element that is capable of gaining and losing input focus
+		/// Represents a UI element that can receive keyboard/input focus.
 		/// </summary>
 		public interface IFocusableElement
 		{

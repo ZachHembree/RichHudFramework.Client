@@ -7,7 +7,7 @@ namespace RichHudFramework
     namespace UI
     {
         /// <summary>
-        /// Automatic size matching flags
+        /// Automatic size matching flags for <see cref="HudElementBase.DimAlignment"/>
         /// </summary>
         [Flags]
         public enum DimAlignments : byte
@@ -59,7 +59,8 @@ namespace RichHudFramework
         }
 
         /// <summary>
-        /// Used to determine the default position of an element relative to its parent.
+        /// Used to determine the default position of an element relative to its parent via 
+        /// <see cref="HudElementBase.ParentAlignment"/>.
         /// </summary>
         [Flags]
         public enum ParentAlignments : byte

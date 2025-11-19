@@ -1,128 +1,132 @@
-﻿using System.Net;
-using VRage.Utils;
+﻿using VRage.Utils;
 using VRageMath;
 
 namespace RichHudFramework
 {
-    namespace UI
-    {
-        namespace Rendering
-        {
-            /// <summary>
-            /// Used to determine how a given <see cref="Material"/> is scaled on a given Billboard.
-            /// Note: texture colors are clamped to their edges.
-            /// </summary>
-            public enum MaterialAlignment : int
-            {
-                /// <summary>
-                /// Stretches/compresses the material to cover the whole billboard. Default behavior.
-                /// </summary>
-                StretchToFit = 0,
-
-                /// <summary>
-                ///  Rescales the material so that it matches the height of the Billboard while maintaining its aspect ratio.
-                ///  Material will be clipped as needed.
-                /// </summary>
-                FitVertical = 1,
-
-                /// <summary>
-                /// Rescales the material so that it matches the width of the Billboard while maintaining its aspect ratio.
-                /// Material will be clipped as needed.
-                /// </summary>
-                FitHorizontal = 2,
-
-                /// <summary>
-                /// Rescales the material such that it maintains it's aspect ratio while filling as much of the billboard
-                /// as possible
-                /// </summary>
-                FitAuto = 3,
-            }
-
+	namespace UI
+	{
+		namespace Rendering
+		{
 			/// <summary>
-			/// Defines a texture used by <see cref="MatBoard"/>s. Supports sprite sheets. Acts as a handle
-			/// to a Space Engineers Transparent Material, by SubtypeId, decorated with additional metadata for use 
-            /// with the <see cref="VRage.Game.MyTransparentGeometry"/> API.
+			/// Defines how a <see cref="Material"/> texture is scaled relative to the UI element it is drawn on.
 			/// </summary>
-			public class Material
-            {
-                public static readonly Material 
-                    // Blank solid texture - used for plain color UI elements
-                    Default = new Material("RichHudDefault", new Vector2(4f, 4f)),
-                    // A perfect circle 1024^2
-                    CircleMat = new Material("RhfCircle", new Vector2(1024f)),
-                    // Donut shape 1024^2
-                    AnnulusMat = new Material("RhfAnnulus", new Vector2(1024f));
+			public enum MaterialAlignment : int
+			{
+				/// <summary>
+				/// Stretches or compresses the material to exactly fill the element's bounds. 
+				/// Aspect ratio is ignored. This is the default behavior.
+				/// </summary>
+				StretchToFit = 0,
 
 				/// <summary>
-				/// SubtypeId of the Transparent Material the <see cref="Material"/> is based on.
+				/// Scales the material to match the height of the element while maintaining aspect ratio.
+				/// Parts of the texture may be clipped if the width exceeds the element's width.
+				/// </summary>
+				FitVertical = 1,
+
+				/// <summary>
+				/// Scales the material to match the width of the element while maintaining aspect ratio.
+				/// Parts of the texture may be clipped if the height exceeds the element's height.
+				/// </summary>
+				FitHorizontal = 2,
+
+				/// <summary>
+				/// Scales the material to fill as much of the element as possible while maintaining aspect ratio.
+				/// This ensures the full texture is visible without distortion, though empty space may remain.
+				/// </summary>
+				FitAuto = 3,
+			}
+
+			/// <summary>
+			/// Represents a handle to a Space Engineers Transparent Material.
+			/// Supports defining full textures or specific sprites within a texture atlas.
+			/// </summary>
+			public class Material
+			{
+				/// <summary>
+				/// A plain white 4x4 texture used for solid color UI elements.
+				/// </summary>
+				public static readonly Material Default = new Material("RichHudDefault", new Vector2(4f, 4f));
+
+				/// <summary>
+				/// High-resolution circle texture (1024x1024).
+				/// </summary>
+				public static readonly Material CircleMat = new Material("RhfCircle", new Vector2(1024f));
+
+				/// <summary>
+				/// High-resolution ring/donut texture (1024x1024).
+				/// </summary>
+				public static readonly Material AnnulusMat = new Material("RhfAnnulus", new Vector2(1024f));
+
+				/// <summary>
+				/// The unique SubtypeId of the underlying Transparent Material.
 				/// </summary>
 				public readonly MyStringId TextureID;
 
-                /// <summary>
-                /// The dimensions, in pixels, of the <see cref="Material"/>.
-                /// </summary>
-                public readonly Vector2 Size;
-
-                /// <summary>
-                /// Minimum and maximum bounds in normalized texture coordinates
-                /// </summary>
-                public readonly BoundingBox2 UVBounds;
+				/// <summary>
+				/// The dimensions of the material sprite in pixels.
+				/// </summary>
+				public readonly Vector2 Size;
 
 				/// <summary>
-				/// Creates a <see cref="Material"/> using the SubtypeId of a Transparent Material 
-                /// and the original dimensions, in pixels.
+				/// The normalized UV coordinates defining the region of the texture to be used.
+				/// (0,0 is top-left, 1,1 is bottom-right).
 				/// </summary>
-				/// <param name="SubtypeId">Name of the texture ID</param>
-				/// <param name="size">Size of the material in pixels</param>
+				public readonly BoundingBox2 UVBounds;
+
+				/// <summary>
+				/// Creates a <see cref="Material"/> using the SubtypeId of a Transparent Material.
+				/// Assumes the material utilizes the full texture dimensions.
+				/// </summary>
+				/// <param name="SubtypeId">The string name of the texture SubtypeId.</param>
+				/// <param name="size">The resolution of the texture in pixels.</param>
 				public Material(string SubtypeId, Vector2 size) : this(MyStringId.GetOrCompute(SubtypeId), size)
-                { }
+				{ }
 
 				/// <summary>
-				/// Creates a <see cref="Material"/> from a subsection of a texture atlas based on a 
-				/// Transparent Material with a given SubtypeId.
+				/// Creates a <see cref="Material"/> representing a specific region (sprite) within a larger texture atlas.
 				/// </summary>
-				/// <param name="SubtypeId">Name of the texture ID</param>
-				/// <param name="texSize">Size of the texture associated with the SubtypeId in pixels</param>
-				/// <param name="texCoords">UV offset starting from the upper left hand corner in pixels</param>
-				/// <param name="size">Size of the material starting from the given offset</param>
+				/// <param name="SubtypeId">The string name of the texture SubtypeId.</param>
+				/// <param name="texSize">The total resolution of the source texture atlas in pixels.</param>
+				/// <param name="texCoords">The pixel offset of the sprite starting from the top-left corner.</param>
+				/// <param name="size">The size of the specific sprite region in pixels.</param>
 				public Material(string SubtypeId, Vector2 texSize, Vector2 texCoords, Vector2 size)
-                    : this(MyStringId.GetOrCompute(SubtypeId), texSize, texCoords, size)
-                { }
+					: this(MyStringId.GetOrCompute(SubtypeId), texSize, texCoords, size)
+				{ }
 
 				/// <summary>
-				/// Creates a <see cref="Material"/> using the SubtypeId of a Transparent Material 
-				/// and the original dimensions, in pixels.
+				/// Creates a <see cref="Material"/> using the hashed SubtypeId of a Transparent Material.
+				/// Assumes the material utilizes the full texture dimensions.
 				/// </summary>
-				/// <param name="TextureID">MyStringID associated with the texture SubtypeId</param>
-				/// <param name="size">Size of the material in pixels</param>
+				/// <param name="TextureID">The hashed <see cref="MyStringId"/> of the texture.</param>
+				/// <param name="size">The resolution of the texture in pixels.</param>
 				public Material(MyStringId TextureID, Vector2 size)
-                {
-                    this.TextureID = TextureID;
-                    this.Size = size;
-                    UVBounds = new BoundingBox2(Vector2.Zero, Vector2.One);
-                }
+				{
+					this.TextureID = TextureID;
+					this.Size = size;
+					UVBounds = new BoundingBox2(Vector2.Zero, Vector2.One);
+				}
 
 				/// <summary>
-				/// Creates a <see cref="Material"/> from a subsection of a texture atlas based on a 
-				/// Transparent Material with a given SubtypeId.
+				/// Creates a <see cref="Material"/> representing a specific region (sprite) within a larger texture atlas
+				/// using a hashed SubtypeId.
 				/// </summary>
-				/// <param name="SubtypeId">MyStringID associated with the texture SubtypeId</param>
-				/// <param name="texSize">Size of the texture associated with the SubtypeId in pixels</param>
-				/// <param name="offset">Texture offset starting from the upper left hand corner in pixels</param>
-				/// <param name="size">Size of the material starting from the given offset</param>
+				/// <param name="SubtypeId">The hashed <see cref="MyStringId"/> of the texture.</param>
+				/// <param name="texSize">The total resolution of the source texture atlas in pixels.</param>
+				/// <param name="offset">The pixel offset of the sprite starting from the top-left corner.</param>
+				/// <param name="size">The size of the specific sprite region in pixels.</param>
 				public Material(MyStringId SubtypeId, Vector2 texSize, Vector2 offset, Vector2 size)
-                {
-                    this.TextureID = SubtypeId;
-                    this.Size = size;
+				{
+					this.TextureID = SubtypeId;
+					this.Size = size;
 
-                    Vector2 rcpTexSize = 1f / texSize,
-                        halfUVSize = .5f * size * rcpTexSize,
-                        uvOffset = (offset * rcpTexSize) + halfUVSize;
+					Vector2 rcpTexSize = 1f / texSize,
+						halfUVSize = .5f * size * rcpTexSize,
+						uvOffset = (offset * rcpTexSize) + halfUVSize;
 
-                    UVBounds = new BoundingBox2(uvOffset - halfUVSize, uvOffset + halfUVSize);
-                }
-            }
-
-        }
-    }
+					UVBounds = new BoundingBox2(uvOffset - halfUVSize, uvOffset + halfUVSize);
+				}
+			}
+		}
+	}
 }

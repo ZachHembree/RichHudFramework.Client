@@ -3,12 +3,22 @@ using System;
 
 namespace RichHudFramework
 {
+	/// <summary>
+	/// Represents the method that will handle an event, similar to System.EventHandler.
+	/// <remarks>
+	/// <para>For input or value change events on UI elements, the sender will usually be 
+	/// <see cref="UI.IFocusHandler.InputOwner"/>, the UI element in which the event was 
+	/// subscribed to.</para>
+	/// </remarks>
+	/// </summary>
+	/// <param name="sender">Reference to the object invoking the event, if given.</param>
+	/// <param name="e">Optional arguments</param>
 	public delegate void EventHandler(object sender, EventArgs e);
 
 	namespace UI
 	{
 		/// <summary>
-		/// Defines the global input behavior of Rich HUD Framework
+		/// Used to indicate the global input state of the framework
 		/// </summary>
 		public enum HudInputMode : int
 		{
@@ -29,7 +39,8 @@ namespace RichHudFramework
 		}
 
 		/// <summary>
-		/// Internal API accessor indices for <see cref="HudMain"/>. Used exclusively by the framework's API bridge system.
+		/// Internal API accessor indices for <see cref="HudMain"/>. 
+		/// Used exclusively by the framework's internal APIs.
 		/// </summary>
 		/// <exclude/>
 		public enum HudMainAccessors : int

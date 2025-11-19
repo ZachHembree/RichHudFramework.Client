@@ -13,12 +13,17 @@ namespace RichHudFramework
             Color? // BgColor
         >;
 
-        /// <summary>
-        /// Class used to define tooltips attached to the RHF cursor. Tooltips must be
-        /// registered in HandleInput() every input tick. The first tooltip registered
-        /// takes precedence.
-        /// </summary>
-        public class ToolTip
+		/// <summary>
+		/// Class used to define tooltips attached to the RHF cursor. 
+		/// <remarks>
+		/// <para>
+		/// Set via <see cref="IMouseInput.ToolTip"/> of the given UI element, or registered to 
+        /// <see cref="ICursor.RegisterToolTip(ToolTip)"/> manually in HandleInput() every input tick. 
+		/// </para>
+		/// The first tooltip registered takes precedence.
+		/// </remarks>
+		/// </summary>
+		public class ToolTip
         {
             public static readonly GlyphFormat DefaultText = GlyphFormat.Blueish.WithSize(.75f);
             public static readonly Color 

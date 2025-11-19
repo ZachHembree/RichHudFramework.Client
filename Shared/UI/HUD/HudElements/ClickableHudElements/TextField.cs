@@ -173,13 +173,13 @@ namespace RichHudFramework.UI
 
         public TextField(HudParentBase parent) : base(parent)
         {
-            border = new BorderBox(background)
+            border = new BorderBox(Background)
             {
                 Thickness = 1f,
                 DimAlignment = DimAlignments.Size,
             };
 
-            textBox = new TextBox(background)
+            textBox = new TextBox(Background)
             {
                 AutoResize = false,
                 DimAlignment = DimAlignments.UnpaddedSize,

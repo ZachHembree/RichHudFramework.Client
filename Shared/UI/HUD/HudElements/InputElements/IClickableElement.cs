@@ -6,7 +6,8 @@ namespace RichHudFramework
     namespace UI
     {
 		/// <summary>
-		/// Defines properties and events for managing mouse input on a UI element.
+		/// Low-level mouse input handler providing cursor enter/exit detection and click events.
+		/// Events are raised using the owning <see cref="IFocusHandler.InputOwner"/> as the sender.
 		/// </summary>
 		public interface IMouseInput : IFocusableElement
 		{
@@ -112,7 +113,7 @@ namespace RichHudFramework
 		}
 
 		/// <summary>
-		/// Represents a UI element that can be interacted with via the mouse
+		/// Indicates that a UI element supports mouse interaction via an <see cref="IMouseInput"/> instance.
 		/// </summary>
 		public interface IClickableElement : IFocusableElement
 		{

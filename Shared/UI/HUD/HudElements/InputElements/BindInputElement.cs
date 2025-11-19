@@ -1,14 +1,14 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 using VRageMath;
 
 namespace RichHudFramework.UI
 {
-	using Client;
-	using System.Collections;
-	using System.Collections.Generic;
-
 	/// <summary>
-	/// Defines a set of custom bind inputs for a UI element
+	/// Attaches custom control-bind (key/combo) event handling to a UI element.
+	/// Allows arbitrary <see cref="IBind"/> definitions to trigger NewPressed/PressedAndHeld/Released events
+	/// on a specific UI node, optionally requiring input focus.
 	/// </summary>
 	public class BindInputElement : HudNodeBase, IBindInput
 	{
@@ -28,11 +28,15 @@ namespace RichHudFramework.UI
 		public IBindEventProxy this[IBind bind] => binds[bind];
 
 		/// <summary>
-		/// If true, then input events will only fire if the element has input focus.
-		/// False by default.
+		/// If true, bind events will only fire when the parent element has input focus.
+		/// Default = false.
 		/// </summary>
 		public bool IsFocusRequired { get; set; }
 
+		/// <summary>
+		/// Internal Bind-EventProxy map
+		/// </summary>
+		/// <exclude/>
 		protected readonly Dictionary<IBind, BindEventProxy> binds;
 
 		public BindInputElement(HudParentBase parent = null) : base(parent)
@@ -43,8 +47,8 @@ namespace RichHudFramework.UI
 		}
 
 		/// <summary>
-		/// Adds a new bind to the input element if it hasn't been added before, and/or 
-		/// registers the given event handlers to it.
+		/// Adds a bind (if not already present) and/or subscribes the provided event handlers.
+		/// Multiple calls with the same bind are allowed and will stack handlers.
 		/// </summary>
 		public void Add(IBind bind, EventHandler NewPressed = null, EventHandler PressedAndHeld = null, EventHandler Released = null)
 		{
@@ -77,6 +81,10 @@ namespace RichHudFramework.UI
 		public bool GetHasBind(IBind bind) =>
 			binds.ContainsKey(bind);
 
+		/// <summary>
+		/// Polls bind input and fires events
+		/// </summary>
+		/// <exclude/>
 		protected override void HandleInput(Vector2 cursorPos)
 		{
 			FocusHandler = (Parent as IFocusableElement)?.FocusHandler;
@@ -105,6 +113,7 @@ namespace RichHudFramework.UI
 		/// <summary>
 		/// Provides input events for a specific custom UI binding.
 		/// </summary>
+		/// <exclude/>
 		protected class BindEventProxy : IBindEventProxy
 		{
 			/// <summary>

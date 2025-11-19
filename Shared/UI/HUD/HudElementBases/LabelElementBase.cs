@@ -4,10 +4,13 @@ namespace RichHudFramework
 {
 	namespace UI
 	{
+		/// <summary>
+		/// Abstract base class for UI elements responsible for rendering text.
+		/// </summary>
 		public abstract class LabelElementBase : HudElementBase, IMinLabelElement
 		{
 			/// <summary>
-			/// Text renderer backing the label element
+			/// Gets the <see cref="ITextBoard"/> responsible for managing text layout, formatting, and rendering.
 			/// </summary>
 			public abstract ITextBoard TextBoard { get; }
 

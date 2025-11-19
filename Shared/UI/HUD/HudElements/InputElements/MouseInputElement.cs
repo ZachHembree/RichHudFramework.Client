@@ -8,13 +8,13 @@ namespace RichHudFramework.UI
 	using static NodeConfigIndices;
 
 	/// <summary>
-	/// A clickable box. Doesn't render any textures or text. Must be used in conjunction with other elements.
-	/// Events return the parent object, or InputOwner if specified.
+	/// Core mouse interaction component for clickable UI elements.
+	/// Handles cursor enter/exit, left/right clicks, tooltip registration, and automatic focus acquisition on click.
 	/// </summary>
 	public class MouseInputElement : HudElementBase, IMouseInput
 	{
 		/// <summary>
-		/// Element that owns this input, used for event callbacks.
+		/// UI element that owns the input, used for event callbacks.
 		/// </summary>
 		public IFocusHandler FocusHandler { get; protected set; }
 
@@ -138,6 +138,10 @@ namespace RichHudFramework.UI
 			RightReleased = null;
 		}
 
+		/// <summary>
+		/// Updates cursor hit testing for the element
+		/// </summary>
+		/// <exclude/>
 		protected override void InputDepth()
 		{
 			if (HudSpace.IsFacingCamera)
@@ -166,6 +170,10 @@ namespace RichHudFramework.UI
 			}
 		}
 
+		/// <summary>
+		/// Updates click input state and fires input events
+		/// </summary>
+		/// <exclude/>
 		protected override void HandleInput(Vector2 cursorPos)
 		{
 			FocusHandler = (Parent as IFocusableElement)?.FocusHandler;

@@ -51,7 +51,8 @@ namespace RichHudFramework
 		/// <summary>
 		/// Represents the global mouse cursor managed by Rich HUD Framework.
 		/// Provides screen/world position, capture state, and tooltip registration functionality.
-		/// Used by all Rich HUD UI elements for correct hit-testing and interaction in 3D HUD spaces.
+		/// Used by all clickable UI elements for correct hit-testing and interaction within and 
+		/// between HUD spaces.
 		/// </summary>
 		public interface ICursor
 		{

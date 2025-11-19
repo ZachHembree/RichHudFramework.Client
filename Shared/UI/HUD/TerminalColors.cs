@@ -3,7 +3,7 @@
 namespace RichHudFramework.UI
 {
 	/// <summary>
-	/// Contains colors and text formatting used in styling the Rich HUD Terminal and other UI elements themed on
+	/// Colors and text formatting used in styling the Rich HUD Terminal and other UI elements themed on
 	/// the Space Engineers terminal style.
 	/// </summary>
 	public static class TerminalFormatting
