@@ -7,8 +7,6 @@ namespace RichHudFramework
 		using static RichHudFramework.UI.NodeConfigIndices;
 		using Server;
 		using Client;
-		using Internal;
-		using System.Collections.Generic;
 
 		/// <summary>
 		/// Base type for all UI elements with definite size and position. Extends HudParentBase and HudNodeBase.
@@ -40,7 +38,7 @@ namespace RichHudFramework
 			}
 
 			/// <summary>
-			/// Width of the element. Units in pixels by HudMain.Root.
+			/// Width of the element. Units in pixels with HudMain.Root.
 			/// </summary>
 			public float Width
 			{
@@ -55,7 +53,7 @@ namespace RichHudFramework
 			}
 
 			/// <summary>
-			/// Height of the element. Units in pixels by HudMain.Root.
+			/// Height of the element. Units in pixels with HudMain.Root.
 			/// </summary>
 			public float Height
 			{
@@ -80,7 +78,7 @@ namespace RichHudFramework
 			public Vector2 UnpaddedSize { get; set; }
 
 			/// <summary>
-			/// Starting position of the hud element. Starts in the center of the parent node 
+			/// Starting/anchoring position of the hud element. Starts in the center of the parent node 
 			/// by default. This behavior can be modified with ParentAlignment flags.
 			/// </summary>
 			public Vector2 Origin { get; private set; }
@@ -96,7 +94,7 @@ namespace RichHudFramework
 			public Vector2 Position { get; private set; }
 
 			/// <summary>
-			/// Determines the starting position of the hud element relative to its parent.
+			/// Determines the starting position/anchoring behavior of the hud element relative to its parent.
 			/// </summary>
 			public ParentAlignments ParentAlignment { get; set; }
 
@@ -172,7 +170,7 @@ namespace RichHudFramework
 
 			/// <summary>
 			/// If set to true, then the element can ignore any bounding masks imposed by its parents.
-			/// Superceeds selective masking flag.
+			/// Supersedes selective masking flag.
 			/// </summary>
 			public bool CanIgnoreMasking
 			{

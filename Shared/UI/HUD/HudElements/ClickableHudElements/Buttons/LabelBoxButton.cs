@@ -33,7 +33,13 @@ namespace RichHudFramework.UI
 		/// </summary>
 		public IMouseInput MouseInput { get; }
 
+        /// <exclude/>
         protected MouseInputElement _mouseInput;
+
+        /// <summary>
+        /// Last background color set before highlighting
+        /// </summary>
+        /// <exclude/>
         protected Color oldColor;
 
         public LabelBoxButton(HudParentBase parent) : base(parent)
@@ -41,8 +47,8 @@ namespace RichHudFramework.UI
 			FocusHandler = new InputFocusHandler(this);
             _mouseInput = new MouseInputElement(this)
             { 
-                CursorEnteredCallback = CursorEnter,
-                CursorExitedCallback = CursorExit
+                CursorEnteredCallback = OnCursorEnter,
+                CursorExitedCallback = OnCursorExit
             };
 
             MouseInput = _mouseInput;
@@ -54,7 +60,11 @@ namespace RichHudFramework.UI
         public LabelBoxButton() : this(null)
         { }
 
-        protected virtual void CursorEnter(object sender, EventArgs args)
+        /// <summary>
+        /// Sets highlighting when the cursor enters the button
+        /// </summary>
+        /// <exclude/>
+        protected virtual void OnCursorEnter(object sender, EventArgs args)
         {
             if (HighlightEnabled)
             {
@@ -63,7 +73,11 @@ namespace RichHudFramework.UI
             }
         }
 
-        protected virtual void CursorExit(object sender, EventArgs args)
+        /// <summary>
+        /// Clears highlighting when the cursor leaves the button
+        /// </summary>
+        /// <exclude/>
+        protected virtual void OnCursorExit(object sender, EventArgs args)
         {
             if (HighlightEnabled)
             {

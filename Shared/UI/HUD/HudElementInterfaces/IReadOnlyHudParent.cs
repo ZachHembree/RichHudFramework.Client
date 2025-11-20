@@ -95,7 +95,7 @@ namespace RichHudFramework
 			IsSelectivelyMasked = 1 << 10,
 
 			/// <summary>
-			/// Allows the element to bypass any masking imposed by its parents (supercedes IsSelectivelyMasked). 
+			/// Allows the element to bypass any masking imposed by its parents (supersedes IsSelectivelyMasked). 
 			/// Useful for overlays or elements that should always be fully visible regardless of hierarchy.
 			/// </summary>
 			CanIgnoreMasking = 1 << 11,
@@ -234,7 +234,7 @@ namespace RichHudFramework
 			IReadOnlyHudSpaceNode HudSpace { get; }
 
 			/// <summary>
-			/// Returns true if the element can be drawn and/or accept input
+			/// Returns true if the element is enabled and able to be drawn and accept input.
 			/// </summary>
 			bool Visible { get; }
 
@@ -244,8 +244,9 @@ namespace RichHudFramework
 			bool InputEnabled { get; }
 
 			/// <summary>
-			/// Used to change the draw order of the UI element. Lower offsets place the element
-			/// further in the background. Higher offsets draw later and on top.
+			/// Moves the UI element up or down in draw order. -1 will darw an element behind its immediate 
+			/// parent. +1 will draw it on top of siblings. Higher values will allow it to draw behind or over 
+			/// more distantly related elements.
 			/// </summary>
 			sbyte ZOffset { get; }
 		}

@@ -88,9 +88,23 @@ namespace RichHudFramework.UI
         /// </summary>
         public bool IsBoxChecked { get { return checkbox.IsBoxChecked; } set { checkbox.IsBoxChecked = value; } }
 
-        private readonly Label name;
-        private readonly BorderedCheckBox checkbox;
-        private readonly HudChain layout;
+        /// <summary>
+        /// Label to the left of the checkbox
+        /// </summary>
+        /// <exclude/>
+        protected readonly Label name;
+
+        /// <summary>
+        /// Checkbox button
+        /// </summary>
+        /// <exclude/>
+		protected readonly BorderedCheckBox checkbox;
+
+        /// <summary>
+        /// Stacking container for name and checkbox layout
+        /// </summary>
+        /// <exclude/>
+		protected readonly HudChain layout;
 
         public NamedCheckBox(HudParentBase parent) : base(parent)
         {
@@ -115,13 +129,17 @@ namespace RichHudFramework.UI
             Size = new Vector2(250f, 37f);
         }
 
-        protected override void Measure()
+		public NamedCheckBox() : this(null)
+		{ }
+
+		/// <summary>
+		/// Updates the size of the element to fit the checkbox and label if autoresize is enabled
+		/// </summary>
+		/// <exclude/>
+		protected override void Measure()
         {
             if (AutoResize)
-                UnpaddedSize = layout.GetRangeSize();
+                UnpaddedSize = layout.UnpaddedSize + layout.Padding;
         }
-
-        public NamedCheckBox() : this(null)
-        { }
     }
 }

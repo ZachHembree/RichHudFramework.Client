@@ -1,5 +1,4 @@
 using System;
-using VRageMath;
 
 namespace RichHudFramework
 {
@@ -8,7 +7,6 @@ namespace RichHudFramework
 		using static RichHudFramework.UI.NodeConfigIndices;
 		using Server;
 		using Client;
-		using Internal;
 
 		/// <summary>
 		/// Base class for hud elements that can be parented to other elements.

@@ -38,7 +38,16 @@ namespace RichHudFramework.UI
         /// </summary>
         public bool UseFocusFormatting { get; set; }
 
-        protected readonly BorderBox border;
+		/// <summary>
+		/// Renders a colored border around the button
+		/// </summary>
+		/// <exclude/>
+		protected readonly BorderBox border;
+
+        /// <summary>
+        /// Background and text colors last used before highlighting
+        /// </summary>
+        /// <exclude/>
         protected Color lastColor, lastTextColor;
 
         public BorderedButton(HudParentBase parent) : base(parent)
@@ -65,13 +74,17 @@ namespace RichHudFramework.UI
             FocusColor = TerminalFormatting.Mint;
             UseFocusFormatting = true;
 
-			FocusHandler.GainedInputFocus += GainFocus;
-			FocusHandler.LostInputFocus += LoseFocus;
+			FocusHandler.GainedInputFocus += OnGainFocus;
+			FocusHandler.LostInputFocus += OnLoseFocus;
         }
 
         public BorderedButton() : this(null)
         { }
 
+        /// <summary>
+        /// Handles keyboard input when the button has input focus
+        /// </summary>
+        /// <exclude/>
 		protected override void HandleInput(Vector2 cursorPos)
         {
             if (FocusHandler.HasFocus)
@@ -83,10 +96,11 @@ namespace RichHudFramework.UI
 			}
 		}
 
-        /// <summary>
-        /// Invoked when the cursor first howvers over the button
-        /// </summary>
-		protected override void CursorEnter(object sender, EventArgs args)
+		/// <summary>
+		/// Invoked when the cursor first howvers over the button
+		/// </summary>
+		/// <exclude/>
+		protected override void OnCursorEnter(object sender, EventArgs args)
         {
             if (HighlightEnabled)
             {
@@ -105,10 +119,11 @@ namespace RichHudFramework.UI
             }
         }
 
-        /// <summary>
-        /// Invoked when the cursor moves out of the button
-        /// </summary>
-        protected override void CursorExit(object sender, EventArgs args)
+		/// <summary>
+		/// Invoked when the cursor moves out of the button
+		/// </summary>
+		/// <exclude/>
+		protected override void OnCursorExit(object sender, EventArgs args)
         {
             if (HighlightEnabled)
             {
@@ -127,10 +142,11 @@ namespace RichHudFramework.UI
             }
         }
 
-        /// <summary>
-        /// Invoked when the button has input focus
-        /// </summary>
-        protected virtual void GainFocus(object sender, EventArgs args)
+		/// <summary>
+		/// Invoked when the button has input focus
+		/// </summary>
+		/// <exclude/>
+		protected virtual void OnGainFocus(object sender, EventArgs args)
         {
             if (UseFocusFormatting)
             {
@@ -145,10 +161,11 @@ namespace RichHudFramework.UI
             }
         }
 
-        /// <summary>
-        /// Invoked when the button loses input focus
-        /// </summary>
-        protected virtual void LoseFocus(object sender, EventArgs args)
+		/// <summary>
+		/// Invoked when the button loses input focus
+		/// </summary>
+		/// <exclude/>
+		protected virtual void OnLoseFocus(object sender, EventArgs args)
         {
             if (UseFocusFormatting)
             {

@@ -7,7 +7,7 @@ namespace RichHudFramework
 	namespace UI
 	{
 		/// <summary>
-		/// Internal API accessor indices for the Rich HUD cursor. Used only by the framework's API bridge.
+		/// Internal API accessor indices for the Rich HUD cursor
 		/// </summary>
 		/// <exclude/>
 		public enum HudCursorAccessors : int

@@ -487,7 +487,7 @@ namespace RichHudFramework.UI
 				}
 			}
 
-			protected override void CursorEnter(object sender, EventArgs args)
+			protected override void OnCursorEnter(object sender, EventArgs args)
 			{
 				if (HighlightEnabled)
 				{
@@ -508,7 +508,7 @@ namespace RichHudFramework.UI
 				}
 			}
 
-			protected override void CursorExit(object sender, EventArgs args)
+			protected override void OnCursorExit(object sender, EventArgs args)
 			{
 				if (HighlightEnabled)
 				{

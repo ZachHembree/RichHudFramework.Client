@@ -188,13 +188,13 @@ namespace RichHudFramework.UI
                 ClearSelectionOnLoseFocus = true,
                 MouseInput = 
                 {
-                    CursorEnteredCallback = CursorEnter,
-                    CursorExitedCallback = CursorExit
+                    CursorEnteredCallback = OnCursorEnter,
+                    CursorExitedCallback = OnCursorExit
                 },
                 FocusHandler = 
                 {
-                    GainedInputFocusCallback = GainFocus,
-                    LostInputFocusCallback = LoseFocus
+                    GainedInputFocusCallback = OnGainFocus,
+                    LostInputFocusCallback = OnLoseFocus
                 }
             };
             textBox.FocusHandler.InputOwner = this;
@@ -217,13 +217,22 @@ namespace RichHudFramework.UI
         public TextField() : this(null)
         { }
 
-        public void OpenInput() =>
+		/// <summary>
+		/// Opens the field for input and moves the caret to the end.
+		/// </summary>
+		public void OpenInput() =>
             textBox.OpenInput();
 
-        public void CloseInput() =>
+		/// <summary>
+		/// Closes field input and clears the text selection.
+		/// </summary>
+		public void CloseInput() =>
             textBox.CloseInput();
 
-        protected virtual void CursorEnter(object sender, EventArgs args)
+        /// <summary>
+        /// Sets highlighting formatting when the field is moused over
+        /// </summary>
+        protected virtual void OnCursorEnter(object sender, EventArgs args)
         {
             if (HighlightEnabled)
             {
@@ -244,7 +253,10 @@ namespace RichHudFramework.UI
             }
         }
 
-        protected virtual void CursorExit(object sender, EventArgs args)
+        /// <summary>
+        /// Clears highlighting when the cursor leaves
+        /// </summary>
+        protected virtual void OnCursorExit(object sender, EventArgs args)
         {
             if (HighlightEnabled)
             {
@@ -263,7 +275,10 @@ namespace RichHudFramework.UI
             }
         }
 
-        protected virtual void GainFocus(object sender, EventArgs args)
+        /// <summary>
+        /// Sets focus formatting
+        /// </summary>
+        protected virtual void OnGainFocus(object sender, EventArgs args)
         {
             if (UseFocusFormatting)
             {
@@ -278,7 +293,10 @@ namespace RichHudFramework.UI
             }
         }
 
-        protected virtual void LoseFocus(object sender, EventArgs args)
+        /// <summary>
+        /// Resets focus formatting
+        /// </summary>
+        protected virtual void OnLoseFocus(object sender, EventArgs args)
         {
             if (UseFocusFormatting)
             {

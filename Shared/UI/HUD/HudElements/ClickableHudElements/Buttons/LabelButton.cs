@@ -20,7 +20,8 @@
         /// </summary>
         public override bool IsMousedOver => _mouseInput.IsMousedOver;
 
-        protected MouseInputElement _mouseInput;
+		/// <exclude/>
+		protected MouseInputElement _mouseInput;
 
         public LabelButton(HudParentBase parent) : base(parent)
         {

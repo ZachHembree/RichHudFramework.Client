@@ -13,9 +13,8 @@ namespace RichHudFramework
 		public class CustomSpaceNode : HudSpaceNodeBase
 		{
 			/// <summary>
-			/// Optional delegate called every frame to retrieve the current Plane-to-World matrix.
+			/// Delegate called every frame to retrieve the current Plane-to-World matrix.
 			/// If null, the node falls back to its parent's matrix.
-			/// <para>The delegate is responsible for supplying a valid, finite matrix.</para>
 			/// </summary>
 			public Func<MatrixD> UpdateMatrixFunc { get; set; }
 

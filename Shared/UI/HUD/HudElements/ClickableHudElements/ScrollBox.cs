@@ -422,7 +422,7 @@ namespace RichHudFramework.UI
 		}
 
 		/// <summary>
-		/// Updates the visible range and scrollbar for smooth (pixel-based) scrolling.
+		/// Updates the visible range and scrollbar for smooth scrolling.
 		/// </summary>
 		private void UpdateSmoothRange(float maxLength, out float totalEnabledLength, out float scrollOffset)
 		{

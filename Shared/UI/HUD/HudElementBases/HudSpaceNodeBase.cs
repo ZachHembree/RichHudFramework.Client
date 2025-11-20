@@ -26,20 +26,19 @@ namespace RichHudFramework
 
 			/// <summary>
 			/// Current Plane-to-World transformation matrix used for drawing this subtree.
-			/// Transforms from local HUD plane coordinates (units = meters on plane) to world space.
+			/// Transforms from local coordinates to world space.
 			/// </summary>
 			public MatrixD PlaneToWorld => PlaneToWorldRef[0];
 
 			/// <summary>
 			/// Reference to the current Plane-to-World matrix as a single-element array.
-			/// Used for performance to avoid repeated allocations when passing to rendering code.
 			/// </summary>
 			public MatrixD[] PlaneToWorldRef { get; }
 
 			/// <summary>
 			/// Position of the HUD cursor projected onto this node's plane.
 			/// <para>
-			/// X/Y = local plane coordinates (in meters, origin at node center).
+			/// X/Y = local plane coordinates
 			/// Z = approximate squared distance from the camera to the intersection point (for depth sorting).
 			/// </para>
 			/// </summary>
