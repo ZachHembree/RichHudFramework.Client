@@ -7,10 +7,13 @@ namespace RichHudFramework
 
     namespace UI
     {
-        /// <summary>
-        /// A collection of unique keybinds.
-        /// </summary>
-        public interface IBindGroup : IReadOnlyList<IBind>
+        using Client;
+        using Server;
+
+		/// <summary>
+		/// A collection of unique keybinds in the <see cref="BindManager"/>
+		/// </summary>
+		public interface IBindGroup : IReadOnlyList<IBind>
         {
             /// <summary>
             /// Returns the bind with the name given, if it exists.

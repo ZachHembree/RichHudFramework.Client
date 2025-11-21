@@ -20,27 +20,30 @@ namespace RichHudFramework
 		>;
 
 		/// <summary>
-		/// Manages custom keybinds; singleton
+		/// The central hub for managing key binds, control groups, and input blacklisting in RichHudFramework.
+		/// <para>This singleton handles communication with the API to register and monitor inputs.</para>
 		/// </summary>
 		public sealed partial class BindManager : RichHudClient.ApiModule
 		{
 			/// <summary>
-			/// Maximum number of controls allowed in a bind
+			/// The maximum number of controls allowed in a single key bind combination (currently 3).
 			/// </summary>
 			public const int MaxBindLength = 3;
 
 			/// <summary>
-			/// Read-only collection of bind groups registered
+			/// A read-only collection of all registered bind groups.
 			/// </summary>
 			public static IReadOnlyList<IBindGroup> Groups => Instance.groups;
 
 			/// <summary>
-			/// Read-only collection of all available controls for use with key binds
+			/// A read-only collection of all available controls (keys, mouse buttons, gamepad inputs) supported by the framework.
 			/// </summary>
 			public static IReadOnlyList<IControl> Controls => Instance.controls;
 
 			/// <summary>
-			/// Specifies blacklist mode for SE controls
+			/// Gets or sets the persistent input blacklist mode. 
+			/// <para>This setting remains active until explicitly changed. Use this to block game inputs 
+			/// (like mouse clicks or camera movement) while UI elements are interactable.</para>
 			/// </summary>
 			public static SeBlacklistModes BlacklistMode
 			{
@@ -60,7 +63,8 @@ namespace RichHudFramework
 			}
 
 			/// <summary>
-			/// Similar to MyAPIGateway.Gui.ChatEntryVisible, but responds instantly to chat bind.
+			/// Checks if the chat window is currently open. 
+			/// <para>Unlike the standard game API, this updates instantly when the chat bind is pressed.</para>
 			/// </summary>
 			public static bool IsChatOpen => (bool)_instance.GetOrSetMemberFunc(null, (int)BindClientAccessors.IsChatOpen);
 
@@ -121,7 +125,8 @@ namespace RichHudFramework
 			}
 
 			/// <summary>
-			/// Initializes BindManager manually. Automatic. Manual init unnecessary.
+			/// Initializes the BindManager manually. 
+			/// <para>Note: Initialization is handled automatically on property access; manual calls are generally unnecessary.</para>
 			/// </summary>
 			/// <exclude/>
 			public static void Init()
@@ -133,7 +138,7 @@ namespace RichHudFramework
 			}
 
 			/// <summary>
-			/// Unloads the bind manager and releases the instance
+			/// Unloads the bind manager and releases the instance reference.
 			/// </summary>
 			/// <exclude/>
 			public override void Close()
@@ -143,8 +148,8 @@ namespace RichHudFramework
 			}
 
 			/// <summary>
-			/// Sets a temporary control blacklist cleared after every frame. Blacklists set via
-			/// property will persist regardless.
+			/// Applies a temporary blacklist flag that lasts only for the current frame.
+			/// <para>This is additive to the persistent <see cref="BlacklistMode"/>.</para>
 			/// </summary>
 			public static void RequestTempBlacklist(SeBlacklistModes mode)
 			{
@@ -152,7 +157,7 @@ namespace RichHudFramework
 			}
 
 			/// <summary>
-			/// Internal early update poll
+			/// Internal update cycle used to apply blacklist modes and reset temporary flags.
 			/// </summary>
 			/// <exclude/>
 			public override void Draw()
@@ -162,9 +167,9 @@ namespace RichHudFramework
 			}
 
 			/// <summary>
-			/// Returns the bind group with the given name and/or creates one with the name given
-			/// if one doesn't exist.
+			/// Retrieves an existing bind group by name, or creates a new one if it does not exist.
 			/// </summary>
+			/// <param name="name">The unique name of the group.</param>
 			public static IBindGroup GetOrCreateGroup(string name)
 			{
 				var index = (int)Instance.GetOrSetMemberFunc(name, (int)BindClientAccessors.GetOrCreateGroup);
@@ -172,8 +177,9 @@ namespace RichHudFramework
 			}
 
 			/// <summary>
-			/// Returns the bind group with the name igven.
+			/// Retrieves an existing bind group by name. Returns null if the group is not found.
 			/// </summary>
+			/// <param name="name">The name of the group to retrieve.</param>
 			public static IBindGroup GetBindGroup(string name)
 			{
 				var index = (int)Instance.GetOrSetMemberFunc(name, (int)BindClientAccessors.GetBindGroup);
@@ -181,8 +187,9 @@ namespace RichHudFramework
 			}
 
 			/// <summary>
-			/// Returns the control associated with the given name.
+			/// Looks up the unique ID for a control by its name and returns a <see cref="ControlHandle"/>.
 			/// </summary>
+			/// <param name="name">The name of the control (e.g., "LeftButton", "W", etc.).</param>
 			public static ControlHandle GetControl(string name)
 			{
 				var index = (int)Instance.GetOrSetMemberFunc(name, (int)BindClientAccessors.GetControlByName);
@@ -190,7 +197,7 @@ namespace RichHudFramework
 			}
 
 			/// <summary>
-			/// Returns control name for the corresponding handle
+			/// Retrieves the string name associated with a specific <see cref="ControlHandle"/>.
 			/// </summary>
 			public static string GetControlName(ControlHandle con)
 			{
@@ -198,7 +205,7 @@ namespace RichHudFramework
 			}
 
 			/// <summary>
-			/// Returns control name for the corresponding int ID
+			/// Retrieves the string name associated with a specific control ID.
 			/// </summary>
 			public static string GetControlName(int conID)
 			{
@@ -206,7 +213,7 @@ namespace RichHudFramework
 			}
 
 			/// <summary>
-			/// Returns control names for the corresponding int IDs
+			/// Batch retrieves the names for a list of control IDs.
 			/// </summary>
 			public static string[] GetControlNames(IReadOnlyList<int> conIDs)
 			{
@@ -214,14 +221,17 @@ namespace RichHudFramework
 			}
 
 			/// <summary>
-			/// Returns the control associated with the given <see cref="ControlHandle"/>
+			/// Retrieves the <see cref="IControl"/> object associated with the given <see cref="ControlHandle"/>.
 			/// </summary>
 			public static IControl GetControl(ControlHandle handle) =>
 				Controls[handle.id];
 
 			/// <summary>
-			/// Generates a list of control indices from a list of <see cref="ControlHandle"/>s.
+			/// Converts a list of <see cref="ControlHandle"/> objects into a list of integer IDs.
 			/// </summary>
+			/// <param name="controls">Input list of control handles.</param>
+			/// <param name="combo">Output list to store integer IDs.</param>
+			/// <param name="sanitize">If true, sorts the list and removes duplicates/invalid IDs.</param>
 			public static void GetComboIndices(IReadOnlyList<ControlHandle> controls, List<int> combo, bool sanitize = true)
 			{
 				combo.Clear();
@@ -241,7 +251,7 @@ namespace RichHudFramework
 			}
 
 			/// <summary>
-			/// Sorts ControlID buffer and removes duplicates and invalid indices
+			/// Helper method that sorts control IDs, removes duplicates, and filters out invalid IDs (zero or less).
 			/// </summary>
 			private static void SanitizeCombo(List<int> combo)
 			{

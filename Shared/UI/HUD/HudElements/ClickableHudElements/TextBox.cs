@@ -1,15 +1,12 @@
 using RichHudFramework.UI.Rendering;
-using Sandbox.ModAPI;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Text;
 using VRageMath;
 
 namespace RichHudFramework.UI
 {
 	using Client;
-	using Server;
 
 	/// <summary>
 	/// Interactive, clickable text box with caret and highlighting. Text only, no background or
@@ -107,7 +104,7 @@ namespace RichHudFramework.UI
 
 		public TextBox(HudParentBase parent) : base(parent)
 		{
-			FocusHandler = new InputFocusHandler(this) 
+			FocusHandler = new InputFocusHandler(this)
 			{
 				GainedInputFocusCallback = OnGainFocus,
 				LostInputFocusCallback = OnLoseFocus

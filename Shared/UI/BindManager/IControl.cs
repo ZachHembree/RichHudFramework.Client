@@ -2,10 +2,13 @@
 {
     namespace UI
     {
-        /// <summary>
-        /// Interface for controls used by the bind manager
-        /// </summary> 
-        public interface IControl
+        using Client;
+        using Server;
+
+		/// <summary>
+		/// Interface for controls used by the <see cref="BindManager"/>
+		/// </summary> 
+		public interface IControl
         {
             /// <summary>
             /// Name of the control
@@ -18,7 +21,7 @@
             string DisplayName { get; }
 
             /// <summary>
-            /// Index of the control in the bind manager
+            /// Index of the control in the <see cref="BindManager"/>
             /// </summary>
             int Index { get; }
 
@@ -38,8 +41,7 @@
             bool IsReleased { get; }
 
             /// <summary>
-            /// Returns true if the control doesn't represent a boolean value. For example, MwUp/Dn
-            /// represent scroll wheel movement, but don't return an exact position/displacement.
+            /// Returns true if the control doesn't represent a boolean value.
             /// </summary>
             bool Analog { get; }
 
