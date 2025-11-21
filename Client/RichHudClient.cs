@@ -52,9 +52,6 @@ namespace RichHudFramework.Client
 
 			ExceptionHandler.ModName = modName;
 
-			if (LogIO.FileName == null || LogIO.FileName == "modLog.txt")
-				LogIO.FileName = $"richHudLog.txt";
-
 			var clientData = new ClientData(modName, MessageHandler, RemoteReset, vID);
 			regMessage = new ExtendedClientData(clientData, ExceptionHandler.Run, GetOrSetMember);
 		}
