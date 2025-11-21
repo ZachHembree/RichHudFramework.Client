@@ -1,130 +1,128 @@
-﻿using VRageMath;
-using System;
+﻿using System;
+using VRageMath;
 
 namespace RichHudFramework
 {
-    namespace UI
-    {
-        using Client;
-
-        namespace Rendering
-        {
-            using Client;
-            using Server;
-
+	namespace UI
+	{
+		namespace Rendering
+		{
 			/// <summary>
-			/// Wrapper for drawing a textured rectangular billboard using the <see cref="VRage.Game.MyTransparentGeometry"/> API
-            /// and <see cref="Rendering.Material"/> for custom texturing.
+			/// A high-level wrapper for drawing textured, colored, and optionally clipped rectangular billboards.
+			/// Utilizes <see cref="VRage.Game.MyTransparentGeometry"/> for rendering.
 			/// </summary>
 			public class MatBoard
-            {
-                /// <summary>
-                /// Coloring applied to the material
-                /// </summary>
-                public Color Color
-                {
-                    get { return color; }
-                    set
-                    {
-                        if (value != color)
-                            minBoard.materialData.bbColor = value.GetBbColor();
+			{
+				/// <summary>
+				/// The color tint applied to the material.
+				/// </summary>
+				public Color Color
+				{
+					get { return color; }
+					set
+					{
+						if (value != color)
+							minBoard.materialData.bbColor = value.GetBbColor();
 
-                        color = value;
-                    }
-                }
+						color = value;
+					}
+				}
 
-                /// <summary>
-                /// Texture applied to the billboard
-                /// </summary>
-                public Material Material
-                {
-                    get { return matFrame.Material; }
-                    set
-                    {
-                        if (value != matFrame.Material)
-                        {
-                            bbAspect = -1f;
-                            matFrame.Material = value;
-                            minBoard.materialData.textureID = value.TextureID;
-                        }
-                    }
-                }
+				/// <summary>
+				/// The texture or sprite atlas region applied to the billboard.
+				/// </summary>
+				public Material Material
+				{
+					get { return matFrame.Material; }
+					set
+					{
+						if (value != matFrame.Material)
+						{
+							bbAspect = -1f;
+							matFrame.Material = value;
+							minBoard.materialData.textureID = value.TextureID;
+						}
+					}
+				}
 
-                /// <summary>
-                /// Determines how the texture scales with the MatBoard's dimensions
-                /// </summary>
-                public MaterialAlignment MatAlignment
-                {
-                    get { return matFrame.Alignment; }
-                    set
-                    {
-                        if (value != matFrame.Alignment)
-                        {
-                            bbAspect = -1f;
-                            matFrame.Alignment = value;
-                        }
-                    }
-                }
+				/// <summary>
+				/// Determines how the texture is scaled or cropped relative to the billboard's dimensions.
+				/// </summary>
+				public MaterialAlignment MatAlignment
+				{
+					get { return matFrame.Alignment; }
+					set
+					{
+						if (value != matFrame.Alignment)
+						{
+							bbAspect = -1f;
+							matFrame.Alignment = value;
+						}
+					}
+				}
 
-                private Color color;
-                private float bbAspect;
-                private Vector2 matScale;
+				private Color color;
+				private float bbAspect;
+				private Vector2 matScale;
 
-                private QuadBoard minBoard;
-                private readonly MaterialFrame matFrame;
+				private QuadBoard minBoard;
+				private readonly MaterialFrame matFrame;
 
-                /// <summary>
-                /// Initializes a new matboard with a size of 0 and a blank, white material.
-                /// </summary>
-                public MatBoard()
-                {
-                    matFrame = new MaterialFrame();
-                    minBoard = QuadBoard.Default;
+				/// <summary>
+				/// Initializes a new MatBoard with zero size and a default white material.
+				/// </summary>
+				public MatBoard()
+				{
+					matFrame = new MaterialFrame();
+					minBoard = QuadBoard.Default;
 
-                    color = Color.White;
-                    bbAspect = -1f;
-                }
+					color = Color.White;
+					bbAspect = -1f;
+				}
 
-                /// <summary>
-                /// Draws a billboard in world space using the quad specified.
-                /// </summary>
-                public void Draw(ref MyQuadD quad)
-                {
+				/// <summary>
+				/// Renders the billboard in world space using a pre-calculated quad.
+				/// </summary>
+				public void Draw(ref MyQuadD quad)
+				{
 					BillBoardUtils.AddQuad(ref minBoard.materialData, ref quad);
 				}
 
-                /// <summary>
-                /// Draws a billboard in world space facing the +Z direction of the matrix given. Units in meters,
-                /// matrix scaling notwithstanding.
-                /// </summary>
-                public void Draw(ref CroppedBox box, MatrixD[] matrixRef)
-                {
-                    bool isDisjoint = false;
+				/// <summary>
+				/// Renders the billboard in world space, facing the +Z direction of the provided matrix.
+				/// Handles masking (cropping) if a mask is provided in the <paramref name="box"/>.
+				/// </summary>
+				/// <param name="box">Defines the bounds and the optional mask for the billboard.</param>
+				/// <param name="matrixRef">Matrix defining position and orientation.</param>
+				public void Draw(ref CroppedBox box, MatrixD[] matrixRef)
+				{
+					bool isDisjoint = false;
 
-                    if (box.mask != null)
-                    {
+					// Check if the billboard is completely outside the mask area
+					if (box.mask != null)
+					{
 						isDisjoint =
-                            (box.bounds.Max.X < box.mask.Value.Min.X) ||
-                            (box.bounds.Min.X > box.mask.Value.Max.X) ||
-                            (box.bounds.Max.Y < box.mask.Value.Min.Y) ||
-                            (box.bounds.Min.Y > box.mask.Value.Max.Y);
+							(box.bounds.Max.X < box.mask.Value.Min.X) ||
+							(box.bounds.Min.X > box.mask.Value.Max.X) ||
+							(box.bounds.Max.Y < box.mask.Value.Min.Y) ||
+							(box.bounds.Min.Y > box.mask.Value.Max.Y);
 					}
 
-                    if (!isDisjoint)
-                    {
-                        if (matFrame.Material != Material.Default)
-                        {
-                            Vector2 boxSize = box.bounds.Size;
-                            float newAspect = (boxSize.X / boxSize.Y);
+					if (!isDisjoint)
+					{
+						if (matFrame.Material != Material.Default)
+						{
+							Vector2 boxSize = box.bounds.Size;
+							float newAspect = (boxSize.X / boxSize.Y);
 
 							if (Math.Abs(bbAspect - newAspect) > 1E-5f)
-                            {
+							{
 								bbAspect = newAspect;
 								minBoard.materialData.texBounds = Material.UVBounds;
 
-                                // Clip billboard to bound texture
-                                if (matFrame.Alignment != MaterialAlignment.StretchToFit)
-                                    matScale = matFrame.GetAlignmentScale(bbAspect);
+								// Calculate scaling required to fit the material to the billboard
+								if (matFrame.Alignment != MaterialAlignment.StretchToFit)
+									matScale = matFrame.GetAlignmentScale(bbAspect);
 							}
 
 							if (matFrame.Alignment != MaterialAlignment.StretchToFit)
@@ -139,6 +137,7 @@ namespace RichHudFramework
 							Point3 = new Vector2(box.bounds.Min.X, box.bounds.Max.Y),
 						};
 
+						// Apply skew (rhombus effect) if defined
 						if (minBoard.skewRatio != 0f)
 						{
 							Vector2 start = quad.Point0, end = quad.Point3,
@@ -151,9 +150,9 @@ namespace RichHudFramework
 						}
 
 						BillBoardUtils.AddQuad(ref quad, ref minBoard.materialData, matrixRef, box.mask);
-                    }
-                }     
-            }
-        }
-    }
+					}
+				}
+			}
+		}
+	}
 }

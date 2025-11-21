@@ -8,38 +8,38 @@ namespace RichHudFramework
 		namespace Rendering
 		{
 			/// <summary>
-			/// Defines how a <see cref="Material"/> texture is scaled relative to the UI element it is drawn on.
+			/// Defines how a <see cref="Material"/> texture is mapped to the geometry of the UI element.
 			/// </summary>
 			public enum MaterialAlignment : int
 			{
 				/// <summary>
-				/// Stretches or compresses the material to exactly fill the element's bounds. 
-				/// Aspect ratio is ignored. This is the default behavior.
+				/// Stretches the material to fill the element's bounds exactly. 
+				/// Aspect ratio is ignored, which may result in texture distortion. Default behavior.
 				/// </summary>
 				StretchToFit = 0,
 
 				/// <summary>
-				/// Scales the material to match the height of the element while maintaining aspect ratio.
-				/// Parts of the texture may be clipped if the width exceeds the element's width.
+				/// Scales the material to match the height of the element. The width is adjusted to maintain aspect ratio.
+				/// If the material is wider than the element, it will be cropped horizontally.
 				/// </summary>
 				FitVertical = 1,
 
 				/// <summary>
-				/// Scales the material to match the width of the element while maintaining aspect ratio.
-				/// Parts of the texture may be clipped if the height exceeds the element's height.
+				/// Scales the material to match the width of the element. The height is adjusted to maintain aspect ratio.
+				/// If the material is taller than the element, it will be cropped vertically.
 				/// </summary>
 				FitHorizontal = 2,
 
 				/// <summary>
-				/// Scales the material to fill as much of the element as possible while maintaining aspect ratio.
-				/// This ensures the full texture is visible without distortion, though empty space may remain.
+				/// Scales the material to cover the entire element while maintaining aspect ratio.
+				/// This behaves like "Zoom to Fill" or CSS "cover"—excess texture is cropped, but no empty space remains.
 				/// </summary>
 				FitAuto = 3,
 			}
 
 			/// <summary>
 			/// Represents a handle to a Space Engineers Transparent Material.
-			/// Supports defining full textures or specific sprites within a texture atlas.
+			/// Supports defining full textures or specific sprites (texture regions) within a texture atlas.
 			/// </summary>
 			public class Material
 			{
@@ -70,7 +70,7 @@ namespace RichHudFramework
 
 				/// <summary>
 				/// The normalized UV coordinates defining the region of the texture to be used.
-				/// (0,0 is top-left, 1,1 is bottom-right).
+				/// (0,0 is top-left, 1,1 is bottom-right relative to the atlas).
 				/// </summary>
 				public readonly BoundingBox2 UVBounds;
 

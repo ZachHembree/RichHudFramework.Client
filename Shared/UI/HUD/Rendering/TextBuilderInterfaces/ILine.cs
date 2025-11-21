@@ -40,8 +40,8 @@ namespace RichHudFramework
 				/// <summary>
 				/// Retrieves the <see cref="IRichChar"/> at the specified index.
 				/// <para>
-				/// Note: This creates a new wrapper object on every call. Avoid iterating this collection 
-				/// frequently in tight loops. Reference equality checks between calls will fail.
+				/// Note: This creates temporary index based wrapper objects. Reference equality checks between calls 
+                /// may fail.
 				/// </para>
 				/// </summary>
 				new IRichChar this[int index] { get; }

@@ -5,27 +5,28 @@ using VRageMath;
 namespace RichHudFramework.UI.Rendering
 {
 	/// <summary>
-	/// Renders a circular 2D polygon using billboards
+	/// Renders a regular 2D polygon (e.g., triangle, hexagon, circle approximation) using billboards.
+	/// The shape is constructed as a triangle fan from the center.
 	/// </summary>
 	public class PolyBoard
 	{
 		/// <summary>
-		/// Tinting applied to the material
+		/// The color tint applied to the polygon material.
 		/// </summary>
 		public virtual Color Color
 		{
-			get { return color; }
+			get { return _color; }
 			set
 			{
-				if (value != color)
+				if (value != _color)
 					polyMat.bbColor = value.GetBbColor();
 
-				color = value;
+				_color = value;
 			}
 		}
 
 		/// <summary>
-		/// Texture applied to the billboard.
+		/// The texture applied to the polygon.
 		/// </summary>
 		public virtual Material Material
 		{
@@ -42,7 +43,7 @@ namespace RichHudFramework.UI.Rendering
 		}
 
 		/// <summary>
-		/// Determines how the texture scales with the MatBoard's dimensions.
+		/// Determines how the texture is scaled to fit the polygon's bounding box.
 		/// </summary>
 		public MaterialAlignment MatAlignment
 		{
@@ -58,7 +59,8 @@ namespace RichHudFramework.UI.Rendering
 		}
 
 		/// <summary>
-		/// Get/set number of sides on the polygon
+		/// The number of sides (vertices) on the polygon perimeter.
+		/// Higher values approximate a circle.
 		/// </summary>
 		public virtual int Sides
 		{
@@ -72,15 +74,39 @@ namespace RichHudFramework.UI.Rendering
 			}
 		}
 
+		/// <exclude/>
 		protected int _sides;
 
-		protected Color color;
+		/// <exclude/>
+		protected Color _color;
+
+		/// <summary>
+		/// Internal flags used to indicate stale vertex positions and material alignment
+		/// </summary>
+		/// <exclude/>
 		protected bool updateVertices, updateMatFit;
 
+		/// <summary>
+		/// Material for texturing an object with an arbitrary number of vertices
+		/// </summary>
+		/// <exclude/>
 		protected PolyMaterial polyMat;
+
+		/// <exclude/>
 		protected readonly MaterialFrame matFrame;
+
+		/// <summary>
+		/// Unscaled internal geometry
+		/// </summary>
+		/// <exclude/>
 		protected readonly List<int> triangles;
+		/// <exclude/>
 		protected readonly List<Vector2> vertices;
+
+		/// <summary>
+		/// Buffer for final scaled vertices
+		/// </summary>
+		/// <exclude/>
 		protected readonly List<Vector2> drawVertices;
 
 		public PolyBoard()
@@ -98,7 +124,7 @@ namespace RichHudFramework.UI.Rendering
 		}
 
 		/// <summary>
-		/// Draws a polygon using billboards
+		/// Renders the full polygon defined by <see cref="Sides"/> with the specified dimensions and position.
 		/// </summary>
 		public virtual void Draw(Vector2 size, Vector2 origin, MatrixD[] matrixRef)
 		{
@@ -128,8 +154,9 @@ namespace RichHudFramework.UI.Rendering
 		}
 
 		/// <summary>
-		/// Draws the given range of faces
+		/// Renders a specific range of faces (pie slice) of the polygon.
 		/// </summary>
+		/// <param name="faceRange">The start and end index of the triangles to draw.</param>
 		public virtual void Draw(Vector2 size, Vector2 origin, Vector2I faceRange, MatrixD[] matrixRef)
 		{
 			if (_sides > 2)
@@ -162,7 +189,8 @@ namespace RichHudFramework.UI.Rendering
 		}
 
 		/// <summary>
-		/// Returns the center position of the given slice relative to the center of the billboard
+		/// Calculates the center offset of a specific slice of the polygon relative to the billboard center.
+		/// Useful for radial menus or separated pie charts.
 		/// </summary>
 		public virtual Vector2 GetSliceOffset(Vector2 bbSize, Vector2I range)
 		{
@@ -177,6 +205,7 @@ namespace RichHudFramework.UI.Rendering
 			return bbSize * (start + end + center) / 3f;
 		}
 
+		/// <exclude/>
 		protected virtual void GeneratePolygon()
 		{
 			GenerateVertices();
@@ -189,6 +218,7 @@ namespace RichHudFramework.UI.Rendering
 			updateMatFit = true;
 		}
 
+		/// <exclude/>
 		protected virtual void GenerateTriangles()
 		{
 			int max = vertices.Count - 1;
@@ -203,6 +233,7 @@ namespace RichHudFramework.UI.Rendering
 			}
 		}
 
+		/// <exclude/>
 		protected virtual void GenerateTextureCoordinates()
 		{
 			Vector2 texScale = polyMat.texBounds.Size,
@@ -220,6 +251,7 @@ namespace RichHudFramework.UI.Rendering
 			}
 		}
 
+		/// <exclude/>
 		protected virtual void GenerateVertices()
 		{
 			float rotStep = (float)(Math.PI * 2f / _sides),
