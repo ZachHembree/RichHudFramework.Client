@@ -10,18 +10,22 @@ namespace RichHudFramework.UI.Client
 	>;
 
 	/// <summary>
-	/// Base type for all controls in the Rich Hud Terminal.
+	/// The abstract base class for all controls in the <see cref="RichHudTerminal"/>
 	/// </summary>
 	public abstract class TerminalControlBase : ITerminalControl
 	{
 		/// <summary>
-		/// Invoked whenver a change occurs to a control that requires a response, like a change
-		/// to a value.
+		/// Invoked whenever a change occurs to the control that requires a response (e.g., value change, user interaction).
 		/// </summary>
 		public event EventHandler ControlChanged;
 
 		/// <summary>
-		/// The name of the control as it appears in the terminal.
+		/// Control change callback initializer property
+		/// </summary>
+		public EventHandler ControlChangedHandler { set { ControlChanged += value; } }
+
+		/// <summary>
+		/// The name or label of the control as it appears in the terminal UI.
 		/// </summary>
 		public string Name
 		{
@@ -30,7 +34,7 @@ namespace RichHudFramework.UI.Client
 		}
 
 		/// <summary>
-		/// Determines whether or not the control should be visible in the terminal.
+		/// Determines whether or not the control is visible and interactive in the terminal.
 		/// </summary>
 		public bool Enabled
 		{
@@ -39,7 +43,7 @@ namespace RichHudFramework.UI.Client
 		}
 
 		/// <summary>
-		/// Optional tooltip for the control
+		/// Optional tooltip text displayed when hovering over the control.
 		/// </summary>
 		public ToolTip ToolTip
 		{
@@ -48,30 +52,25 @@ namespace RichHudFramework.UI.Client
 		}
 
 		/// <summary>
-		/// Unique identifier
+		/// Unique identifier used by the Framework API.
 		/// </summary>
 		/// <exclude/>
 		public object ID { get; }
 
 		/// <summary>
-		/// Invoked when the control or underlying value of the control changes.
-		/// </summary>
-		public EventHandler ControlChangedHandler { get; set; }
-
-		/// <summary>
-		/// Internal API member accessor delegate
+		/// Internal API member accessor delegate.
 		/// </summary>
 		/// <exclude/>
 		protected readonly ApiMemberAccessor GetOrSetMember;
 
 		/// <summary>
-		/// Internal tooltip copy
+		/// Internal tooltip cache.
 		/// </summary>
 		/// <exclude/>
 		protected ToolTip _toolTip;
 
 		/// <summary>
-		/// Initialzes a new RHF terminal control corresponding to the given enum
+		/// Initializes a new RHF terminal control corresponding to the given enum type.
 		/// </summary>
 		/// <exclude/>
 		public TerminalControlBase(MenuControls controlEnum) : this(RichHudTerminal.Instance.GetNewMenuControl(controlEnum))
@@ -81,20 +80,22 @@ namespace RichHudFramework.UI.Client
 		}
 
 		/// <summary>
-		/// Internal control update callback handler
+		/// Internal callback wrapper for safe event invocation.
 		/// </summary>
 		/// <exclude/>
 		protected virtual void ControlChangedCallback()
 		{
+			if (ControlChanged == null)
+				return;
+
 			Internal.ExceptionHandler.Run(() =>
 			{
-				ControlChanged?.Invoke(this, EventArgs.Empty);
-				ControlChangedHandler?.Invoke(this, EventArgs.Empty);
+				ControlChanged.Invoke(this, EventArgs.Empty);
 			});
 		}
 
 		/// <summary>
-		/// Initializes control data from internal RHF API data
+		/// Initializes control data from internal RHF API data.
 		/// </summary>
 		/// <exclude/>
 		public TerminalControlBase(ControlMembers data)
@@ -104,7 +105,7 @@ namespace RichHudFramework.UI.Client
 		}
 
 		/// <summary>
-		/// Returns internal API data
+		/// Returns the internal API data tuple.
 		/// </summary>
 		/// <exclude/>
 		public ControlMembers GetApiData()
@@ -118,12 +119,14 @@ namespace RichHudFramework.UI.Client
 	}
 
 	/// <summary>
-	/// Base type for settings menu controls associated with a value of a given type.
+	/// Abstract base class for terminal controls that are associated with a specific data value 
+	/// (e.g., sliders, checkboxes) in the <see cref="RichHudTerminal"/>.
 	/// </summary>
+	/// <typeparam name="TValue">The type of the value associated with this control.</typeparam>
 	public abstract class TerminalValue<TValue> : TerminalControlBase, ITerminalValue<TValue>
 	{
 		/// <summary>
-		/// Value associated with the control.
+		/// The current value associated with the control.
 		/// </summary>
 		public virtual TValue Value
 		{
@@ -132,7 +135,7 @@ namespace RichHudFramework.UI.Client
 		}
 
 		/// <summary>
-		/// Used to periodically update the value associated with the control. Optional.
+		/// An optional delegate used to periodically retrieve the value from an external source, keeping the control in sync.
 		/// </summary>
 		public Func<TValue> CustomValueGetter
 		{

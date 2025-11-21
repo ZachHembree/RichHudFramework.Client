@@ -26,22 +26,24 @@ namespace RichHudFramework
 		>;
 
 		/// <summary>
-		/// Windowed settings menu shared by mods using the framework.
+		/// The central windowed settings menu shared by all mods using the framework.
+		/// <para>Controls and pages are registered automatically when they are instantiated.</para>
 		/// </summary>
 		public sealed partial class RichHudTerminal : RichHudClient.ApiModule
 		{
 			/// <summary>
-			/// Mod control root for the client.
+			/// The root container for this specific client/mod. Add your pages and categories here.
 			/// </summary>
 			public static IModControlRoot Root => Instance.menuRoot;
 
 			/// <summary>
-			/// Determines whether or not the terminal is currently open.
+			/// Indicates whether the terminal window is currently visible.
 			/// </summary>
 			public static bool Open => (bool)Instance.GetOrSetMembersFunc(null, (int)TerminalAccessors.GetMenuOpen);
 
 			/// <summary>
-			/// Internal terminal singleton instance
+			/// The internal singleton instance of the Terminal.
+			/// <para>Initialization is handled automatically.</para>
 			/// </summary>
 			/// <exclude/>
 			public static RichHudTerminal Instance
@@ -74,10 +76,10 @@ namespace RichHudFramework
 			}
 
 			/// <summary>
-			/// Initializes RHF terminal singleton. Init is automatic. Manual init is unnecessary.
+			/// Initializes the RHF terminal singleton. 
 			/// </summary>
 			/// <exclude/>
-			public static void Init()
+			private static void Init()
 			{
 				if (_instance == null)
 				{
@@ -86,7 +88,7 @@ namespace RichHudFramework
 			}
 
 			/// <summary>
-			/// Toggles the menu between open and closed
+			/// Toggles the visibility of the terminal window.
 			/// </summary>
 			public static void ToggleMenu()
 			{
@@ -97,7 +99,7 @@ namespace RichHudFramework
 			}
 
 			/// <summary>
-			/// Open the menu if chat is visible
+			/// Opens the terminal window.
 			/// </summary>
 			public static void OpenMenu()
 			{
@@ -108,7 +110,7 @@ namespace RichHudFramework
 			}
 
 			/// <summary>
-			/// Close the menu
+			/// Closes the terminal window.
 			/// </summary>
 			public static void CloseMenu()
 			{
@@ -119,7 +121,7 @@ namespace RichHudFramework
 			}
 
 			/// <summary>
-			/// Sets the current page to the one given
+			/// Opens the terminal window (if closed) and navigates directly to the specified page.
 			/// </summary>
 			public static void OpenToPage(TerminalPageBase newPage)
 			{
@@ -127,7 +129,7 @@ namespace RichHudFramework
 			}
 
 			/// <summary>
-			/// Sets the current page to the one given
+			/// Sets the active page in the terminal without forcing the window to open.
 			/// </summary>
 			public static void SetPage(TerminalPageBase newPage)
 			{
@@ -135,7 +137,7 @@ namespace RichHudFramework
 			}
 
 			/// <summary>
-			/// Clears RHF terminal singleton
+			/// Clears the singleton instance.
 			/// </summary>
 			/// <exclude/>
 			public override void Close()

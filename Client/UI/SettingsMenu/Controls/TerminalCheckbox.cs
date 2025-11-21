@@ -1,7 +1,8 @@
 ﻿namespace RichHudFramework.UI.Client
 {
 	/// <summary>
-	/// Labeled checkbox designed to mimic the appearance of checkboxes in the SE terminal.
+	/// A boolean checkbox control for a <see cref="ControlTile"/>.
+	/// <para>Mimics the appearance of the standard Space Engineers terminal checkbox.</para>
 	/// </summary>
 	public class TerminalCheckbox : TerminalValue<bool>
 	{

@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 using VRage;
 using ApiMemberAccessor = System.Func<object, int, object>;
-using GlyphFormatMembers = VRage.MyTuple<byte, float, VRageMath.Vector2I, VRageMath.Color>;
 
 namespace RichHudFramework
 {
@@ -121,12 +119,11 @@ namespace RichHudFramework
             object ID { get; }
         }
 
-        /// <summary>
-        /// Indented dropdown list of terminal pages and page categories. Root UI element for all terminal controls
-        /// associated with a given mod.
-        /// </summary>
-        /// <exclude/>
-        public interface IModControlRoot : ITerminalPageCategory
+		/// <summary>
+		/// Interface for the root category for the client's settings. 
+		/// <para>This is the entry point where pages and subcategories are added.</para>
+		/// </summary>
+		public interface IModControlRoot : ITerminalPageCategory
         {
             /// <summary>
             /// Invoked when a new page is selected

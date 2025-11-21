@@ -13,12 +13,13 @@ namespace RichHudFramework.UI.Client
 	}
 
 	/// <summary>
-	/// A terminal control that uses a draggable window to indicate a position on the screen.
+	/// A control allowing the user to visually select a 2D screen position (Vector2) for a <see cref="ControlTile"/>.
+	/// <para>Spawns a temporary draggable window when interacted with. Useful for configuring HUD element positions.</para>
 	/// </summary>
 	public class TerminalDragBox : TerminalValue<Vector2>
 	{
 		/// <summary>
-		/// Size of the window spawned by the control.
+		/// The size of the draggable window spawned by this control.
 		/// </summary>
 		public Vector2 BoxSize
 		{
@@ -27,8 +28,7 @@ namespace RichHudFramework.UI.Client
 		}
 
 		/// <summary>
-		/// Determines whether or not the window will automatically align itself to one side of the screen
-		/// or the other.
+		/// If true, the window aligns itself to the nearest screen edge.
 		/// </summary>
 		public bool AlignToEdge
 		{

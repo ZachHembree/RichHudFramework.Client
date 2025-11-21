@@ -31,7 +31,7 @@ namespace RichHudFramework
 			public object ID => data.Item2;
 
 			/// <summary>
-			/// Determines whether or not the <see cref="ITerminalPage"/> will be visible in the mod root.
+			/// Determines whether or not the page will be visible in the mod root.
 			/// </summary>
 			public bool Enabled
 			{

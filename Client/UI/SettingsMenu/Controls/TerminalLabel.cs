@@ -1,7 +1,7 @@
 ﻿namespace RichHudFramework.UI.Client
 {
 	/// <summary>
-	/// Label for use within control tiles and control categories
+	/// A static text label for a <see cref="ControlTile"/>.
 	/// </summary>
 	public class TerminalLabel : TerminalControlBase
 	{

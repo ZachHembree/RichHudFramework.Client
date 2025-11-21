@@ -1,9 +1,9 @@
 ﻿namespace RichHudFramework.UI.Client
 {
 	/// <summary>
-	/// Clickable button. Mimics the appearance of the terminal button in the SE terminal.
+	/// A clickable button control for a <see cref="ControlTile"/>.
+	/// <para>Mimics the appearance of the standard Space Engineers terminal button.</para>
 	/// </summary>
-	/// <inheritdoc/>
 	public class TerminalButton : TerminalControlBase
 	{
 		public TerminalButton() : base(MenuControls.TerminalButton)
