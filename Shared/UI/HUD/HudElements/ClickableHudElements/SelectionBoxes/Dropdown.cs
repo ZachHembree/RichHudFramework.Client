@@ -218,7 +218,7 @@ namespace RichHudFramework.UI
 			};
 			listBox.FocusHandler.InputOwner = this;
 
-			Size = new Vector2(331f, 43f);
+			Size = new Vector2(300f, 43f);
 			DropdownHeight = 100f;
 
 			display.MouseInput.LeftClicked += ClickDisplay;

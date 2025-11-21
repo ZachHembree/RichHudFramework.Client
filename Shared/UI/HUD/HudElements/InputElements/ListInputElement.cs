@@ -298,7 +298,7 @@ namespace RichHudFramework.UI
 				((FocusHandler?.HasFocus ?? false) && SharedBinds.Space.IsNewPressed))
 			{
 				_selectionIndex = _highlightIndex;
-				SelectionChanged?.Invoke(this, EventArgs.Empty);
+				SelectionChanged?.Invoke(FocusHandler.InputOwner, EventArgs.Empty);
 				KeyboardScroll = false;
 			}
 

@@ -4,18 +4,20 @@ using VRageMath;
 namespace RichHudFramework.UI
 {
 	/// <summary>
-	/// A pair of horizontally aligned on and off bordered buttons used to indicate a boolean value. Made to
-	/// resemble on/off button used in the SE terminal, sans name tag.
+	/// A pair of horizontally aligned on and off bordered buttons used to indicate a boolean value. 
+	/// Styled to resemble on/off button used in the SE terminal.
+	/// <para>Does not have a label. Use <see cref="NamedOnOffButton"/> for a version with a label.</para>
+	/// <para>Formatting temporarily changes when it gains input focus.</para>
 	/// </summary>
 	public class OnOffButton : HudElementBase, IClickableElement
 	{
 		/// <summary>
-		/// Invoked when the current value changes
+		/// Invoked when <see cref="Value"/> changes
 		/// </summary>
 		public event EventHandler ValueChanged;
 
 		/// <summary>
-		/// Registers a value update callback. Useful in initializers.
+		/// Registers a <see cref="Value"/> update callback. Useful in initializers.
 		/// </summary>
 		public EventHandler UpdateValueCallback { set { ValueChanged += value; } }
 
@@ -202,7 +204,7 @@ namespace RichHudFramework.UI
 				CollectionContainer = { { on, 1f }, { off, 1f } }
 			};
 
-			Size = new Vector2(166f, 58f);
+			Size = new Vector2(166f, 59f);
 
 			BackgroundColor = TerminalFormatting.Cinder.SetAlphaPct(0.8f);
 			HighlightColor = TerminalFormatting.Atomic;

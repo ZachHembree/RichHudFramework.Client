@@ -49,6 +49,7 @@ namespace RichHudFramework
 					DimAlignment = DimAlignments.UnpaddedSize,
 				};
 
+				IsMasking = true;
 				FitToTextElement = true;
 				Color = Color.Gray;
 				UnpaddedSize = new Vector2(50f);

@@ -185,53 +185,63 @@ namespace RichHudFramework.UI
 		/// </summary>
 		public override bool IsMousedOver => listInput.IsMousedOver;
 
-		/// <summary>
-		/// Range of entry indices currently considered visible. Override in derived classes
-		/// (e.g., scrollable versions) to limit highlighting to the visible portion.
-		/// </summary>
-		protected virtual Vector2I ListRange => new Vector2I(0, EntryChain.Count - 1);
+        /// <summary>
+        /// Range of entry indices currently considered visible. Override in derived classes
+        /// (e.g., scrollable versions) to limit highlighting to the visible portion.
+        /// </summary>
+        /// <exclude/>
+        protected virtual Vector2I ListRange => new Vector2I(0, EntryChain.Count - 1);
 
-		/// <summary>
-		/// Size of the rendered list area (including padding).
-		/// </summary>
-		protected virtual Vector2 ListSize => EntryChain.Size;
+        /// <summary>
+        /// Size of the rendered list area (including padding).
+        /// </summary>
+        /// <exclude/>
+        protected virtual Vector2 ListSize => EntryChain.Size;
 
-		/// <summary>
-		/// Position of the list's center.
-		/// </summary>
-		protected virtual Vector2 ListPos => EntryChain.Position;
+        /// <summary>
+        /// Position of the list's center.
+        /// </summary>
+        /// <exclude/>
+        protected virtual Vector2 ListPos => EntryChain.Position;
 
-		/// <summary>
-		/// Width available for the highlight/selection overlay (excludes outer padding and scrollbar).
-		/// </summary>
-		protected virtual float HighlightWidth => EntryChain.Size.X - Padding.X - EntryChain.Padding.X - HighlightPadding.X;
+        /// <summary>
+        /// Width available for the highlight/selection overlay (excludes outer padding and scrollbar).
+        /// </summary>
+        /// <exclude/>
+        protected virtual float HighlightWidth => EntryChain.Size.X - Padding.X - EntryChain.Padding.X - HighlightPadding.X;
 
-		/// <summary>
-		/// UI element that owns and handles entry layout
-		/// </summary>
-		public readonly TChain EntryChain;
+        /// <summary>
+        /// UI element that owns and handles entry layout
+        /// </summary>
+        /// <exclude/>
+        public readonly TChain EntryChain;
 
-		/// <summary>
-		/// Highlight and focus boxes for entries
-		/// </summary>
-		protected readonly HighlightBox selectionBox, highlightBox;
+        /// <summary>
+        /// Highlight and focus boxes for entries
+        /// </summary>
+        /// <exclude/>
+        protected readonly HighlightBox selectionBox, highlightBox;
 
-		/// <summary>
-		/// Input handler for scrolling and selecting entries
-		/// </summary>
-		protected readonly ListInputElement<TContainer, TElement> listInput;
+        /// <summary>
+        /// Input handler for scrolling and selecting entries
+        /// </summary>
+        /// <exclude/>
+        protected readonly ListInputElement<TContainer, TElement> listInput;
 
-		/// <summary>
-		/// True if the entry chain doesn't automatically hide disabled entries
-		/// </summary>
-		protected readonly bool chainHidesDisabled;
+        /// <summary>
+        /// True if the entry chain doesn't automatically hide disabled entries
+        /// </summary>
+        /// <exclude/>
+        protected readonly bool chainHidesDisabled;
 
-		/// <summary>
-		/// Stores the previously focused/selected entry and its original text format so it can be restored.
-		/// </summary>
-		protected MyTuple<TContainer, GlyphFormat> lastSelection;
+        /// <summary>
+        /// Stores the previously focused/selected entry and its original text format so it can be restored.
+        /// </summary>
+        /// <exclude/>
+        protected MyTuple<TContainer, GlyphFormat> lastSelection;
 
-		protected SelectionBoxBase(HudParentBase parent = null) : base(parent)
+        /// <exclude/>
+        protected SelectionBoxBase(HudParentBase parent = null) : base(parent)
 		{
 			EntryChain = new TChain
 			{
@@ -295,11 +305,12 @@ namespace RichHudFramework.UI
 		/// <returns>Total size vector (Width, Height) required to fit the range.</returns>
 		public virtual Vector2 GetRangeSize(int start = 0, int end = -1) => EntryChain.GetRangeSize(start, end);
 
-		/// <summary>
-		/// Updates visibility of disabled entries (if not handled by chain),
-		/// positions highlight/selection boxes, and refreshes input bounding info.
-		/// </summary>
-		protected override void Layout()
+        /// <summary>
+        /// Updates visibility of disabled entries (if not handled by chain),
+        /// positions highlight/selection boxes, and refreshes input bounding info.
+        /// </summary>
+        /// <exclude/>
+        protected override void Layout()
 		{
 			if (!chainHidesDisabled)
 			{
@@ -318,19 +329,21 @@ namespace RichHudFramework.UI
 			listInput.ListRange = ListRange;
 		}
 
-		/// <summary>
-		/// Updates highlight/selection overlay positions and text formatting based on current input state.
-		/// </summary>
-		protected virtual void UpdateSelection()
+        /// <summary>
+        /// Updates highlight/selection overlay positions and text formatting based on current input state.
+        /// </summary>
+        /// <exclude/>
+        protected virtual void UpdateSelection()
 		{
 			UpdateSelectionPositions();
 			UpdateSelectionFormatting();
 		}
 
-		/// <summary>
-		/// Repositions the selection and highlight overlay boxes to match the current selection/highlight.
-		/// </summary>
-		protected virtual void UpdateSelectionPositions()
+        /// <summary>
+        /// Repositions the selection and highlight overlay boxes to match the current selection/highlight.
+        /// </summary>
+        /// <exclude/>
+        protected virtual void UpdateSelectionPositions()
 		{
 			float entryWidth = HighlightWidth;
 
@@ -362,54 +375,59 @@ namespace RichHudFramework.UI
 			}
 		}
 
-		/// <summary>
-		/// Applies appropriate colors and text formatting based on focus, keyboard scrolling, and mouse hover state.
-		/// </summary>
-		protected virtual void UpdateSelectionFormatting()
+        /// <summary>
+        /// Applies appropriate colors and text formatting based on focus, keyboard scrolling, and mouse hover state.
+        /// </summary>
+        /// <exclude/>
+        protected virtual void UpdateSelectionFormatting()
 		{
-			// Restore formatting of previously focused entry
 			if (lastSelection.Item1 != null)
 			{
-				lastSelection.Item1.Element.TextBoard.SetFormatting(lastSelection.Item2);
+				ITextBoard textBoard = lastSelection.Item1.Element.TextBoard;
+				textBoard.SetFormatting(lastSelection.Item2);
 				lastSelection.Item1 = null;
 			}
 
-			bool hasKeyboardFocus = listInput.KeyboardScroll;
-			bool selectionIsFocused = (SelectionIndex == listInput.FocusIndex) && SelectionIndex != -1;
-
-			if (selectionIsFocused)
+			if ((SelectionIndex == listInput.FocusIndex) && SelectionIndex != -1)
 			{
-				// Determine whether to show focus styling on the selection
-				bool useFocusStyle = hasKeyboardFocus ^ (SelectionIndex != listInput.HighlightIndex) ||
-					(!MouseInput.IsMousedOver && SelectionIndex == listInput.HighlightIndex);
-
-				if (useFocusStyle && EntryChain[SelectionIndex].AllowHighlighting)
+				if (
+					(listInput.KeyboardScroll ^ (SelectionIndex != listInput.HighlightIndex)) ||
+					(!MouseInput.IsMousedOver && SelectionIndex == listInput.HighlightIndex)
+				)
 				{
-					SetFocusFormat(SelectionIndex);
-					selectionBox.Color = FocusColor;
+					if (EntryChain[listInput.SelectionIndex].AllowHighlighting)
+					{
+						SetFocusFormat(listInput.SelectionIndex);
+						selectionBox.Color = FocusColor;
+					}
 				}
 				else
 					selectionBox.Color = HighlightColor;
+
+				highlightBox.Color = HighlightColor;
 			}
 			else
 			{
+				if (listInput.KeyboardScroll)
+				{
+					if (EntryChain[listInput.HighlightIndex].AllowHighlighting)
+					{
+						SetFocusFormat(listInput.HighlightIndex);
+						highlightBox.Color = FocusColor;
+					}
+				}
+				else
+					highlightBox.Color = HighlightColor;
+
 				selectionBox.Color = HighlightColor;
 			}
-
-			// Highlight box (non-selected entry under cursor or keyboard focus)
-			if (hasKeyboardFocus && EntryChain[listInput.HighlightIndex].AllowHighlighting)
-			{
-				SetFocusFormat(listInput.HighlightIndex);
-				highlightBox.Color = FocusColor;
-			}
-			else
-				highlightBox.Color = HighlightColor;
 		}
 
 		/// <summary>
 		/// Temporarily changes the text color of the entry at the given index to <see cref="FocusTextColor"/>
 		/// while storing its original format for later restoration.
 		/// </summary>
+		/// <exclude/>
 		protected void SetFocusFormat(int index)
 		{
 			var entry = EntryChain[index];
@@ -425,6 +443,7 @@ namespace RichHudFramework.UI
 		/// Internal textured box used for selection and highlight overlays. Draws a colored background
 		/// with an optional thin vertical tab on the left side.
 		/// </summary>
+		/// <exclude/>
 		protected class HighlightBox : TexturedBox
 		{
 			/// <summary>
@@ -439,14 +458,16 @@ namespace RichHudFramework.UI
 
 			private readonly MatBoard tabBoard;
 
-			public HighlightBox(HudParentBase parent = null) : base(parent)
+            /// <exclude/>
+            public HighlightBox(HudParentBase parent = null) : base(parent)
 			{
 				tabBoard = new MatBoard() { Color = TerminalFormatting.Mercury };
 				Color = TerminalFormatting.Atomic;
 				IsSelectivelyMasked = true;
 			}
 
-			protected override void Draw()
+            /// <exclude/>
+            protected override void Draw()
 			{
 				var box = default(CroppedBox);
 				Vector2 size = UnpaddedSize,

@@ -1,12 +1,9 @@
-﻿using System;
-using System.Text;
-using RichHudFramework.UI.Rendering;
+﻿using RichHudFramework.UI.Rendering;
+using System;
 using VRageMath;
 
 namespace RichHudFramework.UI
 {
-	using UI;
-
 	/// <summary>
 	/// A named color picker component utilizing RGB sliders, styled to mimic the Space Engineers terminal interface.
 	/// <para>Operating in RGB mode. Alpha (transparency) is not supported.</para>
@@ -181,7 +178,7 @@ namespace RichHudFramework.UI
 					{ sliderText[2], 1f }
 				}
 			};
-
+			
 			sliders = new SliderBox[]
 			{
 				new SliderBox()

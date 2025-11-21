@@ -1,9 +1,10 @@
 ﻿namespace RichHudFramework.UI
 {
-    /// <summary>
-    /// Clickable text element. Text only, no background.
-    /// </summary>
-    public class LabelButton : Label, IClickableElement
+	/// <summary>
+	/// Clickable text element. Text only, no background.
+	/// <para>No styling by default; it's just a clickable <see cref="Label"/> with no highlighting.</para>
+	/// </summary>
+	public class LabelButton : Label, IClickableElement
     {
 		/// <summary>
 		/// Interface for managing gaining/losing input focus

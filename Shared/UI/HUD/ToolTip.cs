@@ -15,13 +15,11 @@ namespace RichHudFramework
 
 		/// <summary>
 		/// Class used to define tooltips attached to the RHF cursor. 
-		/// <remarks>
 		/// <para>
-		/// Set via <see cref="IMouseInput.ToolTip"/> of the given UI element, or registered to 
-        /// <see cref="ICursor.RegisterToolTip(ToolTip)"/> manually in HandleInput() every input tick. 
+		/// Set via the <see cref="IMouseInput.ToolTip"/> property of the given UI element, or registered to 
+		/// <see cref="ICursor.RegisterToolTip(ToolTip)"/> manually in HandleInput() every input tick. 
 		/// </para>
-		/// The first tooltip registered takes precedence.
-		/// </remarks>
+		/// <para>The first tooltip registered takes precedence.</para>
 		/// </summary>
 		public class ToolTip
         {

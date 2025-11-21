@@ -97,9 +97,8 @@ namespace RichHudFramework
         }
 
         /// <summary>
-        /// Internal interface for items that can be listed under a control root
+        /// Interface for items that can be added to a mod's control root
         /// </summary>
-        /// <exclude/>
         public interface IModRootMember
         {
             /// <summary>
@@ -148,6 +147,7 @@ namespace RichHudFramework
             /// <summary>
             /// Retrieves data used by the Framework API
             /// </summary>
+            /// <exclude/>
             ControlContainerMembers GetApiData();
         }
     }

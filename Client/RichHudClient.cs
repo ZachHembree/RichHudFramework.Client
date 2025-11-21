@@ -1,12 +1,7 @@
-using RichHudFramework;
 using RichHudFramework.Internal;
-using RichHudFramework.IO;
-using Sandbox.Game.Entities;
 using Sandbox.ModAPI;
 using System;
 using VRage;
-using VRage.Game.Components;
-using VRage.Game.ModAPI;
 using VRageMath;
 using ApiMemberAccessor = System.Func<object, int, object>;
 using ClientData = VRage.MyTuple<string, System.Action<int, object>, System.Action, int>;

@@ -18,8 +18,8 @@ namespace RichHudFramework.UI
 		/// </summary>
 		public event EventHandler ValueChanged
 		{
-			add { sliderBox.ValueChanged += value; }
-			remove { sliderBox.ValueChanged -= value; }
+			add { SliderBox.ValueChanged += value; }
+			remove { SliderBox.ValueChanged -= value; }
 		}
 
 		/// <summary>
@@ -27,7 +27,7 @@ namespace RichHudFramework.UI
 		/// </summary>
 		public EventHandler UpdateValueCallback
 		{
-			set { sliderBox.ValueChanged += value; }
+			set { SliderBox.ValueChanged += value; }
 		}
 
 		/// <summary>
@@ -54,37 +54,43 @@ namespace RichHudFramework.UI
 		/// <summary>
 		/// The minimum configurable value for the slider.
 		/// </summary>
-		public float Min { get { return sliderBox.Min; } set { sliderBox.Min = value; } }
+		public float Min { get { return SliderBox.Min; } set { SliderBox.Min = value; } }
 
 		/// <summary>
 		/// The maximum configurable value for the slider.
 		/// </summary>
-		public float Max { get { return sliderBox.Max; } set { sliderBox.Max = value; } }
+		public float Max { get { return SliderBox.Max; } set { SliderBox.Max = value; } }
 
 		/// <summary>
 		/// The value currently set on the slider.
 		/// </summary>
-		public float Current { get { return sliderBox.Current; } set { sliderBox.Current = value; } }
+		public float Current { get { return SliderBox.Current; } set { SliderBox.Current = value; } }
 
 		/// <summary>
 		/// The current slider value expressed as a percentage (0 to 1) of the range between the Min and Max values.
 		/// </summary>
-		public float Percent { get { return sliderBox.Percent; } set { sliderBox.Percent = value; } }
+		public float Percent { get { return SliderBox.Percent; } set { SliderBox.Percent = value; } }
 
 		/// <summary>
 		/// Interface used to manage the element's input focus state.
 		/// </summary>
-		public IFocusHandler FocusHandler => sliderBox.FocusHandler;
+		public IFocusHandler FocusHandler => SliderBox.FocusHandler;
 
 		/// <summary>
 		/// Mouse input interface for this clickable element.
 		/// </summary>
-		public IMouseInput MouseInput => sliderBox.MouseInput;
+		public IMouseInput MouseInput => SliderBox.MouseInput;
 
 		/// <summary>
 		/// Indicates whether the cursor is currently over the slider box.
 		/// </summary>
-		public override bool IsMousedOver => sliderBox.IsMousedOver;
+		public override bool IsMousedOver => SliderBox.IsMousedOver;
+
+		/// <summary>
+		/// Slider control inside the labeled slider box. 
+		/// This field can be used to customize the formatting of the slider box.
+		/// </summary>
+		public readonly SliderBox SliderBox;
 
 		/// <summary>
 		/// Labels for the name and current value display.
@@ -92,12 +98,9 @@ namespace RichHudFramework.UI
 		/// <exclude/>
 		protected readonly Label name, current;
 
-		/// <exclude/>
-		protected readonly SliderBox sliderBox;
-
 		public NamedSliderBox(HudParentBase parent) : base(parent)
 		{
-			sliderBox = new SliderBox(this)
+			SliderBox = new SliderBox(this)
 			{
 				DimAlignment = DimAlignments.UnpaddedWidth,
 				ParentAlignment = ParentAlignments.InnerBottom,
@@ -139,7 +142,7 @@ namespace RichHudFramework.UI
 			Vector2 size = UnpaddedSize;
 			current.UnpaddedSize = current.TextBoard.TextSize;
 			name.UnpaddedSize = name.TextBoard.TextSize;
-			sliderBox.Height = size.Y - Math.Max(name.Height, current.Height);
+			SliderBox.Height = size.Y - Math.Max(name.Height, current.Height);
 			current.Width = Math.Max(size.X - name.Width - 10f, 0f);
 		}
 	}

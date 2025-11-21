@@ -3,12 +3,15 @@
 namespace RichHudFramework.UI
 {
 	/// <summary>
-	/// An On/Off button with a label over it
+	/// A labeled pair of horizontally aligned on and off bordered buttons used to indicate a boolean value. 
+	/// Made to resemble on/off toggle used in the SE terminal.
+	/// <para>Adds a label to <see cref="OnOffButton"/>.</para>
+	/// <para>Formatting temporarily changes when it gains input focus.</para>
 	/// </summary>
 	public class NamedOnOffButton : HudElementBase, IClickableElement
 	{
 		/// <summary>
-		/// Invoked when the current value changes
+		/// Invoked when <see cref="Value"/> changes
 		/// </summary>
 		public event EventHandler ValueChanged
 		{
@@ -17,7 +20,7 @@ namespace RichHudFramework.UI
 		}
 
 		/// <summary>
-		/// Registers a value update callback. Useful in initializers.
+		/// Registers a <see cref="Value"/> update callback. Useful in initializers.
 		/// </summary>
 		public EventHandler UpdateValueCallback { set { onOffButton.ValueChanged += value; } }
 
@@ -98,17 +101,13 @@ namespace RichHudFramework.UI
 				Height = 22f,
 			};
 
-			onOffButton = new OnOffButton()
-			{
-				Padding = new Vector2(78f, 0f),
-			};
+			onOffButton = new OnOffButton();
 
 			layout = new HudChain(true, this)
 			{
-				SizingMode = HudChainSizingModes.FitMembersOffAxis,
 				DimAlignment = DimAlignments.UnpaddedSize,
 				Spacing = 2f,
-				CollectionContainer = { { name, 0f }, { onOffButton, 1f } }
+				CollectionContainer = { { name, 0f }, { onOffButton, 0f } }
 			};
 
 			FocusHandler.InputOwner = this;

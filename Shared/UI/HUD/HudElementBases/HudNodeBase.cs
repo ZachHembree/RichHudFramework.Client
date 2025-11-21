@@ -9,7 +9,7 @@ namespace RichHudFramework
 		using Client;
 
 		/// <summary>
-		/// Base class for hud elements that can be parented to other elements.
+		/// Abstract base for hud elements that can be parented to other elements.
 		/// </summary>
 		public abstract partial class HudNodeBase : HudParentBase, IReadOnlyHudNode
 		{

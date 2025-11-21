@@ -27,7 +27,6 @@ namespace RichHudFramework
 
 		/// <summary>
 		/// The central windowed settings menu shared by all mods using the framework.
-		/// <para>Controls and pages are registered automatically when they are instantiated.</para>
 		/// </summary>
 		public sealed partial class RichHudTerminal : RichHudClient.ApiModule
 		{

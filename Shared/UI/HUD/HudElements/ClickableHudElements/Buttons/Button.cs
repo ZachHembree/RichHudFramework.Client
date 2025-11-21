@@ -3,10 +3,11 @@ using System;
 
 namespace RichHudFramework.UI
 {
-    /// <summary>
-    /// Clickable button with a textured background.
-    /// </summary>
-    public class Button : TexturedBox, IClickableElement
+	/// <summary>
+	/// Clickable button with a textured background.
+	/// <para>No styling by default; it's just a clickable <see cref="TexturedBox"/> with highlighting.</para>
+	/// </summary>
+	public class Button : TexturedBox, IClickableElement
     {
         /// <summary>
         /// Indicates whether or not the cursor is currently positioned over the button.

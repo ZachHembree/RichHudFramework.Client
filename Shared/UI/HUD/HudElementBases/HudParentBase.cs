@@ -34,7 +34,7 @@ namespace RichHudFramework
 		using HudNodeDataHandle = IReadOnlyList<HudNodeData>;
 
 		/// <summary>
-		/// Base class for HUD elements to which other elements are parented. Types deriving from this class cannot be
+		/// Abstract base for HUD elements to which other elements are parented. Types deriving from this class cannot be
 		/// parented to other elements; only types of <see cref="HudNodeBase"/> can be parented.
 		/// </summary>
 		public abstract partial class HudParentBase : IReadOnlyHudParent
@@ -60,7 +60,7 @@ namespace RichHudFramework
 			}
 
 			/// <summary>
-			/// Returns true if input is enabled can update
+			/// Returns true if input is enabled
 			/// </summary>
 			public bool InputEnabled
 			{
@@ -75,7 +75,7 @@ namespace RichHudFramework
 			}
 
 			/// <summary>
-			/// Moves the UI element up or down in draw order. -1 will darw an element behind its immediate 
+			/// Moves the UI element up or down in draw order. -1 will draw an element behind its immediate 
 			/// parent. +1 will draw it on top of siblings. Higher values will allow it to draw behind or over 
 			/// more distantly related elements.
 			/// </summary>

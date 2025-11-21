@@ -26,7 +26,7 @@ namespace RichHudFramework
 		void ResetRange(IReadOnlyList<T> objects, int index, int count);
 
 		/// <summary>
-		/// Resets the <typeparamref name="T"/> part of a range of <see cref="MyTuple{T,T2}"/> entries.
+		/// Resets the contiguous range of pooled objects in a list of tuples.
 		/// </summary>
 		void ResetRange<T2>(IReadOnlyList<MyTuple<T, T2>> objects, int index, int count);
 	}

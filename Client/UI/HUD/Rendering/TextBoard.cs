@@ -34,11 +34,12 @@ namespace RichHudFramework
 				Action<BoundingBox2, BoundingBox2, MatrixD[]> // Draw 
 			>;
 
-			/// <summary>
-			/// Client-side interface to text renderer implementing <see cref="ITextBoard"/>
-			/// </summary>
-			/// <exclude/>
-			public sealed class TextBoard : TextBuilder, ITextBoard
+            /// <summary>
+            /// Client-side interface to text renderer implementing <see cref="ITextBoard"/>
+            /// <para>This should not be drawn outside the UI tree to ensure correct timing.</para>
+            /// </summary>
+            /// <exclude/>
+            public sealed class TextBoard : TextBuilder, ITextBoard
 			{
 				/// <summary>
 				/// Invoked whenever a change is made to the text. Invokes once every 500ms, at most.

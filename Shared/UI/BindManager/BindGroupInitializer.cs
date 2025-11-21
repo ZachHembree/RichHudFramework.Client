@@ -154,6 +154,7 @@ namespace RichHudFramework
 				return bindDefs;
 			}
 
+			/// <exclude/>
 			public static implicit operator List<BindInitData>(BindGroupInitializer gInit)
 			{
 				return gInit.bindData;

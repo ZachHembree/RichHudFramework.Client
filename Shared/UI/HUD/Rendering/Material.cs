@@ -13,8 +13,8 @@ namespace RichHudFramework
 			public enum MaterialAlignment : int
 			{
 				/// <summary>
-				/// Stretches the material to fill the element's bounds exactly. 
-				/// Aspect ratio is ignored, which may result in texture distortion. Default behavior.
+				/// Stretches or squeezes the material to fill the element's bounds exactly. 
+				/// This behaves like CSS "fill". Aspect ratio is ignored, which may result in distortion.
 				/// </summary>
 				StretchToFit = 0,
 
@@ -32,7 +32,7 @@ namespace RichHudFramework
 
 				/// <summary>
 				/// Scales the material to cover the entire element while maintaining aspect ratio.
-				/// This behaves like "Zoom to Fill" or CSS "cover"—excess texture is cropped, but no empty space remains.
+				/// This behaves like CSS "contain". The texture is not cropped, but may leave empty space.
 				/// </summary>
 				FitAuto = 3,
 			}
@@ -75,7 +75,7 @@ namespace RichHudFramework
 				public readonly BoundingBox2 UVBounds;
 
 				/// <summary>
-				/// Creates a <see cref="Material"/> using the SubtypeId of a Transparent Material.
+				/// Creates a Material using the SubtypeId of a Transparent Material.
 				/// Assumes the material utilizes the full texture dimensions.
 				/// </summary>
 				/// <param name="SubtypeId">The string name of the texture SubtypeId.</param>
@@ -84,7 +84,7 @@ namespace RichHudFramework
 				{ }
 
 				/// <summary>
-				/// Creates a <see cref="Material"/> representing a specific region (sprite) within a larger texture atlas.
+				/// Creates a Material representing a specific region (sprite) within a larger texture atlas.
 				/// </summary>
 				/// <param name="SubtypeId">The string name of the texture SubtypeId.</param>
 				/// <param name="texSize">The total resolution of the source texture atlas in pixels.</param>
@@ -95,7 +95,7 @@ namespace RichHudFramework
 				{ }
 
 				/// <summary>
-				/// Creates a <see cref="Material"/> using the hashed SubtypeId of a Transparent Material.
+				/// Creates a Material using the hashed SubtypeId of a Transparent Material.
 				/// Assumes the material utilizes the full texture dimensions.
 				/// </summary>
 				/// <param name="TextureID">The hashed <see cref="MyStringId"/> of the texture.</param>
@@ -108,7 +108,7 @@ namespace RichHudFramework
 				}
 
 				/// <summary>
-				/// Creates a <see cref="Material"/> representing a specific region (sprite) within a larger texture atlas
+				/// Creates a Material representing a specific region (sprite) within a larger texture atlas
 				/// using a hashed SubtypeId.
 				/// </summary>
 				/// <param name="SubtypeId">The hashed <see cref="MyStringId"/> of the texture.</param>

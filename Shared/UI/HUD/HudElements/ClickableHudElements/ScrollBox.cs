@@ -88,22 +88,22 @@ namespace RichHudFramework.UI
 		/// <summary>
 		/// Color of the scrollbar track.
 		/// </summary>
-		public Color BarColor { get { return ScrollBar.slide.BarColor; } set { ScrollBar.slide.BarColor = value; } }
+		public Color BarColor { get { return ScrollBar.SlideInput.BarColor; } set { ScrollBar.SlideInput.BarColor = value; } }
 
 		/// <summary>
 		/// Color of the scrollbar track when moused over.
 		/// </summary>
-		public Color BarHighlight { get { return ScrollBar.slide.BarHighlight; } set { ScrollBar.slide.BarHighlight = value; } }
+		public Color BarHighlight { get { return ScrollBar.SlideInput.BarHighlight; } set { ScrollBar.SlideInput.BarHighlight = value; } }
 
 		/// <summary>
 		/// Color of the slider (thumb) when not moused over.
 		/// </summary>
-		public Color SliderColor { get { return ScrollBar.slide.SliderColor; } set { ScrollBar.slide.SliderColor = value; } }
+		public Color SliderColor { get { return ScrollBar.SlideInput.SliderColor; } set { ScrollBar.SlideInput.SliderColor = value; } }
 
 		/// <summary>
 		/// Color of the slider (thumb) when moused over.
 		/// </summary>
-		public Color SliderHighlight { get { return ScrollBar.slide.SliderHighlight; } set { ScrollBar.slide.SliderHighlight = value; } }
+		public Color SliderHighlight { get { return ScrollBar.SlideInput.SliderHighlight; } set { ScrollBar.SlideInput.SliderHighlight = value; } }
 
 		/// <summary>
 		/// If true, scrolling via mouse wheel or scrollbar interaction is enabled.
@@ -213,6 +213,7 @@ namespace RichHudFramework.UI
 
 			MinVisibleCount = 0;
 			MinLength = 0f;
+			SizingMode = HudChainSizingModes.FitChainOffAxis;
 		}
 
 		public ScrollBox(HudParentBase parent) : this(true, parent)
@@ -409,16 +410,14 @@ namespace RichHudFramework.UI
 						endOffset = new Vector2(startOffset.X + rangeSize[alignAxis], startOffset.Y);
 					}
 
-					UpdateMemberOffsets(startOffset, endOffset, rcpSpanLength);
+					UpdateMemberOffsets(startOffset, endOffset, rcpSpanLength, 0.5f * scrollBarPadding);
 
 					// Update slider size
 					sliderVisRatio = chainSize[alignAxis] / totalEnabledLength;
 				}
 			}
 
-			Vector2 sliderSize = ScrollBar.slide.BarSize;
-			sliderSize[alignAxis] = sliderSize[alignAxis] * sliderVisRatio;
-			ScrollBar.slide.SliderSize = sliderSize;
+			ScrollBar.VisiblePercent = sliderVisRatio;
 		}
 
 		/// <summary>

@@ -216,9 +216,11 @@ namespace RichHudFramework.UI
 		/// <summary>
 		/// Custom header control with expand/collapse arrow and label.
 		/// </summary>
+		/// <exclude/>
 		protected readonly TreeBoxDisplay labelButton;
 
-		protected TreeBoxBase(HudParentBase parent) : base(parent)
+        /// <exclude/>
+        protected TreeBoxBase(HudParentBase parent) : base(parent)
 		{
 			labelButton = new TreeBoxDisplay(this)
 			{
@@ -248,7 +250,8 @@ namespace RichHudFramework.UI
 			labelButton.MouseInput.LeftClicked += ToggleList;
 		}
 
-		protected TreeBoxBase() : this(null) { }
+        /// <exclude/>
+        protected TreeBoxBase() : this(null) { }
 
 		/// <summary>
 		/// Selects the specified entry.
@@ -265,10 +268,11 @@ namespace RichHudFramework.UI
 		/// </summary>
 		public void ClearSelection() => selectionBox.ClearSelection();
 
-		/// <summary>
-		/// Toggles the visibility of the dropdown list.
-		/// </summary>
-		protected virtual void ToggleList(object sender, EventArgs args)
+        /// <summary>
+        /// Toggles the visibility of the dropdown list.
+        /// </summary>
+        /// <exclude/>
+        protected virtual void ToggleList(object sender, EventArgs args)
 		{
 			if (!ListOpen)
 				OpenList();
@@ -294,10 +298,11 @@ namespace RichHudFramework.UI
 			ListOpen = false;
 		}
 
-		/// <summary>
-		/// Updates the size of the tree box and its dropdown list.
-		/// </summary>
-		protected override void Measure()
+        /// <summary>
+        /// Updates the size of the tree box and its dropdown list.
+        /// </summary>
+        /// <exclude/>
+        protected override void Measure()
 		{
 			selectionBox.Visible = ListOpen;
 
@@ -317,11 +322,12 @@ namespace RichHudFramework.UI
 		public IEnumerator<TContainer> GetEnumerator() => selectionBox.GetEnumerator();
 		IEnumerator IEnumerable.GetEnumerator() => selectionBox.GetEnumerator();
 
-		/// <summary>
-		/// Custom header element for the tree box featuring a rotating arrow (right = closed, down = open),
-		/// a vertical divider, and a label.
-		/// </summary>
-		protected class TreeBoxDisplay : HudElementBase, IClickableElement
+        /// <summary>
+        /// Custom header element for the tree box featuring a rotating arrow (right = closed, down = open),
+        /// a vertical divider, and a label.
+        /// </summary>
+        /// <exclude/>
+        protected class TreeBoxDisplay : HudElementBase, IClickableElement
 		{
 			/// <summary>
 			/// Text displayed in the header.

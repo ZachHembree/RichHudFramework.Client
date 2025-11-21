@@ -19,14 +19,14 @@ namespace RichHudFramework.UI
 		{ }
 	}
 
-	/// <summary>
-	/// Generic scrollable list of text elements. Allows use of custom entry element types.
-	/// Each list entry is associated with a <typeparamref name="TValue"/>
-	/// </summary>
-	/// <typeparam name="TContainer">Container element type wrapping the UI element</typeparam>
-	/// <typeparam name="TElement">UI element in the list</typeparam>
-	/// <typeparam name="TValue">Value paired with the list entry</typeparam>
-	public class ListBox<TContainer, TElement, TValue>
+    /// <summary>
+    /// Generic scrollable list of text elements. Allows use of custom entry element types.
+    /// Each list entry is associated with a <typeparamref name="TValue"/>
+    /// </summary>
+    /// <typeparam name="TContainer">Container element type wrapping the UI element</typeparam>
+    /// <typeparam name="TElement">UI element in the list</typeparam>
+    /// <typeparam name="TValue">Value paired with the list entry</typeparam>
+    public class ListBox<TContainer, TElement, TValue>
 		: ScrollSelectionBox<TContainer, TElement, TValue>, IClickableElement
 		where TContainer : class, IListBoxEntry<TElement, TValue>, new()
 		where TElement : HudElementBase, IMinLabelElement

@@ -59,6 +59,7 @@ namespace RichHudFramework
 			/// <summary>
 			/// Internal backing list holding the containers.
 			/// </summary>
+			/// <exclude/>
 			protected readonly List<TElementContainer> hudCollectionList;
 
 			public HudCollection(HudParentBase parent = null) : base(parent)

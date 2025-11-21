@@ -3,13 +3,15 @@ using VRageMath;
 
 namespace RichHudFramework.UI
 {
-    /// <summary>
-    /// Named checkbox designed to mimic the appearance of checkboxes used in the SE terminal.
-    /// </summary>
-    public class NamedCheckBox : HudElementBase, IClickableElement
+	/// <summary>
+	/// Named checkbox designed to mimic the appearance of checkboxes used in the SE terminal.
+	/// <para>Adds a label to <see cref="BorderedCheckBox"/>.</para>
+	/// <para>Formatting temporarily changes when it gains input focus.</para>
+	/// </summary>
+	public class NamedCheckBox : HudElementBase, IClickableElement
     {
 		/// <summary>
-		/// Invoked when the current value changes
+		/// Invoked when the current value (<see cref="IsBoxChecked"/>) changes
 		/// </summary>
 		public event EventHandler ValueChanged
 		{
@@ -18,7 +20,7 @@ namespace RichHudFramework.UI
 		}
 
 		/// <summary>
-		/// Registers a value update callback. Useful in initializers.
+		/// Registers a value (<see cref="IsBoxChecked"/>) update callback. Useful in initializers.
 		/// </summary>
 		public EventHandler UpdateValueCallback
 		{

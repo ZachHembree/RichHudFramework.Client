@@ -20,8 +20,8 @@ namespace RichHudFramework
 		>;
 
 		/// <summary>
-		/// The central hub for managing key binds, control groups, and input blacklisting in RichHudFramework.
-		/// <para>This singleton handles communication with the API to register and monitor inputs.</para>
+		/// The central hub for creating and retrieving key binds, control groups, and 
+		/// configuring input blacklisting in the framework.
 		/// </summary>
 		public sealed partial class BindManager : RichHudClient.ApiModule
 		{
@@ -125,11 +125,10 @@ namespace RichHudFramework
 			}
 
 			/// <summary>
-			/// Initializes the BindManager manually. 
-			/// <para>Note: Initialization is handled automatically on property access; manual calls are generally unnecessary.</para>
+			/// Initializes the BindManager
 			/// </summary>
 			/// <exclude/>
-			public static void Init()
+			private static void Init()
 			{
 				if (_instance == null)
 				{
@@ -138,7 +137,7 @@ namespace RichHudFramework
 			}
 
 			/// <summary>
-			/// Unloads the bind manager and releases the instance reference.
+			/// Unloads the bind manager and releases the instance.
 			/// </summary>
 			/// <exclude/>
 			public override void Close()

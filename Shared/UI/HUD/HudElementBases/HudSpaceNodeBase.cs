@@ -13,7 +13,7 @@ namespace RichHudFramework
 		using static NodeConfigIndices;
 
 		/// <summary>
-		/// Base class for all HUD nodes that define their own custom coordinate space
+		/// Abstract base for all HUD nodes that define their own custom coordinate space
 		/// (replacing the default screen-space Pixel-to-World transform with an arbitrary world matrix).
 		/// <para>Provides cursor projection, facing/in-front detection, and origin retrieval for derived classes.</para>
 		/// </summary>

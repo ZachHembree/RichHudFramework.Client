@@ -4,18 +4,21 @@ using VRageMath;
 namespace RichHudFramework.UI
 {
 	/// <summary>
-	/// A clickable slider bar consisting of a track (Bar) and a movable thumb (Slider). 
+	/// A clickable slider bar consisting of a track (Bar) and a movable thumb (Slider), based on <see cref="MouseInputElement"/>. 
 	/// It can be oriented vertically or horizontally, and the current value is automatically clamped between min and max.
+	/// <para>
+	/// Size is determined by the slider and bar, not <see cref="HudElementBase.Size"/> or <see cref="HudElementBase.UnpaddedSize"/>.
+	/// </para>
 	/// </summary>
 	public class SliderBar : MouseInputElement, IClickableElement
 	{
 		/// <summary>
-		/// Invoked when the current value changes.
+		/// Invoked when the <see cref="Current"/> value changes.
 		/// </summary>
 		public event EventHandler ValueChanged;
 
 		/// <summary>
-		/// Helper property for registering a value update callback during initialization.
+		/// Helper property for registering a <see cref="Current"/> value update callback during initialization.
 		/// </summary>
 		public EventHandler UpdateValueCallback
 		{
@@ -86,17 +89,17 @@ namespace RichHudFramework.UI
 		}
 
 		/// <summary>
-		/// If true, the slider thumb (and optionally the track) will change to their highlight colors when moused over.
+		/// If true, the slider thumb (and optionally the track bar) will change to their highlight colors when moused over.
 		/// </summary>
 		public bool EnableHighlight { get; set; }
 
 		/// <summary>
-		/// The color of the slider track (background).
+		/// The color of the track bar (background).
 		/// </summary>
 		public Color BarColor { get; set; }
 
 		/// <summary>
-		/// The color of the slider track when moused over.
+		/// The color of the track bar when moused over.
 		/// </summary>
 		public Color BarHighlight { get; set; }
 
@@ -111,7 +114,7 @@ namespace RichHudFramework.UI
 		public Color SliderHighlight { get; set; }
 
 		/// <summary>
-		/// The size of the slider track (background).
+		/// The size of the track bar (background).
 		/// </summary>
 		public Vector2 BarSize
 		{
@@ -124,7 +127,7 @@ namespace RichHudFramework.UI
 		}
 
 		/// <summary>
-		/// The width of the slider track.
+		/// The width of the track bar.
 		/// </summary>
 		public float BarWidth
 		{
@@ -138,7 +141,7 @@ namespace RichHudFramework.UI
 		}
 
 		/// <summary>
-		/// The height of the slider track.
+		/// The height of the track bar.
 		/// </summary>
 		public float BarHeight
 		{
@@ -270,6 +273,7 @@ namespace RichHudFramework.UI
 
 			ShareCursor = false;
 			UseCursor = true;
+			DimAlignment = DimAlignments.None;
 		}
 
 		public SliderBar() : this(null)
@@ -376,8 +380,8 @@ namespace RichHudFramework.UI
 				_barSize.Y = Math.Min(_sliderSize.Y, _barSize.Y);
 			}
 
-			bar.Size = _barSize;
-			slider.Size = _sliderSize;
+			bar.UnpaddedSize = _barSize;
+			slider.UnpaddedSize = _sliderSize;
 
 			UpdateButtonOffset();
 		}

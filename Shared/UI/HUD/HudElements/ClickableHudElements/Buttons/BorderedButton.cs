@@ -4,7 +4,8 @@ using VRageMath;
 namespace RichHudFramework.UI
 {
     /// <summary>
-    /// LabelBoxButton modified to roughly match the appearance of buttons in the SE terminal.
+    /// <see cref="LabelBoxButton"/> styled to closely match the appearance of buttons in the SE terminal.
+    /// <para>Formatting temporarily changes when it gains input focus.</para>
     /// </summary>
     public class BorderedButton : LabelBoxButton
     {
@@ -35,6 +36,7 @@ namespace RichHudFramework.UI
 
         /// <summary>
         /// If true, then the button will change formatting when it takes focus.
+        /// Enabled by default.
         /// </summary>
         public bool UseFocusFormatting { get; set; }
 

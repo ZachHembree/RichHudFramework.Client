@@ -3,8 +3,7 @@
 namespace RichHudFramework.UI
 {
 	/// <summary>
-	/// A clickable scrollbar designed to mimic the appearance of standard Space Engineers scrollbars.
-	/// Internally uses a <see cref="SliderBar"/>.
+	/// A clickable scrollbar designed to approximate the appearance of standard Space Engineers scrollbars.
 	/// </summary>
 	public class ScrollBar : HudElementBase, IClickableElement
 	{
@@ -13,8 +12,8 @@ namespace RichHudFramework.UI
 		/// </summary>
 		public event EventHandler ValueChanged
 		{
-			add { slide.ValueChanged += value; }
-			remove { slide.ValueChanged -= value; }
+			add { SlideInput.ValueChanged += value; }
+			remove { SlideInput.ValueChanged -= value; }
 		}
 
 		/// <summary>
@@ -22,7 +21,7 @@ namespace RichHudFramework.UI
 		/// </summary>
 		public EventHandler UpdateValueCallback
 		{
-			set { slide.ValueChanged += value; }
+			set { SlideInput.ValueChanged += value; }
 		}
 
 		/// <summary>
@@ -30,8 +29,8 @@ namespace RichHudFramework.UI
 		/// </summary>
 		public float Min
 		{
-			get { return slide.Min; }
-			set { slide.Min = value; }
+			get { return SlideInput.Min; }
+			set { SlideInput.Min = value; }
 		}
 
 		/// <summary>
@@ -39,29 +38,35 @@ namespace RichHudFramework.UI
 		/// </summary>
 		public float Max
 		{
-			get { return slide.Max; }
-			set { slide.Max = value; }
+			get { return SlideInput.Max; }
+			set { SlideInput.Max = value; }
 		}
 
 		/// <summary>
 		/// The currently set value, clamped between <see cref="Min"/> and <see cref="Max"/>.
 		/// </summary>
-		public float Current { get { return slide.Current; } set { slide.Current = value; } }
+		public float Current { get { return SlideInput.Current; } set { SlideInput.Current = value; } }
 
 		/// <summary>
-		/// The current value expressed as a percentage (0 to 1) of the range between Min and Max.
+		/// The current value expressed as a normalized value on [0, 1] of the range between Min and Max.
 		/// </summary>
-		public float Percent { get { return slide.Percent; } set { slide.Percent = value; } }
+		public float Percent { get { return SlideInput.Percent; } set { SlideInput.Percent = value; } }
+
+		/// <summary>
+		/// The proportion of the total range that is currently visible as a normalized value on [0, 1].
+		/// </summary>
+		public float VisiblePercent { get; set; }
 
 		/// <summary>
 		/// Determines whether the scrollbar is oriented vertically. If true, the slider operates on the Y-axis.
+		/// <para>True by default.</para>
 		/// </summary>
-		public bool Vertical { get { return slide.Vertical; } set { slide.Vertical = value; slide.Reverse = value; } }
+		public bool Vertical { get { return SlideInput.Vertical; } set { SlideInput.Vertical = value; SlideInput.Reverse = value; } }
 
 		/// <summary>
 		/// Indicates whether the cursor is currently over the scrollbar.
 		/// </summary>
-		public override bool IsMousedOver => slide.IsMousedOver;
+		public override bool IsMousedOver => SlideInput.IsMousedOver;
 
 		/// <summary>
 		/// Interface used to manage the element's input focus state.
@@ -71,17 +76,17 @@ namespace RichHudFramework.UI
 		/// <summary>
 		/// Mouse input interface for this clickable element.
 		/// </summary>
-		public IMouseInput MouseInput => slide.MouseInput;
+		public IMouseInput MouseInput => SlideInput.MouseInput;
 
 		/// <summary>
 		/// The internal slider element functioning as the scrollbar.
 		/// </summary>
-		public readonly SliderBar slide;
+		public readonly SliderBar SlideInput;
 
 		public ScrollBar(HudParentBase parent) : base(parent)
 		{
 			FocusHandler = new InputFocusHandler(this);
-			slide = new SliderBar(this)
+			SlideInput = new SliderBar(this)
 			{
 				Reverse = true,
 				Vertical = true,
@@ -96,7 +101,8 @@ namespace RichHudFramework.UI
 
 			Size = new Vector2(13f, 300f);
 			Padding = new Vector2(30f, 10f);
-			slide.SliderVisible = false;
+			SlideInput.SliderVisible = false;
+			VisiblePercent = 0.2f;
 		}
 
 		public ScrollBar() : this(null)
@@ -109,17 +115,19 @@ namespace RichHudFramework.UI
 		protected override void Layout()
 		{
 			Vector2 size = UnpaddedSize;
-			slide.BarSize = size;
+			SlideInput.BarSize = size;
 
 			if (Vertical)
 			{
-				slide.SliderWidth = size.X;
-				slide.SliderVisible = slide.SliderHeight < slide.BarHeight;
+				SlideInput.SliderWidth = size.X;
+				SlideInput.SliderHeight = size.Y * VisiblePercent;
+				SlideInput.SliderVisible = SlideInput.SliderHeight < SlideInput.BarHeight;
 			}
 			else
 			{
-				slide.SliderHeight = size.Y;
-				slide.SliderVisible = slide.SliderWidth < slide.BarWidth;
+				SlideInput.SliderHeight = size.Y;
+				SlideInput.SliderWidth = size.X * VisiblePercent;
+				SlideInput.SliderVisible = SlideInput.SliderWidth < SlideInput.BarWidth;
 			}
 		}
 	}

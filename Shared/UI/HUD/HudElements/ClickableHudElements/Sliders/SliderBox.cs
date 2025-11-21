@@ -49,7 +49,7 @@ namespace RichHudFramework.UI
 		/// <summary>
 		/// The color of the slider track (the background bar).
 		/// </summary>
-		public Color BarColor { get { return slide.BarColor; } set { slide.BarColor = value; } }
+		public Color BarColor { get { return slide.BarColor; } set { slide.BarColor = value; lastBarColor = value; } }
 
 		/// <summary>
 		/// The color of the slider track when moused over.
@@ -64,7 +64,7 @@ namespace RichHudFramework.UI
 		/// <summary>
 		/// The color of the slider thumb (the movable button) when not moused over.
 		/// </summary>
-		public Color SliderColor { get { return slide.SliderColor; } set { slide.SliderColor = value; } }
+		public Color SliderColor { get { return slide.SliderColor; } set { slide.SliderColor = value; lastSliderColor = value; } }
 
 		/// <summary>
 		/// The color of the slider thumb (the movable button) when moused over.
@@ -79,7 +79,7 @@ namespace RichHudFramework.UI
 		/// <summary>
 		/// The color of the background container box.
 		/// </summary>
-		public Color BackgroundColor { get { return background.Color; } set { background.Color = value; } }
+		public Color BackgroundColor { get { return background.Color; } set { background.Color = value; lastBackgroundColor = value; } }
 
 		/// <summary>
 		/// The color of the background container box when moused over.
@@ -227,14 +227,14 @@ namespace RichHudFramework.UI
 			{
 				if (!(UseFocusFormatting && FocusHandler.HasFocus))
 				{
-					lastBarColor = BarColor;
-					lastSliderColor = SliderColor;
-					lastBackgroundColor = BackgroundColor;
+					lastBarColor = slide.BarColor;
+					lastSliderColor = slide.SliderColor;
+					lastBackgroundColor = background.Color;
 				}
 
-				SliderColor = SliderHighlight;
-				BarColor = BarHighlight;
-				BackgroundColor = BackgroundHighlight;
+				slide.SliderColor = SliderHighlight;
+				slide.BarColor = BarHighlight;
+				background.Color = BackgroundHighlight;
 			}
 		}
 
@@ -248,15 +248,15 @@ namespace RichHudFramework.UI
 			{
 				if (UseFocusFormatting && FocusHandler.HasFocus)
 				{
-					SliderColor = SliderFocusColor;
-					BarColor = BarFocusColor;
-					BackgroundColor = BackgroundFocusColor;
+					slide.SliderColor = SliderFocusColor;
+					slide.BarColor = BarFocusColor;
+					background.Color = BackgroundFocusColor;
 				}
 				else
 				{
-					SliderColor = lastSliderColor;
-					BarColor = lastBarColor;
-					BackgroundColor = lastBackgroundColor;
+					slide.SliderColor = lastSliderColor;
+					slide.BarColor = lastBarColor;
+					background.Color = lastBackgroundColor;
 				}
 			}
 		}
@@ -269,13 +269,13 @@ namespace RichHudFramework.UI
 		{
 			if (UseFocusFormatting && !MouseInput.IsMousedOver)
 			{
-				lastBarColor = BarColor;
-				lastSliderColor = SliderColor;
-				lastBackgroundColor = BackgroundColor;
+				lastBarColor = slide.BarColor;
+				lastSliderColor = slide.SliderColor;
+				lastBackgroundColor = background.Color;
 
-				SliderColor = SliderFocusColor;
-				BarColor = BarFocusColor;
-				BackgroundColor = BackgroundFocusColor;
+				slide.SliderColor = SliderFocusColor;
+				slide.BarColor = BarFocusColor;
+				background.Color = BackgroundFocusColor;
 			}
 		}
 
@@ -287,9 +287,9 @@ namespace RichHudFramework.UI
 		{
 			if (UseFocusFormatting)
 			{
-				SliderColor = lastSliderColor;
-				BarColor = lastBarColor;
-				BackgroundColor = lastBackgroundColor;
+				slide.SliderColor = lastSliderColor;
+				slide.BarColor = lastBarColor;
+				background.Color = lastBackgroundColor;
 			}
 		}
 	}

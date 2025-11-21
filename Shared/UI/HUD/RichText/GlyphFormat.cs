@@ -123,6 +123,7 @@ namespace RichHudFramework
 			/// <summary>
 			/// Wraps raw API format data in a new <see cref="GlyphFormat"/> instance.
 			/// </summary>
+			/// <exclude/>
 			public GlyphFormat(GlyphFormatMembers data) { this.Data = data; }
 
 			/// <summary>

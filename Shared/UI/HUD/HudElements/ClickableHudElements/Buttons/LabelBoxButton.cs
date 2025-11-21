@@ -4,7 +4,7 @@ using System;
 namespace RichHudFramework.UI
 {
     /// <summary>
-    /// Clickable button with text and a textured background. 
+    /// Clickable button with text on top of a textured background with highlighting. 
     /// </summary>
     public class LabelBoxButton : LabelBox, IClickableElement
     {

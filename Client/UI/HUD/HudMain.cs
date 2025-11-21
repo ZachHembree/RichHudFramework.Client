@@ -51,13 +51,20 @@ namespace RichHudFramework
 				Action // Unregister
 			>;
 
+			/// <summary>
+			/// Primary entry point for the client-side UI system.
+			/// Provides shared access to root UI nodes, cursor, clipboard, screen metrics, and world-space
+			/// projection utilities.
+			/// </summary>
 			public sealed partial class HudMain : RichHudClient.ApiModule
 			{
-				/// <summary>
-				/// The root parent node for all HUD elements in the framework. All UI elements added by mods
-				/// should be parented to this node to ensure proper rendering and layout management.
-				/// </summary>
-				public static HudParentBase Root
+                /// <summary>
+                /// The root parent node for all client-side HUD elements in the framework.
+                /// 
+                /// <para>All UI elements added by mods should be parented to this node or 
+				/// <see cref="HighDpiRoot"/> to function.</para>
+                /// </summary>
+                public static HudParentBase Root
 				{
 					get
 					{
@@ -68,12 +75,15 @@ namespace RichHudFramework
 					}
 				}
 
-				/// <summary>
-				/// The root node dedicated to high-DPI scaling for resolutions exceeding 1080p. This node
-				/// automatically applies a draw matrix that rescales UI elements to compensate for the
-				/// reduced apparent size caused by high-DPI displays, maintaining consistent visual sizing.
-				/// </summary>
-				public static HudParentBase HighDpiRoot
+                /// <summary>
+                /// The root node dedicated to high-DPI scaling for resolutions exceeding 1080p. This node
+                /// automatically applies a draw matrix that rescales UI elements to compensate for the
+                /// reduced apparent size caused by high-DPI displays, maintaining consistent visual sizing.
+				/// 
+                /// <para>All UI elements added by mods should be parented to this node or 
+                /// <see cref="Root"/> to function.</para>
+                /// </summary>
+                public static HudParentBase HighDpiRoot
 				{
 					get
 					{
@@ -103,6 +113,9 @@ namespace RichHudFramework
 				/// <summary>
 				/// The shared clipboard for rich text operations across mods. This allows copying formatted
 				/// text (including colors, scales, and positions) from one mod's UI and pasting it into another.
+				/// <para>
+				/// The is separate from the system clipboard, as access to the real clipboard is write-only.
+				/// </para>
 				/// </summary>
 				public static RichText ClipBoard
 				{
@@ -136,25 +149,23 @@ namespace RichHudFramework
 
 				/// <summary>
 				/// The primary transformation matrix used to convert 2D screen-space coordinates (in pixels)
-				/// to 3D world-space positions (in meters). This is essential for aligning HUD elements with
-				/// in-game objects or camera projections.
+				/// to 3D world-space positions (in meters). This is required for rendering UI in screen space.
 				/// </summary>
 				public static MatrixD PixelToWorld => PixelToWorldRef[0];
 
 				/// <summary>
 				/// The primary transformation matrix used to convert 2D screen-space coordinates (in pixels)
-				/// to 3D world-space positions (in meters). This is essential for aligning HUD elements with
-				/// in-game objects or camera projections.
+				/// to 3D world-space positions (in meters). This is required for rendering UI in screen space.
 				/// </summary>
 				public static MatrixD[] PixelToWorldRef { get; private set; }
 
 				/// <summary>
-				/// The current horizontal resolution of the screen in pixels, updated every frame via the game's API.
+				/// The current horizontal resolution of the screen in pixels, updated every frame.
 				/// </summary>
 				public static float ScreenWidth { get; private set; }
 
 				/// <summary>
-				/// The current vertical resolution of the screen in pixels, updated every frame via the game's API.
+				/// The current vertical resolution of the screen in pixels, updated every frame.
 				/// </summary>
 				public static float ScreenHeight { get; private set; }
 
@@ -248,12 +259,12 @@ namespace RichHudFramework
 					UpdateCache();
 				}
 
-				/// <summary>
-				/// Initializes the HudMain singleton instance, setting up billboard utilities, the root nodes,
-				/// cursor, and registering necessary callbacks with the game's API.
-				/// </summary>
-				/// <exclude/>
-				public static void Init()
+                /// <summary>
+                /// Initializes the HudMain singleton instance, registering with the RHM Tree Manager,
+				/// setting up text utilities, root nodes, and setting up the cursor.
+                /// </summary>
+                /// <exclude/>
+                public static void Init()
 				{
 					BillBoardUtils.Init();
 
@@ -263,7 +274,7 @@ namespace RichHudFramework
 
 				/// <summary>
 				/// Internal callback invoked before the game's master draw pass. Updates cached screen metrics
-				/// and cursor state to ensure all HUD elements reflect the latest game conditions.
+				/// and cursor state.
 				/// </summary>
 				private void BeforeMasterDraw()
 				{
@@ -313,6 +324,8 @@ namespace RichHudFramework
 				/// Retrieves a overlay offset for layering a focused UI window and registers
 				/// a callback that will be invoked if another element gains focus, passing the new offset.
 				/// This helps manage UI overlap and depth sorting in 3D HUD space.
+				/// 
+				/// <para>Layering updates and callbacks are handled automatically in <see cref="WindowBase"/>.</para>
 				/// </summary>
 				public static byte GetFocusOffset(Action<byte> LoseFocusCallback)
 				{
@@ -326,6 +339,9 @@ namespace RichHudFramework
 				/// Registers a callback for changes in input focus on UI elements. The callback is invoked
 				/// whenever another element (e.g., a game menu or different mod UI) takes input focus away
 				/// from the registered element.
+				/// 
+				/// <para>Input focus is typically handled automatically in <see cref="MouseInputElement"/> and 
+				/// standard library UI.</para>
 				/// </summary>
 				public static void GetInputFocus(IFocusHandler handler)
 				{
@@ -345,43 +361,6 @@ namespace RichHudFramework
 						Init();
 
 					return Instance.GetTextBoardDataFunc();
-				}
-
-
-				/// <summary>
-				/// Converts a vector from normalized screen coordinates (0.5f to 0.5f, where 0.0f is screen center)
-				/// to normalized pixel coordinates based on the current ScreenDim.
-				/// </summary>
-				/// <param name="scaledVec">The input vector in normalized units.</param>
-				/// <returns>The equivalent vector in pixel units.</returns>
-				public static Vector2 GetPixelVector(Vector2 scaledVec)
-				{
-					if (Instance == null)
-						Init();
-
-					return new Vector2
-					(
-						(int)(scaledVec.X * ScreenWidth),
-						(int)(scaledVec.Y * ScreenHeight)
-					);
-				}
-
-				/// <summary>
-				/// Converts a vector from absolute pixel coordinates to normalized screen coordinates
-				/// (-0.5f to 0.5f, where 0.0f is screen center) based on the current ScreenDim.
-				/// </summary>
-				/// <param name="pixelVec">The input vector in pixel units.</param>
-				/// <returns>The equivalent vector in normalized units.</returns>
-				public static Vector2 GetAbsoluteVector(Vector2 pixelVec)
-				{
-					if (Instance == null)
-						Init();
-
-					return new Vector2
-					(
-						pixelVec.X / ScreenWidth,
-						pixelVec.Y / ScreenHeight
-					);
 				}
 
 				/// <summary>

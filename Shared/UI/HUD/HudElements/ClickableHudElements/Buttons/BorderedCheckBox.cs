@@ -3,19 +3,20 @@ using VRageMath;
 
 namespace RichHudFramework.UI
 {
-    /// <summary>
-    /// Bordered checkbox designed to mimic the appearance of the checkbox used in the SE terminal
-    /// (sans name tag).
-    /// </summary>
-    public class BorderedCheckBox : Button
+	/// <summary>
+	/// Bordered checkbox designed to mimic the appearance of the checkbox used in the SE terminal.
+	/// <para>Does not have a label. Use <see cref="NamedCheckBox"/> for a version with a label.</para>
+	/// <para>Formatting temporarily changes when it gains input focus.</para>
+	/// </summary>
+	public class BorderedCheckBox : Button
     {
 		/// <summary>
-		/// Invoked when the current value changes
+		/// Invoked when the current value (<see cref="IsBoxChecked"/>) changes
 		/// </summary>
 		public event EventHandler ValueChanged;
 
 		/// <summary>
-		/// Registers a value update callback. Useful in initializers.
+		/// Registers a value (<see cref="IsBoxChecked"/>) update callback. Useful in initializers.
 		/// </summary>
 		public EventHandler UpdateValueCallback { set { ValueChanged += value; } }
 

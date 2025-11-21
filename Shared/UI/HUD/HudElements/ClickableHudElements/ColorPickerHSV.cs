@@ -41,6 +41,17 @@ namespace RichHudFramework.UI
 			}
 		}
 
+		/// <summary>
+		/// Gets or sets the currently selected color in normalized HSV format.
+		/// Setting this value will automatically update the positions of the sliders.
+		/// <para>X = Hue (0-1), Y = Saturation (0-1), Z = Value (0-1).</para>
+		/// </summary>
+		public Vector3 ColorHSVNorm
+		{
+			get { return _hsvColor * RcpHSVScale; }
+			set { ColorHSV = value * HSVScale; }
+		}
+
 		/// <exclude/>
 		protected Vector3 _hsvColor;
 
@@ -61,7 +72,7 @@ namespace RichHudFramework.UI
 			_hsvColor.X = (float)Math.Round(slider.Current);
 			sliderText[0].TextBoard.SetText($"H: {_hsvColor.X}");
 
-			_color = (_hsvColor * HSVScale).HSVtoColor();
+			_color = (_hsvColor * RcpHSVScale).HSVtoColor();
 			display.Color = _color;
 		}
 
@@ -75,7 +86,7 @@ namespace RichHudFramework.UI
 			_hsvColor.Y = (float)Math.Round(slider.Current);
 			sliderText[1].TextBoard.SetText($"S: {_hsvColor.Y}");
 
-			_color = (_hsvColor * HSVScale).HSVtoColor();
+			_color = (_hsvColor * RcpHSVScale).HSVtoColor();
 			display.Color = _color;
 		}
 
@@ -89,7 +100,7 @@ namespace RichHudFramework.UI
 			_hsvColor.Z = (float)Math.Round(slider.Current);
 			sliderText[2].TextBoard.SetText($"V: {_hsvColor.Z}");
 
-			_color = (_hsvColor * HSVScale).HSVtoColor();
+			_color = (_hsvColor * RcpHSVScale).HSVtoColor();
 			display.Color = _color;
 		}
 	}

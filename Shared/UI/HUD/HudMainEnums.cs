@@ -4,11 +4,11 @@ using System;
 namespace RichHudFramework
 {
 	/// <summary>
-	/// Represents the method that will handle an event, similar to System.EventHandler.
+	/// Represents a method that will handle an event, similar to System.EventHandler.
 	/// <remarks>
 	/// <para>For input or value change events on UI elements, the sender will usually be 
-	/// <see cref="UI.IFocusHandler.InputOwner"/>, the UI element in which the event was 
-	/// subscribed to.</para>
+	/// <see cref="UI.IFocusHandler.InputOwner"/>.
+	/// </para>
 	/// </remarks>
 	/// </summary>
 	/// <param name="sender">Reference to the object invoking the event, if given.</param>

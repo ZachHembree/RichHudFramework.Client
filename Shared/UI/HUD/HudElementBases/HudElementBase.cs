@@ -9,7 +9,7 @@ namespace RichHudFramework
 		using Client;
 
 		/// <summary>
-		/// Base type for all UI elements with definite size and position. Extends HudParentBase and HudNodeBase.
+		/// Abstract base for all UI elements with definite size and position. Extends HudParentBase and HudNodeBase.
 		/// </summary>
 		public abstract partial class HudElementBase : HudNodeBase, IReadOnlyHudElement
 		{
@@ -223,6 +223,7 @@ namespace RichHudFramework
 			/// Updates in back-to-front order after Draw(). Elements on the bottom update first, and elements 
 			/// on top update last.
 			/// </summary>
+			/// <exclude/>
 			protected override void InputDepth()
 			{
 				if (HudSpace.IsFacingCamera)
@@ -362,8 +363,6 @@ namespace RichHudFramework
 
 					if (child != null && (child.Config[StateID] & (child.Config[VisMaskID])) == child.Config[VisMaskID])
 					{
-						child.Padding = child.Padding;
-
 						Vector2 childSize = child.UnpaddedSize + child.Padding;
 						DimAlignments sizeFlags = child.DimAlignment;
 

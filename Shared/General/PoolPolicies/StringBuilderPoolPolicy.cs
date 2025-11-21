@@ -7,7 +7,7 @@ namespace RichHudFramework
 {
 	/// <summary>
 	/// <see cref="IPooledObjectPolicy{T}"/> implementation for <see cref="StringBuilder"/>.
-	/// Reuses instances by clearing them instead of allocating new ones – critical for high-frequency text building.
+	/// Reuses instances by clearing them instead of allocating new ones.
 	/// </summary>
 	public class StringBuilderPoolPolicy : IPooledObjectPolicy<StringBuilder>
 	{

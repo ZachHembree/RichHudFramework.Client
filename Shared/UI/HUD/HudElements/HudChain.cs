@@ -561,7 +561,7 @@ namespace RichHudFramework
 			/// Calculates and applies position offsets to arrange members in a linear stack.
 			/// </summary>
 			/// <exclude/>
-			protected void UpdateMemberOffsets(Vector2 startOffset, Vector2 endOffset, float rcpSpanLength)
+			protected void UpdateMemberOffsets(Vector2 startOffset, Vector2 endOffset, float rcpSpanLength, float offAxisOffset = 0f)
 			{
 				ParentAlignments left = (ParentAlignments)((int)ParentAlignments.Left * (2 - alignAxis)),
 					right = (ParentAlignments)((int)ParentAlignments.Right * (2 - alignAxis)),
@@ -582,8 +582,14 @@ namespace RichHudFramework
 						element.ParentAlignment |= ParentAlignments.Inner | ParentAlignments.UsePadding;
 
 						float increment = size[alignAxis] * rcpSpanLength;
-						element.Offset = Vector2.Lerp(startOffset, endOffset, j + (.5f * increment));
+						Vector2 offset = Vector2.Lerp(startOffset, endOffset, j + (.5f * increment));
 
+						if ((element.ParentAlignment & left) == left)
+							offset[offAxis] += offAxisOffset;
+						else if ((element.ParentAlignment & right) == right)
+							offset[offAxis] -= offAxisOffset;
+
+						element.Offset = offset;
 						j += increment + spacingInc;
 					}
 				}
