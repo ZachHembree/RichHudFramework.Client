@@ -12,13 +12,13 @@ namespace RichHudFramework
 		/// Supports full IList-like manipulation while ensuring proper registration/unregistration with the HUD tree.
 		/// </summary>
 		/// <typeparam name="TElementContainer">
-		/// Type of the container/decorator wrapping each element. Must implement <see cref="IHudElementContainer{TElement}"/>.
+		/// Type of the container/decorator wrapping each element. Must implement <see cref="IHudNodeContainer{TElement}"/>.
 		/// </typeparam>
 		/// <typeparam name="TElement">
 		/// Actual HUD element type stored in each container.
 		/// </typeparam>
 		public class HudCollection<TElementContainer, TElement> : HudElementBase, IHudCollection<TElementContainer, TElement>
-			where TElementContainer : IHudElementContainer<TElement>, new()
+			where TElementContainer : IHudNodeContainer<TElement>, new()
 			where TElement : HudNodeBase
 		{
 			/// <summary>
@@ -259,10 +259,10 @@ namespace RichHudFramework
 		/// </para>
 		/// </summary>
 		/// <typeparam name="TElementContainer">
-		/// Type of the container/decorator wrapping each element. Must implement <see cref="IHudElementContainer{TElement}"/>.
+		/// Type of the container/decorator wrapping each element. Must implement <see cref="IHudNodeContainer{TElement}"/>.
 		/// </typeparam>
 		public class HudCollection<TElementContainer> : HudCollection<TElementContainer, HudElementBase>
-			where TElementContainer : IHudElementContainer<HudElementBase>, new()
+			where TElementContainer : IHudNodeContainer<HudElementBase>, new()
 		{
 			public HudCollection(HudParentBase parent = null) : base(parent) { }
 		}
@@ -276,7 +276,7 @@ namespace RichHudFramework
 		/// <see cref="HudElementContainer"/> as the wrapper and <see cref="HudElementBase"/> as the element type.
 		/// </para>
 		/// </summary>
-		public class HudCollection : HudCollection<HudElementContainer, HudElementBase>
+		public class HudCollection : HudCollection<HudNodeContainer, HudNodeBase>
 		{
 			public HudCollection(HudParentBase parent = null) : base(parent) { }
 		}

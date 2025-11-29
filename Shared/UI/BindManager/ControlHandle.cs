@@ -1,6 +1,7 @@
 ﻿using System;
 using VRage.Input;
 using RichHudFramework.UI.Client;
+using RichHudFramework.UI.Server;
 
 namespace RichHudFramework
 {

@@ -9,13 +9,13 @@ namespace RichHudFramework
 		/// Read-only interface for collections of HUD elements wrapped in decorator containers.
 		/// </summary>
 		/// <typeparam name="TElementContainer">
-		/// Type of the container/decorator wrapping each element. Must implement <see cref="IHudElementContainer{TElement}"/>.
+		/// Type of the container/decorator wrapping each element. Must implement <see cref="IHudNodeContainer{TElement}"/>.
 		/// </typeparam>
 		/// <typeparam name="TElement">
 		/// Actual HUD element type stored in each container.
 		/// </typeparam>
 		public interface IReadOnlyHudCollection<TElementContainer, TElement> : IReadOnlyList<TElementContainer>
-			where TElementContainer : IHudElementContainer<TElement>, new()
+			where TElementContainer : IHudNodeContainer<TElement>, new()
 			where TElement : HudNodeBase
 		{
 			/// <summary>
@@ -42,10 +42,10 @@ namespace RichHudFramework
 		/// </para>
 		/// </summary>
 		/// <typeparam name="TElementContainer">
-		/// Type of the container/decorator wrapping each element. Must implement <see cref="IHudElementContainer{TElement}"/>.
+		/// Type of the container/decorator wrapping each element. Must implement <see cref="IHudNodeContainer{TElement}"/>.
 		/// </typeparam>
 		public interface IReadOnlyHudCollection<TElementContainer> : IReadOnlyHudCollection<TElementContainer, HudElementBase>
-			where TElementContainer : IHudElementContainer<HudElementBase>, new()
+			where TElementContainer : IHudNodeContainer<HudElementBase>, new()
 		{ }
 
 		/// <summary>
@@ -62,13 +62,13 @@ namespace RichHudFramework
 		/// Mutable interface for HUD collections supporting decorator-wrapped child elements.
 		/// </summary>
 		/// <typeparam name="TElementContainer">
-		/// Type of the container/decorator wrapping each element. Must implement <see cref="IHudElementContainer{TElement}"/>.
+		/// Type of the container/decorator wrapping each element. Must implement <see cref="IHudNodeContainer{TElement}"/>.
 		/// </typeparam>
 		/// <typeparam name="TElement">
 		/// Actual HUD element type stored in each container.
 		/// </typeparam>
 		public interface IHudCollection<TElementContainer, TElement> : IReadOnlyHudCollection<TElementContainer, TElement>
-			where TElementContainer : IHudElementContainer<TElement>, new()
+			where TElementContainer : IHudNodeContainer<TElement>, new()
 			where TElement : HudNodeBase
 		{
 			/// <summary>
@@ -130,10 +130,10 @@ namespace RichHudFramework
 		/// </para>
 		/// </summary>
 		/// <typeparam name="TElementContainer">
-		/// Type of the container/decorator wrapping each element. Must implement <see cref="IHudElementContainer{TElement}"/>.
+		/// Type of the container/decorator wrapping each element. Must implement <see cref="IHudNodeContainer{TElement}"/>.
 		/// </typeparam>
 		public interface IHudCollection<TElementContainer> : IHudCollection<TElementContainer, HudElementBase>
-			where TElementContainer : IHudElementContainer<HudElementBase>, new()
+			where TElementContainer : IHudNodeContainer<HudElementBase>, new()
 		{ }
 
 		/// <summary>

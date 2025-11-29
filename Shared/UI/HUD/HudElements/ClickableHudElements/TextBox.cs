@@ -7,6 +7,7 @@ using VRageMath;
 namespace RichHudFramework.UI
 {
 	using Client;
+	using Server;
 
 	/// <summary>
 	/// Interactive, clickable text box with caret and highlighting. Text only, no background or

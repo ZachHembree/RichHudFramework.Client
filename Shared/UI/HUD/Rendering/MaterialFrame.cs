@@ -9,7 +9,7 @@ namespace RichHudFramework
 			/// <summary>
 			/// Read-only interface defining the mapping of a material to a quad.
 			/// </summary>
-			public interface IReadOnlyReadOnlyMaterialFrame
+			public interface IReadOnlyMaterialFrame
 			{
 				/// <summary>
 				/// The texture and sprite data associated with the frame.
@@ -36,7 +36,7 @@ namespace RichHudFramework
 			/// Manages the positioning, scaling, and alignment of a <see cref="Material"/> on a QuadBoard.
 			/// Handles calculations for aspect-ratio preservation via UV cropping or geometry scaling.
 			/// </summary>
-			public class MaterialFrame : IReadOnlyReadOnlyMaterialFrame
+			public class MaterialFrame : IReadOnlyMaterialFrame
 			{
 				/// <summary>
 				/// The texture and sprite data associated with the frame.

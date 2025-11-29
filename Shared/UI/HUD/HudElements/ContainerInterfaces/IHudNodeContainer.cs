@@ -4,7 +4,7 @@
 	/// Interface for objects acting as decorator wrappers for UI elements.
 	/// <para>Separates the UI element from metadata.</para>
 	/// </summary>
-	public interface IHudElementContainer<TElement> where TElement : HudNodeBase
+	public interface IHudNodeContainer<TElement> where TElement : HudNodeBase
 	{
 		/// <summary>
 		/// The HUD Element associated with this container.
@@ -22,7 +22,7 @@
 	/// Interface for objects containing UI elements compatible with <see cref="HudChain{TElementContainer, TElement}"/>.
 	/// <para>Provides layout weighting information required for proportional sizing.</para>
 	/// </summary>
-	public interface IChainElementContainer<TElement> : IHudElementContainer<TElement>
+	public interface IChainElementContainer<TElement> : IHudNodeContainer<TElement>
         where TElement : HudElementBase
     {
         /// <summary>
