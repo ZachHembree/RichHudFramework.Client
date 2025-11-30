@@ -92,16 +92,18 @@ namespace RichHudFramework.UI
 			if (IsFocusRequired && !(FocusHandler?.HasFocus ?? false))
 				return;
 
+			var owner = (object)(FocusHandler?.InputOwner) ?? Parent;
+
 			foreach (KeyValuePair<IBind, BindEventProxy> pair in binds)
 			{
 				if (pair.Key.IsNewPressed)
-					pair.Value.InvokeNewPressed(FocusHandler, EventArgs.Empty);
+					pair.Value.InvokeNewPressed(owner, EventArgs.Empty);
 
 				if (pair.Key.IsPressedAndHeld)
-					pair.Value.InvokePressedAndHeld(FocusHandler, EventArgs.Empty);
+					pair.Value.InvokePressedAndHeld(owner, EventArgs.Empty);
 
 				if (pair.Key.IsReleased)
-					pair.Value.InvokeReleased(FocusHandler, EventArgs.Empty);
+					pair.Value.InvokeReleased(owner, EventArgs.Empty);
 			}
 		}
 

@@ -21,7 +21,7 @@ namespace RichHudFramework
         }
 
 		/// <summary>
-		/// Defines the formatting applied to characters in rich text elements.
+		/// Defines the formatting applied to characters in <see cref="RichText"/> and <see cref="ITextBoard"/>.
 		/// Includes color, font, style, size, and alignment.
 		/// </summary>
 		public struct GlyphFormat : IEquatable<GlyphFormat>

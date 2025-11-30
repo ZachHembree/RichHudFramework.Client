@@ -6,7 +6,7 @@ namespace RichHudFramework.UI
     using Server;
 
     /// <summary>
-    /// Wrapper used to provide easy access to shared RHF library key binds
+    /// A collection of immutable, commonly used key binds used by the framework library.
     /// </summary>
     public sealed class SharedBinds : RichHudComponentBase
     {
