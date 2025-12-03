@@ -182,8 +182,11 @@ namespace RichHudFramework.UI
 		/// <summary>
 		/// Clears selected text range.
 		/// </summary>
-		public void ClearSelection() =>
-			selectionBox.ClearSelection();
+		public void ClearSelection()
+		{
+            selectionBox.ClearSelection();
+            isHighlighting = false;
+		}
 
 		/// <summary>
 		/// Marks a text change as pending invocation of the TextChanged event.
@@ -295,10 +298,7 @@ namespace RichHudFramework.UI
 		protected virtual void OnClearSelection(object sender, EventArgs args)
 		{
 			if (EnableHighlighting)
-			{
-				isHighlighting = false;
-				selectionBox.ClearSelection();
-			}
+				ClearSelection();
 		}
 
 		/// <summary>
@@ -324,14 +324,14 @@ namespace RichHudFramework.UI
 		{
 			if (TextBoard.Count > 0 && TextBoard[caret.CaretIndex.X].Count > 0 && caret.CaretIndex != caretMin)
 			{
-				if (isHighlighting)
+                if (isHighlighting)
 					DeleteSelection();
 				else
 				{
 					ClearSelection();
 
-					if (caret.CaretIndex.Y >= 0)
-						TextBoard.RemoveAt(ClampIndex(caret.CaretIndex, TextBoard));
+                    if (caret.CaretIndex.Y >= 0)
+                        TextBoard.RemoveAt(ClampIndex(caret.CaretIndex, TextBoard));
 
 					caret.Move(new Vector2I(0, -1));
 				}
@@ -344,11 +344,10 @@ namespace RichHudFramework.UI
 		private void DeleteSelection()
 		{
 			if (!selectionBox.Empty)
-			{
 				TextBoard.RemoveRange(selectionBox.Start, selectionBox.End);
-				selectionBox.ClearSelection();
-			}
-		}
+
+            ClearSelection();
+        }
 
 		/// <summary>
 		/// Updates the InputOpen state based on allowInput, focus, and enabled features.
@@ -405,10 +404,7 @@ namespace RichHudFramework.UI
 
 			// Stop highlighting
 			if (!canHighlight && lastCaretIndex != caret.CaretIndex)
-			{
-				isHighlighting = false;
-				selectionBox.ClearSelection();
-			}
+				ClearSelection();
 
 			lastCaretIndex = caret.CaretIndex;
 			selectionBox.Visible = isHighlighting;
@@ -558,12 +554,10 @@ namespace RichHudFramework.UI
 			/// <summary>
 			/// Sets the caret position based on the total character offset from the start of the text.
 			/// </summary>
-			public void SetPosition(int offset)
-			{
-				SetPosition(GetIndexFromOffset(offset));
-			}
+			public void SetPosition(int offset) =>
+                SetPosition(GetIndexFromOffset(offset));
 
-			protected override void Draw()
+            protected override void Draw()
 			{
 				if (ShowCaret)
 				{
