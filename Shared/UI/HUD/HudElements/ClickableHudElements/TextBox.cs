@@ -7,7 +7,7 @@ using VRageMath;
 namespace RichHudFramework.UI
 {
 	using Client;
-	using Server;
+    using Server;
 
 	/// <summary>
 	/// Interactive, clickable text box with caret and highlighting. Text only, no background or
@@ -829,10 +829,11 @@ namespace RichHudFramework.UI
 				if (text.Count > 0)
 				{
 					Vector2I caretIndex = caret.CaretIndex;
+					bool wasSelecting = selectionAnchor != -Vector2I.One;
 
-					// Set anchor on new selection
-					if (selectionAnchor == -Vector2I.One)
-						selectionAnchor = caretIndex;
+                    // Set anchor on new selection
+                    if (!wasSelecting)
+                        selectionAnchor = caretIndex;
 
 					bool isAfterAnchor;
 
@@ -846,23 +847,23 @@ namespace RichHudFramework.UI
 					// If the caret is after the anchor, anchor Start
 					if (isAfterAnchor)
 					{
-						Start = selectionAnchor;
+                        Start = selectionAnchor;
 						End = caretIndex;
-					}
+                    }
 					else
 					{
-						Start = caretIndex;
-						End = selectionAnchor;
+                        Start = caretIndex;
+						End = selectionAnchor;                       
+                    }
 
-						if (Start.Y < text[Start.X].Count - 1)
-							Start += new Vector2I(0, 1);
-					}
+                    if (Start.Y < text[Start.X].Count - 1)
+                        Start += new Vector2I(0, 1);
 
-					Start = ClampIndex(Start, text);
+                    Start = ClampIndex(Start, text);
 					End = ClampIndex(End, text);
-					selectionAnchor = ClampIndex(selectionAnchor, text);
 				}
-				else
+
+                else
 				{
 					Start = -Vector2I.One;
 					End = -Vector2I.One;
