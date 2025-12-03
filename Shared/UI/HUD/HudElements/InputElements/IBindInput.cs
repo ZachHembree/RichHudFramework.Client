@@ -1,12 +1,16 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace RichHudFramework.UI
 {
-	/// <summary>
-	/// Provides per-bind event proxies (NewPressed / PressedAndHeld / Released) for custom control bindings
-	/// attached to a UI element.
-	/// </summary>
-	public interface IBindEventProxy
+    using Client;
+    using Server;
+
+    /// <summary>
+    /// Provides per-bind event proxies (NewPressed / PressedAndHeld / Released) for custom control bindings
+    /// attached to a UI element.
+    /// </summary>
+    public interface IBindEventProxy
 	{
 		/// <summary>
 		/// Invoked immediately when the bound input is first pressed
@@ -44,7 +48,21 @@ namespace RichHudFramework.UI
 		/// Returns true if the given bind is actively used and handled by this element
 		/// </summary>
 		bool GetHasBind(IBind bind);
-	}
+
+        /// <summary>
+        /// If true, bind events will only fire when the parent element has input focus.
+        /// Default = false.
+        /// <para>Only applies if the parent/InputOwner implements <see cref="IFocusableElement"/>.</para>
+        /// </summary>
+        bool IsFocusRequired { get; set; }
+
+        /// <summary>
+        /// If set, the input groups indicated by the flags will be temporarily blocked 
+        /// until the BintInputElement is disabled. 
+        /// <para>Uses <see cref="BindManager.RequestTempBlacklist(SeBlacklistModes)"/>.</para>
+        /// </summary>
+        SeBlacklistModes InputFilterFlags { get; set; }
+    }
 
 	/// <summary>
 	/// Marks a UI element as supporting custom bind input via an <see cref="IBindInput"/> instance.

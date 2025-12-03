@@ -54,6 +54,7 @@ namespace RichHudFramework.UI
 
 		/// <summary>
 		/// The proportion of the total range that is currently visible as a normalized value on [0, 1].
+		/// <para>Automatically hides sliders if <see cref="VisiblePercent"/> >= 1f.</para>
 		/// </summary>
 		public float VisiblePercent { get; set; }
 

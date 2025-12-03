@@ -77,10 +77,16 @@ namespace RichHudFramework.UI
 		/// </summary>
 		public EventHandler RightReleasedCallback { set { RightReleased += value; } }
 
-		/// <summary>
-		/// Optional tooltip text shown when the element is moused over.
-		/// </summary>
-		public ToolTip ToolTip { get; set; }
+        /// <summary>
+        /// If true, the input element will temporarily show the cursor while it's enabled.
+		/// <para>Uses <see cref="HudMain.EnableCursorTemp"></see>.</para>
+        /// </summary>
+        public bool RequestCursor { get; set; }
+
+        /// <summary>
+        /// Optional tooltip text shown when the element is moused over.
+        /// </summary>
+        public ToolTip ToolTip { get; set; }
 
 		/// <summary>
 		/// Returns true if the element is currently being held down with the left mouse button.
@@ -178,6 +184,9 @@ namespace RichHudFramework.UI
 		{
 			FocusHandler = (Parent as IFocusableElement)?.FocusHandler;
             var owner = (object)(FocusHandler?.InputOwner) ?? Parent;
+
+			if (RequestCursor)
+				HudMain.EnableCursorTemp();
 
             if (IsMousedOver)
 			{

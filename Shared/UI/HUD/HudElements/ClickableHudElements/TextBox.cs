@@ -123,7 +123,8 @@ namespace RichHudFramework.UI
 			};
 			_bindInput = new BindInputElement(this)
 			{
-				InputPredicate = () => (allowInput || (FocusHandler.HasFocus && HudMain.InputMode == HudInputMode.Full)),
+				InputPredicate = GetCanAllowInput,
+				InputFilterFlags = SeBlacklistModes.Chat,
 				CollectionInitializer = 
 				{
                     { SharedBinds.Copy, CopyText },
@@ -358,26 +359,26 @@ namespace RichHudFramework.UI
             ClearSelection();
         }
 
+		private bool GetCanAllowInput() =>
+			(allowInput || (FocusHandler.HasFocus && HudMain.InputMode == HudInputMode.Full));
+
 		/// <summary>
 		/// Updates the InputOpen state based on allowInput, focus, and enabled features.
 		/// </summary>
-		private void UpdateInputOpen()
-		{
-			bool useInput = allowInput || (FocusHandler.HasFocus && HudMain.InputMode == HudInputMode.Full);
-			InputOpen = useInput && (EnableHighlighting || EnableEditing);
-		}
+		private void UpdateInputOpen() =>
+			InputOpen = GetCanAllowInput() && (EnableHighlighting || EnableEditing);
 
 		/// <exclude/>
 		protected override void HandleInput(Vector2 cursorPos)
 		{
-			bool useInput = allowInput || (FocusHandler.HasFocus && HudMain.InputMode == HudInputMode.Full);
+			bool useInput = GetCanAllowInput();
 
 			if (EnableEditing && MouseInput.IsMousedOver && HudMain.InputMode == HudInputMode.CursorOnly)
 				HudMain.Cursor.RegisterToolTip(warningToolTip);
 
 			// Editing
 			if (useInput && EnableEditing)
-				textInput.HandleInput();
+                textInput.HandleInput();
 
 			UpdateInputOpen();
 			caret.Visible = InputOpen;

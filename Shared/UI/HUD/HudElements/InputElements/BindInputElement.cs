@@ -5,6 +5,9 @@ using VRageMath;
 
 namespace RichHudFramework.UI
 {
+	using Client;
+	using Server;
+
 	/// <summary>
 	/// Attaches custom control-bind (key/combo) event handling to a UI element.
 	/// Allows arbitrary <see cref="IBind"/> definitions to trigger NewPressed/PressedAndHeld/Released events
@@ -38,6 +41,13 @@ namespace RichHudFramework.UI
         /// If defined, bind events will only fire when the predicate returns true.
         /// </summary>
         public Func<bool> InputPredicate { get; set; }
+
+        /// <summary>
+        /// If set, the input groups indicated by the flags will be temporarily blocked 
+        /// until the BintInputElement is disabled. 
+        /// <para>Uses <see cref="BindManager.RequestTempBlacklist(SeBlacklistModes)"/>.</para>
+        /// </summary>
+        public SeBlacklistModes InputFilterFlags { get; set; }
 
 		/// <summary>
 		/// Internal Bind-EventProxy map
@@ -100,6 +110,9 @@ namespace RichHudFramework.UI
 
 			if (!InputPredicate?.Invoke() ?? false)
 				return;
+
+			if (InputFilterFlags != SeBlacklistModes.None)
+				BindManager.RequestTempBlacklist(InputFilterFlags);
 
 			var owner = (object)(FocusHandler?.InputOwner) ?? Parent;
 
