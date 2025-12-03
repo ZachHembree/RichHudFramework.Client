@@ -184,17 +184,17 @@ namespace RichHudFramework.UI
 				new SliderBox()
 				{
 					Min = 0f, Max = 255f, Height = 47f,
-					UpdateValueCallback = OnUpdateChannelR
+					UpdateValueCallback = UpdateChannelR
 				},
 				new SliderBox()
 				{
 					Min = 0f, Max = 255f, Height = 47f,
-					UpdateValueCallback = OnUpdateChannelG
+					UpdateValueCallback = UpdateChannelG
 				},
 				new SliderBox()
 				{
 					Min = 0f, Max = 255f, Height = 47f,
-					UpdateValueCallback = OnUpdateChannelB
+					UpdateValueCallback = UpdateChannelB
 				}
 			};
 
@@ -256,7 +256,7 @@ namespace RichHudFramework.UI
 		/// Updates the Red channel value and display when the first slider changes.
 		/// </summary>
 		/// <exclude/>
-		protected virtual void OnUpdateChannelR(object sender, EventArgs args)
+		protected virtual void UpdateChannelR(object sender, EventArgs args)
 		{
 			var slider = sender as SliderBox;
 			_color.R = (byte)Math.Round(slider.Current);
@@ -268,7 +268,7 @@ namespace RichHudFramework.UI
 		/// Updates the Green channel value and display when the second slider changes.
 		/// </summary>
 		/// <exclude/>
-		protected virtual void OnUpdateChannelG(object sender, EventArgs args)
+		protected virtual void UpdateChannelG(object sender, EventArgs args)
 		{
 			var slider = sender as SliderBox;
 			_color.G = (byte)Math.Round(slider.Current);
@@ -280,7 +280,7 @@ namespace RichHudFramework.UI
 		/// Updates the Blue channel value and display when the third slider changes.
 		/// </summary>
 		/// <exclude/>
-		protected virtual void OnUpdateChannelB(object sender, EventArgs args)
+		protected virtual void UpdateChannelB(object sender, EventArgs args)
 		{
 			var slider = sender as SliderBox;
 			_color.B = (byte)Math.Round(slider.Current);

@@ -217,7 +217,7 @@ namespace RichHudFramework.UI
 			HighlightEnabled = true;
 			UseFocusFormatting = true;
 
-			_mouseInput.LeftClicked += OnLeftClick;
+			_mouseInput.LeftClicked += LeftClick;
 			lastValue = Value;
 		}
 
@@ -228,7 +228,7 @@ namespace RichHudFramework.UI
 		/// Inverts the current value on click
 		/// </summary>
 		/// <exclude/>
-		protected virtual void OnLeftClick(object sender, EventArgs args) => Value = !Value;
+		protected virtual void LeftClick(object sender, EventArgs args) => Value = !Value;
 
 		/// <summary>
 		/// Updates the formatting based on the current value and highlight state
@@ -269,7 +269,7 @@ namespace RichHudFramework.UI
 
 			if (FocusHandler.HasFocus && SharedBinds.Space.IsNewPressed)
 			{
-				_mouseInput.OnLeftClick();
+				_mouseInput.LeftClick();
 			}
 		}
 	}

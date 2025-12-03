@@ -188,13 +188,13 @@ namespace RichHudFramework.UI
                 ClearSelectionOnLoseFocus = true,
                 MouseInput = 
                 {
-                    CursorEnteredCallback = OnCursorEnter,
-                    CursorExitedCallback = OnCursorExit
+                    CursorEnteredCallback = CursorEnter,
+                    CursorExitedCallback = CursorExit
                 },
                 FocusHandler = 
                 {
-                    GainedInputFocusCallback = OnGainFocus,
-                    LostInputFocusCallback = OnLoseFocus
+                    GainedInputFocusCallback = GainFocus,
+                    LostInputFocusCallback = LoseFocus
                 }
             };
             textBox.FocusHandler.InputOwner = this;
@@ -232,7 +232,7 @@ namespace RichHudFramework.UI
         /// <summary>
         /// Sets highlighting formatting when the field is moused over
         /// </summary>
-        protected virtual void OnCursorEnter(object sender, EventArgs args)
+        protected virtual void CursorEnter(object sender, EventArgs args)
         {
             if (HighlightEnabled)
             {
@@ -256,7 +256,7 @@ namespace RichHudFramework.UI
         /// <summary>
         /// Clears highlighting when the cursor leaves
         /// </summary>
-        protected virtual void OnCursorExit(object sender, EventArgs args)
+        protected virtual void CursorExit(object sender, EventArgs args)
         {
             if (HighlightEnabled)
             {
@@ -278,7 +278,7 @@ namespace RichHudFramework.UI
         /// <summary>
         /// Sets focus formatting
         /// </summary>
-        protected virtual void OnGainFocus(object sender, EventArgs args)
+        protected virtual void GainFocus(object sender, EventArgs args)
         {
             if (UseFocusFormatting)
             {
@@ -296,7 +296,7 @@ namespace RichHudFramework.UI
         /// <summary>
         /// Resets focus formatting
         /// </summary>
-        protected virtual void OnLoseFocus(object sender, EventArgs args)
+        protected virtual void LoseFocus(object sender, EventArgs args)
         {
             if (UseFocusFormatting)
             {

@@ -47,8 +47,8 @@ namespace RichHudFramework.UI
 			FocusHandler = new InputFocusHandler(this);
             _mouseInput = new MouseInputElement(this)
             { 
-                CursorEnteredCallback = OnCursorEnter,
-                CursorExitedCallback = OnCursorExit
+                CursorEnteredCallback = CursorEnter,
+                CursorExitedCallback = CursorExit
             };
 
             MouseInput = _mouseInput;
@@ -64,7 +64,7 @@ namespace RichHudFramework.UI
         /// Sets highlighting when the cursor enters the button
         /// </summary>
         /// <exclude/>
-        protected virtual void OnCursorEnter(object sender, EventArgs args)
+        protected virtual void CursorEnter(object sender, EventArgs args)
         {
             if (HighlightEnabled)
             {
@@ -77,7 +77,7 @@ namespace RichHudFramework.UI
         /// Clears highlighting when the cursor leaves the button
         /// </summary>
         /// <exclude/>
-        protected virtual void OnCursorExit(object sender, EventArgs args)
+        protected virtual void CursorExit(object sender, EventArgs args)
         {
             if (HighlightEnabled)
             {

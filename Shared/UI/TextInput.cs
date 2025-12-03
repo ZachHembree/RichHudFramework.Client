@@ -11,19 +11,19 @@ namespace RichHudFramework.UI
 	public class TextInput
 	{
 		private readonly Func<char, bool> IsCharAllowedFunc;
-		private readonly Action<char> OnAppendAction;
-		private readonly Action OnBackspaceAction;
+		private readonly Action<char> AppendAction;
+		private readonly Action BackspaceAction;
 
 		/// <summary>
 		/// Initializes a new instance of the <see cref="TextInput"/> class.
 		/// </summary>
-		/// <param name="OnAppendAction">The action to be executed for each allowed character typed by the user.</param>
-		/// <param name="OnBackspaceAction">The action to be executed when the backspace key is pressed.</param>
+		/// <param name="AppendAction">The action to be executed for each allowed character typed by the user.</param>
+		/// <param name="BackspaceAction">The action to be executed when the backspace key is pressed.</param>
 		/// <param name="IsCharAllowedFunc">An optional function used to validate characters before appending. Pass null if all characters are permitted.</param>
-		public TextInput(Action<char> OnAppendAction, Action OnBackspaceAction, Func<char, bool> IsCharAllowedFunc = null)
+		public TextInput(Action<char> AppendAction, Action BackspaceAction, Func<char, bool> IsCharAllowedFunc = null)
 		{
-			this.OnAppendAction = OnAppendAction;
-			this.OnBackspaceAction = OnBackspaceAction;
+			this.AppendAction = AppendAction;
+			this.BackspaceAction = BackspaceAction;
 			this.IsCharAllowedFunc = IsCharAllowedFunc;
 		}
 
@@ -38,14 +38,14 @@ namespace RichHudFramework.UI
 			// Handle Backspace Manually: Checks for both initial press and holding for rapid deletion
 			// You never know when you might disagree with however many backspaces happen to be buffered
 			if (SharedBinds.Back.IsPressedAndHeld || SharedBinds.Back.IsNewPressed)
-				OnBackspaceAction?.Invoke();
+				BackspaceAction?.Invoke();
 
 			// Handle Character Append
 			for (int n = 0; n < input.Count; n++)
 			{
 				// Check that the character isn't a backspace and passes the optional filter
 				if (input[n] != '\b' && (IsCharAllowedFunc == null || IsCharAllowedFunc(input[n])))
-					OnAppendAction?.Invoke(input[n]);
+					AppendAction?.Invoke(input[n]);
 			}
 		}
 	}

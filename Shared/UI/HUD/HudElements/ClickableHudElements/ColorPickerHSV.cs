@@ -66,7 +66,7 @@ namespace RichHudFramework.UI
 		/// Updates the Hue value and display when the first slider (channel R) changes.
 		/// </summary>
 		/// <exclude/>
-		protected override void OnUpdateChannelR(object sender, EventArgs args)
+		protected override void UpdateChannelR(object sender, EventArgs args)
 		{
 			var slider = sender as SliderBox;
 			_hsvColor.X = (float)Math.Round(slider.Current);
@@ -80,7 +80,7 @@ namespace RichHudFramework.UI
 		/// Updates the Saturation value and display when the second slider (channel G) changes.
 		/// </summary>
 		/// <exclude/>
-		protected override void OnUpdateChannelG(object sender, EventArgs args)
+		protected override void UpdateChannelG(object sender, EventArgs args)
 		{
 			var slider = sender as SliderBox;
 			_hsvColor.Y = (float)Math.Round(slider.Current);
@@ -94,7 +94,7 @@ namespace RichHudFramework.UI
 		/// Updates the Value (brightness) and display when the third slider (channel B) changes.
 		/// </summary>
 		/// <exclude/>
-		protected override void OnUpdateChannelB(object sender, EventArgs args)
+		protected override void UpdateChannelB(object sender, EventArgs args)
 		{
 			var slider = sender as SliderBox;
 			_hsvColor.Z = (float)Math.Round(slider.Current);

@@ -113,9 +113,9 @@ namespace RichHudFramework.UI
             UseFocusFormatting = true;
             lastValue = IsBoxChecked;
 
-            MouseInput.LeftClicked += OnToggleValue;
-            FocusHandler.GainedInputFocus += OnGainFocus;
-			FocusHandler.LostInputFocus += OnLoseFocus;
+            MouseInput.LeftClicked += ToggleValue;
+            FocusHandler.GainedInputFocus += GainFocus;
+			FocusHandler.LostInputFocus += LoseFocus;
         }
 
         public BorderedCheckBox() : this(null)
@@ -133,7 +133,7 @@ namespace RichHudFramework.UI
             {
                 if (SharedBinds.Space.IsNewPressed)
                 {
-                    _mouseInput.OnLeftClick();
+                    _mouseInput.LeftClick();
                 }
             }
 
@@ -148,7 +148,7 @@ namespace RichHudFramework.UI
 		/// Inverts checkbox value on click
 		/// </summary>
 		/// <exclude/>
-		protected virtual void OnToggleValue(object sender, EventArgs args)
+		protected virtual void ToggleValue(object sender, EventArgs args)
         {
             IsBoxChecked = !IsBoxChecked;
         }
@@ -157,7 +157,7 @@ namespace RichHudFramework.UI
 		/// Sets highlight formatting when the cursor enters
 		/// </summary>
 		/// <exclude/>
-		protected override void OnCursorEnter(object sender, EventArgs args)
+		protected override void CursorEnter(object sender, EventArgs args)
         {
             if (HighlightEnabled)
             {
@@ -176,7 +176,7 @@ namespace RichHudFramework.UI
 		/// Resets highlight formatting when the cursor leaves
 		/// </summary>
 		/// <exclude/>
-		protected override void OnCursorExit(object sender, EventArgs args)
+		protected override void CursorExit(object sender, EventArgs args)
         {
             if (HighlightEnabled)
             {
@@ -197,7 +197,7 @@ namespace RichHudFramework.UI
 		/// Sets focus formatting
 		/// </summary>
 		/// <exclude/>
-		protected virtual void OnGainFocus(object sender, EventArgs args)
+		protected virtual void GainFocus(object sender, EventArgs args)
         {
             if (HighlightEnabled)
             {
@@ -213,7 +213,7 @@ namespace RichHudFramework.UI
 		/// Restores formatting to non-focused state
 		/// </summary>
 		/// <exclude/>
-		protected virtual void OnLoseFocus(object sender, EventArgs args)
+		protected virtual void LoseFocus(object sender, EventArgs args)
         {
             if (HighlightEnabled)
             {

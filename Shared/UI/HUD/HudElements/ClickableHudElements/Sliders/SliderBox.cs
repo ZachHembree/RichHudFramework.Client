@@ -160,8 +160,8 @@ namespace RichHudFramework.UI
 
 			FocusHandler = new InputFocusHandler(this)
 			{
-				GainedInputFocusCallback = OnGainFocus,
-				LostInputFocusCallback = OnLoseFocus
+				GainedInputFocusCallback = GainFocus,
+				LostInputFocusCallback = LoseFocus
 			};
 			slide = new SliderBar(this)
 			{
@@ -170,7 +170,7 @@ namespace RichHudFramework.UI
 				BarHeight = 5f,
 				MouseInput =
 				{
-					CursorEnteredCallback = OnCursorEnter,
+					CursorEnteredCallback = CursorEnter,
 					CursorExitedCallback = CursorExit
 				}
 			};
@@ -221,7 +221,7 @@ namespace RichHudFramework.UI
 		/// Applies highlight and focus formatting when the cursor enters the slider area.
 		/// </summary>
 		/// <exclude/>
-		protected virtual void OnCursorEnter(object sender, EventArgs args)
+		protected virtual void CursorEnter(object sender, EventArgs args)
 		{
 			if (HighlightEnabled)
 			{
@@ -265,7 +265,7 @@ namespace RichHudFramework.UI
 		/// Applies focus-specific formatting when the slider gains input focus.
 		/// </summary>
 		/// <exclude/>
-		protected virtual void OnGainFocus(object sender, EventArgs args)
+		protected virtual void GainFocus(object sender, EventArgs args)
 		{
 			if (UseFocusFormatting && !MouseInput.IsMousedOver)
 			{
@@ -283,7 +283,7 @@ namespace RichHudFramework.UI
 		/// Clears focus-specific formatting when the slider loses input focus.
 		/// </summary>
 		/// <exclude/>
-		protected virtual void OnLoseFocus(object sender, EventArgs args)
+		protected virtual void LoseFocus(object sender, EventArgs args)
 		{
 			if (UseFocusFormatting)
 			{

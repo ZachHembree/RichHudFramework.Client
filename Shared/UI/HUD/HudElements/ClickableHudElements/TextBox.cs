@@ -107,22 +107,22 @@ namespace RichHudFramework.UI
 		{
 			FocusHandler = new InputFocusHandler(this)
 			{
-				GainedInputFocusCallback = OnGainFocus,
-				LostInputFocusCallback = OnLoseFocus
+				GainedInputFocusCallback = GainFocus,
+				LostInputFocusCallback = LoseFocus
 			};
 			_mouseInput = new MouseInputElement(this)
 			{
 				ShareCursor = true,
 				ZOffset = 1,
-				LeftClickedCallback = OnClearSelection
+				LeftClickedCallback = ClearSelection
 			};
 			_bindInput = new BindInputElement(this)
 			{
-				{ SharedBinds.Copy, OnCopyText },
-				{ SharedBinds.Cut, OnCutText },
-				{ SharedBinds.Paste, OnPasteText },
-				{ SharedBinds.SelectAll, OnSelectAllText },
-				{ SharedBinds.Escape, OnClearSelection }
+				{ SharedBinds.Copy, CopyText },
+				{ SharedBinds.Cut, CutText },
+				{ SharedBinds.Paste, PasteText },
+				{ SharedBinds.SelectAll, SelectAllText },
+				{ SharedBinds.Escape, ClearSelection }
 			};
 
 			MouseInput = _mouseInput;
@@ -137,7 +137,7 @@ namespace RichHudFramework.UI
 				bgColor = ToolTip.OrangeWarningBG
 			};
 
-			TextBoard.TextChanged += OnTextChanged;
+			TextBoard.TextChanged += HandleTextChange;
 
 			EnableEditing = true;
 			EnableHighlighting = true;
@@ -191,7 +191,7 @@ namespace RichHudFramework.UI
 		/// <summary>
 		/// Marks a text change as pending invocation of the TextChanged event.
 		/// </summary>
-		protected virtual void OnTextChanged()
+		protected virtual void HandleTextChange()
 		{
 			if (TextChanged != null)
 				textUpdatePending = true;
@@ -211,7 +211,7 @@ namespace RichHudFramework.UI
 		/// <summary>
 		/// Handles gaining input focus. Moves caret to end if configured to do so.
 		/// </summary>
-		protected virtual void OnGainFocus(object sender, EventArgs args)
+		protected virtual void GainFocus(object sender, EventArgs args)
 		{
 			if (MoveToEndOnGainFocus)
 				caret.SetPosition(int.MaxValue);
@@ -220,7 +220,7 @@ namespace RichHudFramework.UI
 		/// <summary>
 		/// Handles losing input focus. Clears selection if configured to do so.
 		/// </summary>
-		protected virtual void OnLoseFocus(object sender, EventArgs args)
+		protected virtual void LoseFocus(object sender, EventArgs args)
 		{
 			if (ClearSelectionOnLoseFocus)
 				ClearSelection();
@@ -229,7 +229,7 @@ namespace RichHudFramework.UI
 		/// <summary>
 		/// Copies the currently selected text to the clipboard if input is allowed and highlighting is enabled.
 		/// </summary>
-		protected virtual void OnCopyText(object sender, EventArgs args)
+		protected virtual void CopyText(object sender, EventArgs args)
 		{
 			if (EnableHighlighting && !selectionBox.Empty)
 			{
@@ -241,7 +241,7 @@ namespace RichHudFramework.UI
 		/// Cuts the currently selected text to the clipboard if input is allowed, editing is enabled, and highlighting is enabled.
 		/// Deletes the selection and adjusts the caret position accordingly.
 		/// </summary>
-		protected virtual void OnCutText(object sender, EventArgs args)
+		protected virtual void CutText(object sender, EventArgs args)
 		{
 			if (EnableEditing && !selectionBox.Empty && EnableHighlighting)
 			{
@@ -256,7 +256,7 @@ namespace RichHudFramework.UI
 		/// Pastes the clipboard text at the caret position if input is allowed and editing is enabled.
 		/// Replaces any existing selection and adjusts the caret position.
 		/// </summary>
-		protected virtual void OnPasteText(object sender, EventArgs args)
+		protected virtual void PasteText(object sender, EventArgs args)
 		{
 			if (EnableEditing)
 			{
@@ -281,7 +281,7 @@ namespace RichHudFramework.UI
 		/// Selects all text in the textbox if input is allowed and highlighting is enabled.
 		/// Moves the caret to the end and sets the full text range as the selection.
 		/// </summary>
-		protected virtual void OnSelectAllText(object sender, EventArgs args)
+		protected virtual void SelectAllText(object sender, EventArgs args)
 		{
 			if (EnableHighlighting)
 			{
@@ -295,7 +295,7 @@ namespace RichHudFramework.UI
 		/// <summary>
 		/// Handles clearing selection on left click or escape
 		/// </summary>
-		protected virtual void OnClearSelection(object sender, EventArgs args)
+		protected virtual void ClearSelection(object sender, EventArgs args)
 		{
 			if (EnableHighlighting)
 				ClearSelection();

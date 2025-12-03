@@ -190,7 +190,7 @@ namespace RichHudFramework.UI
 				if (SharedBinds.LeftButton.IsNewPressed)
 				{
 					FocusHandler?.GetInputFocus();
-					OnLeftClick();
+					LeftClick();
 				}
 				else
 					IsNewLeftClicked = false;
@@ -198,7 +198,7 @@ namespace RichHudFramework.UI
 				if (SharedBinds.RightButton.IsNewPressed)
 				{
 					FocusHandler?.GetInputFocus();
-					OnRightClick();
+					RightClick();
 				}
 				else
 					IsNewRightClicked = false;
@@ -245,7 +245,7 @@ namespace RichHudFramework.UI
 		/// <summary>
 		/// Invokes left click event
 		/// </summary>
-		public virtual void OnLeftClick()
+		public virtual void LeftClick()
 		{
             var owner = (object)(FocusHandler?.InputOwner) ?? Parent;
             LeftClicked?.Invoke(owner, EventArgs.Empty);
@@ -257,7 +257,7 @@ namespace RichHudFramework.UI
 		/// <summary>
 		/// Invokes right click event
 		/// </summary>
-		public virtual void OnRightClick()
+		public virtual void RightClick()
 		{
             var owner = (object)(FocusHandler?.InputOwner) ?? Parent;
             RightClicked?.Invoke(owner, EventArgs.Empty);

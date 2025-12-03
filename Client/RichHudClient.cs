@@ -34,7 +34,7 @@ namespace RichHudFramework.Client
 		private static RichHudClient Instance { get; set; }
 
 		private readonly ExtendedClientData regMessage;
-		private readonly Action InitAction, OnResetAction;
+		private readonly Action InitAction, ResetAction;
 
 		private bool regFail, registered, inQueue;
 		private Func<int, object> GetApiDataFunc;
@@ -43,7 +43,7 @@ namespace RichHudFramework.Client
 		private RichHudClient(string modName, Action InitCallback, Action ResetCallback) : base(false, true)
 		{
 			InitAction = InitCallback;
-			OnResetAction = ResetCallback;
+			ResetAction = ResetCallback;
 
 			ExceptionHandler.ModName = modName;
 
@@ -205,7 +205,7 @@ namespace RichHudFramework.Client
 				if (registered)
 				{
 					ExceptionHandler.ReloadClients();
-					OnResetAction();
+					ResetAction();
 				}
 			});
 		}

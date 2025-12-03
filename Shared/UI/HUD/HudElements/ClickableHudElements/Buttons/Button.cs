@@ -52,8 +52,8 @@ namespace RichHudFramework.UI
             HighlightColor = new Color(125, 125, 125, 255);
             HighlightEnabled = true;
 
-			MouseInput.CursorEntered += OnCursorEnter;
-			MouseInput.CursorExited += OnCursorExit;
+			MouseInput.CursorEntered += CursorEnter;
+			MouseInput.CursorExited += CursorExit;
         }
 
         public Button() : this(null)
@@ -63,7 +63,7 @@ namespace RichHudFramework.UI
 		/// Handles highlighting when the cursor enters the button
 		/// </summary>
 		/// <exclude/>
-		protected virtual void OnCursorEnter(object sender, EventArgs args)
+		protected virtual void CursorEnter(object sender, EventArgs args)
         {
             if (HighlightEnabled)
             {
@@ -76,7 +76,7 @@ namespace RichHudFramework.UI
 		/// Resets highlighting when the cursor leaves the button
 		/// </summary>
 		/// <exclude/>
-		protected virtual void OnCursorExit(object sender, EventArgs args)
+		protected virtual void CursorExit(object sender, EventArgs args)
         {
             if (HighlightEnabled)
             {

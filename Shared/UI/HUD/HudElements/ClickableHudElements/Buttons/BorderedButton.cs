@@ -76,8 +76,8 @@ namespace RichHudFramework.UI
             FocusColor = TerminalFormatting.Mint;
             UseFocusFormatting = true;
 
-			FocusHandler.GainedInputFocus += OnGainFocus;
-			FocusHandler.LostInputFocus += OnLoseFocus;
+			FocusHandler.GainedInputFocus += GainFocus;
+			FocusHandler.LostInputFocus += LoseFocus;
         }
 
         public BorderedButton() : this(null)
@@ -93,7 +93,7 @@ namespace RichHudFramework.UI
             {
                 if (SharedBinds.Space.IsNewPressed)
                 {
-                    _mouseInput.OnLeftClick();
+                    _mouseInput.LeftClick();
                 }
 			}
 		}
@@ -102,7 +102,7 @@ namespace RichHudFramework.UI
 		/// Invoked when the cursor first howvers over the button
 		/// </summary>
 		/// <exclude/>
-		protected override void OnCursorEnter(object sender, EventArgs args)
+		protected override void CursorEnter(object sender, EventArgs args)
         {
             if (HighlightEnabled)
             {
@@ -125,7 +125,7 @@ namespace RichHudFramework.UI
 		/// Invoked when the cursor moves out of the button
 		/// </summary>
 		/// <exclude/>
-		protected override void OnCursorExit(object sender, EventArgs args)
+		protected override void CursorExit(object sender, EventArgs args)
         {
             if (HighlightEnabled)
             {
@@ -148,7 +148,7 @@ namespace RichHudFramework.UI
 		/// Invoked when the button has input focus
 		/// </summary>
 		/// <exclude/>
-		protected virtual void OnGainFocus(object sender, EventArgs args)
+		protected virtual void GainFocus(object sender, EventArgs args)
         {
             if (UseFocusFormatting)
             {
@@ -167,7 +167,7 @@ namespace RichHudFramework.UI
 		/// Invoked when the button loses input focus
 		/// </summary>
 		/// <exclude/>
-		protected virtual void OnLoseFocus(object sender, EventArgs args)
+		protected virtual void LoseFocus(object sender, EventArgs args)
         {
             if (UseFocusFormatting)
             {
