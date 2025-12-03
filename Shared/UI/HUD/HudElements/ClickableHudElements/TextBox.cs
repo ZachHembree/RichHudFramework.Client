@@ -45,6 +45,11 @@ namespace RichHudFramework.UI
 		/// </summary>
 		public Func<char, bool> CharFilterFunc { get; set; }
 
+        /// <summary>
+        /// Index of the character currently selected by the caret.
+        /// </summary>
+        public Vector2I CaretPosition => Vector2I.Max(caret.CaretIndex, Vector2I.Zero);
+
 		/// <summary>
 		/// Index of the first character in the selected range.
 		/// </summary>
@@ -118,11 +123,15 @@ namespace RichHudFramework.UI
 			};
 			_bindInput = new BindInputElement(this)
 			{
-				{ SharedBinds.Copy, CopyText },
-				{ SharedBinds.Cut, CutText },
-				{ SharedBinds.Paste, PasteText },
-				{ SharedBinds.SelectAll, SelectAllText },
-				{ SharedBinds.Escape, ClearSelection }
+				InputPredicate = () => (allowInput || (FocusHandler.HasFocus && HudMain.InputMode == HudInputMode.Full)),
+				CollectionInitializer = 
+				{
+                    { SharedBinds.Copy, CopyText },
+					{ SharedBinds.Cut, CutText },
+					{ SharedBinds.Paste, PasteText },
+					{ SharedBinds.SelectAll, SelectAllText },
+					{ SharedBinds.Escape, ClearSelection }
+                }
 			};
 
 			MouseInput = _mouseInput;
@@ -362,7 +371,6 @@ namespace RichHudFramework.UI
 		protected override void HandleInput(Vector2 cursorPos)
 		{
 			bool useInput = allowInput || (FocusHandler.HasFocus && HudMain.InputMode == HudInputMode.Full);
-			_bindInput.Visible = useInput;
 
 			if (EnableEditing && MouseInput.IsMousedOver && HudMain.InputMode == HudInputMode.CursorOnly)
 				HudMain.Cursor.RegisterToolTip(warningToolTip);

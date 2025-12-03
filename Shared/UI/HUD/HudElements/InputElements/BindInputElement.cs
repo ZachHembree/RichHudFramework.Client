@@ -30,8 +30,14 @@ namespace RichHudFramework.UI
 		/// <summary>
 		/// If true, bind events will only fire when the parent element has input focus.
 		/// Default = false.
+		/// <para>Only applies if the parent/InputOwner implements <see cref="IFocusableElement"/>.</para>
 		/// </summary>
 		public bool IsFocusRequired { get; set; }
+
+        /// <summary>
+        /// If defined, bind events will only fire when the predicate returns true.
+        /// </summary>
+        public Func<bool> InputPredicate { get; set; }
 
 		/// <summary>
 		/// Internal Bind-EventProxy map
@@ -90,6 +96,9 @@ namespace RichHudFramework.UI
 			FocusHandler = (Parent as IFocusableElement)?.FocusHandler;
 
 			if (IsFocusRequired && !(FocusHandler?.HasFocus ?? false))
+				return;
+
+			if (!InputPredicate?.Invoke() ?? false)
 				return;
 
 			var owner = (object)(FocusHandler?.InputOwner) ?? Parent;
