@@ -1,0 +1,104 @@
+# .github/workflows/docfx-deploy.yml
+name: Deploy DocFX Documentation
+
+on:
+  push:
+    branches:
+      - 'docfx'
+  workflow_dispatch:   # Allows manual triggering
+
+permissions:
+  contents: write    # Required for pushing to gh-pages branch
+  pages: write       # If you ever switch to GitHub Pages hosting
+  id-token: write    # Not needed here but kept for compatibility
+
+jobs:
+  build-and-deploy-docfx:
+    runs-on: windows-latest
+    timeout-minutes: 30
+
+    steps:
+      # ------------------------------------------------------------
+      # 1. Checkout repository (includes docfx branch)
+      # ------------------------------------------------------------
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0                     # Needed for accurate tag resolution
+
+      # ------------------------------------------------------------
+      # 2. Setup .NET 8.x
+      # ------------------------------------------------------------
+      - name: Setup .NET 8.x
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.x'
+
+      # ------------------------------------------------------------
+      # 3. Install exact DocFX version 2.78.4
+      # ------------------------------------------------------------
+      - name: Install DocFX 2.78.4
+        run: |
+          dotnet tool install --global docfx --version 2.78.4
+          echo "$env:USERPROFILE\.dotnet\tools" | Out-File -Append -FilePath $env:GITHUB_PATH
+
+      # ------------------------------------------------------------
+      # 4. Clean previous build artifacts
+      # ------------------------------------------------------------
+      - name: Clean previous _site and api folders
+        run: |
+          if (Test-Path "_site") { Remove-Item -Recurse -Force "_site" }
+          if (Test-Path "api")   { Remove-Item -Recurse -Force "api" }
+          if (Test-Path "_src")  { Remove-Item -Recurse -Force "_src" }
+
+      # ------------------------------------------------------------
+      # 5. Generate Releases page using provided PowerShell script
+      # ------------------------------------------------------------
+      - name: Generate Releases page
+        run: |
+          powershell.exe -NoProfile -ExecutionPolicy Bypass -File ".\Get-Releases.ps1" -Owner "ZachHembree" -RepoName "RichHudFramework.Client"
+
+      # ------------------------------------------------------------
+      # 6. Clone source code into _src (required by your docfx.json)
+      # ------------------------------------------------------------
+      - name: Clone source repository for documentation build
+        run: |
+          git clone -b master https://github.com/ZachHembree/RichHudFramework.Client.git _src
+
+      # ------------------------------------------------------------
+      # 7. Run DocFX build
+      # ------------------------------------------------------------
+      - name: Build documentation with DocFX
+        run: docfx docfx.json
+
+      # ------------------------------------------------------------
+      # 8. Copy Google Analytics verification file
+      # ------------------------------------------------------------
+      - name: Copy Google verification file
+        run: Copy-Item googlefe53ea247c41569b.html _site\
+
+      # ------------------------------------------------------------
+      # 9. Deploy to orphan branch docfx-gh-pages
+      # ------------------------------------------------------------
+      - name: Deploy to docfx-gh-pages branch
+        run: |
+          cd _site
+
+          git config --global core.autocrlf true
+          git init
+          git checkout --orphan docfx-gh-pages
+
+          git remote add origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git
+
+          git add --all
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -m "DocFX documentation build from ${{ github.sha }}"
+
+          git push --force origin docfx-gh-pages
+
+      # ------------------------------------------------------------
+      # 10. Completion message
+      # ------------------------------------------------------------
+      - name: Documentation deployed successfully
+        run: Write-Host "Documentation successfully deployed to https://zachhembree.github.io/RichHudFramework.Client/"

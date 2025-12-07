@@ -4,7 +4,7 @@
     {
       "src": [
         {
-          "src": "../RichHudFramework.Client",
+          "src": "_src",
           "exclude": [ "**/bin/**", "**/obj/**" ],
           "files": [ "RichHudClient.csproj" ]
         }
@@ -21,7 +21,7 @@
     "content": [
       {
         "files": [ "**/*.{md,yml}" ],
-        "exclude": [ "_site/**", "api-supplements/**", ".git/**", "tools/**", "googlefe53ea247c41569b.html" ]
+        "exclude": [ "_site/**", "_src/**", "api-supplements/**", ".git/**", "tools/**", "googlefe53ea247c41569b.html" ]
       }
     ],
     "overwrite": [ "api-supplements/**/*.md" ],
@@ -43,7 +43,7 @@
       "_appLogoPath": "images/logo.svg",
       "_appFaviconPath": "images/favicon.ico",
       "_enableSearch": true,
-      "pdf": true
+      "pdf": false
     }
   }
 }
