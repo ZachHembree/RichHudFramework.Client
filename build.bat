@@ -1,7 +1,8 @@
 @echo off
 set "folder=%~dp0"
 
-if exist "%folder%\_site" (rmdir /S /Q "%folder%\_site")
+if exist "%folder%\_site\api" (rmdir /S /Q "%folder%\_site\api")
+if exist "%folder%\_site\articles" (rmdir /S /Q "%folder%\_site\articles")
 if exist "%folder%\api" (rmdir /S /Q "%folder%\api")
 
 :: Run docfx build
@@ -14,6 +15,8 @@ if ERRORLEVEL 1 (
     echo.
     goto :eof
 )
+
+copy googlefe53ea247c41569b.html _site
 
 echo.
 echo Script finished successfully.
