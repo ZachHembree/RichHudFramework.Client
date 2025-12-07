@@ -1,53 +1,66 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using VRageMath;
 
 namespace RichHudFramework
 {
-    public static class CollectionExtensions
-    {
-        /// <summary>
-        /// Generates subarray that starts from a given index and continues to the end.
-        /// </summary>
-        public static T[] GetSubarray<T>(this T[] arr, int start)
-        {
-            T[] trimmed = new T[arr.Length - start];
+	public static class CollectionExtensions
+	{
+		/// <summary>
+		/// Inserts a span of the src list into dst starting at dstIndex.
+		/// </summary>
+		public static void InsertSpan<T>(this List<T> dst, int dstIndex, IReadOnlyList<T> src, int srcIndex = 0, int srcCount = -1)
+		{
+			if (srcCount == -1) srcCount = src.Count - srcIndex;
+			if (srcCount <= 0) return;
 
-            for (int n = start; n < arr.Length; n++)
-                trimmed[n - start] = arr[n];
+			dst.EnsureCapacity(dst.Count + srcCount);
 
-            return trimmed;
-        }
+			int dstOverflowStart = Math.Max(dstIndex, dst.Count - srcCount);
+			int dstOverflowCount = dst.Count - dstOverflowStart;
+			int srcOverflowCount = srcCount - dstOverflowCount;
 
-        /// <summary>
-        /// Generates subarray that starts from a given index and continues to the end.
-        /// </summary>
-        public static T[] GetSubarray<T>(this T[] arr, int start, int end)
-        {
-            T[] trimmed;
+			int srcOflEnd = srcIndex + srcCount - 1;
+			int srcOflStart = srcOflEnd - srcOverflowCount + 1;
 
-            end = MathHelper.Clamp(end, 0, arr.Length);
-            trimmed = new T[end - start];
+			// Append source overflow (elements that have no destination yet)
+			for (int i = srcOflStart; i <= srcOflEnd; i++)
+				dst.Add(src[i]);
 
-            for (int n = start; n < end; n++)
-                trimmed[n - start] = arr[n];
+			// Append destination overflow (elements that will be shifted right)
+			for (int i = dstOverflowStart; i < dst.Count; i++)
+				dst.Add(dst[i]);
 
-            return trimmed;
-        }
+			// Shift original elements right to make room
+			for (int i = dstIndex; i < dstOverflowStart; i++)
+				dst[i + srcCount] = dst[i];
 
-        /// <summary>
-        /// Returns an array containing only unique entries from the collection.
-        /// </summary>
-        public static T[] GetUnique<T>(this IReadOnlyList<T> original)
-        {
-            var unique = new List<T>(original.Count);
+			// Copy new elements into the freed space
+			for (int i = 0; i < srcCount - srcOverflowCount; i++)
+				dst[dstIndex + i] = src[srcIndex + i];
+		}
 
-            foreach (T item in original)
-            {
-                if (!unique.Contains(item))
-                    unique.Add(item);
-            }
+		/// <summary>
+		/// Returns a new array containing elements from start to the end of the array
+		/// </summary>
+		public static T[] GetSubarray<T>(this T[] arr, int start)
+		{
+			var result = new T[arr.Length - start];
+			Array.Copy(arr, start, result, 0, result.Length);
+			return result;
+		}
 
-            return unique.ToArray();
-        }
-    }
+		/// <summary>
+		/// Returns a new array containing elements from start to end.
+		/// </summary>
+		public static T[] GetSubarray<T>(this T[] arr, int start, int end)
+		{
+			end = MathHelper.Clamp(end, 0, arr.Length);
+			if (end <= start) return Array.Empty<T>();
+
+			var result = new T[end - start];
+			Array.Copy(arr, start, result, 0, result.Length);
+			return result;
+		}
+	}
 }

@@ -1,263 +1,113 @@
-﻿using RichHudFramework.UI.Rendering;
-using System.Text;
 using System;
 using VRageMath;
-using VRage.Game;
 
 namespace RichHudFramework.UI
 {
-    /// <summary>
-    /// Named color picker using sliders designed to mimic the appearance of the color picker in the SE terminal.
-    /// RGB only. Alpha not supported.
-    /// </summary>
-    public class ColorPickerHSV : HudElementBase
-    {
-        /// <summary>
-        /// Text rendered by the label
-        /// </summary>
-        public RichText Name { get { return name.TextBoard.GetText(); } set { name.TextBoard.SetText(value); } }
+	/// <summary>
+	/// A named color picker using sliders designed to mimic the appearance of the Space Engineers terminal color picker.
+	/// <para>Operating in HSV mode (Hue, Saturation, Value). Alpha (transparency) is not supported.</para>
+	/// </summary>
+	public class ColorPickerHSV : ColorPickerRGB, IValueControl<Vector3>
+	{
+		/// <exclude/>
+		protected static readonly Vector3 HSVScale = new Vector3(360f, 100f, 100f);
+		/// <exclude/>
+		protected static readonly Vector3 RcpHSVScale = 1f / new Vector3(360f, 100f, 100f);
+
+		/// <summary>
+		/// Gets or sets the color currently specified by the picker.
+		/// Setting this value will automatically update the positions of the sliders.
+		/// </summary>
+		public override Color Value
+		{
+			get { return _color; }
+			set { ColorHSV = value.ColorToHSV() * HSVScale; }
+		}
 
         /// <summary>
-        /// Text builder backing the label
+        /// Gets the currently selected color in HSV format. 
+        /// <para>X = Hue (0-360), Y = Saturation (0-100), Z = Value (0-100).</para>
         /// </summary>
-        public ITextBuilder NameBuilder => name.TextBoard;
+        Vector3 IValueControl<Vector3>.Value => ColorHSV;
 
         /// <summary>
-        /// Formatting used by the label
+        /// Gets or sets the currently selected color in HSV format. 
+        /// Setting this value will automatically update the positions of the sliders.
+        /// <para>X = Hue (0-360), Y = Saturation (0-100), Z = Value (0-100).</para>
         /// </summary>
-        public GlyphFormat NameFormat { get { return name.TextBoard.Format; } set { name.TextBoard.SetFormatting(value); } }
+        public Vector3 ColorHSV
+		{
+			get { return _hsvColor; }
+			set
+			{
+				sliders[0].Value = value.X;
+				sliders[1].Value = value.Y;
+				sliders[2].Value = value.Z;
+				_hsvColor = value;
+			}
+		}
 
-        /// <summary>
-        /// Formatting used by the color value labels
-        /// </summary>
-        public GlyphFormat ValueFormat
-        {
-            get { return sliderText[0].Format; }
-            set
-            {
-                foreach (Label label in sliderText)
-                    label.TextBoard.SetFormatting(value);
-            }
-        }
+		/// <summary>
+		/// Gets or sets the currently selected color in normalized HSV format.
+		/// Setting this value will automatically update the positions of the sliders.
+		/// <para>X = Hue (0-1), Y = Saturation (0-1), Z = Value (0-1).</para>
+		/// </summary>
+		public Vector3 ColorHSVNorm
+		{
+			get { return _hsvColor * RcpHSVScale; }
+			set { ColorHSV = value * HSVScale; }
+		}
 
-        public override float Width
-        {
-            set
-            {
-                if (value > Padding.X)
-                    value -= Padding.X;
+        /// <exclude/>
+        protected Vector3 _hsvColor;
 
-                _size.X = (value);
-                display.Width = value - name.Width;
-                colorSliderColumn.Width = display.Width;
-            }
-        }
+		public ColorPickerHSV(HudParentBase parent = null) : base(parent)
+		{
+			sliders[0].Max = 360f;
+			sliders[1].Max = 100f;
+			sliders[2].Max = 100f;
+		}
 
-        public override float Height
-        {
-            set
-            {
-                if (value > Padding.Y)
-                    value -= Padding.Y;
+		/// <summary>
+		/// Updates the Hue value and display when the first slider (channel R) changes.
+		/// </summary>
+		/// <exclude/>
+		protected override void UpdateChannelR(object sender, EventArgs args)
+		{
+			var slider = sender as SliderBox;
+			_hsvColor.X = (float)Math.Round(slider.Value);
+			sliderText[0].TextBoard.SetText($"H: {_hsvColor.X}");
 
-                _size.Y = (value);
-                value = (value - headerChain.Height - 15f) / 3f;
-                colorNameColumn.MemberMaxSize = new Vector2(colorNameColumn.MemberMaxSize.X, value);
-                colorSliderColumn.MemberMaxSize = new Vector2(colorSliderColumn.MemberMaxSize.X, value);
-            }
-        }
+			_color = (_hsvColor * RcpHSVScale).HSVtoColor();
+			display.Color = _color;
+		}
 
-        /// <summary>
-        /// Color currently specified by the color picker. Formatted as non-normalized, offset HSV.
-        /// Max: [360, 100, 100]
-        /// </summary>
-        public Vector3 Color
-        {
-            get { return _color; }
-            set
-            {
-                sliders[0].Current = value.X;
-                sliders[1].Current = value.Y;
-                sliders[2].Current = value.Z;
-                _color = value;
-            }
-        }
+		/// <summary>
+		/// Updates the Saturation value and display when the second slider (channel G) changes.
+		/// </summary>
+		/// <exclude/>
+		protected override void UpdateChannelG(object sender, EventArgs args)
+		{
+			var slider = sender as SliderBox;
+			_hsvColor.Y = (float)Math.Round(slider.Value);
+			sliderText[1].TextBoard.SetText($"S: {_hsvColor.Y}");
 
-        // Header
-        private readonly Label name;
-        private readonly TexturedBox display;
-        private readonly HudChain headerChain;
-        // Slider text
-        private readonly Label[] sliderText;
-        private readonly HudChain<HudElementContainer<Label>, Label> colorNameColumn;
-        // Sliders
-        public readonly SliderBox[] sliders;
-        private readonly HudChain<HudElementContainer<SliderBox>, SliderBox> colorSliderColumn;
+			_color = (_hsvColor * RcpHSVScale).HSVtoColor();
+			display.Color = _color;
+		}
 
-        private readonly HudChain mainChain, colorChain;
-        private readonly StringBuilder valueBuilder;
-        private Vector3 _color;
-        private int focusedChannel;
+		/// <summary>
+		/// Updates the Value (brightness) and display when the third slider (channel B) changes.
+		/// </summary>
+		/// <exclude/>
+		protected override void UpdateChannelB(object sender, EventArgs args)
+		{
+			var slider = sender as SliderBox;
+			_hsvColor.Z = (float)Math.Round(slider.Value);
+			sliderText[2].TextBoard.SetText($"V: {_hsvColor.Z}");
 
-        public ColorPickerHSV(HudParentBase parent) : base(parent)
-        {
-            // Header
-            name = new Label()
-            {
-                Format = GlyphFormat.Blueish.WithSize(1.08f),
-                Text = "NewColorPicker",
-                AutoResize = false,
-                Size = new Vector2(88f, 22f)
-            };
-
-            display = new TexturedBox()
-            {
-                Width = 231f,
-                Color = VRageMath.Color.Black
-            };
-
-            var dispBorder = new BorderBox(display)
-            {
-                Color = VRageMath.Color.White,
-                Thickness = 1f,
-                DimAlignment = DimAlignments.Both,
-            };
-
-            headerChain = new HudChain(false)
-            {
-                SizingMode = HudChainSizingModes.FitMembersOffAxis | HudChainSizingModes.FitChainBoth,
-                Height = 22f,
-                Spacing = 0f,
-                CollectionContainer = { name, display }
-            };
-
-            // Color picker
-            sliderText = new Label[]
-            {
-                new Label() { AutoResize = false, Format = TerminalFormatting.ControlFormat, Height = 47f },
-                new Label() { AutoResize = false, Format = TerminalFormatting.ControlFormat, Height = 47f },
-                new Label() { AutoResize = false, Format = TerminalFormatting.ControlFormat, Height = 47f }
-            };
-
-            colorNameColumn = new HudChain<HudElementContainer<Label>, Label>(true)
-            {
-                SizingMode = HudChainSizingModes.FitMembersBoth | HudChainSizingModes.FitChainBoth,
-                Width = 87f,
-                Spacing = 5f,
-                CollectionContainer = { sliderText[0], sliderText[1], sliderText[2] }
-            };
-
-            sliders = new SliderBox[]
-            {
-                new SliderBox() { Min = 0f, Max = 360f, Height = 47f },
-                new SliderBox() { Min = 0f, Max = 100f, Height = 47f },
-                new SliderBox() { Min = 0f, Max = 100f, Height = 47f }
-            };
-
-            colorSliderColumn = new HudChain<HudElementContainer<SliderBox>, SliderBox>(true)
-            {
-                SizingMode = HudChainSizingModes.FitMembersBoth | HudChainSizingModes.FitChainBoth,
-                Width = 231f,
-                Spacing = 5f,
-                CollectionContainer = { sliders[0], sliders[1], sliders[2] }
-            };
-
-            colorChain = new HudChain(false)
-            {
-                SizingMode = HudChainSizingModes.FitChainBoth,
-                CollectionContainer =
-                {
-                    colorNameColumn,
-                    colorSliderColumn,
-                }
-            };
-
-            mainChain = new HudChain(true, this)
-            {
-                SizingMode = HudChainSizingModes.FitChainBoth,
-                Spacing = 5f,
-                CollectionContainer =
-                {
-                    headerChain,
-                    colorChain,
-                }
-            };
-
-            Size = new Vector2(318f, 163f);
-            valueBuilder = new StringBuilder();
-
-            UseCursor = true;
-            ShareCursor = true;
-            focusedChannel = -1;
-        }
-
-        public ColorPickerHSV() : this(null)
-        { }
-
-        /// <summary>
-        /// Set focus for slider corresponding to the given color channel index [0, 2].
-        /// </summary>
-        public void SetChannelFocused(int channel)
-        {
-            channel = MathHelper.Clamp(channel, 0, 2);
-
-            if (!sliders[channel].MouseInput.HasFocus)
-                focusedChannel = channel;
-        }
-
-        protected override void Layout()
-        {
-            _color = new Vector3()
-            {
-                X = sliders[0].Current,
-                Y = sliders[1].Current,
-                Z = sliders[2].Current,
-            };
-
-            valueBuilder.Clear();
-            valueBuilder.Append("H: ");
-            valueBuilder.Append(Math.Round(_color.X, 1));
-            sliderText[0].TextBoard.SetText(valueBuilder);
-
-            valueBuilder.Clear();
-            valueBuilder.Append("S: ");
-            valueBuilder.Append(Math.Round(_color.Y, 1));
-            sliderText[1].TextBoard.SetText(valueBuilder);
-
-            valueBuilder.Clear();
-            valueBuilder.Append("V: ");
-            valueBuilder.Append(Math.Round(_color.Z, 1));
-            sliderText[2].TextBoard.SetText(valueBuilder);
-
-            display.Color = (_color / new Vector3(360f, 100f, 100f)).HSVtoColor();
-        }
-
-        protected override void HandleInput(Vector2 cursorPos)
-        {
-            if (focusedChannel != -1)
-            {
-                sliders[focusedChannel].MouseInput.GetInputFocus();
-                focusedChannel = -1;
-            }
-
-            for (int i = 0; i < sliders.Length; i++)
-            {
-                if (sliders[i].MouseInput.HasFocus)
-                {
-                    if (SharedBinds.UpArrow.IsNewPressed)
-                    {
-                        i = MathHelper.Clamp(i - 1, 0, sliders.Length - 1);
-                        sliders[i].MouseInput.GetInputFocus();
-                    }
-                    else if (SharedBinds.DownArrow.IsNewPressed)
-                    {
-                        i = MathHelper.Clamp(i + 1, 0, sliders.Length - 1);
-                        sliders[i].MouseInput.GetInputFocus();
-                    }
-
-                    break;
-                }
-            }
-        }
-    }
+			_color = (_hsvColor * RcpHSVScale).HSVtoColor();
+			display.Color = _color;
+		}
+	}
 }

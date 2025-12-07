@@ -3,15 +3,34 @@ using VRageMath;
 
 namespace RichHudFramework.UI
 {
-    /// <summary>
-    /// Named checkbox designed to mimic the appearance of checkboxes used in the SE terminal.
-    /// </summary>
-    public class NamedCheckBox : HudElementBase, IClickableElement
+	/// <summary>
+	/// Named checkbox designed to mimic the appearance of checkboxes used in the SE terminal.
+	/// <para>Adds a label to <see cref="BorderedCheckBox"/>.</para>
+	/// <para>Formatting temporarily changes when it gains input focus.</para>
+	/// </summary>
+	public class NamedCheckBox : HudElementBase, IClickableElement, IValueControl<bool>
     {
-        /// <summary>
-        /// Text rendered by the label.
-        /// </summary>
-        public RichText Name { get { return name.TextBoard.GetText(); } set { name.TextBoard.SetText(value); } }
+		/// <summary>
+		/// Invoked when the current value (<see cref="Value"/>) changes
+		/// </summary>
+		public event EventHandler ValueChanged
+		{
+			add { checkbox.ValueChanged += value; }
+			remove { checkbox.ValueChanged -= value; }
+		}
+
+		/// <summary>
+		/// Registers a value (<see cref="Value"/>) update callback. Useful in initializers.
+		/// </summary>
+		public EventHandler UpdateValueCallback
+		{
+			set { checkbox.ValueChanged += value; }
+		}
+
+		/// <summary>
+		/// Text rendered by the label.
+		/// </summary>
+		public RichText Name { get { return name.TextBoard.GetText(); } set { name.TextBoard.SetText(value); } }
 
         /// <summary>
         /// Default formatting used by the label.
@@ -31,7 +50,15 @@ namespace RichHudFramework.UI
         /// <summary>
         /// If true, the element will automatically resize to fit the text.
         /// </summary>
-        public bool AutoResize { get { return name.AutoResize; } set { name.AutoResize = value; } }
+        public bool AutoResize 
+        { 
+            get { return name.AutoResize; } 
+            set 
+            { 
+                name.AutoResize = value;
+                layout[0].AlignAxisScale = value ? 0f : 1f;
+            } 
+        }
 
         /// <summary>
         /// Line formatting mode used by the label.
@@ -48,49 +75,73 @@ namespace RichHudFramework.UI
         /// </summary>
         public ITextBuilder NameBuilder => name.TextBoard;
 
-        /// <summary>
-        /// Checkbox mouse input
-        /// </summary>
-        public IMouseInput MouseInput => checkbox.MouseInput;
+		/// <summary>
+		/// Interface for managing gaining/losing input focus
+		/// </summary>
+		public IFocusHandler FocusHandler => checkbox.FocusHandler;
+
+		/// <summary>
+		/// Checkbox mouse input
+		/// </summary>
+		public IMouseInput MouseInput => checkbox.MouseInput;
 
         /// <summary>
         /// Indicates whether or not the box is checked.
         /// </summary>
-        public bool IsBoxChecked { get { return checkbox.IsBoxChecked; } set { checkbox.IsBoxChecked = value; } }
+        public bool Value { get { return checkbox.Value; } set { checkbox.Value = value; } }
 
-        private readonly Label name;
-        private readonly BorderedCheckBox checkbox;
-        private readonly HudChain layout;
+        /// <summary>
+        /// Label to the left of the checkbox
+        /// </summary>
+        /// <exclude/>
+        protected readonly Label name;
+
+        /// <summary>
+        /// Checkbox button
+        /// </summary>
+        /// <exclude/>
+		protected readonly BorderedCheckBox checkbox;
+
+        /// <summary>
+        /// Stacking container for name and checkbox layout
+        /// </summary>
+        /// <exclude/>
+		protected readonly HudChain layout;
 
         public NamedCheckBox(HudParentBase parent) : base(parent)
         {
             name = new Label()
             {
                 Format = TerminalFormatting.ControlFormat.WithAlignment(TextAlignment.Right),
-                Text = "NewCheckbox",
-                AutoResize = false
+                Text = "NewCheckbox"
             };
 
             checkbox = new BorderedCheckBox();
 
             layout = new HudChain(false, this)
             {
+                DimAlignment = DimAlignments.UnpaddedSize,
                 Spacing = 17f,
-                CollectionContainer = { name, checkbox }
+                SizingMode = HudChainSizingModes.FitMembersOffAxis | HudChainSizingModes.AlignMembersCenter,
+                CollectionContainer = { { name, 0f }, { checkbox, 0f } }
             };
 
+            FocusHandler.InputOwner = this;
             AutoResize = true;
             Size = new Vector2(250f, 37f);
         }
 
-        protected override void Layout()
-        {
-            Vector2 size = cachedSize - cachedPadding;
-            checkbox.Size = new Vector2(size.Y);
-            name.Width = size.X - checkbox.Width - layout.Spacing;
-        }
+		public NamedCheckBox() : this(null)
+		{ }
 
-        public NamedCheckBox() : this(null)
-        { }
+		/// <summary>
+		/// Updates the size of the element to fit the checkbox and label if autoresize is enabled
+		/// </summary>
+		/// <exclude/>
+		protected override void Measure()
+        {
+            if (AutoResize)
+                UnpaddedSize = layout.UnpaddedSize + layout.Padding;
+        }
     }
 }

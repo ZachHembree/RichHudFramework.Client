@@ -1,268 +1,275 @@
 ﻿using System;
 using VRageMath;
 using RichHudFramework.UI.Rendering;
-using RichHudFramework.Internal;
 
 namespace RichHudFramework.UI
 {
-    using Client;
-    using Server;
+	using Client;
+	using Server;
 
-    /// <summary>
-    /// Base type for HUD windows. Supports dragging/resizing like pretty much every other window ever.
-    /// </summary>
-    public abstract class WindowBase : HudElementBase, IClickableElement
-    {
-        /// <summary>
-        /// Window header text
-        /// </summary>
-        public RichText HeaderText { get { return HeaderBuilder.GetText(); } set { HeaderBuilder.SetText(value); } }
+	/// <summary>
+	/// Base class for a standard window element featuring a header, body, and border. 
+	/// Includes built-in support for mouse dragging, edge resizing, and focus management.
+	/// </summary>
+	public abstract class WindowBase : HudElementBase, IClickableElement
+	{
+		/// <summary>
+		/// Gets or sets the text displayed in the window's header.
+		/// </summary>
+		public RichText HeaderText { get { return HeaderBuilder.GetText(); } set { HeaderBuilder.SetText(value); } }
 
-        /// <summary>
-        /// Text builder for the window header
-        /// </summary>
-        public ITextBuilder HeaderBuilder => header.TextBoard;
+		/// <summary>
+		/// Exposes the <see cref="ITextBuilder"/> used to format and manipulate the header text.
+		/// </summary>
+		public ITextBuilder HeaderBuilder => header.TextBoard;
 
-        /// <summary>
-        /// Determines the color of both the header and the border.
-        /// </summary>
-        public virtual Color BorderColor
-        {
-            get { return header.Color; }
-            set
-            {
-                header.Color = value;
-                border.Color = value;
-            }
-        }
+		/// <summary>
+		/// Gets or sets the color of both the window border and the header background.
+		/// </summary>
+		public virtual Color BorderColor
+		{
+			get { return header.Color; }
+			set
+			{
+				header.Color = value;
+				border.Color = value;
+			}
+		}
 
-        /// <summary>
-        /// Determines the color of the body of the window.
-        /// </summary>
-        public virtual Color BodyColor { get { return bodyBg.Color; } set { bodyBg.Color = value; } }
+		/// <summary>
+		/// Gets or sets the background color of the window's body area.
+		/// </summary>
+		public virtual Color BodyColor { get { return windowBg.Color; } set { windowBg.Color = value; } }
 
-        /// <summary>
-        /// Minimum allowable size for the window.
-        /// </summary>
-        public Vector2 MinimumSize { get { return minimumSize; } set { minimumSize = value; } }
+		/// <summary>
+		/// Gets or sets the minimum allowable dimensions for the window during resizing.
+		/// </summary>
+		public Vector2 MinimumSize { get; set; }
 
-        /// <summary>
-        /// Determines whether or not the window can be resized by the user
-        /// </summary>
-        public bool AllowResizing { get; set; }
+		/// <summary>
+		/// Determines if the user can resize the window by dragging its edges.
+		/// </summary>
+		public bool AllowResizing { get; set; }
 
-        /// <summary>
-        /// Determines whether or not the user can reposition the window
-        /// </summary>
-        public bool CanDrag { get; set; }
+		/// <summary>
+		/// Determines if the user can reposition the window by clicking and dragging the header.
+		/// </summary>
+		public bool CanDrag { get; set; }
 
-        /// <summary>
-        /// Returns true if the window has focus and is accepting input
-        /// </summary>
-        public bool WindowActive { get; protected set; }
+		/// <summary>
+		/// Indicates whether the window is currently active.
+		/// </summary>
+		public bool WindowActive { get; protected set; }
 
-        /// <summary>
-        /// Returns true if the cursor is over the window
-        /// </summary>
-        public override bool IsMousedOver => resizeInput.IsMousedOver;
+		/// <summary>
+		/// Indicates whether the mouse cursor is currently hovering over the window or its resize padding.
+		/// </summary>
+		public override bool IsMousedOver => resizeInput.IsMousedOver;
 
-        /// <summary>
-        /// Mouse input element for the window
-        /// </summary>
-        public IMouseInput MouseInput => resizeInput;
+		/// <summary>
+		/// The generic mouse input handler for the window
+		/// </summary>
+		public IMouseInput MouseInput { get; }
 
-        /// <summary>
-        /// Window header element
-        /// </summary>
-        public readonly LabelBoxButton header;
+		/// <summary>
+		/// Handles the element's input focus state and registration.
+		/// </summary>
+		public IFocusHandler FocusHandler { get; }
 
-        /// <summary>
-        /// Textured background. Body of the window
-        /// </summary>
-        public readonly HudElementBase body;
+		/// <summary>
+		/// The UI element representing the window's header bar.
+		/// </summary>
+		public readonly LabelBoxButton header;
 
-        /// <summary>
-        /// Window border
-        /// </summary>
-        public readonly BorderBox border;
+		/// <summary>
+		/// The container element for the window's main content area.
+		/// </summary>
+		public readonly HudElementBase body;
 
-        protected readonly MouseInputElement inputInner, resizeInput;
-        protected readonly TexturedBox bodyBg;
+		/// <summary>
+		/// The element responsible for rendering the window's border outline.
+		/// </summary>
+		public readonly BorderBox border;
 
-        protected readonly Action<byte> LoseFocusCallback;
-        protected float cornerSize = 16f;
-        protected bool canMoveWindow, canResize;
-        protected int resizeDir;
-        protected Vector2 cursorOffset, minimumSize;
+		protected readonly MouseInputElement inputInner, resizeInput;
+		protected readonly TexturedBox windowBg;
 
-        public WindowBase(HudParentBase parent) : base(parent)
-        {
-            header = new LabelBoxButton(this)
-            {
-                DimAlignment = DimAlignments.Width,
-                Height = 32f,
-                ParentAlignment = ParentAlignments.Top | ParentAlignments.Inner,
-                ZOffset = 1,
-                Format = GlyphFormat.White.WithAlignment(TextAlignment.Center),
-                HighlightEnabled = false,
-                AutoResize = false,
-            };
+		/// <summary>
+		/// The distance from the corner within which a mouse drag triggers diagonal resizing.
+		/// </summary>
+		protected float cornerSize = 16f;
+		protected bool canMoveWindow;
+		protected Vector2 resizeDir, cursorOffset;
 
-            body = new EmptyHudElement(header)
-            {
-                DimAlignment = DimAlignments.Width,
-                ParentAlignment = ParentAlignments.Bottom,
-            };
+		/// <summary>
+		/// Initializes a new instance of the <see cref="WindowBase"/> class.
+		/// </summary>
+		/// <param name="parent">The parent HUD element.</param>
+		public WindowBase(HudParentBase parent) : base(parent)
+		{
+			header = new LabelBoxButton(this)
+			{
+				DimAlignment = DimAlignments.Width,
+				Height = 32f,
+				ParentAlignment = ParentAlignments.InnerTop,
+				ZOffset = 1,
+				Format = GlyphFormat.White.WithAlignment(TextAlignment.Center),
+				HighlightEnabled = false,
+				AutoResize = false,
+			};
 
-            bodyBg = new TexturedBox(body)
-            {
-                DimAlignment = DimAlignments.Both | DimAlignments.IgnorePadding,
-                ZOffset = -2,
-            };
+			body = new EmptyHudElement(this)
+			{
+				ParentAlignment = ParentAlignments.InnerBottom,
+			};
 
-            border = new BorderBox(this)
-            {
-                ZOffset = 1,
-                Thickness = 1f,
-                DimAlignment = DimAlignments.Both,
-            };
+			windowBg = new TexturedBox(this)
+			{
+				DimAlignment = DimAlignments.Size,
+				ZOffset = -2,
+			};
 
-            resizeInput = new MouseInputElement(this)
-            {
-                ZOffset = sbyte.MaxValue,
-                Padding = new Vector2(16f),
-                DimAlignment = DimAlignments.Both,
-                CanIgnoreMasking = true
-            };
-            
-            inputInner = new MouseInputElement(resizeInput)
-            {
-                DimAlignment = DimAlignments.Both | DimAlignments.IgnorePadding,
-            };
+			border = new BorderBox(this)
+			{
+				ZOffset = 1,
+				Thickness = 1f,
+				DimAlignment = DimAlignments.Size,
+			};
 
-            AllowResizing = true;
-            CanDrag = true;
-            UseCursor = true;
-            ShareCursor = false;
-            IsMasking = true;
-            MinimumSize = new Vector2(200f, 200f);
+			FocusHandler = new InputFocusHandler(this);
+			resizeInput = new MouseInputElement(this)
+			{
+				ZOffset = sbyte.MaxValue,
+				Padding = new Vector2(16f),
+				DimAlignment = DimAlignments.Size,
+				CanIgnoreMasking = true
+			};
+			inputInner = new MouseInputElement(resizeInput)
+			{
+				DimAlignment = DimAlignments.UnpaddedSize,
+			};
 
-            LoseFocusCallback = LoseFocus;
-            GetFocus();
-        }
+			resizeDir = Vector2.Zero;
+			AllowResizing = true;
+			CanDrag = true;
+			UseCursor = true;
+			ShareCursor = false;
+			IsMasking = true;
+			MinimumSize = new Vector2(200f, 200f);
+			MouseInput = resizeInput;
 
-        protected override void Layout()
-        {
-            body.Height = Height - header.Height;
+			GetWindowFocus();
+		}
 
-            if (Visible && WindowActive)
-            {
-                if (canMoveWindow)
-                {
-                    Vector3 cursorPos = HudSpace.CursorPos;
-                    Offset = new Vector2(cursorPos.X, cursorPos.Y) + cursorOffset - Origin;
-                }
+		/// <summary>
+		/// Updates the layout of the window's body relative to the header size.
+		/// </summary>
+		protected override void Layout()
+		{
+			body.Height = UnpaddedSize.Y - header.Height;
+			body.Width = UnpaddedSize.X;
+		}
 
-                if (canResize)
-                    Resize();
-            }
-            else
-            {
-                canMoveWindow = false;
-                canResize = false;
-            }
-        }
+		/// <summary>
+		/// Calculates and applies the new window size and position based on the drag delta and resize direction.
+		/// </summary>
+		/// <param name="cursorPos">The current position of the cursor.</param>
+		protected void Resize(Vector2 cursorPos)
+		{
+			Vector2 pos = Origin + Offset,
+				delta = resizeDir * (cursorPos - pos),
+				size = CachedSize;
 
-        protected void Resize()
-        {
-            Vector3 cursorPos = HudSpace.CursorPos;
-            Vector2 center = Origin + Offset, newOffset = Offset;
-            float newWidth, newHeight;
+			if (delta.X > 0f)
+			{
+				delta.X = Math.Max(delta.X, .5f * MinimumSize.X);
+				size.X = .5f * size.X + delta.X;
+				pos.X = ((resizeDir.X * delta.X) + pos.X) + (-resizeDir.X * .5f * size.X);
+			}
 
-            // 1 == horizontal, 3 == both
-            if (resizeDir == 1 || resizeDir == 3)
-            {
-                newWidth = Math.Abs(newOffset.X - cursorPos.X) + Width * .5f;
+			if (delta.Y > 0f)
+			{
+				delta.Y = Math.Max(delta.Y, .5f * MinimumSize.Y);
+				size.Y = .5f * size.Y + delta.Y;
+				pos.Y = ((resizeDir.Y * delta.Y) + pos.Y) + (-resizeDir.Y * .5f * size.Y);
+			}
 
-                if (newWidth >= MinimumSize.X)
-                {
-                    Width = newWidth;
+			Size = size;
+			Offset = pos - Origin;
+		}
 
-                    if (cursorPos.X > center.X)
-                        newOffset.X = cursorPos.X - Width * .5f;
-                    else
-                        newOffset.X = cursorPos.X + Width * .5f;
-                }
-            }
+		/// <summary>
+		/// Handles mouse input for resizing, dragging, and focus acquisition.
+		/// </summary>
+		/// <param name="cursorPos">The current cursor position.</param>
+		protected override void HandleInput(Vector2 cursorPos)
+		{
+			if (IsMousedOver)
+			{
+				if (SharedBinds.LeftButton.IsNewPressed && !WindowActive)
+					GetWindowFocus();
+			}
 
-            // 2 == vertical
-            if (resizeDir == 2 || resizeDir == 3)
-            {
-                newHeight = Math.Abs(newOffset.Y - cursorPos.Y) + Height * .5f;
+			if (AllowResizing && resizeInput.IsNewLeftClicked && !inputInner.IsMousedOver)
+			{
+				Vector2 pos = Origin + Offset,
+						delta = cursorPos - pos;
 
-                if (newHeight >= MinimumSize.Y)
-                {
-                    Height = newHeight;
+				resizeDir = Vector2.Zero;
 
-                    if (cursorPos.Y > center.Y)
-                        newOffset.Y = cursorPos.Y - Height * .5f;
-                    else
-                        newOffset.Y = cursorPos.Y + Height * .5f;
-                }
-            }
+				if (Width - (2f * Math.Abs(delta.X)) <= cornerSize)
+					resizeDir.X = (delta.X >= 0f) ? 1f : -1f;
 
-            Offset = newOffset;
-        }
+				if (Height - (2f * Math.Abs(delta.Y)) <= cornerSize)
+					resizeDir.Y = (delta.Y >= 0f) ? 1f : -1f;
+			}
+			else if (CanDrag && header.MouseInput.IsNewLeftClicked)
+			{
+				canMoveWindow = true;
+				cursorOffset = (Origin + Offset) - cursorPos;
+			}
 
-        protected override void HandleInput(Vector2 cursorPos)
-        {
-            if (IsMousedOver)
-            {
-                if (SharedBinds.LeftButton.IsNewPressed && !WindowActive)
-                    GetFocus();
-            }
+			if ((resizeDir != Vector2.Zero) || canMoveWindow)
+			{
+				if (!SharedBinds.LeftButton.IsPressed)
+				{
+					canMoveWindow = false;
+					resizeDir = Vector2.Zero;
+				}
+			}
 
-            if (AllowResizing && resizeInput.IsNewLeftClicked && !inputInner.IsMousedOver)
-            {
-                Vector2 pos = Origin + Offset;
-                canResize = true;
-                resizeDir = 0;
+			if (!WindowActive)
+			{
+				canMoveWindow = false;
+				resizeDir = Vector2.Zero;
+			}
 
-                if (Width - (2f) * Math.Abs(pos.X - cursorPos.X) <= cornerSize)
-                    resizeDir += 1;
+			if (canMoveWindow)
+				Offset = cursorPos + cursorOffset - Origin;
 
-                if (Height - (2f) * Math.Abs(pos.Y - cursorPos.Y) <= cornerSize)
-                    resizeDir += 2;
-            }
-            else if (CanDrag && header.MouseInput.IsNewLeftClicked)
-            {
-                canMoveWindow = true;
-                cursorOffset = (Origin + Offset) - cursorPos;
-            }
+			if (resizeDir != Vector2.Zero)
+				Resize(cursorPos);
+		}
 
-            if (canResize || canMoveWindow)
-            {
-                if (!SharedBinds.LeftButton.IsPressed)
-                {
-                    canMoveWindow = false;
-                    canResize = false;
-                }
-            }
-        }
+		/// <summary>
+		/// Brings the window to the foreground (top Z-layer) and captures input focus. 
+		/// Overriding methods must call the base implementation.
+		/// </summary>
+		public virtual void GetWindowFocus()
+		{
+			OverlayOffset = HudMain.GetFocusOffset(LoseWindowFocus);
+			WindowActive = true;
+		}
 
-        /// <summary>
-        /// Brings the window into the foreground
-        /// </summary>
-        public virtual void GetFocus()
-        {
-            layerData.zOffsetInner = HudMain.GetFocusOffset(LoseFocusCallback);
-            WindowActive = true;
-        }
-
-        protected virtual void LoseFocus(byte newOffset)
-        {
-            layerData.zOffsetInner = newOffset;
-            WindowActive = false;
-        }
-    }
+		/// <summary>
+		/// Callback triggered when the window loses focus to another element. 
+		/// Overriding methods must call the base implementation.
+		/// </summary>
+		/// <param name="newLayer">The new Z-offset layer assigned to this window.</param>
+		protected virtual void LoseWindowFocus(byte newLayer)
+		{
+			OverlayOffset = newLayer;
+			WindowActive = false;
+		}
+	}
 }
