@@ -1,0 +1,6 @@
+- name: Articles
+  href: articles/Installation-and-Mod-Integration.md
+- name: API Reference
+  href: api/
+- name: Releases
+  href: Releases.md

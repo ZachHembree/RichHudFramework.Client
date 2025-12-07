@@ -1,0 +1,49 @@
+{
+  "$schema": "https://raw.githubusercontent.com/dotnet/docfx/main/schemas/docfx.schema.json",
+  "metadata": [
+    {
+      "src": [
+        {
+          "src": "../RichHudFramework.Client",
+          "exclude": [ "**/bin/**", "**/obj/**" ],
+          "files": [ "RichHudClient.csproj" ]
+        }
+      ],
+      "output": "api",
+      "filter": "filterConfig.yml",
+      "categoryLayout": "flattened",
+      "namespaceLayout": "flattened",
+      "enumSortOrder": "declaringOrder",
+      "includeExplicitInterfaceImplementations": true
+    }
+  ],
+  "build": {
+    "content": [
+      {
+        "files": [ "**/*.{md,yml}" ],
+        "exclude": [ "_site/**", "api-supplements/**", ".git/**", "tools/**" ]
+      }
+    ],
+    "overwrite": [ "api-supplements/**/*.md" ],
+    "resource": [
+      {
+        "files": [ "images/**" ]
+      }
+    ],
+    "output": "_site",
+    "template": [
+        "default",
+        "modern",
+        "templates/custom"
+    ],
+    "globalMetadata": {
+      "_appName": "Rich HUD Framework",
+      "_appTitle": "Rich HUD Framework",
+      "_memberLayout": "samePage",
+      "_appLogoPath": "images/logo.svg",
+      "_appFaviconPath": "images/favicon.ico",
+      "_enableSearch": true,
+      "pdf": true
+    }
+  }
+}

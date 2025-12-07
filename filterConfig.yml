@@ -1,0 +1,23 @@
+### YamlMime:ManagedReference
+apiRules:
+  - exclude:
+      uidRegex: ^(.*\.)?Internal$
+      type: Namespace
+  - exclude:
+      uidRegex: ^System\.Object$
+      type: Namespace
+  - exclude:
+      uidRegex: ^System\.Object\..*
+      type: Member
+  - exclude:
+      uidRegex: ^System\.Object\.(ToString|Equals|GetHashCode|Finalize)$
+      type: Member
+  - exclude:
+      uidRegex: ^System\.ValueType$
+      type: Namespace
+  - exclude:
+      uidRegex: ^System\.ValueType\..*
+      type: Member
+  - exclude:
+      uidRegex: ^System\.ValueType\.(ToString|Equals|GetHashCode|Finalize)$
+      type: Member
