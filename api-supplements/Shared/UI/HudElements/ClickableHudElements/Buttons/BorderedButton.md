@@ -3,7 +3,7 @@ uid: RichHudFramework.UI.BorderedButton
 example: [*content]
 ---
 
-This will create a button with a border, very similar in appearance to those found in Space Engineer's terminal, but with a bright orange tooltip and an exceptionally garish pink-purple focus format, because why not?
+This example creates a button with a border, very similar in appearance to those found in Space Engineer's terminal, but with a bright orange tooltip and an exceptionally garish pink-purple focus format, because why not?
 
 By default, the focus formatting matches the default Space Engineers behavior: light blue background with dark text.
 

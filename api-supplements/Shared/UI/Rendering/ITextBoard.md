@@ -20,13 +20,13 @@ Because it extends <xref:RichHudFramework.UI.Rendering.ITextBuilder>, this inter
 
 #### Navigation and Interaction
 
-`ITextBoard` supplies the coordinate systems required for interactivity:
+`ITextBoard` supplies the utilities required for scrolling and click-based navigation:
 * **Scrolling:** The <xref:RichHudFramework.UI.Rendering.ITextBoard.TextOffset> property allows the visible window to be panned across the <xref:RichHudFramework.UI.Rendering.ITextBoard.TextSize>.
 * **Caret Navigation:** <xref:RichHudFramework.UI.Rendering.ITextBoard.MoveToChar*> calculates the offset required to bring a specific character index into view.
 * **Hit Testing:** <xref:RichHudFramework.UI.Rendering.ITextBoard.GetCharAtOffset*> translates a screen-space position into a character index, essential for mouse selection and cursor placement.
 
-#### Usage Note
-While the text elements in the built-in UI library (like <xref:RichHudFramework.UI.Label>) do not include scrollbars by default, `ITextBoard` provides the underlying infrastructure to implement them manually. See the examples above for a standard implementation pattern.
+>[!NOTE]
+>While the text elements in the built-in UI library (like <xref:RichHudFramework.UI.Label>) do not include scrollbars by default, `ITextBoard` provides the underlying infrastructure to implement them manually. See the examples above for a standard implementation pattern.
 
 ---
 uid: RichHudFramework.UI.Rendering.ITextBoard

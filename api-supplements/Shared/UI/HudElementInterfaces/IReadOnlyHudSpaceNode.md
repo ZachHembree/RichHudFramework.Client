@@ -4,7 +4,7 @@ remarks: *content
 ---
 The coordinate system for all UI elements within the framework is defined by the <xref:RichHudFramework.UI.HudParentBase.HudSpace> property, which uses this interface. Fundamentally, every UI element is rendered on the **X/Y (Right/Up)** plane of the matrix transform defined by <xref:RichHudFramework.UI.IReadOnlyHudSpaceNode.PlaneToWorld>.
 
-For a comprehensive overview of the theoretical concepts regarding coordinate systems in this framework, refer to the article on [HUD Spaces](~/articles/HUD-Spaces.md).
+For a comprehensive overview of the concepts regarding coordinate systems in this framework, refer to the article on [HUD Spaces](~/articles/HUD-Spaces.md).
 
 ### Implementations
 

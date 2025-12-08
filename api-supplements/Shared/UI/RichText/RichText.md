@@ -27,7 +27,7 @@ example: [*content]
 ---
 
 #### Example 1: Dynamic Text Construction
-The following example shows a reused `RichText` buffer to construct a formatted string in a loop. This pattern is efficient for text that updates frequently (e.g., every frame in `HandleInput` or `Layout`).
+The following example shows a reused `RichText` buffer to construct a formatted string in a loop. This pattern is efficient for text that updates frequently (e.g., every frame in `HandleInput`).
 
 ```csharp
 private static readonly GlyphFormat headerFormat = new GlyphFormat(textSize: 1.5f, alignment: TextAlignment.Center);

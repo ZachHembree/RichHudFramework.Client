@@ -12,19 +12,20 @@ Every UI element must be registered to a parent node to be updated, rendered, or
 - Visibility and input handling for registered nodes can be toggled dynamically using <xref:RichHudFramework.UI.HudParentBase.Visible> and <xref:RichHudFramework.UI.HudParentBase.InputEnabled>.
 
 ### Update Cycle and Customization
-This class extends <xref:RichHudFramework.UI.HudNodeBase> and <xref:RichHudFramework.UI.HudParentBase>, exposing the core update loop hooks required to create custom UI behaviors. Developers can override these methods to implement specific logic for each pass:
+This class extends <xref:RichHudFramework.UI.HudNodeBase> and <xref:RichHudFramework.UI.HudParentBase>, exposing the core update loop hooks required to create custom UI behavior imperatively:
 
 1. <xref:RichHudFramework.UI.HudParentBase.Measure*>: Logic for calculating element dimensions for self-resizing (occurring before the main layout pass).
 2. <xref:RichHudFramework.UI.HudParentBase.Layout*>: Logic for arranging child elements, setting finalized sizes, and updating relative positioning.
 3. <xref:RichHudFramework.UI.HudParentBase.Draw*>: Logic for rendering the element (e.g., drawing billboards or text).
 4. <xref:RichHudFramework.UI.HudParentBase.InputDepth*> and <xref:RichHudFramework.UI.HudParentBase.HandleInput*>: Logic for cursor and keyboard polling.
 
-> **Note:** Parent nodes can override the sizing of child nodes during layout. Custom UI elements should be designed to respect overrides where practicable to ensure stable and correct positioning.
+> [!NOTE]
+> Parent nodes can override the sizing of child nodes during layout. Custom UI elements should be designed to respect overrides where practical to ensure stable and correct positioning.
 
 ### Layout and Alignment
 By default, UI elements are placed relative to the center of the parent node; their <xref:RichHudFramework.UI.HudElementBase.Origin>s are centered. This differs from many UI systems that default to top-left. For UI elements attached directly to one of the root nodes, their position will be relative to the center of the screen. Positioning is set via <xref:RichHudFramework.UI.HudElementBase.Offset>.
 
-This class includes built-in utilities to simplify layout management without requiring manual calculations in the `Layout` hook:
+This class includes declarative utilities to simplify layout management without requiring manual calculations in the `Layout` hook:
 
 * <xref:RichHudFramework.UI.HudElementBase.ParentAlignment>: Configures the anchoring of the element's `Origin` relative to its parent. When attached directly to `Root` or `HighDpiRoot`, this alignment is clamped to keep the element within screen bounds.
 
