@@ -1,0 +1,77 @@
+# .github/workflows/docfx-deploy.yml
+name: Rebuild DocFX
+
+on:
+  push:
+    branches:
+      - 'docfx'
+  workflow_dispatch:   # Allows manual triggering
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+jobs:
+  build-and-deploy-docfx:
+    runs-on: windows-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Clone source repository for documentation build
+        run: |
+          git clone -b master https://github.com/ZachHembree/RichHudFramework.Client.git _src
+
+      - name: Get SE reference assemblies
+        uses: dawidd6/action-download-artifact@v3
+        with:
+          workflow: upload-se-references.yml
+          branch: ${{ github.ref_name }} 
+          name: se-reference-assemblies
+          path: resources
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Setup .NET 8.x
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.x'
+
+      - name: Install DocFX 2.78.4
+        run: |
+          dotnet tool install --global docfx --version 2.78.4
+          echo "$env:USERPROFILE\.dotnet\tools" | Out-File -Append -FilePath $env:GITHUB_PATH
+
+      - name: Generate Releases page
+        run: |
+          powershell.exe -NoProfile -ExecutionPolicy Bypass -File ".\Get-Releases.ps1" -Owner "ZachHembree" -RepoName "RichHudFramework.Client"
+
+      - name: Build documentation with DocFX
+        run: docfx docfx.json
+
+      - name: Copy Google verification file
+        run: Copy-Item googlefe53ea247c41569b.html _site\
+
+      - name: Deploy to docfx-gh-pages branch
+        run: |
+          cd _site
+
+          git config --global core.autocrlf true
+          git init
+          git checkout --orphan docfx-gh-pages
+
+          git remote add origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git
+
+          git add --all
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -m "DocFX documentation build from ${{ github.sha }}"
+
+          git push --force origin docfx-gh-pages
+
+      - name: Documentation deployed successfully
+        run: Write-Host "Documentation successfully deployed to https://zachhembree.github.io/RichHudFramework.Client/"

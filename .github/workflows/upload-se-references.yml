@@ -1,9 +1,6 @@
 name: Upload SE Reference Assemblies
 
 on:
-  push:
-    branches:
-      - 'docfx'
   workflow_dispatch:
 
 jobs:
@@ -25,3 +22,4 @@ jobs:
           name: se-reference-assemblies
           path: artifact-contents/
           retention-days: 90
+
