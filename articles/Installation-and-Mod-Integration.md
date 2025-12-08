@@ -1,5 +1,5 @@
 # Installation and Mod Integration
-The RHF client should be installed in a preexisting C# mod project. See the official [Space Engineers Mod Scripting Reference](https://spaceengineers.wiki.gg/wiki/Modding/Reference/ModScripting) for details on mod creation.
+The RHF client should be installed in a preexisting C# mod project. See the official [Space Engineers Mod Scripting Reference](https://spaceengineers.wiki.gg/wiki/Modding/Reference/ModScripting) for details on mod creation. Installation is just a matter of copying the source into your project, and initializing the client:
 
 1. **Install the Rich Hud Framework client:**
    - Download the latest release from [RichHudFramework.Client](https://github.com/ZachHembree/RichHudFramework.Client).
@@ -22,7 +22,7 @@ The RHF client should be installed in a preexisting C# mod project. See the offi
 > The framework is load-order independent. Your UI will function correctly regardless of whether your mod loads before or after RHM.
 
 ### Example
-If your main class inherits from [MySessionComponentBase](https://keensoftwarehouse.github.io/SpaceEngineersModAPI/api/VRage.Game.Components.MySessionComponentBase.html), a typical implementation will resemble the following:
+If your main class inherits from <xref:VRage.Game.Components.MySessionComponentBase>, a typical implementation will resemble the following:
 
 ```csharp
 using RichHudFramework.Client;

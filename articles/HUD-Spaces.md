@@ -18,7 +18,7 @@ If matrix mathematics or coordinate-space transformations are unfamiliar, the Tr
 
 ### Core Functions
 
-Every HUD space node (via its base class <xref:RichHudFramework.UI.HudSpaceNodeBase>) performs three critical tasks each frame:
+Every HUD space node performs three critical tasks each frame:
 
 1. **PTW Matrix Calculation** – Supplies the transformation that positions and orients its plane in world space.
 2. **Cursor Projection** – Computes the exact world-space point where the mouse cursor intersects the plane, then transforms that point back into the node's local 2D coordinates. This ensures accurate mouse-over detection and input handling regardless of the node's orientation or distance from the camera.
@@ -33,7 +33,7 @@ HUD Spaces can be divided into two categories of behavior: screen-space and worl
 
 #### Diegetic / World-Space UI
 
-By parenting UI elements to a `CustomSpaceNode` whose matrix is derived from a cockpit block, door, or any <xref:VRage.Game.ModAPI.Ingame.IMyEntity>, developers can create interfaces that naturally move, rotate, and scale with objects in the game world (e.g., control panels, status readouts on machinery, holographic menus).
+By parenting UI elements to a `CustomSpaceNode` whose matrix is derived from a cockpit block, door, or any <xref:VRage.Game.ModAPI.Ingame.IMyEntity>, developers can create interfaces that naturally track objects in the game world (e.g., control panels, status readouts on machinery, holographic menus).
 
 ### Depth Sorting
 
