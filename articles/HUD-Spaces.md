@@ -29,11 +29,11 @@ HUD Spaces can be divided into two categories of behavior: screen-space and worl
 
 #### Screen-Space Emulation
 
-<xref:RichHudFramework.UI.Client.HudMain.Root> and <xref:RichHudFramework.UI.Client.HudMain.HighDpiRoot> are pre-configured nodes that place their plane on the camera's near clip plane with pixel units. This is how the framework achieves the illusion of a true 2D overlay despite the API only exposing 3D billboards (see: [MyTransparentGeometry](https://keensoftwarehouse.github.io/SpaceEngineersModAPI/api/VRage.Game.MyTransparentGeometry.html)).
+<xref:RichHudFramework.UI.Client.HudMain.Root> and <xref:RichHudFramework.UI.Client.HudMain.HighDpiRoot> are pre-configured nodes that place their plane on the camera's near clip plane with pixel units. This is how the framework achieves the illusion of a true 2D overlay despite the API only exposing 3D billboards (see: <xref:VRage.Game.MyTransparentGeometry>).
 
 #### Diegetic / World-Space UI
 
-By parenting UI elements to a `CustomSpaceNode` whose matrix is derived from a cockpit block, door, or any [IMyEntity](https://keensoftwarehouse.github.io/SpaceEngineersModAPI/api/VRage.Game.ModAPI.Ingame.IMyEntity.html), developers can create interfaces that naturally move, rotate, and scale with objects in the game world (e.g., control panels, status readouts on machinery, holographic menus).
+By parenting UI elements to a `CustomSpaceNode` whose matrix is derived from a cockpit block, door, or any <xref:VRage.Game.ModAPI.Ingame.IMyEntity>, developers can create interfaces that naturally move, rotate, and scale with objects in the game world (e.g., control panels, status readouts on machinery, holographic menus).
 
 ### Depth Sorting
 
