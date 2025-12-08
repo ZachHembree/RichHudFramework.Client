@@ -3,6 +3,7 @@
 set "folder=%~dp0"
 if exist "%folder%\_site\" (rmdir /S /Q "%folder%\_site\")
 if exist "%folder%\api" (rmdir /S /Q "%folder%\api")
+
 :: Releases page generation
 powershell.exe -NoProfile -ExecutionPolicy Bypass -File ".\Get-Releases.ps1" -Owner "ZachHembree" -RepoName "RichHudFramework.Client"
 

@@ -18,6 +18,9 @@
     }
   ],
   "build": {
+    "xref": [
+      "https://keensoftwarehouse.github.io/SpaceEngineersModAPI/xrefmap.yml"
+    ],
     "content": [
       {
         "files": [ "**/*.{md,yml}" ],
