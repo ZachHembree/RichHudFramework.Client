@@ -1,0 +1,27 @@
+name: Upload SE Reference Assemblies
+
+on:
+  push:
+    branches:
+      - 'docfx'
+  workflow_dispatch:
+
+jobs:
+  upload:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download References ZIP
+        run: |
+          curl -L -f -o refs-download.zip "${{ secrets.SE_DLLS_URL }}"
+
+      - name: Extract Contents using 7z
+        run: |
+          mkdir -p artifact-contents
+          7z x refs-download.zip -oartifact-contents/ -aoa
+          
+      - name: Upload Contents as GitHub artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: se-reference-assemblies
+          path: artifact-contents/
+          retention-days: 90
