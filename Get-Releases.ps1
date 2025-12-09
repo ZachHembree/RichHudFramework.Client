@@ -53,6 +53,7 @@ _customNavTitle: "History"
 _disableToc: true
 _disableBreadcrumb: true
 _disableNextArticle: true
+_disableContribution: true
 ---
 '@;
 
