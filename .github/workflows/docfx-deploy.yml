@@ -67,6 +67,19 @@ jobs:
         run: |
           powershell.exe -NoProfile -ExecutionPolicy Bypass -File ".\Get-Releases.ps1" -Owner "ZachHembree" -RepoName "RichHudFramework.Client"
 
+      - name: Configure Git Safe Directory and Isolation
+        run: |
+          Add-Content -Path .gitignore -Value "`n_src/"
+
+          $workspace = $env:GITHUB_WORKSPACE.Replace('\', '/')
+          $srcPath = "$workspace/_src"
+
+          git config --global --add safe.directory $srcPath
+          
+          Write-Host "Verifying Git status inside _src..."
+          cd _src
+          git status
+
       - name: Build documentation with DocFX
         run: docfx docfx.json
 
