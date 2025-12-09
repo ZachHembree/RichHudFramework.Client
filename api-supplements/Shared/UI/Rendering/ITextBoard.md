@@ -43,7 +43,7 @@ public class TextBuilderExample : HudElementBase
 
     // ... Initialization code ...
 
-    protected override void Layout()
+    protected override void HandleInput(Vector2 cursorPos)
     {
         // Access the board directly to manipulate the buffer
         ITextBuilder text = textElement.TextBoard;
