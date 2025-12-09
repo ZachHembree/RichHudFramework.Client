@@ -1,4 +1,3 @@
-# .github/workflows/docfx-deploy.yml
 name: Rebuild DocFX
 
 on:
@@ -7,7 +6,7 @@ on:
       - 'docfx'
   release:
     types: [published]
-  workflow_dispatch:   # Allows manual triggering
+  workflow_dispatch:
 
 permissions:
   contents: write
@@ -29,21 +28,26 @@ jobs:
         run: |
           git clone -b master https://github.com/ZachHembree/RichHudFramework.Client.git _src
 
-      - name: Get SE reference assemblies
+      - name: Cache DocFX and SE Reference Assemblies
+        id: cache-all
+        uses: actions/cache@v4
+        with:
+          path: |
+            C:\Users\runneradmin\.dotnet\tools
+            resources
+          key: |
+            deploy-res-combined-${{ hashFiles('docfx.json') }}-${{ secrets.SE_REFS_CACHE_VERSION }}
+          restore-keys: deploy-res-combined-
+
+      - name: Download SE reference assemblies if cache miss
+        if: steps.cache-all.outputs.cache-hit != 'true'
         uses: dawidd6/action-download-artifact@v3
         with:
           workflow: upload-se-references.yml
-          branch: ${{ github.ref_name }} 
+          branch: ${{ github.ref_name }} 
           name: se-reference-assemblies
           path: resources
           github_token: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Cache DocFX tools
-        id: cache-docfx
-        uses: actions/cache@v4
-        with:
-          path: C:\Users\runneradmin\.dotnet\tools 
-          key: docfx-2.78.4-${{ hashFiles('docfx.json') }}
 
       - name: Setup .NET 8.x
         uses: actions/setup-dotnet@v4
@@ -51,7 +55,7 @@ jobs:
           dotnet-version: '8.x'
 
       - name: Install DocFX 2.78.4
-        if: steps.cache-docfx.outputs.cache-hit != 'true'
+        if: steps.cache-all.outputs.cache-hit != 'true'
         run: |
           dotnet tool install --global docfx --version 2.78.4
         
