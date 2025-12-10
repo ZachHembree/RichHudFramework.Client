@@ -20,7 +20,7 @@ The framework is split into three modules: **Master, Client, and Shared** becaus
 * **Client Module:** The developer-facing API. This is the module you directly integrate into your scripted C# mod.
 * **Shared Module:** Internal module. Common types and libraries duplicated in the other two modules.
 
-To start, download a copy of the **Client module** from the [releases page](https://zachhembree.github.io/RichHudFramework.Client/Releases.html) and include it in your mod.
+To start, download a copy of the **Client module** from the [releases page](https://zachhembree.github.io/RichHudFramework.Client/Releases.html) and include it in your mod. Detailed installation instructions are availale [here](https://zachhembree.github.io/RichHudFramework.Client/articles/Installation-and-Mod-Integration.html).
 
 ### Example Mod
 
