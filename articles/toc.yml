@@ -1,11 +1,7 @@
-# This is an automatically generated file
-- name: Overview
-  href: ../index.md
-- name: Installation and Mod Integration
-  href: Installation-and-Mod-Integration.md
-- name: HUD Spaces
-  href: HUD-Spaces.md
-- name: Custom Textures
-  href: Custom-Textures.md
-- name: Custom Fonts
-  href: Custom-Fonts.md
+- name: Get Started
+- href: ../index.md
+- href: Installation-and-Mod-Integration.md
+- name: Advanced
+- href: HUD-Spaces.md
+- href: Custom-Textures.md
+- href: Custom-Fonts.md
