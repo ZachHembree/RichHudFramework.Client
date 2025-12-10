@@ -3,7 +3,7 @@ uid: RichHudFramework.UI.HudChain`2
 remarks: *content
 ---
 
-This class serves as a fundamental layout tool that organizes child <xref:RichHudFramework.UI.HudElementBase> elements into a linear stack, either vertically or horizontally. Conceptually similar to a CSS Flexbox or a XAML StackPanel, it provides the underlying logic for automatically arranging UI elements without manual pixel positioning.
+This class extends [HudCollection](xref:RichHudFramework.UI.HudCollection`2) and serves as a fundamental layout tool that organizes child <xref:RichHudFramework.UI.HudElementBase> elements into a linear stack, either vertically or horizontally. Conceptually similar to a CSS Flexbox or a XAML StackPanel, it provides the underlying logic for automatically arranging UI elements without manual pixel positioning.
 
 #### Layout and Sizing
 
