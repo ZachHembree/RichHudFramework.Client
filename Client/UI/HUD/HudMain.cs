@@ -61,7 +61,7 @@ namespace RichHudFramework
                 /// <summary>
                 /// The root parent node for all client-side HUD elements in the framework.
                 /// 
-                /// <para>All UI elements added by mods should be parented to this node or 
+                /// <para>All top-level UI elements added by mods should be parented to this node or 
 				/// <see cref="HighDpiRoot"/> to function.</para>
                 /// </summary>
                 public static HudParentBase Root
@@ -80,7 +80,7 @@ namespace RichHudFramework
                 /// automatically applies a draw matrix that rescales UI elements to compensate for the
                 /// reduced apparent size caused by high-DPI displays, maintaining consistent visual sizing.
 				/// 
-                /// <para>All UI elements added by mods should be parented to this node or 
+                /// <para>All top-level UI elements added by mods should be parented to this node or 
                 /// <see cref="Root"/> to function.</para>
                 /// </summary>
                 public static HudParentBase HighDpiRoot
@@ -95,7 +95,7 @@ namespace RichHudFramework
                 }
 
                 /// <summary>
-                /// The shared cursor instance available across all mods. Mods can use this to handle mouse
+                /// The shared cursor instance available across all mods. Mods can use this for manual mouse
                 /// input, capture/release focus, and query position. It supports both screen-space and 
                 /// world-space interactions.
                 /// </summary>
