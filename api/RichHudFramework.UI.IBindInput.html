@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Interface IBindInput | Rich HUD Framework </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Interface IBindInput | Rich HUD Framework ">
+      
+      <meta name="description" content="Allows a UI element to respond to arbitrary custom control binds ().">
+      <link rel="icon" href="../resources/images/favicon.ico">
+      <link rel="stylesheet" href="../public/docfx.min.css">
+      <link rel="stylesheet" href="../public/main.css">
+      <meta name="docfx:navrel" content="../toc.html">
+      <meta name="docfx:tocrel" content="toc.html">
+      
+      <meta name="docfx:rel" content="../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/ZachHembree/RichHudFramework.Client/new/master/apiSpec/new?filename=RichHudFramework_UI_IBindInput.md&amp;value=---%0Auid%3A%20RichHudFramework.UI.IBindInput%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">
+
+      <!-- Optional nav title customization -->
+      <meta name="loc:inThisArticle" content="Sections">
+      
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="ManagedReference">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand d-flex align-items-center" href="../index.html">
+            <img id="logo" class="svg me-2" src="../resources/images/logo.svg" alt="Rich HUD Framework">
+            
+            <!-- Vertical divider -->
+            <span class="vr align-self-stretch opacity-75" aria-hidden="true"></span>
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="RichHudFramework.UI.IBindInput">
+
+
+
+  <h1 id="RichHudFramework_UI_IBindInput" data-uid="RichHudFramework.UI.IBindInput" class="text-break">
+Interface IBindInput  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/HudElements/InputElements/IBindInput.cs/#L34"><i class="bi bi-code-slash"></i></a>
+  </h1>
+
+  <div class="facts text-secondary">
+    <dl><dt>Namespace</dt><dd><a class="xref" href="RichHudFramework.html">RichHudFramework</a>.<a class="xref" href="RichHudFramework.UI.html">UI</a></dd></dl>
+  <dl><dt>Assembly</dt><dd>RichHudClient.dll</dd></dl>
+  </div>
+
+  <div class="markdown summary"><p>Allows a UI element to respond to arbitrary custom control binds (<a class="xref" href="RichHudFramework.UI.IBind.html">IBind</a>).</p>
+</div>
+  <div class="markdown conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public interface IBindInput : IFocusableElement, IEnumerable&lt;IBindEventProxy&gt;, IEnumerable</code></pre>
+  </div>
+
+
+
+
+
+
+
+  <dl class="typelist inheritedMembers">
+    <dt>Inherited Members</dt>
+    <dd>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.IFocusableElement.html#RichHudFramework_UI_IFocusableElement_FocusHandler">FocusHandler</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1.getenumerator">GetEnumerator()</a>
+    </div>
+  </dd></dl>
+
+
+
+
+
+
+  <h2 class="section" id="properties">Properties
+</h2>
+
+
+  <a id="RichHudFramework_UI_IBindInput_InputFilter_" data-uid="RichHudFramework.UI.IBindInput.InputFilter*"></a>
+
+  <h3 id="RichHudFramework_UI_IBindInput_InputFilter" data-uid="RichHudFramework.UI.IBindInput.InputFilter">
+  InputFilter
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/HudElements/InputElements/IBindInput.cs/#L64"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>If set, the input groups indicated by the flags will be temporarily blocked
+until the BintInputElement is disabled.</p>
+<p>Uses <a class="xref" href="RichHudFramework.UI.Client.BindManager.html#RichHudFramework_UI_Client_BindManager_RequestTempBlacklist_RichHudFramework_UI_SeBlacklistModes_">RequestTempBlacklist(SeBlacklistModes)</a>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">SeBlacklistModes InputFilter { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="RichHudFramework.UI.SeBlacklistModes.html">SeBlacklistModes</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="RichHudFramework_UI_IBindInput_IsFocusRequired_" data-uid="RichHudFramework.UI.IBindInput.IsFocusRequired*"></a>
+
+  <h3 id="RichHudFramework_UI_IBindInput_IsFocusRequired" data-uid="RichHudFramework.UI.IBindInput.IsFocusRequired">
+  IsFocusRequired
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/HudElements/InputElements/IBindInput.cs/#L57"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>If true, bind events will only fire when the parent element has input focus.
+Default = false.</p>
+<p>Only applies if the parent/InputOwner implements <a class="xref" href="RichHudFramework.UI.IFocusableElement.html">IFocusableElement</a>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">bool IsFocusRequired { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="RichHudFramework_UI_IBindInput_Item_" data-uid="RichHudFramework.UI.IBindInput.Item*"></a>
+
+  <h3 id="RichHudFramework_UI_IBindInput_Item_RichHudFramework_UI_IBind_" data-uid="RichHudFramework.UI.IBindInput.Item(RichHudFramework.UI.IBind)">
+  this[IBind]
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/HudElements/InputElements/IBindInput.cs/#L39"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Retrieves the event proxy (press/release events) for a specific bind on this UI element</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">IBindEventProxy this[IBind bind] { get; }</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>bind</code> <a class="xref" href="RichHudFramework.UI.IBind.html">IBind</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="RichHudFramework.UI.IBindEventProxy.html">IBindEventProxy</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <h2 class="section" id="methods">Methods
+</h2>
+
+
+  <a id="RichHudFramework_UI_IBindInput_Add_" data-uid="RichHudFramework.UI.IBindInput.Add*"></a>
+
+  <h3 id="RichHudFramework_UI_IBindInput_Add_RichHudFramework_UI_IBind_RichHudFramework_EventHandler_RichHudFramework_EventHandler_RichHudFramework_EventHandler_" data-uid="RichHudFramework.UI.IBindInput.Add(RichHudFramework.UI.IBind,RichHudFramework.EventHandler,RichHudFramework.EventHandler,RichHudFramework.EventHandler)">
+  Add(IBind, EventHandler, EventHandler, EventHandler)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/HudElements/InputElements/IBindInput.cs/#L45"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Adds a new bind to the input element if it hasn't been added before, and/or
+registers the given event handlers to it.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">void Add(IBind bind, EventHandler NewPressed = null, EventHandler PressedAndHeld = null, EventHandler Released = null)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>bind</code> <a class="xref" href="RichHudFramework.UI.IBind.html">IBind</a></dt>
+    <dd></dd>
+    <dt><code>NewPressed</code> <a class="xref" href="RichHudFramework.EventHandler.html">EventHandler</a></dt>
+    <dd></dd>
+    <dt><code>PressedAndHeld</code> <a class="xref" href="RichHudFramework.EventHandler.html">EventHandler</a></dt>
+    <dd></dd>
+    <dt><code>Released</code> <a class="xref" href="RichHudFramework.EventHandler.html">EventHandler</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="RichHudFramework_UI_IBindInput_GetHasBind_" data-uid="RichHudFramework.UI.IBindInput.GetHasBind*"></a>
+
+  <h3 id="RichHudFramework_UI_IBindInput_GetHasBind_RichHudFramework_UI_IBind_" data-uid="RichHudFramework.UI.IBindInput.GetHasBind(RichHudFramework.UI.IBind)">
+  GetHasBind(IBind)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/HudElements/InputElements/IBindInput.cs/#L50"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Returns true if the given bind is actively used and handled by this element</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">bool GetHasBind(IBind bind)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>bind</code> <a class="xref" href="RichHudFramework.UI.IBind.html">IBind</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/HudElements/InputElements/IBindInput.cs/#L34" class="edit-link">Edit this page</a>
+        </div>
+
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

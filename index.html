@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Overview | Rich HUD Framework </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Overview | Rich HUD Framework ">
+      
+      
+      <link rel="icon" href="resources/images/favicon.ico">
+      <link rel="stylesheet" href="public/docfx.min.css">
+      <link rel="stylesheet" href="public/main.css">
+      <meta name="docfx:navrel" content="toc.html">
+      <meta name="docfx:tocrel" content="articles/toc.html">
+      
+      <meta name="docfx:rel" content="">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/ZachHembree/RichHudFramework.Client/blob/docfx/index.md/#L1">
+
+      <!-- Optional nav title customization -->
+      <meta name="loc:inThisArticle" content="Sections">
+      
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand d-flex align-items-center" href="index.html">
+            <img id="logo" class="svg me-2" src="resources/images/logo.svg" alt="Rich HUD Framework">
+            
+            <!-- Vertical divider -->
+            <span class="vr align-self-stretch opacity-75" aria-hidden="true"></span>
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="overview">Overview</h1>
+
+<p>The <strong>Rich HUD Framework</strong> is a modding library enabling the creation of fully custom, retained-mode Graphical User Interfaces (GUI) within Space Engineers C# mods. RHF provides the essential architecture for building <strong>scalable, layered, and interactive</strong> user interfaces within the constraints of the Space Engineers modding API. It does this by offering:</p>
+<ul>
+<li><strong>Declarative UI:</strong> A library of standard controls (buttons, dropdowns, sliders) that minimizes boilerplate code and facilitates a declarative approach to UI construction.</li>
+<li><strong>Extensive Customization:</strong> Flexibility for imperative design and deep customization via subclassing.</li>
+<li><strong>API Enhancements:</strong> It fills critical gaps in the modding API by including:
+<ul>
+<li>A system for managing <strong>key binds</strong>.</li>
+<li>A custom, flexible <strong>text renderer</strong>.</li>
+</ul>
+</li>
+</ul>
+<h2 id="get-started">Get Started</h2>
+<p>Ready to jump into the code?</p>
+<ul>
+<li><strong>Installation:</strong> See the article on <a href="articles/Installation-and-Mod-Integration.html">Installation and Mod Integration</a>.</li>
+<li><strong>Example:</strong> Explore a practical application in the <a href="https://github.com/ZachHembree/TextEditorExample">Text Editor Example</a> repository.</li>
+</ul>
+<blockquote>
+<p>For general Space Engineers modding reference, consult the official <a href="https://spaceengineers.wiki.gg/wiki/Modding/Reference/ModScripting">Space Engineers Wiki</a>.</p>
+</blockquote>
+<h2 id="the-node-graph">The Node Graph</h2>
+<p>At the heart of the framework is a <strong>retained-mode UI tree</strong>. Unlike immediate-mode GUI systems where elements are defined and drawn every frame, elements in this framework are persistent objects in memory, organized into a hierarchy of parents and children.</p>
+<p><strong>Core Principles</strong></p>
+<ul>
+<li><strong>Hierarchy:</strong> Every UI element must be attached to a <strong>parent node</strong> to be rendered or processed. The update cycle propagates from the root down to leaf nodes.</li>
+<li><strong>Retained-Mode:</strong> Elements are objects that persist across frames, which allows the framework to efficiently manage state and updates.</li>
+</ul>
+<p><strong>Coordinate Spaces and Scaling</strong></p>
+<ul>
+<li><strong>Coordinate Spaces:</strong> The framework supports both <strong>screen-space</strong> rendering (2D overlays) and <strong>world-space</strong> rendering (3D displays attached to in-game entities). This is managed through <a href="articles/HUD-Spaces.html">HUD Spaces</a>, which allow any subtree to be attached to a custom coordinate space driven by an arbitrary world matrix.</li>
+<li><strong>Resolution Independence:</strong> The optional <a class="xref" href="api/RichHudFramework.UI.Client.HudMain.html#RichHudFramework_UI_Client_HudMain_HighDpiRoot">HighDpiRoot</a> node scales UI elements to maintain consistent sizing for screen-space UI across different resolutions (e.g., 1080p vs. 4K).</li>
+</ul>
+<blockquote>
+<p><a class="xref" href="api/RichHudFramework.UI.Client.HudMain.html#RichHudFramework_UI_Client_HudMain_remarks">HudMain</a> is the entry point for the client-side UI system. From here, you access the root nodes, screen metrics, and the shared cursor.</p>
+</blockquote>
+<h3 id="hierarchy-example">Hierarchy Example</h3>
+<pre><code class="lang-c">Root // Screen-sized container, no DPI scaling
+├── HighDpiRoot // Automatically handles DPI and resolution scaling
+│   └── HudChain // Layout manager (e.g., vertical stack)
+│       └── { Label, Button, TextField } // Child elements
+└── TexturedBox // Background
+    └── Label // Text draws over TexturedBox
+</code></pre>
+<h3 id="ui-elements">UI Elements</h3>
+<p><a class="xref" href="api/RichHudFramework.UI.HudElementBase.html#RichHudFramework_UI_HudElementBase_remarks">HudElementBase</a> is the practical starting point for modded UI. Each element has explicit size and padding, supports parent-relative or offset positioning, offers built-in alignment modes (<a class="xref" href="api/RichHudFramework.UI.HudElementBase.html#RichHudFramework_UI_HudElementBase_ParentAlignment">ParentAlignment</a> and <a class="xref" href="api/RichHudFramework.UI.HudElementBase.html#RichHudFramework_UI_HudElementBase_DimAlignment">DimAlignment</a>), and exposes update hooks required for deep customization.</p>
+<ul>
+<li><p>Complex layouts can be built declaratively using chains, collections, and alignment properties – often without writing any manual positioning code. Nested horizontal/vertical <a class="xref" href="api/RichHudFramework.UI.HudChain-2.html#RichHudFramework_UI_HudChain_2_remarks">HudChain</a> instances serve a similar role to CSS Flexbox or WPF StackPanel, while <a class="xref" href="api/RichHudFramework.UI.ScrollBox-2.html#RichHudFramework_UI_ScrollBox_2_remarks">ScrollBox</a> adds scrolling capability.</p>
+</li>
+<li><p><a class="xref" href="api/RichHudFramework.UI.TexturedBox.html">TexturedBox</a> and <a class="xref" href="api/RichHudFramework.UI.Label.html">Label</a> are the simplest concrete types in the framework, providing basic textured quad and text rendering, respectively. These can serve as a good starting point when learning how to initialize visible UI.</p>
+</li>
+</ul>
+<div class="NOTE">
+<h5>Note</h5>
+<p>While the framework includes several pre-built elements, more sophisticated custom UIs will often require extending <code>HudElementBase</code> or other descendants directly to implement custom layout and input logic. See the API reference for <code>HudElementBase</code> for details.</p>
+</div>
+<h2 id="input--key-binds">Input &amp; Key Binds</h2>
+<p>The <a class="xref" href="api/RichHudFramework.UI.Client.BindManager.html#RichHudFramework_UI_Client_BindManager_remarks">BindManager</a> serves as the central hub for handling user input. It facilitates the creation of custom key binds and control groups that can be serialized for persistence.</p>
+<ul>
+<li><strong>Grouped Binds:</strong> Inputs are organized into groups to prevent conflicts.</li>
+<li><strong>Aliasing:</strong> Each bind supports primary, secondary, and tertiary key combinations (aliases).</li>
+<li><strong>Blacklisting:</strong> The manager handles the <strong>suppression</strong> of standard game inputs (such as camera rotation or shooting) while UI elements are interactive, preventing accidental interactions with the game world.</li>
+</ul>
+<h2 id="the-settings-menu">The Settings Menu</h2>
+<p>To streamline mod configuration and promote a more consistent user experience, the framework provides a shared settings menu (<a class="xref" href="api/RichHudFramework.UI.Client.RichHudTerminal.html#RichHudFramework_UI_Client_RichHudTerminal_remarks">RichHudTerminal</a>). Rather than rely on chat commands, manually-edited config files, or a bespoke GUI, you can register controls within this terminal and tie it into your own configuration system with simple event callbacks.</p>
+<p>Mods contribute pages and controls via a simple container hierarchy:</p>
+<ul>
+<li>Control pages with sliders, checkboxes, dropdowns, etc.</li>
+<li>Dedicated ready-made rebind pages.</li>
+<li>Read-only rich-text pages for help/changelog content.</li>
+</ul>
+<h2 id="text-renderer">Text Renderer</h2>
+<p>The framework includes a custom bitmap text renderer (exposed via <a class="xref" href="api/RichHudFramework.UI.Rendering.ITextBoard.html#RichHudFramework_UI_Rendering_ITextBoard_remarks">ITextBoard</a>), which supports custom fonts and is suitable for everything from a one-line plain text field to multi-line wrapped rich text.</p>
+<ul>
+<li><a class="xref" href="api/RichHudFramework.UI.Label.html">Label</a>: The standard, non-interactive UI element used for displaying text. It serves as the main entry point for the text renderer for simple text fields.</li>
+<li><a class="xref" href="api/RichHudFramework.UI.RichText.html">RichText</a>: This class allows for the construction of formatted text strings where style, color, and size can vary per character.</li>
+<li>The <a class="xref" href="api/RichHudFramework.UI.Rendering.Client.FontManager.html">FontManager</a> allows mods to register and use custom texture-based fonts at runtime. See the article on <a href="articles/Custom-Fonts.html">Custom Fonts</a> for details.</li>
+</ul>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/ZachHembree/RichHudFramework.Client/blob/docfx/index.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

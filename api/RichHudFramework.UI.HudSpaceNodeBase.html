@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Class HudSpaceNodeBase | Rich HUD Framework </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Class HudSpaceNodeBase | Rich HUD Framework ">
+      
+      <meta name="description" content="Abstract base for all HUD nodes that define their own custom coordinate space (replacing the default screen-space Pixel-to-World transform with an arbitrary world matrix). Provides cursor projection, facing/in-front detection, and origin retrieval for derived classes.">
+      <link rel="icon" href="../resources/images/favicon.ico">
+      <link rel="stylesheet" href="../public/docfx.min.css">
+      <link rel="stylesheet" href="../public/main.css">
+      <meta name="docfx:navrel" content="../toc.html">
+      <meta name="docfx:tocrel" content="toc.html">
+      
+      <meta name="docfx:rel" content="../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/ZachHembree/RichHudFramework.Client/blob/docfx/api-supplements/Shared/UI/HudElementBases/HudSpaceNodeBase.md/#L2">
+
+      <!-- Optional nav title customization -->
+      <meta name="loc:inThisArticle" content="Sections">
+      
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="ManagedReference">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand d-flex align-items-center" href="../index.html">
+            <img id="logo" class="svg me-2" src="../resources/images/logo.svg" alt="Rich HUD Framework">
+            
+            <!-- Vertical divider -->
+            <span class="vr align-self-stretch opacity-75" aria-hidden="true"></span>
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="RichHudFramework.UI.HudSpaceNodeBase">
+
+
+
+  <h1 id="RichHudFramework_UI_HudSpaceNodeBase" data-uid="RichHudFramework.UI.HudSpaceNodeBase" class="text-break">
+Class HudSpaceNodeBase  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/HudElementBases/HudSpaceNodeBase.cs/#L20"><i class="bi bi-code-slash"></i></a>
+  </h1>
+
+  <div class="facts text-secondary">
+    <dl><dt>Namespace</dt><dd><a class="xref" href="RichHudFramework.html">RichHudFramework</a>.<a class="xref" href="RichHudFramework.UI.html">UI</a></dd></dl>
+  <dl><dt>Assembly</dt><dd>RichHudClient.dll</dd></dl>
+  </div>
+
+  <div class="markdown summary"><p>Abstract base for all HUD nodes that define their own custom coordinate space
+(replacing the default screen-space Pixel-to-World transform with an arbitrary world matrix).</p>
+<p>Provides cursor projection, facing/in-front detection, and origin retrieval for derived classes.</p>
+</div>
+  <div class="markdown conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public abstract class HudSpaceNodeBase : HudNodeBase, IReadOnlyHudNode, IReadOnlyHudSpaceNode, IReadOnlyHudParent</code></pre>
+  </div>
+
+
+
+
+  <dl class="typelist inheritance">
+    <dt>Inheritance</dt>
+    <dd>
+      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
+      <div><a class="xref" href="RichHudFramework.UI.HudParentBase.html">HudParentBase</a></div>
+      <div><a class="xref" href="RichHudFramework.UI.HudNodeBase.html">HudNodeBase</a></div>
+      <div><span class="xref">HudSpaceNodeBase</span></div>
+    </dd>
+  </dl>
+
+  <dl class="typelist implements">
+    <dt>Implements</dt>
+    <dd>
+      <div><a class="xref" href="RichHudFramework.UI.IReadOnlyHudNode.html">IReadOnlyHudNode</a></div>
+      <div><a class="xref" href="RichHudFramework.UI.IReadOnlyHudSpaceNode.html">IReadOnlyHudSpaceNode</a></div>
+      <div><a class="xref" href="RichHudFramework.UI.IReadOnlyHudParent.html">IReadOnlyHudParent</a></div>
+    </dd>
+  </dl>
+
+  <dl class="typelist derived">
+    <dt>Derived</dt>
+    <dd>
+      <div><a class="xref" href="RichHudFramework.UI.CamSpaceNode.html">CamSpaceNode</a></div>
+      <div><a class="xref" href="RichHudFramework.UI.CustomSpaceNode.html">CustomSpaceNode</a></div>
+      <div><a class="xref" href="RichHudFramework.UI.ScaledSpaceNode.html">ScaledSpaceNode</a></div>
+    </dd>
+  </dl>
+
+  <dl class="typelist inheritedMembers">
+    <dt>Inherited Members</dt>
+    <dd>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.HudNodeBase.html#RichHudFramework_UI_HudNodeBase_RichHudFramework_UI_IReadOnlyHudNode_Parent">IReadOnlyHudNode.Parent</a>
+    </div>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.HudNodeBase.html#RichHudFramework_UI_HudNodeBase_Parent">Parent</a>
+    </div>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.HudNodeBase.html#RichHudFramework_UI_HudNodeBase_Registered">Registered</a>
+    </div>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.HudNodeBase.html#RichHudFramework_UI_HudNodeBase_OverlayOffset">OverlayOffset</a>
+    </div>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.HudNodeBase.html#RichHudFramework_UI_HudNodeBase_Register_RichHudFramework_UI_HudParentBase_">Register(HudParentBase)</a>
+    </div>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.HudNodeBase.html#RichHudFramework_UI_HudNodeBase_Unregister">Unregister()</a>
+    </div>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.HudParentBase.html#RichHudFramework_UI_HudParentBase_Visible">Visible</a>
+    </div>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.HudParentBase.html#RichHudFramework_UI_HudParentBase_InputEnabled">InputEnabled</a>
+    </div>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.HudParentBase.html#RichHudFramework_UI_HudParentBase_ZOffset">ZOffset</a>
+    </div>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.HudParentBase.html#RichHudFramework_UI_HudParentBase_Measure">Measure()</a>
+    </div>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.HudParentBase.html#RichHudFramework_UI_HudParentBase_Draw">Draw()</a>
+    </div>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.HudParentBase.html#RichHudFramework_UI_HudParentBase_InputDepth">InputDepth()</a>
+    </div>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.HudParentBase.html#RichHudFramework_UI_HudParentBase_HandleInput_VRageMath_Vector2_">HandleInput(Vector2)</a>
+    </div>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.HudParentBase.html#RichHudFramework_UI_HudParentBase_RegisterChild_RichHudFramework_UI_HudNodeBase_">RegisterChild(HudNodeBase)</a>
+    </div>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.HudParentBase.html#RichHudFramework_UI_HudParentBase_RemoveChild_RichHudFramework_UI_HudNodeBase_">RemoveChild(HudNodeBase)</a>
+    </div>
+  </dd></dl>
+
+
+
+
+  <h2 id="RichHudFramework_UI_HudSpaceNodeBase_remarks">Remarks</h2>
+  <div class="markdown level0 remarks">
+<p><code>HudSpaceNodeBase</code> is the abstract base class for all HUD nodes that define a custom coordinate system, by replacing the default screen-space <code>Pixel-to-World</code> transformation with an arbitrary world matrix.</p>
+<p>This class provides a default implementation of the <a class="xref" href="RichHudFramework.UI.IReadOnlyHudSpaceNode.html">IReadOnlyHudSpaceNode</a> interface, handling the complex boilerplate required for 3D interaction. Its features include:</p>
+<ul>
+<li><strong>Cursor Projection:</strong> Automatically projects the screen-space cursor onto the node's custom plane to calculate accurate local cursor coordinates.</li>
+<li><strong>Visibility Checks:</strong> Includes logic for determining if the node is in front of the camera and facing towards it (culling back-facing elements).</li>
+<li><strong>API Integration:</strong> Provides default callbacks for the cursor system to query the node's current HUD space properties.</li>
+</ul>
+<p>Common derived implementations include <a class="xref" href="RichHudFramework.UI.CamSpaceNode.html">CamSpaceNode</a> for camera-relative offsets and <a class="xref" href="RichHudFramework.UI.CustomSpaceNode.html">CustomSpaceNode</a> for user-defined world matrices.</p>
+</div>
+
+
+  <h2 class="section" id="constructors">Constructors
+</h2>
+
+
+  <a id="RichHudFramework_UI_HudSpaceNodeBase__ctor_" data-uid="RichHudFramework.UI.HudSpaceNodeBase.#ctor*"></a>
+
+  <h3 id="RichHudFramework_UI_HudSpaceNodeBase__ctor_RichHudFramework_UI_HudParentBase_" data-uid="RichHudFramework.UI.HudSpaceNodeBase.#ctor(RichHudFramework.UI.HudParentBase)">
+  HudSpaceNodeBase(HudParentBase)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/HudElementBases/HudSpaceNodeBase.cs/#L81"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public HudSpaceNodeBase(HudParentBase parent = null)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>parent</code> <a class="xref" href="RichHudFramework.UI.HudParentBase.html">HudParentBase</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <h2 class="section" id="properties">Properties
+</h2>
+
+
+  <a id="RichHudFramework_UI_HudSpaceNodeBase_CursorPos_" data-uid="RichHudFramework.UI.HudSpaceNodeBase.CursorPos*"></a>
+
+  <h3 id="RichHudFramework_UI_HudSpaceNodeBase_CursorPos" data-uid="RichHudFramework.UI.HudSpaceNodeBase.CursorPos">
+  CursorPos
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/HudElementBases/HudSpaceNodeBase.cs/#L45"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Position of the HUD cursor projected onto this node's plane.</p>
+<p>
+X/Y = local plane coordinates
+Z = approximate squared distance from the camera to the intersection point (for depth sorting).
+</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Vector3 CursorPos { get; protected set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://keensoftwarehouse.github.io/SpaceEngineersModAPI/api/VRageMath.Vector3.html">Vector3</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="RichHudFramework_UI_HudSpaceNodeBase_DrawCursorInHudSpace_" data-uid="RichHudFramework.UI.HudSpaceNodeBase.DrawCursorInHudSpace*"></a>
+
+  <h3 id="RichHudFramework_UI_HudSpaceNodeBase_DrawCursorInHudSpace" data-uid="RichHudFramework.UI.HudSpaceNodeBase.DrawCursorInHudSpace">
+  DrawCursorInHudSpace
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/HudElementBases/HudSpaceNodeBase.cs/#L68"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>If true, when a child of this node captures the cursor, the cursor will be drawn
+using this node's PlaneToWorld matrix instead of the default screen-space matrix.
+Useful for 3D / diegetic UI where the cursor should appear on the custom plane.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool DrawCursorInHudSpace { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="RichHudFramework_UI_HudSpaceNodeBase_GetHudSpaceFunc_" data-uid="RichHudFramework.UI.HudSpaceNodeBase.GetHudSpaceFunc*"></a>
+
+  <h3 id="RichHudFramework_UI_HudSpaceNodeBase_GetHudSpaceFunc" data-uid="RichHudFramework.UI.HudSpaceNodeBase.GetHudSpaceFunc">
+  GetHudSpaceFunc
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/HudElementBases/HudSpaceNodeBase.cs/#L51"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Delegate used by the cursor system to query this node's current HUD space properties.
+Returns (drawCursorInThisSpace, cursorBillboardScale, planeToWorldMatrix).</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Func&lt;MyTuple&lt;bool, float, MatrixD&gt;&gt; GetHudSpaceFunc { get; protected set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.func-1">Func</a>&lt;<span class="xref">MyTuple</span>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a>, <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a>, <a class="xref" href="https://keensoftwarehouse.github.io/SpaceEngineersModAPI/api/VRageMath.MatrixD.html">MatrixD</a>&gt;&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="RichHudFramework_UI_HudSpaceNodeBase_GetNodeOriginFunc_" data-uid="RichHudFramework.UI.HudSpaceNodeBase.GetNodeOriginFunc*"></a>
+
+  <h3 id="RichHudFramework_UI_HudSpaceNodeBase_GetNodeOriginFunc" data-uid="RichHudFramework.UI.HudSpaceNodeBase.GetNodeOriginFunc">
+  GetNodeOriginFunc
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/HudElementBases/HudSpaceNodeBase.cs/#L57"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Function that returns the current world-space position of this node's origin.
+Default implementation returns <a class="xref" href="RichHudFramework.UI.HudSpaceNodeBase.html#RichHudFramework_UI_HudSpaceNodeBase_PlaneToWorldRef">PlaneToWorldRef</a>[0].Translation.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Func&lt;Vector3D&gt; GetNodeOriginFunc { get; protected set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.func-1">Func</a>&lt;<a class="xref" href="https://keensoftwarehouse.github.io/SpaceEngineersModAPI/api/VRageMath.Vector3D.html">Vector3D</a>&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="RichHudFramework_UI_HudSpaceNodeBase_HudSpace_" data-uid="RichHudFramework.UI.HudSpaceNodeBase.HudSpace*"></a>
+
+  <h3 id="RichHudFramework_UI_HudSpaceNodeBase_HudSpace" data-uid="RichHudFramework.UI.HudSpaceNodeBase.HudSpace">
+  HudSpace
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/HudElementBases/HudSpaceNodeBase.cs/#L25"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>This node itself defines the HUD space for itself and its children.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override IReadOnlyHudSpaceNode HudSpace { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="RichHudFramework.UI.IReadOnlyHudSpaceNode.html">IReadOnlyHudSpaceNode</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="RichHudFramework_UI_HudSpaceNodeBase_IsFacingCamera_" data-uid="RichHudFramework.UI.HudSpaceNodeBase.IsFacingCamera*"></a>
+
+  <h3 id="RichHudFramework_UI_HudSpaceNodeBase_IsFacingCamera" data-uid="RichHudFramework.UI.HudSpaceNodeBase.IsFacingCamera">
+  IsFacingCamera
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/HudElementBases/HudSpaceNodeBase.cs/#L79"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>True if the node is in front of the camera AND its forward vector roughly faces the camera
+(dot product &gt; 0). Used for culling back-facing HUD elements.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool IsFacingCamera { get; protected set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="RichHudFramework_UI_HudSpaceNodeBase_IsInFront_" data-uid="RichHudFramework.UI.HudSpaceNodeBase.IsInFront*"></a>
+
+  <h3 id="RichHudFramework_UI_HudSpaceNodeBase_IsInFront" data-uid="RichHudFramework.UI.HudSpaceNodeBase.IsInFront">
+  IsInFront
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/HudElementBases/HudSpaceNodeBase.cs/#L73"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>True if the node's origin is in front of the camera (i.e. in the camera's forward hemisphere).</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool IsInFront { get; protected set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="RichHudFramework_UI_HudSpaceNodeBase_PlaneToWorld_" data-uid="RichHudFramework.UI.HudSpaceNodeBase.PlaneToWorld*"></a>
+
+  <h3 id="RichHudFramework_UI_HudSpaceNodeBase_PlaneToWorld" data-uid="RichHudFramework.UI.HudSpaceNodeBase.PlaneToWorld">
+  PlaneToWorld
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/HudElementBases/HudSpaceNodeBase.cs/#L31"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Current Plane-to-World transformation matrix used for drawing this subtree.
+Transforms from local coordinates to world space.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public MatrixD PlaneToWorld { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://keensoftwarehouse.github.io/SpaceEngineersModAPI/api/VRageMath.MatrixD.html">MatrixD</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="RichHudFramework_UI_HudSpaceNodeBase_PlaneToWorldRef_" data-uid="RichHudFramework.UI.HudSpaceNodeBase.PlaneToWorldRef*"></a>
+
+  <h3 id="RichHudFramework_UI_HudSpaceNodeBase_PlaneToWorldRef" data-uid="RichHudFramework.UI.HudSpaceNodeBase.PlaneToWorldRef">
+  PlaneToWorldRef
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/HudElementBases/HudSpaceNodeBase.cs/#L36"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Reference to the current Plane-to-World matrix as a single-element array.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public MatrixD[] PlaneToWorldRef { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://keensoftwarehouse.github.io/SpaceEngineersModAPI/api/VRageMath.MatrixD.html">MatrixD</a>[]</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <h2 class="section" id="methods">Methods
+</h2>
+
+
+  <a id="RichHudFramework_UI_HudSpaceNodeBase_Layout_" data-uid="RichHudFramework.UI.HudSpaceNodeBase.Layout*"></a>
+
+  <h3 id="RichHudFramework_UI_HudSpaceNodeBase_Layout" data-uid="RichHudFramework.UI.HudSpaceNodeBase.Layout">
+  Layout()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/HudElementBases/HudSpaceNodeBase.cs/#L96"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Updates visibility flags (<a class="xref" href="RichHudFramework.UI.HudSpaceNodeBase.html#RichHudFramework_UI_HudSpaceNodeBase_IsInFront">IsInFront</a>, <a class="xref" href="RichHudFramework.UI.HudSpaceNodeBase.html#RichHudFramework_UI_HudSpaceNodeBase_IsFacingCamera">IsFacingCamera</a>)
+and projects the current cursor ray onto this node's plane to calculate <a class="xref" href="RichHudFramework.UI.HudSpaceNodeBase.html#RichHudFramework_UI_HudSpaceNodeBase_CursorPos">CursorPos</a>.
+Called automatically every frame before drawing.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected override void Layout()</code></pre>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/HudElementBases/HudSpaceNodeBase.cs/#L20" class="edit-link">Edit this page</a>
+        </div>
+
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

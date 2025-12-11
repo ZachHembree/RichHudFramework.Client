@@ -1,0 +1,807 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Interface IBind | Rich HUD Framework </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Interface IBind | Rich HUD Framework ">
+      
+      <meta name="description" content="Interface representing an input tied to one or more key combinations in a">
+      <link rel="icon" href="../resources/images/favicon.ico">
+      <link rel="stylesheet" href="../public/docfx.min.css">
+      <link rel="stylesheet" href="../public/main.css">
+      <meta name="docfx:navrel" content="../toc.html">
+      <meta name="docfx:tocrel" content="toc.html">
+      
+      <meta name="docfx:rel" content="../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/ZachHembree/RichHudFramework.Client/new/master/apiSpec/new?filename=RichHudFramework_UI_IBind.md&amp;value=---%0Auid%3A%20RichHudFramework.UI.IBind%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">
+
+      <!-- Optional nav title customization -->
+      <meta name="loc:inThisArticle" content="Sections">
+      
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="ManagedReference">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand d-flex align-items-center" href="../index.html">
+            <img id="logo" class="svg me-2" src="../resources/images/logo.svg" alt="Rich HUD Framework">
+            
+            <!-- Vertical divider -->
+            <span class="vr align-self-stretch opacity-75" aria-hidden="true"></span>
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="RichHudFramework.UI.IBind">
+
+
+
+  <h1 id="RichHudFramework_UI_IBind" data-uid="RichHudFramework.UI.IBind" class="text-break">
+Interface IBind  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/BindManager/IBind.cs/#L11"><i class="bi bi-code-slash"></i></a>
+  </h1>
+
+  <div class="facts text-secondary">
+    <dl><dt>Namespace</dt><dd><a class="xref" href="RichHudFramework.html">RichHudFramework</a>.<a class="xref" href="RichHudFramework.UI.html">UI</a></dd></dl>
+  <dl><dt>Assembly</dt><dd>RichHudClient.dll</dd></dl>
+  </div>
+
+  <div class="markdown summary"><p>Interface representing an input tied to one or more key combinations in a <a class="xref" href="RichHudFramework.UI.IBindGroup.html">IBindGroup</a></p>
+</div>
+  <div class="markdown conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public interface IBind</code></pre>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <h2 class="section" id="properties">Properties
+</h2>
+
+
+  <a id="RichHudFramework_UI_IBind_AliasCount_" data-uid="RichHudFramework.UI.IBind.AliasCount*"></a>
+
+  <h3 id="RichHudFramework_UI_IBind_AliasCount" data-uid="RichHudFramework.UI.IBind.AliasCount">
+  AliasCount
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/BindManager/IBind.cs/#L27"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Number of key combinations registered to the given bind. If AliasCount == 1, then only
+the main combo is set. If greater, then it is aliased.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">int AliasCount { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="RichHudFramework_UI_IBind_Analog_" data-uid="RichHudFramework.UI.IBind.Analog*"></a>
+
+  <h3 id="RichHudFramework_UI_IBind_Analog" data-uid="RichHudFramework.UI.IBind.Analog">
+  Analog
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/BindManager/IBind.cs/#L32"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>True if any controls in the bind are marked analog. For these types of binds, IsPressed == IsNewPressed.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">bool Analog { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="RichHudFramework_UI_IBind_AnalogValue_" data-uid="RichHudFramework.UI.IBind.AnalogValue*"></a>
+
+  <h3 id="RichHudFramework_UI_IBind_AnalogValue" data-uid="RichHudFramework.UI.IBind.AnalogValue">
+  AnalogValue
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/BindManager/IBind.cs/#L38"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Analog value of the bind, if it has one. Returns the sum of all analog values in
+key combo. Multiple analog controls per bind are not recommended.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">float AnalogValue { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="RichHudFramework_UI_IBind_Index_" data-uid="RichHudFramework.UI.IBind.Index*"></a>
+
+  <h3 id="RichHudFramework_UI_IBind_Index" data-uid="RichHudFramework.UI.IBind.Index">
+  Index
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/BindManager/IBind.cs/#L21"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Index of the bind within its group</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">int Index { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="RichHudFramework_UI_IBind_IsNewPressed_" data-uid="RichHudFramework.UI.IBind.IsNewPressed*"></a>
+
+  <h3 id="RichHudFramework_UI_IBind_IsNewPressed" data-uid="RichHudFramework.UI.IBind.IsNewPressed">
+  IsNewPressed
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/BindManager/IBind.cs/#L43"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>True if just pressed.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">bool IsNewPressed { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="RichHudFramework_UI_IBind_IsPressed_" data-uid="RichHudFramework.UI.IBind.IsPressed*"></a>
+
+  <h3 id="RichHudFramework_UI_IBind_IsPressed" data-uid="RichHudFramework.UI.IBind.IsPressed">
+  IsPressed
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/BindManager/IBind.cs/#L48"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>True if currently pressed.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">bool IsPressed { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="RichHudFramework_UI_IBind_IsPressedAndHeld_" data-uid="RichHudFramework.UI.IBind.IsPressedAndHeld*"></a>
+
+  <h3 id="RichHudFramework_UI_IBind_IsPressedAndHeld" data-uid="RichHudFramework.UI.IBind.IsPressedAndHeld">
+  IsPressedAndHeld
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/BindManager/IBind.cs/#L53"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>True after being held for more than 500ms.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">bool IsPressedAndHeld { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="RichHudFramework_UI_IBind_IsReleased_" data-uid="RichHudFramework.UI.IBind.IsReleased*"></a>
+
+  <h3 id="RichHudFramework_UI_IBind_IsReleased" data-uid="RichHudFramework.UI.IBind.IsReleased">
+  IsReleased
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/BindManager/IBind.cs/#L58"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>True if just released.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">bool IsReleased { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="RichHudFramework_UI_IBind_Name_" data-uid="RichHudFramework.UI.IBind.Name*"></a>
+
+  <h3 id="RichHudFramework_UI_IBind_Name" data-uid="RichHudFramework.UI.IBind.Name">
+  Name
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/BindManager/IBind.cs/#L16"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Name of the keybind</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">string Name { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <h2 class="section" id="methods">Methods
+</h2>
+
+
+  <a id="RichHudFramework_UI_IBind_ClearCombo_" data-uid="RichHudFramework.UI.IBind.ClearCombo*"></a>
+
+  <h3 id="RichHudFramework_UI_IBind_ClearCombo_System_Int32_" data-uid="RichHudFramework.UI.IBind.ClearCombo(System.Int32)">
+  ClearCombo(int)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/BindManager/IBind.cs/#L103"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Clears the current key combination.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">void ClearCombo(int alias = 0)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>alias</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="RichHudFramework_UI_IBind_ClearSubscribers_" data-uid="RichHudFramework.UI.IBind.ClearSubscribers*"></a>
+
+  <h3 id="RichHudFramework_UI_IBind_ClearSubscribers" data-uid="RichHudFramework.UI.IBind.ClearSubscribers">
+  ClearSubscribers()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/BindManager/IBind.cs/#L108"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Clears all event subscibers for this bind.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">void ClearSubscribers()</code></pre>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="RichHudFramework_UI_IBind_GetCombo_" data-uid="RichHudFramework.UI.IBind.GetCombo*"></a>
+
+  <h3 id="RichHudFramework_UI_IBind_GetCombo_System_Int32_" data-uid="RichHudFramework.UI.IBind.GetCombo(System.Int32)">
+  GetCombo(int)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/BindManager/IBind.cs/#L78"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Returns a list of controls representing the key combinaton for the bind</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">List&lt;ControlHandle&gt; GetCombo(int alias = 0)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>alias</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1">List</a>&lt;<a class="xref" href="RichHudFramework.UI.ControlHandle.html">ControlHandle</a>&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="RichHudFramework_UI_IBind_GetConIDs_" data-uid="RichHudFramework.UI.IBind.GetConIDs*"></a>
+
+  <h3 id="RichHudFramework_UI_IBind_GetConIDs_System_Int32_" data-uid="RichHudFramework.UI.IBind.GetConIDs(System.Int32)">
+  GetConIDs(int)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/BindManager/IBind.cs/#L83"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Returns a list of control indices representing the key combinaton for the bind</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">List&lt;int&gt; GetConIDs(int alias = 0)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>alias</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1">List</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a>&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="RichHudFramework_UI_IBind_TrySetCombo_" data-uid="RichHudFramework.UI.IBind.TrySetCombo*"></a>
+
+  <h3 id="RichHudFramework_UI_IBind_TrySetCombo_System_Collections_Generic_IReadOnlyList_RichHudFramework_UI_ControlHandle__System_Int32_System_Boolean_System_Boolean_" data-uid="RichHudFramework.UI.IBind.TrySetCombo(System.Collections.Generic.IReadOnlyList{RichHudFramework.UI.ControlHandle},System.Int32,System.Boolean,System.Boolean)">
+  TrySetCombo(IReadOnlyList&lt;ControlHandle&gt;, int, bool, bool)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/BindManager/IBind.cs/#L88"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Attempts to set the binds combo to the given controls. Returns true if successful.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">bool TrySetCombo(IReadOnlyList&lt;ControlHandle&gt; combo, int alias = 0, bool isStrict = true, bool isSilent = true)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>combo</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ireadonlylist-1">IReadOnlyList</a>&lt;<a class="xref" href="RichHudFramework.UI.ControlHandle.html">ControlHandle</a>&gt;</dt>
+    <dd></dd>
+    <dt><code>alias</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd></dd>
+    <dt><code>isStrict</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+    <dt><code>isSilent</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="RichHudFramework_UI_IBind_TrySetCombo_" data-uid="RichHudFramework.UI.IBind.TrySetCombo*"></a>
+
+  <h3 id="RichHudFramework_UI_IBind_TrySetCombo_System_Collections_Generic_IReadOnlyList_System_Int32__System_Int32_System_Boolean_System_Boolean_" data-uid="RichHudFramework.UI.IBind.TrySetCombo(System.Collections.Generic.IReadOnlyList{System.Int32},System.Int32,System.Boolean,System.Boolean)">
+  TrySetCombo(IReadOnlyList&lt;int&gt;, int, bool, bool)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/BindManager/IBind.cs/#L93"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Attempts to set the binds combo to the given controls. Returns true if successful.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">bool TrySetCombo(IReadOnlyList&lt;int&gt; combo, int alias = 0, bool isStrict = true, bool isSilent = true)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>combo</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ireadonlylist-1">IReadOnlyList</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a>&gt;</dt>
+    <dd></dd>
+    <dt><code>alias</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd></dd>
+    <dt><code>isStrict</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+    <dt><code>isSilent</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="RichHudFramework_UI_IBind_TrySetCombo_" data-uid="RichHudFramework.UI.IBind.TrySetCombo*"></a>
+
+  <h3 id="RichHudFramework_UI_IBind_TrySetCombo_System_Collections_Generic_IReadOnlyList_System_String__System_Int32_System_Boolean_System_Boolean_" data-uid="RichHudFramework.UI.IBind.TrySetCombo(System.Collections.Generic.IReadOnlyList{System.String},System.Int32,System.Boolean,System.Boolean)">
+  TrySetCombo(IReadOnlyList&lt;string&gt;, int, bool, bool)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/BindManager/IBind.cs/#L98"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Attempts to set the binds combo to the given controls. Returns true if successful.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">bool TrySetCombo(IReadOnlyList&lt;string&gt; combo, int alias = 0, bool isStrict = true, bool isSilent = true)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>combo</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ireadonlylist-1">IReadOnlyList</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>&gt;</dt>
+    <dd></dd>
+    <dt><code>alias</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd></dd>
+    <dt><code>isStrict</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+    <dt><code>isSilent</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <h2 class="section" id="events">Events
+</h2>
+
+
+
+  <h3 id="RichHudFramework_UI_IBind_NewPressed" data-uid="RichHudFramework.UI.IBind.NewPressed">
+  NewPressed
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/BindManager/IBind.cs/#L63"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Invoked when the bind is first pressed.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">event EventHandler NewPressed</code></pre>
+  </div>
+
+
+
+
+
+
+  <h4 class="section">Event Type</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="RichHudFramework.EventHandler.html">EventHandler</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <h3 id="RichHudFramework_UI_IBind_PressedAndHeld" data-uid="RichHudFramework.UI.IBind.PressedAndHeld">
+  PressedAndHeld
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/BindManager/IBind.cs/#L68"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Invoked after the bind has been held and pressed for at least 500ms.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">event EventHandler PressedAndHeld</code></pre>
+  </div>
+
+
+
+
+
+
+  <h4 class="section">Event Type</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="RichHudFramework.EventHandler.html">EventHandler</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <h3 id="RichHudFramework_UI_IBind_Released" data-uid="RichHudFramework.UI.IBind.Released">
+  Released
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/BindManager/IBind.cs/#L73"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Invoked after the bind has been released.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">event EventHandler Released</code></pre>
+  </div>
+
+
+
+
+
+
+  <h4 class="section">Event Type</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="RichHudFramework.EventHandler.html">EventHandler</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/BindManager/IBind.cs/#L11" class="edit-link">Edit this page</a>
+        </div>
+
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

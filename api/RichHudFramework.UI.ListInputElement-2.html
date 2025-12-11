@@ -1,0 +1,894 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Class ListInputElement&lt;TElementContainer, TElement&gt; | Rich HUD Framework </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Class ListInputElement&lt;TElementContainer, TElement&gt; | Rich HUD Framework ">
+      
+      <meta name="description" content="Specialized  that manages selection, mouse highlighting, and keyboard navigation for scrollable lists (vertical or horizontal). Supports both mouse and keyboard-driven selection.">
+      <link rel="icon" href="../resources/images/favicon.ico">
+      <link rel="stylesheet" href="../public/docfx.min.css">
+      <link rel="stylesheet" href="../public/main.css">
+      <meta name="docfx:navrel" content="../toc.html">
+      <meta name="docfx:tocrel" content="toc.html">
+      
+      <meta name="docfx:rel" content="../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/ZachHembree/RichHudFramework.Client/new/master/apiSpec/new?filename=RichHudFramework_UI_ListInputElement_2.md&amp;value=---%0Auid%3A%20RichHudFramework.UI.ListInputElement%602%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">
+
+      <!-- Optional nav title customization -->
+      <meta name="loc:inThisArticle" content="Sections">
+      
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="ManagedReference">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand d-flex align-items-center" href="../index.html">
+            <img id="logo" class="svg me-2" src="../resources/images/logo.svg" alt="Rich HUD Framework">
+            
+            <!-- Vertical divider -->
+            <span class="vr align-self-stretch opacity-75" aria-hidden="true"></span>
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="RichHudFramework.UI.ListInputElement`2">
+
+
+
+  <h1 id="RichHudFramework_UI_ListInputElement_2" data-uid="RichHudFramework.UI.ListInputElement`2" class="text-break">
+Class ListInputElement&lt;TElementContainer, TElement&gt;  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/HudElements/InputElements/ListInputElement.cs/#L16"><i class="bi bi-code-slash"></i></a>
+  </h1>
+
+  <div class="facts text-secondary">
+    <dl><dt>Namespace</dt><dd><a class="xref" href="RichHudFramework.html">RichHudFramework</a>.<a class="xref" href="RichHudFramework.UI.html">UI</a></dd></dl>
+  <dl><dt>Assembly</dt><dd>RichHudClient.dll</dd></dl>
+  </div>
+
+  <div class="markdown summary"><p>Specialized <a class="xref" href="RichHudFramework.UI.MouseInputElement.html">MouseInputElement</a> that manages selection, mouse highlighting, and keyboard navigation
+for scrollable lists (vertical or horizontal). Supports both mouse and keyboard-driven selection.</p>
+</div>
+  <div class="markdown conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public class ListInputElement&lt;TElementContainer, TElement&gt; : MouseInputElement, IReadOnlyHudElement, IReadOnlyHudNode, IReadOnlyHudParent, IMouseInput, IFocusableElement where TElementContainer : class, IScrollBoxEntry&lt;TElement&gt;, new() where TElement : HudElementBase, IMinLabelElement</code></pre>
+  </div>
+
+
+
+  <h4 class="section">Type Parameters</h4>
+  <dl class="parameters">
+    <dt><code>TElementContainer</code></dt>
+    <dd><p>Container type that holds each list entry (must implement <a class="xref" href="RichHudFramework.UI.IScrollBoxEntry-1.html">IScrollBoxEntry&lt;TElement&gt;</a>)</p>
+</dd>
+    <dt><code>TElement</code></dt>
+    <dd><p>The actual UI element type displayed in each entry (must be a labeled element)</p>
+</dd>
+  </dl>
+
+  <dl class="typelist inheritance">
+    <dt>Inheritance</dt>
+    <dd>
+      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
+      <div><a class="xref" href="RichHudFramework.UI.HudParentBase.html">HudParentBase</a></div>
+      <div><a class="xref" href="RichHudFramework.UI.HudNodeBase.html">HudNodeBase</a></div>
+      <div><a class="xref" href="RichHudFramework.UI.HudElementBase.html">HudElementBase</a></div>
+      <div><a class="xref" href="RichHudFramework.UI.MouseInputElement.html">MouseInputElement</a></div>
+      <div><span class="xref">ListInputElement&lt;TElementContainer, TElement&gt;</span></div>
+    </dd>
+  </dl>
+
+  <dl class="typelist implements">
+    <dt>Implements</dt>
+    <dd>
+      <div><a class="xref" href="RichHudFramework.UI.IReadOnlyHudElement.html">IReadOnlyHudElement</a></div>
+      <div><a class="xref" href="RichHudFramework.UI.IReadOnlyHudNode.html">IReadOnlyHudNode</a></div>
+      <div><a class="xref" href="RichHudFramework.UI.IReadOnlyHudParent.html">IReadOnlyHudParent</a></div>
+      <div><a class="xref" href="RichHudFramework.UI.IMouseInput.html">IMouseInput</a></div>
+      <div><a class="xref" href="RichHudFramework.UI.IFocusableElement.html">IFocusableElement</a></div>
+    </dd>
+  </dl>
+
+
+  <dl class="typelist inheritedMembers">
+    <dt>Inherited Members</dt>
+    <dd>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.MouseInputElement.html#RichHudFramework_UI_MouseInputElement_FocusHandler">FocusHandler</a>
+    </div>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.MouseInputElement.html#RichHudFramework_UI_MouseInputElement_CursorEntered">CursorEntered</a>
+    </div>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.MouseInputElement.html#RichHudFramework_UI_MouseInputElement_CursorExited">CursorExited</a>
+    </div>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.MouseInputElement.html#RichHudFramework_UI_MouseInputElement_LeftClicked">LeftClicked</a>
+    </div>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.MouseInputElement.html#RichHudFramework_UI_MouseInputElement_LeftReleased">LeftReleased</a>
+    </div>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.MouseInputElement.html#RichHudFramework_UI_MouseInputElement_RightClicked">RightClicked</a>
+    </div>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.MouseInputElement.html#RichHudFramework_UI_MouseInputElement_RightReleased">RightReleased</a>
+    </div>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.MouseInputElement.html#RichHudFramework_UI_MouseInputElement_CursorEnteredCallback">CursorEnteredCallback</a>
+    </div>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.MouseInputElement.html#RichHudFramework_UI_MouseInputElement_CursorExitedCallback">CursorExitedCallback</a>
+    </div>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.MouseInputElement.html#RichHudFramework_UI_MouseInputElement_LeftClickedCallback">LeftClickedCallback</a>
+    </div>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.MouseInputElement.html#RichHudFramework_UI_MouseInputElement_LeftReleasedCallback">LeftReleasedCallback</a>
+    </div>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.MouseInputElement.html#RichHudFramework_UI_MouseInputElement_RightClickedCallback">RightClickedCallback</a>
+    </div>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.MouseInputElement.html#RichHudFramework_UI_MouseInputElement_RightReleasedCallback">RightReleasedCallback</a>
+    </div>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.MouseInputElement.html#RichHudFramework_UI_MouseInputElement_RequestCursor">RequestCursor</a>
+    </div>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.MouseInputElement.html#RichHudFramework_UI_MouseInputElement_ToolTip">ToolTip</a>
+    </div>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.MouseInputElement.html#RichHudFramework_UI_MouseInputElement_IsLeftClicked">IsLeftClicked</a>
+    </div>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.MouseInputElement.html#RichHudFramework_UI_MouseInputElement_IsRightClicked">IsRightClicked</a>
+    </div>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.MouseInputElement.html#RichHudFramework_UI_MouseInputElement_IsNewLeftClicked">IsNewLeftClicked</a>
+    </div>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.MouseInputElement.html#RichHudFramework_UI_MouseInputElement_IsNewRightClicked">IsNewRightClicked</a>
+    </div>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.MouseInputElement.html#RichHudFramework_UI_MouseInputElement_IsLeftReleased">IsLeftReleased</a>
+    </div>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.MouseInputElement.html#RichHudFramework_UI_MouseInputElement_IsRightReleased">IsRightReleased</a>
+    </div>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.MouseInputElement.html#RichHudFramework_UI_MouseInputElement_ClearSubscribers">ClearSubscribers()</a>
+    </div>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.MouseInputElement.html#RichHudFramework_UI_MouseInputElement_LeftClick">LeftClick()</a>
+    </div>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.MouseInputElement.html#RichHudFramework_UI_MouseInputElement_RightClick">RightClick()</a>
+    </div>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.HudElementBase.html#RichHudFramework_UI_HudElementBase_Size">Size</a>
+    </div>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.HudElementBase.html#RichHudFramework_UI_HudElementBase_Width">Width</a>
+    </div>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.HudElementBase.html#RichHudFramework_UI_HudElementBase_Height">Height</a>
+    </div>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.HudElementBase.html#RichHudFramework_UI_HudElementBase_Padding">Padding</a>
+    </div>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.HudElementBase.html#RichHudFramework_UI_HudElementBase_UnpaddedSize">UnpaddedSize</a>
+    </div>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.HudElementBase.html#RichHudFramework_UI_HudElementBase_Origin">Origin</a>
+    </div>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.HudElementBase.html#RichHudFramework_UI_HudElementBase_Offset">Offset</a>
+    </div>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.HudElementBase.html#RichHudFramework_UI_HudElementBase_Position">Position</a>
+    </div>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.HudElementBase.html#RichHudFramework_UI_HudElementBase_ParentAlignment">ParentAlignment</a>
+    </div>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.HudElementBase.html#RichHudFramework_UI_HudElementBase_DimAlignment">DimAlignment</a>
+    </div>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.HudElementBase.html#RichHudFramework_UI_HudElementBase_UseCursor">UseCursor</a>
+    </div>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.HudElementBase.html#RichHudFramework_UI_HudElementBase_ShareCursor">ShareCursor</a>
+    </div>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.HudElementBase.html#RichHudFramework_UI_HudElementBase_IsMasking">IsMasking</a>
+    </div>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.HudElementBase.html#RichHudFramework_UI_HudElementBase_IsSelectivelyMasked">IsSelectivelyMasked</a>
+    </div>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.HudElementBase.html#RichHudFramework_UI_HudElementBase_CanIgnoreMasking">CanIgnoreMasking</a>
+    </div>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.HudElementBase.html#RichHudFramework_UI_HudElementBase_IsMousedOver">IsMousedOver</a>
+    </div>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.HudElementBase.html#RichHudFramework_UI_HudElementBase_CachedSize">CachedSize</a>
+    </div>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.HudElementBase.html#RichHudFramework_UI_HudElementBase_OriginAlignment">OriginAlignment</a>
+    </div>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.HudElementBase.html#RichHudFramework_UI_HudElementBase_MaskingBox">MaskingBox</a>
+    </div>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.HudNodeBase.html#RichHudFramework_UI_HudNodeBase_RichHudFramework_UI_IReadOnlyHudNode_Parent">IReadOnlyHudNode.Parent</a>
+    </div>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.HudNodeBase.html#RichHudFramework_UI_HudNodeBase_Parent">Parent</a>
+    </div>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.HudNodeBase.html#RichHudFramework_UI_HudNodeBase_Registered">Registered</a>
+    </div>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.HudNodeBase.html#RichHudFramework_UI_HudNodeBase_OverlayOffset">OverlayOffset</a>
+    </div>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.HudNodeBase.html#RichHudFramework_UI_HudNodeBase_Register_RichHudFramework_UI_HudParentBase_">Register(HudParentBase)</a>
+    </div>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.HudNodeBase.html#RichHudFramework_UI_HudNodeBase_Unregister">Unregister()</a>
+    </div>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.HudParentBase.html#RichHudFramework_UI_HudParentBase_HudSpace">HudSpace</a>
+    </div>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.HudParentBase.html#RichHudFramework_UI_HudParentBase_Visible">Visible</a>
+    </div>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.HudParentBase.html#RichHudFramework_UI_HudParentBase_InputEnabled">InputEnabled</a>
+    </div>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.HudParentBase.html#RichHudFramework_UI_HudParentBase_ZOffset">ZOffset</a>
+    </div>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.HudParentBase.html#RichHudFramework_UI_HudParentBase_Measure">Measure()</a>
+    </div>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.HudParentBase.html#RichHudFramework_UI_HudParentBase_Layout">Layout()</a>
+    </div>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.HudParentBase.html#RichHudFramework_UI_HudParentBase_Draw">Draw()</a>
+    </div>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.HudParentBase.html#RichHudFramework_UI_HudParentBase_InputDepth">InputDepth()</a>
+    </div>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.HudParentBase.html#RichHudFramework_UI_HudParentBase_HandleInput_VRageMath_Vector2_">HandleInput(Vector2)</a>
+    </div>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.HudParentBase.html#RichHudFramework_UI_HudParentBase_RegisterChild_RichHudFramework_UI_HudNodeBase_">RegisterChild(HudNodeBase)</a>
+    </div>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.HudParentBase.html#RichHudFramework_UI_HudParentBase_RemoveChild_RichHudFramework_UI_HudNodeBase_">RemoveChild(HudNodeBase)</a>
+    </div>
+  </dd></dl>
+
+
+
+
+
+
+  <h2 class="section" id="constructors">Constructors
+</h2>
+
+
+  <a id="RichHudFramework_UI_ListInputElement_2__ctor_" data-uid="RichHudFramework.UI.ListInputElement`2.#ctor*"></a>
+
+  <h3 id="RichHudFramework_UI_ListInputElement_2__ctor_RichHudFramework_UI_HudChain__0__1__" data-uid="RichHudFramework.UI.ListInputElement`2.#ctor(RichHudFramework.UI.HudChain{`0,`1})">
+  ListInputElement(HudChain&lt;TElementContainer, TElement&gt;)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/HudElements/InputElements/ListInputElement.cs/#L101"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public ListInputElement(HudChain&lt;TElementContainer, TElement&gt; parent)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>parent</code> <a class="xref" href="RichHudFramework.UI.HudChain-2.html">HudChain</a>&lt;TElementContainer, TElement&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="RichHudFramework_UI_ListInputElement_2__ctor_" data-uid="RichHudFramework.UI.ListInputElement`2.#ctor*"></a>
+
+  <h3 id="RichHudFramework_UI_ListInputElement_2__ctor_RichHudFramework_UI_HudElementBase_RichHudFramework_UI_IReadOnlyHudCollection__0__1__" data-uid="RichHudFramework.UI.ListInputElement`2.#ctor(RichHudFramework.UI.HudElementBase,RichHudFramework.UI.IReadOnlyHudCollection{`0,`1})">
+  ListInputElement(HudElementBase, IReadOnlyHudCollection&lt;TElementContainer, TElement&gt;)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/HudElements/InputElements/ListInputElement.cs/#L92"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public ListInputElement(HudElementBase parent, IReadOnlyHudCollection&lt;TElementContainer, TElement&gt; entries)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>parent</code> <a class="xref" href="RichHudFramework.UI.HudElementBase.html">HudElementBase</a></dt>
+    <dd></dd>
+    <dt><code>entries</code> <a class="xref" href="RichHudFramework.UI.IReadOnlyHudCollection-2.html">IReadOnlyHudCollection</a>&lt;TElementContainer, TElement&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <h2 class="section" id="properties">Properties
+</h2>
+
+
+  <a id="RichHudFramework_UI_ListInputElement_2_Entries_" data-uid="RichHudFramework.UI.ListInputElement`2.Entries*"></a>
+
+  <h3 id="RichHudFramework_UI_ListInputElement_2_Entries" data-uid="RichHudFramework.UI.ListInputElement`2.Entries">
+  Entries
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/HudElements/InputElements/ListInputElement.cs/#L28"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Read-only view of all entries managed by this input element.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public IReadOnlyHudCollection&lt;TElementContainer, TElement&gt; Entries { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="RichHudFramework.UI.IReadOnlyHudCollection-2.html">IReadOnlyHudCollection</a>&lt;TElementContainer, TElement&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="RichHudFramework_UI_ListInputElement_2_FocusIndex_" data-uid="RichHudFramework.UI.ListInputElement`2.FocusIndex*"></a>
+
+  <h3 id="RichHudFramework_UI_ListInputElement_2_FocusIndex" data-uid="RichHudFramework.UI.ListInputElement`2.FocusIndex">
+  FocusIndex
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/HudElements/InputElements/ListInputElement.cs/#L62"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Index of the entry that currently has keyboard focus for navigation.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int FocusIndex { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="RichHudFramework_UI_ListInputElement_2_HighlightIndex_" data-uid="RichHudFramework.UI.ListInputElement`2.HighlightIndex*"></a>
+
+  <h3 id="RichHudFramework_UI_ListInputElement_2_HighlightIndex" data-uid="RichHudFramework.UI.ListInputElement`2.HighlightIndex">
+  HighlightIndex
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/HudElements/InputElements/ListInputElement.cs/#L57"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Index of the entry currently highlighted by the mouse cursor (or keyboard navigation when active).
+Always valid (clamped) even if the list is empty.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int HighlightIndex { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="RichHudFramework_UI_ListInputElement_2_KeyboardScroll_" data-uid="RichHudFramework.UI.ListInputElement`2.KeyboardScroll*"></a>
+
+  <h3 id="RichHudFramework_UI_ListInputElement_2_KeyboardScroll" data-uid="RichHudFramework.UI.ListInputElement`2.KeyboardScroll">
+  KeyboardScroll
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/HudElements/InputElements/ListInputElement.cs/#L68"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Indicates whether keyboard arrow keys are currently being used to navigate the list.
+When true, mouse movement will temporarily disable keyboard scrolling until a new key is pressed.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool KeyboardScroll { get; protected set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="RichHudFramework_UI_ListInputElement_2_ListPos_" data-uid="RichHudFramework.UI.ListInputElement`2.ListPos*"></a>
+
+  <h3 id="RichHudFramework_UI_ListInputElement_2_ListPos" data-uid="RichHudFramework.UI.ListInputElement`2.ListPos">
+  ListPos
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/HudElements/InputElements/ListInputElement.cs/#L84"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Local position of the top-left corner of the visible list area relative to this element.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Vector2 ListPos { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://keensoftwarehouse.github.io/SpaceEngineersModAPI/api/VRageMath.Vector2.html">Vector2</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="RichHudFramework_UI_ListInputElement_2_ListRange_" data-uid="RichHudFramework.UI.ListInputElement`2.ListRange*"></a>
+
+  <h3 id="RichHudFramework_UI_ListInputElement_2_ListRange" data-uid="RichHudFramework.UI.ListInputElement`2.ListRange">
+  ListRange
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/HudElements/InputElements/ListInputElement.cs/#L74"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Range of entry indices currently visible within the scrollable viewport (inclusive).
+X = first visible index, Y = last visible index.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Vector2I ListRange { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://keensoftwarehouse.github.io/SpaceEngineersModAPI/api/VRageMath.Vector2I.html">Vector2I</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="RichHudFramework_UI_ListInputElement_2_ListSize_" data-uid="RichHudFramework.UI.ListInputElement`2.ListSize*"></a>
+
+  <h3 id="RichHudFramework_UI_ListInputElement_2_ListSize" data-uid="RichHudFramework.UI.ListInputElement`2.ListSize">
+  ListSize
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/HudElements/InputElements/ListInputElement.cs/#L79"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Total size of the visible portion of the list (width × height).</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Vector2 ListSize { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://keensoftwarehouse.github.io/SpaceEngineersModAPI/api/VRageMath.Vector2.html">Vector2</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="RichHudFramework_UI_ListInputElement_2_Selection_" data-uid="RichHudFramework.UI.ListInputElement`2.Selection*"></a>
+
+  <h3 id="RichHudFramework_UI_ListInputElement_2_Selection" data-uid="RichHudFramework.UI.ListInputElement`2.Selection">
+  Selection
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/HudElements/InputElements/ListInputElement.cs/#L33"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Currently selected entry. Returns null/default if no selection or list is empty.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public TElementContainer Selection { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">TElementContainer</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="RichHudFramework_UI_ListInputElement_2_SelectionIndex_" data-uid="RichHudFramework.UI.ListInputElement`2.SelectionIndex*"></a>
+
+  <h3 id="RichHudFramework_UI_ListInputElement_2_SelectionIndex" data-uid="RichHudFramework.UI.ListInputElement`2.SelectionIndex">
+  SelectionIndex
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/HudElements/InputElements/ListInputElement.cs/#L51"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Index of the currently selected entry. Returns -1 if nothing is selected.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int SelectionIndex { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <h2 class="section" id="methods">Methods
+</h2>
+
+
+  <a id="RichHudFramework_UI_ListInputElement_2_ClearSelection_" data-uid="RichHudFramework.UI.ListInputElement`2.ClearSelection*"></a>
+
+  <h3 id="RichHudFramework_UI_ListInputElement_2_ClearSelection" data-uid="RichHudFramework.UI.ListInputElement`2.ClearSelection">
+  ClearSelection()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/HudElements/InputElements/ListInputElement.cs/#L178"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Removes the current selection and resets highlight/focus to the first entry.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void ClearSelection()</code></pre>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="RichHudFramework_UI_ListInputElement_2_OffsetSelectionIndex_" data-uid="RichHudFramework.UI.ListInputElement`2.OffsetSelectionIndex*"></a>
+
+  <h3 id="RichHudFramework_UI_ListInputElement_2_OffsetSelectionIndex_System_Int32_System_Boolean_" data-uid="RichHudFramework.UI.ListInputElement`2.OffsetSelectionIndex(System.Int32,System.Boolean)">
+  OffsetSelectionIndex(int, bool)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/HudElements/InputElements/ListInputElement.cs/#L138"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Moves the current selection up/down by the given offset.
+Skips disabled entries. If <code class="paramref">wrap</code> is true, selection wraps around the list edges.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void OffsetSelectionIndex(int offset, bool wrap = false)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>offset</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd></dd>
+    <dt><code>wrap</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="RichHudFramework_UI_ListInputElement_2_SetSelection_" data-uid="RichHudFramework.UI.ListInputElement`2.SetSelection*"></a>
+
+  <h3 id="RichHudFramework_UI_ListInputElement_2_SetSelection__0_" data-uid="RichHudFramework.UI.ListInputElement`2.SetSelection(`0)">
+  SetSelection(TElementContainer)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/HudElements/InputElements/ListInputElement.cs/#L122"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Sets the selection to the specified entry.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void SetSelection(TElementContainer member)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>member</code> <span class="xref">TElementContainer</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="RichHudFramework_UI_ListInputElement_2_SetSelectionAt_" data-uid="RichHudFramework.UI.ListInputElement`2.SetSelectionAt*"></a>
+
+  <h3 id="RichHudFramework_UI_ListInputElement_2_SetSelectionAt_System_Int32_" data-uid="RichHudFramework.UI.ListInputElement`2.SetSelectionAt(System.Int32)">
+  SetSelectionAt(int)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/HudElements/InputElements/ListInputElement.cs/#L109"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Selects the entry at the specified index (clamped to valid range). Disabled entries are skipped automatically.
+Triggers <a class="xref" href="RichHudFramework.UI.ListInputElement-2.html#RichHudFramework_UI_ListInputElement_2_SelectionChanged">SelectionChanged</a> if the selection actually changes.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void SetSelectionAt(int index)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>index</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <h2 class="section" id="events">Events
+</h2>
+
+
+
+  <h3 id="RichHudFramework_UI_ListInputElement_2_SelectionChanged" data-uid="RichHudFramework.UI.ListInputElement`2.SelectionChanged">
+  SelectionChanged
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/HudElements/InputElements/ListInputElement.cs/#L23"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Invoked whenever the selected entry changes (including clearing selection).</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public event EventHandler SelectionChanged</code></pre>
+  </div>
+
+
+
+
+
+
+  <h4 class="section">Event Type</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="RichHudFramework.EventHandler.html">EventHandler</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/HudElements/InputElements/ListInputElement.cs/#L16" class="edit-link">Edit this page</a>
+        </div>
+
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Class Material | Rich HUD Framework </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Class Material | Rich HUD Framework ">
+      
+      <meta name="description" content="Represents a handle to a Space Engineers Transparent Material. Supports defining full textures or specific sprites (texture regions) within a texture atlas.">
+      <link rel="icon" href="../resources/images/favicon.ico">
+      <link rel="stylesheet" href="../public/docfx.min.css">
+      <link rel="stylesheet" href="../public/main.css">
+      <meta name="docfx:navrel" content="../toc.html">
+      <meta name="docfx:tocrel" content="toc.html">
+      
+      <meta name="docfx:rel" content="../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/ZachHembree/RichHudFramework.Client/new/master/apiSpec/new?filename=RichHudFramework_UI_Rendering_Material.md&amp;value=---%0Auid%3A%20RichHudFramework.UI.Rendering.Material%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">
+
+      <!-- Optional nav title customization -->
+      <meta name="loc:inThisArticle" content="Sections">
+      
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="ManagedReference">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand d-flex align-items-center" href="../index.html">
+            <img id="logo" class="svg me-2" src="../resources/images/logo.svg" alt="Rich HUD Framework">
+            
+            <!-- Vertical divider -->
+            <span class="vr align-self-stretch opacity-75" aria-hidden="true"></span>
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="RichHudFramework.UI.Rendering.Material">
+
+
+
+  <h1 id="RichHudFramework_UI_Rendering_Material" data-uid="RichHudFramework.UI.Rendering.Material" class="text-break">
+Class Material  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/Rendering/Material.cs/#L44"><i class="bi bi-code-slash"></i></a>
+  </h1>
+
+  <div class="facts text-secondary">
+    <dl><dt>Namespace</dt><dd><a class="xref" href="RichHudFramework.html">RichHudFramework</a>.<a class="xref" href="RichHudFramework.UI.html">UI</a>.<a class="xref" href="RichHudFramework.UI.Rendering.html">Rendering</a></dd></dl>
+  <dl><dt>Assembly</dt><dd>RichHudClient.dll</dd></dl>
+  </div>
+
+  <div class="markdown summary"><p>Represents a handle to a Space Engineers Transparent Material.
+Supports defining full textures or specific sprites (texture regions) within a texture atlas.</p>
+</div>
+  <div class="markdown conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public class Material</code></pre>
+  </div>
+
+
+
+
+  <dl class="typelist inheritance">
+    <dt>Inheritance</dt>
+    <dd>
+      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
+      <div><span class="xref">Material</span></div>
+    </dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+  <h2 class="section" id="constructors">Constructors
+</h2>
+
+
+  <a id="RichHudFramework_UI_Rendering_Material__ctor_" data-uid="RichHudFramework.UI.Rendering.Material.#ctor*"></a>
+
+  <h3 id="RichHudFramework_UI_Rendering_Material__ctor_System_String_VRageMath_Vector2_" data-uid="RichHudFramework.UI.Rendering.Material.#ctor(System.String,VRageMath.Vector2)">
+  Material(string, Vector2)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/Rendering/Material.cs/#L83"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Creates a Material using the SubtypeId of a Transparent Material.
+Assumes the material utilizes the full texture dimensions.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Material(string SubtypeId, Vector2 size)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>SubtypeId</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd><p>The string name of the texture SubtypeId.</p>
+</dd>
+    <dt><code>size</code> <a class="xref" href="https://keensoftwarehouse.github.io/SpaceEngineersModAPI/api/VRageMath.Vector2.html">Vector2</a></dt>
+    <dd><p>The resolution of the texture in pixels.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="RichHudFramework_UI_Rendering_Material__ctor_" data-uid="RichHudFramework.UI.Rendering.Material.#ctor*"></a>
+
+  <h3 id="RichHudFramework_UI_Rendering_Material__ctor_System_String_VRageMath_Vector2_VRageMath_Vector2_VRageMath_Vector2_" data-uid="RichHudFramework.UI.Rendering.Material.#ctor(System.String,VRageMath.Vector2,VRageMath.Vector2,VRageMath.Vector2)">
+  Material(string, Vector2, Vector2, Vector2)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/Rendering/Material.cs/#L93"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Creates a Material representing a specific region (sprite) within a larger texture atlas.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Material(string SubtypeId, Vector2 texSize, Vector2 texCoords, Vector2 size)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>SubtypeId</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd><p>The string name of the texture SubtypeId.</p>
+</dd>
+    <dt><code>texSize</code> <a class="xref" href="https://keensoftwarehouse.github.io/SpaceEngineersModAPI/api/VRageMath.Vector2.html">Vector2</a></dt>
+    <dd><p>The total resolution of the source texture atlas in pixels.</p>
+</dd>
+    <dt><code>texCoords</code> <a class="xref" href="https://keensoftwarehouse.github.io/SpaceEngineersModAPI/api/VRageMath.Vector2.html">Vector2</a></dt>
+    <dd><p>The pixel offset of the sprite starting from the top-left corner.</p>
+</dd>
+    <dt><code>size</code> <a class="xref" href="https://keensoftwarehouse.github.io/SpaceEngineersModAPI/api/VRageMath.Vector2.html">Vector2</a></dt>
+    <dd><p>The size of the specific sprite region in pixels.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="RichHudFramework_UI_Rendering_Material__ctor_" data-uid="RichHudFramework.UI.Rendering.Material.#ctor*"></a>
+
+  <h3 id="RichHudFramework_UI_Rendering_Material__ctor_VRage_Utils_MyStringId_VRageMath_Vector2_" data-uid="RichHudFramework.UI.Rendering.Material.#ctor(VRage.Utils.MyStringId,VRageMath.Vector2)">
+  Material(MyStringId, Vector2)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/Rendering/Material.cs/#L103"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Creates a Material using the hashed SubtypeId of a Transparent Material.
+Assumes the material utilizes the full texture dimensions.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Material(MyStringId TextureID, Vector2 size)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>TextureID</code> <a class="xref" href="https://keensoftwarehouse.github.io/SpaceEngineersModAPI/api/VRage.Utils.MyStringId.html">MyStringId</a></dt>
+    <dd><p>The hashed <a class="xref" href="https://keensoftwarehouse.github.io/SpaceEngineersModAPI/api/VRage.Utils.MyStringId.html">MyStringId</a> of the texture.</p>
+</dd>
+    <dt><code>size</code> <a class="xref" href="https://keensoftwarehouse.github.io/SpaceEngineersModAPI/api/VRageMath.Vector2.html">Vector2</a></dt>
+    <dd><p>The resolution of the texture in pixels.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="RichHudFramework_UI_Rendering_Material__ctor_" data-uid="RichHudFramework.UI.Rendering.Material.#ctor*"></a>
+
+  <h3 id="RichHudFramework_UI_Rendering_Material__ctor_VRage_Utils_MyStringId_VRageMath_Vector2_VRageMath_Vector2_VRageMath_Vector2_" data-uid="RichHudFramework.UI.Rendering.Material.#ctor(VRage.Utils.MyStringId,VRageMath.Vector2,VRageMath.Vector2,VRageMath.Vector2)">
+  Material(MyStringId, Vector2, Vector2, Vector2)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/Rendering/Material.cs/#L118"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Creates a Material representing a specific region (sprite) within a larger texture atlas
+using a hashed SubtypeId.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Material(MyStringId SubtypeId, Vector2 texSize, Vector2 offset, Vector2 size)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>SubtypeId</code> <a class="xref" href="https://keensoftwarehouse.github.io/SpaceEngineersModAPI/api/VRage.Utils.MyStringId.html">MyStringId</a></dt>
+    <dd><p>The hashed <a class="xref" href="https://keensoftwarehouse.github.io/SpaceEngineersModAPI/api/VRage.Utils.MyStringId.html">MyStringId</a> of the texture.</p>
+</dd>
+    <dt><code>texSize</code> <a class="xref" href="https://keensoftwarehouse.github.io/SpaceEngineersModAPI/api/VRageMath.Vector2.html">Vector2</a></dt>
+    <dd><p>The total resolution of the source texture atlas in pixels.</p>
+</dd>
+    <dt><code>offset</code> <a class="xref" href="https://keensoftwarehouse.github.io/SpaceEngineersModAPI/api/VRageMath.Vector2.html">Vector2</a></dt>
+    <dd><p>The pixel offset of the sprite starting from the top-left corner.</p>
+</dd>
+    <dt><code>size</code> <a class="xref" href="https://keensoftwarehouse.github.io/SpaceEngineersModAPI/api/VRageMath.Vector2.html">Vector2</a></dt>
+    <dd><p>The size of the specific sprite region in pixels.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <h2 class="section" id="fields">Fields
+</h2>
+
+
+
+  <h3 id="RichHudFramework_UI_Rendering_Material_AnnulusMat" data-uid="RichHudFramework.UI.Rendering.Material.AnnulusMat">
+  AnnulusMat
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/Rendering/Material.cs/#L59"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>High-resolution ring/donut texture (1024x1024).</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static readonly Material AnnulusMat</code></pre>
+  </div>
+
+
+
+
+  <h4 class="section">Field Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="RichHudFramework.UI.Rendering.Material.html">Material</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+  <h3 id="RichHudFramework_UI_Rendering_Material_CircleMat" data-uid="RichHudFramework.UI.Rendering.Material.CircleMat">
+  CircleMat
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/Rendering/Material.cs/#L54"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>High-resolution circle texture (1024x1024).</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static readonly Material CircleMat</code></pre>
+  </div>
+
+
+
+
+  <h4 class="section">Field Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="RichHudFramework.UI.Rendering.Material.html">Material</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+  <h3 id="RichHudFramework_UI_Rendering_Material_Default" data-uid="RichHudFramework.UI.Rendering.Material.Default">
+  Default
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/Rendering/Material.cs/#L49"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>A plain white 4x4 texture used for solid color UI elements.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static readonly Material Default</code></pre>
+  </div>
+
+
+
+
+  <h4 class="section">Field Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="RichHudFramework.UI.Rendering.Material.html">Material</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+  <h3 id="RichHudFramework_UI_Rendering_Material_Size" data-uid="RichHudFramework.UI.Rendering.Material.Size">
+  Size
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/Rendering/Material.cs/#L69"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>The dimensions of the material sprite in pixels.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public readonly Vector2 Size</code></pre>
+  </div>
+
+
+
+
+  <h4 class="section">Field Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://keensoftwarehouse.github.io/SpaceEngineersModAPI/api/VRageMath.Vector2.html">Vector2</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+  <h3 id="RichHudFramework_UI_Rendering_Material_TextureID" data-uid="RichHudFramework.UI.Rendering.Material.TextureID">
+  TextureID
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/Rendering/Material.cs/#L64"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>The unique SubtypeId of the underlying Transparent Material.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public readonly MyStringId TextureID</code></pre>
+  </div>
+
+
+
+
+  <h4 class="section">Field Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://keensoftwarehouse.github.io/SpaceEngineersModAPI/api/VRage.Utils.MyStringId.html">MyStringId</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+  <h3 id="RichHudFramework_UI_Rendering_Material_UVBounds" data-uid="RichHudFramework.UI.Rendering.Material.UVBounds">
+  UVBounds
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/Rendering/Material.cs/#L75"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>The normalized UV coordinates defining the region of the texture to be used.
+(0,0 is top-left, 1,1 is bottom-right relative to the atlas).</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public readonly BoundingBox2 UVBounds</code></pre>
+  </div>
+
+
+
+
+  <h4 class="section">Field Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://keensoftwarehouse.github.io/SpaceEngineersModAPI/api/VRageMath.BoundingBox2.html">BoundingBox2</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/Rendering/Material.cs/#L44" class="edit-link">Edit this page</a>
+        </div>
+
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

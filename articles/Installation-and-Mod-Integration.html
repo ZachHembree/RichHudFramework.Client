@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Installation and Mod Integration | Rich HUD Framework </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Installation and Mod Integration | Rich HUD Framework ">
+      
+      
+      <link rel="icon" href="../resources/images/favicon.ico">
+      <link rel="stylesheet" href="../public/docfx.min.css">
+      <link rel="stylesheet" href="../public/main.css">
+      <meta name="docfx:navrel" content="../toc.html">
+      <meta name="docfx:tocrel" content="toc.html">
+      
+      <meta name="docfx:rel" content="../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/ZachHembree/RichHudFramework.Client/blob/docfx/articles/Installation-and-Mod-Integration.md/#L1">
+
+      <!-- Optional nav title customization -->
+      <meta name="loc:inThisArticle" content="Sections">
+      
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand d-flex align-items-center" href="../index.html">
+            <img id="logo" class="svg me-2" src="../resources/images/logo.svg" alt="Rich HUD Framework">
+            
+            <!-- Vertical divider -->
+            <span class="vr align-self-stretch opacity-75" aria-hidden="true"></span>
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="installation-and-mod-integration">Installation and Mod Integration</h1>
+
+<p>The RHF client should be installed in a preexisting C# mod project. See the official <a href="https://spaceengineers.wiki.gg/wiki/Modding/Reference/ModScripting">Space Engineers Mod Scripting Reference</a> for details on mod creation. Installation is just a matter of copying the source into your project, and initializing the client:</p>
+<ol>
+<li><p><strong>Install the Rich Hud Framework client:</strong></p>
+<ul>
+<li>Download the latest release from <a href="../Releases.html">Releases</a>.</li>
+<li>Copy the <code>Shared</code> and <code>Client</code> folders to <code>/{ModName}/Data/Scripts/{ModName}/RichHudFramework</code>. The final <code>RichHudFramework</code> folder is optional but recommended for organization.</li>
+</ul>
+<p>Three client variants are available:</p>
+<ul>
+<li><strong>Full</strong> – The complete version included in the main source archive (recommended default).</li>
+<li><strong>Term</strong> – Minimal version containing only the Rich HUD Terminal components.</li>
+<li><strong>Font</strong> – Minimal version containing only the Font Manager.</li>
+</ul>
+</li>
+<li><p><strong>Initialize the client from your mod's primary session component:</strong></p>
+<ul>
+<li>Add <strong>using RichHudFramework.Client;</strong>.</li>
+<li>Call <a class="xref" href="../api/RichHudFramework.Client.RichHudClient.html#RichHudFramework_Client_RichHudClient_Init_">Init</a> during the <code>Init</code> phase of your session component. Initialization may technically occur as early as <code>LoadData()</code>, but Rich HUD Master will not respond until the session's <code>Init</code> phase completes.</li>
+</ul>
+</li>
+<li><p><strong>Add Rich HUD Master as a dependency:</strong></p>
+<ul>
+<li>Obtain Rich HUD Master from either the <a href="https://steamcommunity.com/workshop/filedetails/?id=1965654081">Steam Workshop</a>, or by downloading the latest release from <a href="https://github.com/ZachHembree/RichHudFramework.Master/releases">GitHub</a> and installing manually.</li>
+<li>After publishing your mod to the Workshop, add the Workshop version of Rich HUD Master to your mod’s dependency list.</li>
+</ul>
+</li>
+</ol>
+<div class="TIP">
+<h5>Tip</h5>
+<p>The framework is load-order independent. Your UI will function correctly regardless of whether your mod loads before or after RHM.</p>
+</div>
+<h3 id="example">Example</h3>
+<p>If your main class inherits from <a class="xref" href="https://keensoftwarehouse.github.io/SpaceEngineersModAPI/api/VRage.Game.Components.MySessionComponentBase.html">MySessionComponentBase</a>, a typical implementation will resemble the following:</p>
+<pre><code class="lang-csharp">using RichHudFramework.Client;
+using VRage.Game;
+using VRage.Game.Components;
+
+// Updating is optional for this example
+[MySessionComponentDescriptor(MyUpdateOrder.NoUpdate)]
+public sealed class MainModClass : MySessionComponentBase
+{
+    public override void Init(MyObjectBuilder_SessionComponent sessionComponent)
+    {
+        RichHudClient.Init(DebugName, HudInit, ClientReset);
+    }
+
+    private void HudInit()
+    {
+        // Registration with Rich HUD Master is now complete.
+        // It is safe to begin using the framework.
+    }
+
+    public override void Draw()
+    {
+        if (RichHudClient.Registered)
+        {
+            // Perform any external framework updates here, but only after registration.
+        }
+    }
+
+    private void ClientReset()
+    {
+        // The client has been unregistered and all framework members have stopped functioning.
+        // This callback is invoked in one of three situations:
+        // 1. The game session is unloading.
+        // 2. An unhandled exception occurred on either the client or master side.
+        // 3. RichHudClient.Reset() was called manually.
+    }
+}
+</code></pre>
+<p>In most cases the <code>ClientReset</code> callback can be left empty, as <code>UnloadData()</code> automatically cleans up all resources. Its primary purpose is to notify you of unexpected closure due to the conditions listed above.</p>
+<p>If you are designing a reloadable mod (one that can be reloaded during an active session), call <a class="xref" href="../api/RichHudFramework.Client.RichHudClient.html#RichHudFramework_Client_RichHudClient_Reset_">Reset</a> to unregister the client before reinitializing.</p>
+<div class="WARNING">
+<h5>Warning</h5>
+<p>When a mod defines multiple session components, <strong>initialize the client from only one component</strong>. Otherwise, the client will be initialized by whichever component runs <code>Init</code> first, and the <code>HudInit</code> callback will fire only for that component.</p>
+</div>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/ZachHembree/RichHudFramework.Client/blob/docfx/articles/Installation-and-Mod-Integration.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

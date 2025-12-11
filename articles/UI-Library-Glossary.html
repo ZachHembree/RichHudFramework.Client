@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>UI Library Glossary | Rich HUD Framework </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="UI Library Glossary | Rich HUD Framework ">
+      
+      
+      <link rel="icon" href="../resources/images/favicon.ico">
+      <link rel="stylesheet" href="../public/docfx.min.css">
+      <link rel="stylesheet" href="../public/main.css">
+      <meta name="docfx:navrel" content="../toc.html">
+      <meta name="docfx:tocrel" content="toc.html">
+      
+      <meta name="docfx:rel" content="../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/ZachHembree/RichHudFramework.Client/blob/docfx/articles/UI-Library-Glossary.md/#L1">
+
+      <!-- Optional nav title customization -->
+      <meta name="loc:inThisArticle" content="Sections">
+      
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand d-flex align-items-center" href="../index.html">
+            <img id="logo" class="svg me-2" src="../resources/images/logo.svg" alt="Rich HUD Framework">
+            
+            <!-- Vertical divider -->
+            <span class="vr align-self-stretch opacity-75" aria-hidden="true"></span>
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="ui-library-glossary">UI Library Glossary</h1>
+
+<p>This glossary provides a quick reference to the standard visual and interactive UI elements available in the built-in library. This is not an exhaustive listing. For detailed documentation, see the API reference.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Category</th>
+<th style="text-align: left;">Name</th>
+<th style="text-align: left;">Description</th>
+<th style="text-align: left;">Use Case</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Basic Elements</strong></td>
+<td style="text-align: left;"><a class="xref" href="../api/RichHudFramework.UI.TexturedBox.html#RichHudFramework_UI_TexturedBox_examples">TexturedBox</a></td>
+<td style="text-align: left;">A fundamental visual primitive that renders a colored, textured rectangle.</td>
+<td style="text-align: left;">Creating backgrounds, custom dividers, or visual containers.</td>
+</tr>
+<tr>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><a class="xref" href="../api/RichHudFramework.UI.Label.html#RichHudFramework_UI_Label_examples">Label</a></td>
+<td style="text-align: left;">A text-only component dedicated to rendering formatted text (<a class="xref" href="../api/RichHudFramework.UI.RichText.html">RichText</a>) without a background.</td>
+<td style="text-align: left;">Displaying overlays, floating text, or captions where a background is unnecessary.</td>
+</tr>
+<tr>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><a class="xref" href="../api/RichHudFramework.UI.LabelBox.html">LabelBox</a></td>
+<td style="text-align: left;">A composite element that layers text over a textured background.</td>
+<td style="text-align: left;">Standard text displays requiring a visible background for contrast/readability.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Buttons</strong></td>
+<td style="text-align: left;"><a class="xref" href="../api/RichHudFramework.UI.BorderedButton.html#RichHudFramework_UI_BorderedButton_examples">BorderedButton</a></td>
+<td style="text-align: left;">A clickable button styled to mimic the native Space Engineers terminal interface.</td>
+<td style="text-align: left;">Primary actions (e.g., &quot;Save&quot;, &quot;Apply&quot;) that must blend with the game's UI.</td>
+</tr>
+<tr>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><a class="xref" href="../api/RichHudFramework.UI.LabelBoxButton.html#RichHudFramework_UI_LabelBoxButton_examples">LabelBoxButton</a></td>
+<td style="text-align: left;">A generic clickable button featuring text on a background, including highlighting.</td>
+<td style="text-align: left;">Custom button styles or multi-purpose interactive labels.</td>
+</tr>
+<tr>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><a class="xref" href="../api/RichHudFramework.UI.LabelButton.html#RichHudFramework_UI_LabelButton_examples">LabelButton</a></td>
+<td style="text-align: left;">A minimalist clickable text element that lacks a background texture.</td>
+<td style="text-align: left;">Navigation tabs or low-profile actions.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Input &amp; Toggles</strong></td>
+<td style="text-align: left;"><a class="xref" href="../api/RichHudFramework.UI.TextField.html">TextField</a></td>
+<td style="text-align: left;">A single-line input field featuring a background and border.</td>
+<td style="text-align: left;">Capturing simple alphanumeric data (e.g., naming an entity or typing in a numeric value).</td>
+</tr>
+<tr>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><a class="xref" href="../api/RichHudFramework.UI.TextBox.html">TextBox</a></td>
+<td style="text-align: left;">A raw, multi-line capable text input supporting carets and highlighting, but without a background or scrollbars.</td>
+<td style="text-align: left;">Custom input fields requiring distinct styling or embedding within complex containers.</td>
+</tr>
+<tr>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><a class="xref" href="../api/RichHudFramework.UI.NamedCheckBox.html#RichHudFramework_UI_NamedCheckBox_examples">NamedCheckBox</a></td>
+<td style="text-align: left;">A standard toggle control consisting of a checkbox and a descriptive label. See <a class="xref" href="../api/RichHudFramework.UI.BorderedCheckBox.html">BorderedCheckBox</a> for a label-free variant.</td>
+<td style="text-align: left;">Binary (On/Off) settings where screen space is at a premium.</td>
+</tr>
+<tr>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><a class="xref" href="../api/RichHudFramework.UI.NamedOnOffButton.html#RichHudFramework_UI_NamedOnOffButton_examples">NamedOnOffButton</a></td>
+<td style="text-align: left;">A distinct boolean toggle featuring separate &quot;On&quot; and &quot;Off&quot; buttons. Includes a label. See <a class="xref" href="../api/RichHudFramework.UI.OnOffButton.html">OnOffButton</a> for a label-free variant.</td>
+<td style="text-align: left;">High-visibility settings requiring clear state indication (SE Terminal style).</td>
+</tr>
+<tr>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><a class="xref" href="../api/RichHudFramework.UI.NamedSliderBox.html#RichHudFramework_UI_NamedSliderBox_examples">NamedSliderBox</a></td>
+<td style="text-align: left;">A horizontal sliding control for selecting numeric values within a defined range. Includes name and value labels. See <a class="xref" href="../api/RichHudFramework.UI.SliderBox.html">SliderBox</a> for a label-free variant.</td>
+<td style="text-align: left;">Continuous adjustments like volume, sensitivity, or opacity.</td>
+</tr>
+<tr>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><a class="xref" href="../api/RichHudFramework.UI.ScrollBar.html#RichHudFramework_UI_ScrollBar_examples">ScrollBar</a></td>
+<td style="text-align: left;">A vertical or horizontal slider used for navigation.</td>
+<td style="text-align: left;">Scrolling text and lists.</td>
+</tr>
+<tr>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><a class="xref" href="../api/RichHudFramework.UI.ColorPickerHSV.html">ColorPickerHSV</a></td>
+<td style="text-align: left;">A color selection interface using Hue, Saturation, and Value sliders.</td>
+<td style="text-align: left;">Intuitive user-facing color configuration.</td>
+</tr>
+<tr>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><a class="xref" href="../api/RichHudFramework.UI.ColorPickerRGB.html">ColorPickerRGB</a></td>
+<td style="text-align: left;">A color selection interface using Red, Green, and Blue sliders.</td>
+<td style="text-align: left;">Precise color configuration requiring specific RGB values.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Lists &amp; Selection</strong></td>
+<td style="text-align: left;"><a class="xref" href="../api/RichHudFramework.UI.Dropdown-3.html#RichHudFramework_UI_Dropdown_3_examples">Dropdown</a></td>
+<td style="text-align: left;">A collapsable list box styled to mimic the SE terminal dropdown menu.</td>
+<td style="text-align: left;">Selecting one item from a list while conserving screen space.</td>
+</tr>
+<tr>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><a class="xref" href="../api/RichHudFramework.UI.ListBox-3.html#RichHudFramework_UI_ListBox_3_examples">ListBox</a></td>
+<td style="text-align: left;">A scrollable list of data-associated text entries.</td>
+<td style="text-align: left;">Displaying and allowing selection from a scrolling list of options.</td>
+</tr>
+<tr>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><a class="xref" href="../api/RichHudFramework.UI.TreeList-3.html#RichHudFramework_UI_TreeList_3_examples">TreeList</a></td>
+<td style="text-align: left;">An indented, collapsable list for displaying hierarchical data.</td>
+<td style="text-align: left;">Presenting structured, expandable data (like a configuration tree).</td>
+</tr>
+<tr>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><a class="xref" href="../api/RichHudFramework.UI.TreeBox-2.html#RichHudFramework_UI_TreeBox_2_examples">TreeBox</a></td>
+<td style="text-align: left;">Generalized <code>TreeList</code> that allows arbitrary mixed-type entries.</td>
+<td style="text-align: left;">Advanced hierarchies requiring mixed leaf nodes and folder structures.</td>
+</tr>
+<tr>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><a class="xref" href="../api/RichHudFramework.UI.RadialSelectionBox-2.html">RadialSelectionBox</a></td>
+<td style="text-align: left;">A selection wheel (pie-menu style) displaying entries in a circular pattern.</td>
+<td style="text-align: left;">Quick, gesture-based selection in a circular, compact menu.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Containers &amp; Layout</strong></td>
+<td style="text-align: left;"><a class="xref" href="../api/RichHudFramework.UI.WindowBase.html">WindowBase</a></td>
+<td style="text-align: left;">A foundation for creating windows, including header, body, and border framing.</td>
+<td style="text-align: left;">Building draggable, resizable dialogs or main interface panels.</td>
+</tr>
+<tr>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><a class="xref" href="../api/RichHudFramework.UI.HudChain-2.html#RichHudFramework_UI_HudChain_2_examples">HudChain</a></td>
+<td style="text-align: left;">A layout container that automatically arranges children in a horizontal or vertical stack.</td>
+<td style="text-align: left;">Aligning UI components dynamically without manual coordinate management.</td>
+</tr>
+<tr>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><a class="xref" href="../api/RichHudFramework.UI.ScrollBox-2.html#RichHudFramework_UI_ScrollBox_2_examples">ScrollBox</a></td>
+<td style="text-align: left;">A container that clips overflowing content and provides scrollbars for navigation.</td>
+<td style="text-align: left;">Presenting long, scrolling content within a confined area.</td>
+</tr>
+</tbody>
+</table>
+<div class="TIP">
+<h5>Tip</h5>
+<p>Many of the interactive UI elements above (Toggles, Sliders, and Lists) implement the <a class="xref" href="../api/RichHudFramework.UI.IValueControl-1.html">IValueControl<t></t></a> interface. This provides a unified way to interact with controls that hold a changing value using events.</p>
+</div>
+<h2 id="input-handling-elements">Input Handling Elements</h2>
+<p>These are non-visual elements that provide core functionality for key binds and mouse interaction with your visible UI Elements.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Name</th>
+<th style="text-align: left;">Description</th>
+<th style="text-align: left;">Use Case</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><a class="xref" href="../api/RichHudFramework.UI.BindInputElement.html#RichHudFramework_UI_BindInputElement_examples">BindInputElement</a></td>
+<td style="text-align: left;">A utility for mapping custom keybinds or control combinations to UI elements.</td>
+<td style="text-align: left;">Defining custom keyboard shortcuts or gamepad button presses that trigger specific actions on a focused UI element.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><a class="xref" href="../api/RichHudFramework.UI.MouseInputElement.html">MouseInputElement</a></td>
+<td style="text-align: left;">The foundational component for processing cursor interactions (clicks, hover states, tooltips).</td>
+<td style="text-align: left;">Adding mouse interactions (clickable/hoverable) to UI elements that lack them and enabling tooltips.</td>
+</tr>
+</tbody>
+</table>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/ZachHembree/RichHudFramework.Client/blob/docfx/articles/UI-Library-Glossary.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

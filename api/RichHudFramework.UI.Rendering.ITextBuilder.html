@@ -1,0 +1,943 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Interface ITextBuilder | Rich HUD Framework </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Interface ITextBuilder | Rich HUD Framework ">
+      
+      <meta name="description" content="A mutable collection of lines and characters that supports RichText formatting.  Functioning similarly to a , this interface allows for appending,  inserting, and removing text while maintaining formatting data (colors, fonts) and handling  line wrapping modes (Unlined, Lined, Wrapped).  Supports  for getting plain text copies.">
+      <link rel="icon" href="../resources/images/favicon.ico">
+      <link rel="stylesheet" href="../public/docfx.min.css">
+      <link rel="stylesheet" href="../public/main.css">
+      <meta name="docfx:navrel" content="../toc.html">
+      <meta name="docfx:tocrel" content="toc.html">
+      
+      <meta name="docfx:rel" content="../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/ZachHembree/RichHudFramework.Client/blob/docfx/api-supplements/Shared/UI/Rendering/ITextBoard.md/#L2">
+
+      <!-- Optional nav title customization -->
+      <meta name="loc:inThisArticle" content="Sections">
+      
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="ManagedReference">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand d-flex align-items-center" href="../index.html">
+            <img id="logo" class="svg me-2" src="../resources/images/logo.svg" alt="Rich HUD Framework">
+            
+            <!-- Vertical divider -->
+            <span class="vr align-self-stretch opacity-75" aria-hidden="true"></span>
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="RichHudFramework.UI.Rendering.ITextBuilder">
+
+
+
+  <h1 id="RichHudFramework_UI_Rendering_ITextBuilder" data-uid="RichHudFramework.UI.Rendering.ITextBuilder" class="text-break">
+Interface ITextBuilder  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/Rendering/TextBuilderInterfaces/ITextBuilder.cs/#L86"><i class="bi bi-code-slash"></i></a>
+  </h1>
+
+  <div class="facts text-secondary">
+    <dl><dt>Namespace</dt><dd><a class="xref" href="RichHudFramework.html">RichHudFramework</a>.<a class="xref" href="RichHudFramework.UI.html">UI</a>.<a class="xref" href="RichHudFramework.UI.Rendering.html">Rendering</a></dd></dl>
+  <dl><dt>Assembly</dt><dd>RichHudClient.dll</dd></dl>
+  </div>
+
+  <div class="markdown summary"><p>A mutable collection of lines and characters that supports RichText formatting.</p>
+<p>
+Functioning similarly to a <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.text.stringbuilder">StringBuilder</a>, this interface allows for appending, 
+inserting, and removing text while maintaining formatting data (colors, fonts) and handling 
+line wrapping modes (Unlined, Lined, Wrapped).
+</p>
+<p>Supports <span class="xref">object.ToString()</span> for getting plain text copies.</p>
+</div>
+  <div class="markdown conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public interface ITextBuilder : IIndexedCollection&lt;ILine&gt;</code></pre>
+  </div>
+
+
+
+
+
+
+
+  <dl class="typelist inheritedMembers">
+    <dt>Inherited Members</dt>
+    <dd>
+    <div>
+      <a class="xref" href="RichHudFramework.IIndexedCollection-1.html#RichHudFramework_IIndexedCollection_1_Item_System_Int32_">this[int]</a>
+    </div>
+    <div>
+      <a class="xref" href="RichHudFramework.IIndexedCollection-1.html#RichHudFramework_IIndexedCollection_1_Count">Count</a>
+    </div>
+  </dd></dl>
+
+
+
+
+  <h2 id="RichHudFramework_UI_Rendering_ITextBuilder_remarks">Remarks</h2>
+  <div class="markdown level0 remarks">
+<p><code>ITextBuilder</code> is the text building and formatting interface for <a class="xref" href="RichHudFramework.UI.Rendering.ITextBoard.html">ITextBoard</a>. For details on usage, see that interface.</p>
+</div>
+
+
+  <h2 class="section" id="properties">Properties
+</h2>
+
+
+  <a id="RichHudFramework_UI_Rendering_ITextBuilder_BuilderMode_" data-uid="RichHudFramework.UI.Rendering.ITextBuilder.BuilderMode*"></a>
+
+  <h3 id="RichHudFramework_UI_Rendering_ITextBuilder_BuilderMode" data-uid="RichHudFramework.UI.Rendering.ITextBuilder.BuilderMode">
+  BuilderMode
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/Rendering/TextBuilderInterfaces/ITextBuilder.cs/#L112"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Controls the line-breaking behavior of the text builder (Unlined, Lined, or Wrapped).</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">TextBuilderModes BuilderMode { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="RichHudFramework.UI.TextBuilderModes.html">TextBuilderModes</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="RichHudFramework_UI_Rendering_ITextBuilder_Format_" data-uid="RichHudFramework.UI.Rendering.ITextBuilder.Format*"></a>
+
+  <h3 id="RichHudFramework_UI_Rendering_ITextBuilder_Format" data-uid="RichHudFramework.UI.Rendering.ITextBuilder.Format">
+  Format
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/Rendering/TextBuilderInterfaces/ITextBuilder.cs/#L101"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>The default text format applied to strings added without explicit formatting.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">GlyphFormat Format { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="RichHudFramework.UI.GlyphFormat.html">GlyphFormat</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="RichHudFramework_UI_Rendering_ITextBuilder_Item_" data-uid="RichHudFramework.UI.Rendering.ITextBuilder.Item*"></a>
+
+  <h3 id="RichHudFramework_UI_Rendering_ITextBuilder_Item_VRageMath_Vector2I_" data-uid="RichHudFramework.UI.Rendering.ITextBuilder.Item(VRageMath.Vector2I)">
+  this[Vector2I]
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/Rendering/TextBuilderInterfaces/ITextBuilder.cs/#L96"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Retrieves the <a class="xref" href="RichHudFramework.UI.Rendering.IRichChar.html">IRichChar</a> at the specified index.</p>
+<p>
+Note: This creates a new wrapper object on every call. Avoid iterating this collection 
+frequently in tight loops. Reference equality checks between calls will fail.
+</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">IRichChar this[Vector2I index] { get; }</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>index</code> <a class="xref" href="https://keensoftwarehouse.github.io/SpaceEngineersModAPI/api/VRageMath.Vector2I.html">Vector2I</a></dt>
+    <dd><p>X: Line Index, Y: Column Index</p>
+</dd>
+  </dl>
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="RichHudFramework.UI.Rendering.IRichChar.html">IRichChar</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="RichHudFramework_UI_Rendering_ITextBuilder_LineWrapWidth_" data-uid="RichHudFramework.UI.Rendering.ITextBuilder.LineWrapWidth*"></a>
+
+  <h3 id="RichHudFramework_UI_Rendering_ITextBuilder_LineWrapWidth" data-uid="RichHudFramework.UI.Rendering.ITextBuilder.LineWrapWidth">
+  LineWrapWidth
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/Rendering/TextBuilderInterfaces/ITextBuilder.cs/#L107"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>The maximum width of a line before text wraps to the next line.</p>
+<p>Only applies when <a class="xref" href="RichHudFramework.UI.Rendering.ITextBuilder.html#RichHudFramework_UI_Rendering_ITextBuilder_BuilderMode">BuilderMode</a> is set to <a class="xref" href="RichHudFramework.UI.TextBuilderModes.html#RichHudFramework_UI_TextBuilderModes_Wrapped">Wrapped</a>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">float LineWrapWidth { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <h2 class="section" id="methods">Methods
+</h2>
+
+
+  <a id="RichHudFramework_UI_Rendering_ITextBuilder_Append_" data-uid="RichHudFramework.UI.Rendering.ITextBuilder.Append*"></a>
+
+  <h3 id="RichHudFramework_UI_Rendering_ITextBuilder_Append_RichHudFramework_UI_RichText_" data-uid="RichHudFramework.UI.Rendering.ITextBuilder.Append(RichHudFramework.UI.RichText)">
+  Append(RichText)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/Rendering/TextBuilderInterfaces/ITextBuilder.cs/#L134"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Appends the given <a class="xref" href="RichHudFramework.UI.RichText.html">RichText</a> to the end of the current content.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">void Append(RichText text)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>text</code> <a class="xref" href="RichHudFramework.UI.RichText.html">RichText</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="RichHudFramework_UI_Rendering_ITextBuilder_Append_" data-uid="RichHudFramework.UI.Rendering.ITextBuilder.Append*"></a>
+
+  <h3 id="RichHudFramework_UI_Rendering_ITextBuilder_Append_System_Char_System_Nullable_RichHudFramework_UI_GlyphFormat__" data-uid="RichHudFramework.UI.Rendering.ITextBuilder.Append(System.Char,System.Nullable{RichHudFramework.UI.GlyphFormat})">
+  Append(char, GlyphFormat?)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/Rendering/TextBuilderInterfaces/ITextBuilder.cs/#L152"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Appends the <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.char">char</a> to the end of the current content.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">void Append(char ch, GlyphFormat? format = null)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>ch</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.char">char</a></dt>
+    <dd></dd>
+    <dt><code>format</code> <a class="xref" href="RichHudFramework.UI.GlyphFormat.html">GlyphFormat</a>?</dt>
+    <dd><p>Optional format to apply. If null, <a class="xref" href="RichHudFramework.UI.Rendering.ITextBuilder.html#RichHudFramework_UI_Rendering_ITextBuilder_Format">Format</a> is used.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="RichHudFramework_UI_Rendering_ITextBuilder_Append_" data-uid="RichHudFramework.UI.Rendering.ITextBuilder.Append*"></a>
+
+  <h3 id="RichHudFramework_UI_Rendering_ITextBuilder_Append_System_String_System_Nullable_RichHudFramework_UI_GlyphFormat__" data-uid="RichHudFramework.UI.Rendering.ITextBuilder.Append(System.String,System.Nullable{RichHudFramework.UI.GlyphFormat})">
+  Append(string, GlyphFormat?)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/Rendering/TextBuilderInterfaces/ITextBuilder.cs/#L146"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Appends the <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a> to the end of the current content.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">void Append(string text, GlyphFormat? format = null)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>text</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+    <dt><code>format</code> <a class="xref" href="RichHudFramework.UI.GlyphFormat.html">GlyphFormat</a>?</dt>
+    <dd><p>Optional format to apply. If null, <a class="xref" href="RichHudFramework.UI.Rendering.ITextBuilder.html#RichHudFramework_UI_Rendering_ITextBuilder_Format">Format</a> is used.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="RichHudFramework_UI_Rendering_ITextBuilder_Append_" data-uid="RichHudFramework.UI.Rendering.ITextBuilder.Append*"></a>
+
+  <h3 id="RichHudFramework_UI_Rendering_ITextBuilder_Append_System_Text_StringBuilder_System_Nullable_RichHudFramework_UI_GlyphFormat__" data-uid="RichHudFramework.UI.Rendering.ITextBuilder.Append(System.Text.StringBuilder,System.Nullable{RichHudFramework.UI.GlyphFormat})">
+  Append(StringBuilder, GlyphFormat?)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/Rendering/TextBuilderInterfaces/ITextBuilder.cs/#L140"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Appends a copy of the <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.text.stringbuilder">StringBuilder</a> to the end of the current content.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">void Append(StringBuilder text, GlyphFormat? format = null)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>text</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.text.stringbuilder">StringBuilder</a></dt>
+    <dd></dd>
+    <dt><code>format</code> <a class="xref" href="RichHudFramework.UI.GlyphFormat.html">GlyphFormat</a>?</dt>
+    <dd><p>Optional format to apply. If null, <a class="xref" href="RichHudFramework.UI.Rendering.ITextBuilder.html#RichHudFramework_UI_Rendering_ITextBuilder_Format">Format</a> is used.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="RichHudFramework_UI_Rendering_ITextBuilder_Clear_" data-uid="RichHudFramework.UI.Rendering.ITextBuilder.Clear*"></a>
+
+  <h3 id="RichHudFramework_UI_Rendering_ITextBuilder_Clear" data-uid="RichHudFramework.UI.Rendering.ITextBuilder.Clear">
+  Clear()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/Rendering/TextBuilderInterfaces/ITextBuilder.cs/#L220"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Clears all existing text.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">void Clear()</code></pre>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="RichHudFramework_UI_Rendering_ITextBuilder_GetText_" data-uid="RichHudFramework.UI.Rendering.ITextBuilder.GetText*"></a>
+
+  <h3 id="RichHudFramework_UI_Rendering_ITextBuilder_GetText" data-uid="RichHudFramework.UI.Rendering.ITextBuilder.GetText">
+  GetText()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/Rendering/TextBuilderInterfaces/ITextBuilder.cs/#L196"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Returns the entire contents of the text builder as <a class="xref" href="RichHudFramework.UI.RichText.html">RichText</a>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">RichText GetText()</code></pre>
+  </div>
+
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="RichHudFramework.UI.RichText.html">RichText</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="RichHudFramework_UI_Rendering_ITextBuilder_GetTextRange_" data-uid="RichHudFramework.UI.Rendering.ITextBuilder.GetTextRange*"></a>
+
+  <h3 id="RichHudFramework_UI_Rendering_ITextBuilder_GetTextRange_VRageMath_Vector2I_VRageMath_Vector2I_" data-uid="RichHudFramework.UI.Rendering.ITextBuilder.GetTextRange(VRageMath.Vector2I,VRageMath.Vector2I)">
+  GetTextRange(Vector2I, Vector2I)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/Rendering/TextBuilderInterfaces/ITextBuilder.cs/#L203"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Returns the text within the specified range as <a class="xref" href="RichHudFramework.UI.RichText.html">RichText</a>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">RichText GetTextRange(Vector2I start, Vector2I end)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>start</code> <a class="xref" href="https://keensoftwarehouse.github.io/SpaceEngineersModAPI/api/VRageMath.Vector2I.html">Vector2I</a></dt>
+    <dd><p>Start index.</p>
+</dd>
+    <dt><code>end</code> <a class="xref" href="https://keensoftwarehouse.github.io/SpaceEngineersModAPI/api/VRageMath.Vector2I.html">Vector2I</a></dt>
+    <dd><p>End index.</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="RichHudFramework.UI.RichText.html">RichText</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="RichHudFramework_UI_Rendering_ITextBuilder_Insert_" data-uid="RichHudFramework.UI.Rendering.ITextBuilder.Insert*"></a>
+
+  <h3 id="RichHudFramework_UI_Rendering_ITextBuilder_Insert_RichHudFramework_UI_RichText_VRageMath_Vector2I_" data-uid="RichHudFramework.UI.Rendering.ITextBuilder.Insert(RichHudFramework.UI.RichText,VRageMath.Vector2I)">
+  Insert(RichText, Vector2I)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/Rendering/TextBuilderInterfaces/ITextBuilder.cs/#L158"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Inserts the given <a class="xref" href="RichHudFramework.UI.RichText.html">RichText</a> starting at the specified index.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">void Insert(RichText text, Vector2I start)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>text</code> <a class="xref" href="RichHudFramework.UI.RichText.html">RichText</a></dt>
+    <dd></dd>
+    <dt><code>start</code> <a class="xref" href="https://keensoftwarehouse.github.io/SpaceEngineersModAPI/api/VRageMath.Vector2I.html">Vector2I</a></dt>
+    <dd><p>Insertion index (X: Line, Y: Column).</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="RichHudFramework_UI_Rendering_ITextBuilder_Insert_" data-uid="RichHudFramework.UI.Rendering.ITextBuilder.Insert*"></a>
+
+  <h3 id="RichHudFramework_UI_Rendering_ITextBuilder_Insert_System_Char_VRageMath_Vector2I_System_Nullable_RichHudFramework_UI_GlyphFormat__" data-uid="RichHudFramework.UI.Rendering.ITextBuilder.Insert(System.Char,VRageMath.Vector2I,System.Nullable{RichHudFramework.UI.GlyphFormat})">
+  Insert(char, Vector2I, GlyphFormat?)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/Rendering/TextBuilderInterfaces/ITextBuilder.cs/#L179"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Inserts the <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.char">char</a> starting at the specified index.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">void Insert(char text, Vector2I start, GlyphFormat? format = null)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>text</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.char">char</a></dt>
+    <dd></dd>
+    <dt><code>start</code> <a class="xref" href="https://keensoftwarehouse.github.io/SpaceEngineersModAPI/api/VRageMath.Vector2I.html">Vector2I</a></dt>
+    <dd><p>Insertion index (X: Line, Y: Column).</p>
+</dd>
+    <dt><code>format</code> <a class="xref" href="RichHudFramework.UI.GlyphFormat.html">GlyphFormat</a>?</dt>
+    <dd><p>Optional format to apply.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="RichHudFramework_UI_Rendering_ITextBuilder_Insert_" data-uid="RichHudFramework.UI.Rendering.ITextBuilder.Insert*"></a>
+
+  <h3 id="RichHudFramework_UI_Rendering_ITextBuilder_Insert_System_String_VRageMath_Vector2I_System_Nullable_RichHudFramework_UI_GlyphFormat__" data-uid="RichHudFramework.UI.Rendering.ITextBuilder.Insert(System.String,VRageMath.Vector2I,System.Nullable{RichHudFramework.UI.GlyphFormat})">
+  Insert(string, Vector2I, GlyphFormat?)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/Rendering/TextBuilderInterfaces/ITextBuilder.cs/#L172"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Inserts the <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a> starting at the specified index.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">void Insert(string text, Vector2I start, GlyphFormat? format = null)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>text</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+    <dt><code>start</code> <a class="xref" href="https://keensoftwarehouse.github.io/SpaceEngineersModAPI/api/VRageMath.Vector2I.html">Vector2I</a></dt>
+    <dd><p>Insertion index (X: Line, Y: Column).</p>
+</dd>
+    <dt><code>format</code> <a class="xref" href="RichHudFramework.UI.GlyphFormat.html">GlyphFormat</a>?</dt>
+    <dd><p>Optional format to apply.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="RichHudFramework_UI_Rendering_ITextBuilder_Insert_" data-uid="RichHudFramework.UI.Rendering.ITextBuilder.Insert*"></a>
+
+  <h3 id="RichHudFramework_UI_Rendering_ITextBuilder_Insert_System_Text_StringBuilder_VRageMath_Vector2I_System_Nullable_RichHudFramework_UI_GlyphFormat__" data-uid="RichHudFramework.UI.Rendering.ITextBuilder.Insert(System.Text.StringBuilder,VRageMath.Vector2I,System.Nullable{RichHudFramework.UI.GlyphFormat})">
+  Insert(StringBuilder, Vector2I, GlyphFormat?)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/Rendering/TextBuilderInterfaces/ITextBuilder.cs/#L165"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Inserts a copy of the <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.text.stringbuilder">StringBuilder</a> starting at the specified index.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">void Insert(StringBuilder text, Vector2I start, GlyphFormat? format = null)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>text</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.text.stringbuilder">StringBuilder</a></dt>
+    <dd></dd>
+    <dt><code>start</code> <a class="xref" href="https://keensoftwarehouse.github.io/SpaceEngineersModAPI/api/VRageMath.Vector2I.html">Vector2I</a></dt>
+    <dd><p>Insertion index (X: Line, Y: Column).</p>
+</dd>
+    <dt><code>format</code> <a class="xref" href="RichHudFramework.UI.GlyphFormat.html">GlyphFormat</a>?</dt>
+    <dd><p>Optional format to apply.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="RichHudFramework_UI_Rendering_ITextBuilder_RemoveAt_" data-uid="RichHudFramework.UI.Rendering.ITextBuilder.RemoveAt*"></a>
+
+  <h3 id="RichHudFramework_UI_Rendering_ITextBuilder_RemoveAt_VRageMath_Vector2I_" data-uid="RichHudFramework.UI.Rendering.ITextBuilder.RemoveAt(VRageMath.Vector2I)">
+  RemoveAt(Vector2I)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/Rendering/TextBuilderInterfaces/ITextBuilder.cs/#L208"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Removes the character at the specified index.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">void RemoveAt(Vector2I index)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>index</code> <a class="xref" href="https://keensoftwarehouse.github.io/SpaceEngineersModAPI/api/VRageMath.Vector2I.html">Vector2I</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="RichHudFramework_UI_Rendering_ITextBuilder_RemoveRange_" data-uid="RichHudFramework.UI.Rendering.ITextBuilder.RemoveRange*"></a>
+
+  <h3 id="RichHudFramework_UI_Rendering_ITextBuilder_RemoveRange_VRageMath_Vector2I_VRageMath_Vector2I_" data-uid="RichHudFramework.UI.Rendering.ITextBuilder.RemoveRange(VRageMath.Vector2I,VRageMath.Vector2I)">
+  RemoveRange(Vector2I, Vector2I)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/Rendering/TextBuilderInterfaces/ITextBuilder.cs/#L215"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Removes all characters within the specified range.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">void RemoveRange(Vector2I start, Vector2I end)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>start</code> <a class="xref" href="https://keensoftwarehouse.github.io/SpaceEngineersModAPI/api/VRageMath.Vector2I.html">Vector2I</a></dt>
+    <dd><p>Start index.</p>
+</dd>
+    <dt><code>end</code> <a class="xref" href="https://keensoftwarehouse.github.io/SpaceEngineersModAPI/api/VRageMath.Vector2I.html">Vector2I</a></dt>
+    <dd><p>End index.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="RichHudFramework_UI_Rendering_ITextBuilder_SetFormatting_" data-uid="RichHudFramework.UI.Rendering.ITextBuilder.SetFormatting*"></a>
+
+  <h3 id="RichHudFramework_UI_Rendering_ITextBuilder_SetFormatting_RichHudFramework_UI_GlyphFormat_" data-uid="RichHudFramework.UI.Rendering.ITextBuilder.SetFormatting(RichHudFramework.UI.GlyphFormat)">
+  SetFormatting(GlyphFormat)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/Rendering/TextBuilderInterfaces/ITextBuilder.cs/#L184"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Applies the specified formatting to the entire text content.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">void SetFormatting(GlyphFormat format)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>format</code> <a class="xref" href="RichHudFramework.UI.GlyphFormat.html">GlyphFormat</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="RichHudFramework_UI_Rendering_ITextBuilder_SetFormatting_" data-uid="RichHudFramework.UI.Rendering.ITextBuilder.SetFormatting*"></a>
+
+  <h3 id="RichHudFramework_UI_Rendering_ITextBuilder_SetFormatting_VRageMath_Vector2I_VRageMath_Vector2I_RichHudFramework_UI_GlyphFormat_" data-uid="RichHudFramework.UI.Rendering.ITextBuilder.SetFormatting(VRageMath.Vector2I,VRageMath.Vector2I,RichHudFramework.UI.GlyphFormat)">
+  SetFormatting(Vector2I, Vector2I, GlyphFormat)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/Rendering/TextBuilderInterfaces/ITextBuilder.cs/#L191"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Applies the specified formatting to the characters within the given range.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">void SetFormatting(Vector2I start, Vector2I end, GlyphFormat format)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>start</code> <a class="xref" href="https://keensoftwarehouse.github.io/SpaceEngineersModAPI/api/VRageMath.Vector2I.html">Vector2I</a></dt>
+    <dd><p>Start index.</p>
+</dd>
+    <dt><code>end</code> <a class="xref" href="https://keensoftwarehouse.github.io/SpaceEngineersModAPI/api/VRageMath.Vector2I.html">Vector2I</a></dt>
+    <dd><p>End index.</p>
+</dd>
+    <dt><code>format</code> <a class="xref" href="RichHudFramework.UI.GlyphFormat.html">GlyphFormat</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="RichHudFramework_UI_Rendering_ITextBuilder_SetText_" data-uid="RichHudFramework.UI.Rendering.ITextBuilder.SetText*"></a>
+
+  <h3 id="RichHudFramework_UI_Rendering_ITextBuilder_SetText_RichHudFramework_UI_RichText_" data-uid="RichHudFramework.UI.Rendering.ITextBuilder.SetText(RichHudFramework.UI.RichText)">
+  SetText(RichText)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/Rendering/TextBuilderInterfaces/ITextBuilder.cs/#L117"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Replaces the current text content with the provided <a class="xref" href="RichHudFramework.UI.RichText.html">RichText</a>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">void SetText(RichText text)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>text</code> <a class="xref" href="RichHudFramework.UI.RichText.html">RichText</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="RichHudFramework_UI_Rendering_ITextBuilder_SetText_" data-uid="RichHudFramework.UI.Rendering.ITextBuilder.SetText*"></a>
+
+  <h3 id="RichHudFramework_UI_Rendering_ITextBuilder_SetText_System_String_System_Nullable_RichHudFramework_UI_GlyphFormat__" data-uid="RichHudFramework.UI.Rendering.ITextBuilder.SetText(System.String,System.Nullable{RichHudFramework.UI.GlyphFormat})">
+  SetText(string, GlyphFormat?)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/Rendering/TextBuilderInterfaces/ITextBuilder.cs/#L129"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Clears the current text and sets it to the provided <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">void SetText(string text, GlyphFormat? format = null)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>text</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+    <dt><code>format</code> <a class="xref" href="RichHudFramework.UI.GlyphFormat.html">GlyphFormat</a>?</dt>
+    <dd><p>Optional format to apply. If null, <a class="xref" href="RichHudFramework.UI.Rendering.ITextBuilder.html#RichHudFramework_UI_Rendering_ITextBuilder_Format">Format</a> is used.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="RichHudFramework_UI_Rendering_ITextBuilder_SetText_" data-uid="RichHudFramework.UI.Rendering.ITextBuilder.SetText*"></a>
+
+  <h3 id="RichHudFramework_UI_Rendering_ITextBuilder_SetText_System_Text_StringBuilder_System_Nullable_RichHudFramework_UI_GlyphFormat__" data-uid="RichHudFramework.UI.Rendering.ITextBuilder.SetText(System.Text.StringBuilder,System.Nullable{RichHudFramework.UI.GlyphFormat})">
+  SetText(StringBuilder, GlyphFormat?)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/Rendering/TextBuilderInterfaces/ITextBuilder.cs/#L123"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Clears the current text and sets it to a copy of the provided <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.text.stringbuilder">StringBuilder</a>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">void SetText(StringBuilder text, GlyphFormat? format = null)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>text</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.text.stringbuilder">StringBuilder</a></dt>
+    <dd></dd>
+    <dt><code>format</code> <a class="xref" href="RichHudFramework.UI.GlyphFormat.html">GlyphFormat</a>?</dt>
+    <dd><p>Optional format to apply. If null, <a class="xref" href="RichHudFramework.UI.Rendering.ITextBuilder.html#RichHudFramework_UI_Rendering_ITextBuilder_Format">Format</a> is used.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/Rendering/TextBuilderInterfaces/ITextBuilder.cs/#L86" class="edit-link">Edit this page</a>
+        </div>
+
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

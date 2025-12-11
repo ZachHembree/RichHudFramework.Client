@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Interface IHudCollection&lt;TElementContainer&gt; | Rich HUD Framework </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Interface IHudCollection&lt;TElementContainer&gt; | Rich HUD Framework ">
+      
+      <meta name="description" content="Mutable interface for HUD collections supporting decorator-wrapped child elements.  Alias of  using   as the element type.">
+      <link rel="icon" href="../resources/images/favicon.ico">
+      <link rel="stylesheet" href="../public/docfx.min.css">
+      <link rel="stylesheet" href="../public/main.css">
+      <meta name="docfx:navrel" content="../toc.html">
+      <meta name="docfx:tocrel" content="toc.html">
+      
+      <meta name="docfx:rel" content="../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/ZachHembree/RichHudFramework.Client/new/master/apiSpec/new?filename=RichHudFramework_UI_IHudCollection_1.md&amp;value=---%0Auid%3A%20RichHudFramework.UI.IHudCollection%601%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">
+
+      <!-- Optional nav title customization -->
+      <meta name="loc:inThisArticle" content="Sections">
+      
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="ManagedReference">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand d-flex align-items-center" href="../index.html">
+            <img id="logo" class="svg me-2" src="../resources/images/logo.svg" alt="Rich HUD Framework">
+            
+            <!-- Vertical divider -->
+            <span class="vr align-self-stretch opacity-75" aria-hidden="true"></span>
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="RichHudFramework.UI.IHudCollection`1">
+
+
+
+  <h1 id="RichHudFramework_UI_IHudCollection_1" data-uid="RichHudFramework.UI.IHudCollection`1" class="text-break">
+Interface IHudCollection&lt;TElementContainer&gt;  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/HudElementInterfaces/IHudCollection.cs/#L135"><i class="bi bi-code-slash"></i></a>
+  </h1>
+
+  <div class="facts text-secondary">
+    <dl><dt>Namespace</dt><dd><a class="xref" href="RichHudFramework.html">RichHudFramework</a>.<a class="xref" href="RichHudFramework.UI.html">UI</a></dd></dl>
+  <dl><dt>Assembly</dt><dd>RichHudClient.dll</dd></dl>
+  </div>
+
+  <div class="markdown summary"><p>Mutable interface for HUD collections supporting decorator-wrapped child elements.</p>
+<p>
+Alias of <a class="xref" href="RichHudFramework.UI.IHudCollection-2.html">IHudCollection&lt;TElementContainer, TElement&gt;</a> using 
+<a class="xref" href="RichHudFramework.UI.HudElementBase.html">HudElementBase</a> as the element type.
+</p>
+</div>
+  <div class="markdown conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public interface IHudCollection&lt;TElementContainer&gt; : IHudCollection&lt;TElementContainer, HudElementBase&gt;, IReadOnlyHudCollection&lt;TElementContainer, HudElementBase&gt;, IReadOnlyList&lt;TElementContainer&gt;, IReadOnlyCollection&lt;TElementContainer&gt;, IEnumerable&lt;TElementContainer&gt;, IEnumerable where TElementContainer : IHudNodeContainer&lt;HudElementBase&gt;, new()</code></pre>
+  </div>
+
+
+
+  <h4 class="section">Type Parameters</h4>
+  <dl class="parameters">
+    <dt><code>TElementContainer</code></dt>
+    <dd><p>Type of the container/decorator wrapping each element. Must implement <a class="xref" href="RichHudFramework.UI.IHudNodeContainer-1.html">IHudNodeContainer&lt;TElement&gt;</a>.</p>
+</dd>
+  </dl>
+
+
+
+
+  <dl class="typelist inheritedMembers">
+    <dt>Inherited Members</dt>
+    <dd>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.IHudCollection-2.html#RichHudFramework_UI_IHudCollection_2_Add__1_">Add(HudElementBase)</a>
+    </div>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.IHudCollection-2.html#RichHudFramework_UI_IHudCollection_2_Add__0_">Add(TElementContainer)</a>
+    </div>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.IHudCollection-2.html#RichHudFramework_UI_IHudCollection_2_AddRange_System_Collections_Generic_IReadOnlyList__0__">AddRange(IReadOnlyList&lt;TElementContainer&gt;)</a>
+    </div>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.IHudCollection-2.html#RichHudFramework_UI_IHudCollection_2_Insert_System_Int32__0_">Insert(int, TElementContainer)</a>
+    </div>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.IHudCollection-2.html#RichHudFramework_UI_IHudCollection_2_InsertRange_System_Int32_System_Collections_Generic_IReadOnlyList__0__">InsertRange(int, IReadOnlyList&lt;TElementContainer&gt;)</a>
+    </div>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.IHudCollection-2.html#RichHudFramework_UI_IHudCollection_2_Remove__0_">Remove(TElementContainer)</a>
+    </div>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.IHudCollection-2.html#RichHudFramework_UI_IHudCollection_2_Remove_System_Func__0_System_Boolean__">Remove(Func&lt;TElementContainer, bool&gt;)</a>
+    </div>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.IHudCollection-2.html#RichHudFramework_UI_IHudCollection_2_RemoveAt_System_Int32_">RemoveAt(int)</a>
+    </div>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.IHudCollection-2.html#RichHudFramework_UI_IHudCollection_2_RemoveRange_System_Int32_System_Int32_">RemoveRange(int, int)</a>
+    </div>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.IHudCollection-2.html#RichHudFramework_UI_IHudCollection_2_Clear">Clear()</a>
+    </div>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.IReadOnlyHudCollection-2.html#RichHudFramework_UI_IReadOnlyHudCollection_2_Collection">Collection</a>
+    </div>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.IReadOnlyHudCollection-2.html#RichHudFramework_UI_IReadOnlyHudCollection_2_Find_System_Func__0_System_Boolean__">Find(Func&lt;TElementContainer, bool&gt;)</a>
+    </div>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.IReadOnlyHudCollection-2.html#RichHudFramework_UI_IReadOnlyHudCollection_2_FindIndex_System_Func__0_System_Boolean__">FindIndex(Func&lt;TElementContainer, bool&gt;)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">this[int]</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ireadonlycollection-1.count">Count</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1.getenumerator">GetEnumerator()</a>
+    </div>
+  </dd></dl>
+
+
+
+
+
+
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/HudElementInterfaces/IHudCollection.cs/#L135" class="edit-link">Edit this page</a>
+        </div>
+
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

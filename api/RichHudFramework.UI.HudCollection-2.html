@@ -1,0 +1,1125 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Class HudCollection&lt;TElementContainer, TElement&gt; | Rich HUD Framework </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Class HudCollection&lt;TElementContainer, TElement&gt; | Rich HUD Framework ">
+      
+      <meta name="description" content="Generic collection of HUD elements, each wrapped in a decorator container. Elements inside containers are parented directly to this collection (not to their containers). Supports full IList-like manipulation while ensuring proper registration/unregistration with the HUD tree.">
+      <link rel="icon" href="../resources/images/favicon.ico">
+      <link rel="stylesheet" href="../public/docfx.min.css">
+      <link rel="stylesheet" href="../public/main.css">
+      <meta name="docfx:navrel" content="../toc.html">
+      <meta name="docfx:tocrel" content="toc.html">
+      
+      <meta name="docfx:rel" content="../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/ZachHembree/RichHudFramework.Client/blob/docfx/api-supplements/Shared/UI/HudElements/HudCollection.md/#L2">
+
+      <!-- Optional nav title customization -->
+      <meta name="loc:inThisArticle" content="Sections">
+      
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="ManagedReference">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand d-flex align-items-center" href="../index.html">
+            <img id="logo" class="svg me-2" src="../resources/images/logo.svg" alt="Rich HUD Framework">
+            
+            <!-- Vertical divider -->
+            <span class="vr align-self-stretch opacity-75" aria-hidden="true"></span>
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="RichHudFramework.UI.HudCollection`2">
+
+
+
+  <h1 id="RichHudFramework_UI_HudCollection_2" data-uid="RichHudFramework.UI.HudCollection`2" class="text-break">
+Class HudCollection&lt;TElementContainer, TElement&gt;  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/HudElements/HudCollection.cs/#L20"><i class="bi bi-code-slash"></i></a>
+  </h1>
+
+  <div class="facts text-secondary">
+    <dl><dt>Namespace</dt><dd><a class="xref" href="RichHudFramework.html">RichHudFramework</a>.<a class="xref" href="RichHudFramework.UI.html">UI</a></dd></dl>
+  <dl><dt>Assembly</dt><dd>RichHudClient.dll</dd></dl>
+  </div>
+
+  <div class="markdown summary"><p>Generic collection of HUD elements, each wrapped in a decorator container.
+Elements inside containers are parented directly to this collection (not to their containers).
+Supports full IList-like manipulation while ensuring proper registration/unregistration with the HUD tree.</p>
+</div>
+  <div class="markdown conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public class HudCollection&lt;TElementContainer, TElement&gt; : HudElementBase, IReadOnlyHudElement, IReadOnlyHudNode, IReadOnlyHudParent, IHudCollection&lt;TElementContainer, TElement&gt;, IReadOnlyHudCollection&lt;TElementContainer, TElement&gt;, IReadOnlyList&lt;TElementContainer&gt;, IReadOnlyCollection&lt;TElementContainer&gt;, IEnumerable&lt;TElementContainer&gt;, IEnumerable where TElementContainer : IHudNodeContainer&lt;TElement&gt;, new() where TElement : HudNodeBase</code></pre>
+  </div>
+
+
+
+  <h4 class="section">Type Parameters</h4>
+  <dl class="parameters">
+    <dt><code>TElementContainer</code></dt>
+    <dd><p>Type of the container/decorator wrapping each element. Must implement <a class="xref" href="RichHudFramework.UI.IHudNodeContainer-1.html">IHudNodeContainer&lt;TElement&gt;</a>.</p>
+</dd>
+    <dt><code>TElement</code></dt>
+    <dd><p>Actual HUD element type stored in each container.</p>
+</dd>
+  </dl>
+
+  <dl class="typelist inheritance">
+    <dt>Inheritance</dt>
+    <dd>
+      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
+      <div><a class="xref" href="RichHudFramework.UI.HudParentBase.html">HudParentBase</a></div>
+      <div><a class="xref" href="RichHudFramework.UI.HudNodeBase.html">HudNodeBase</a></div>
+      <div><a class="xref" href="RichHudFramework.UI.HudElementBase.html">HudElementBase</a></div>
+      <div><span class="xref">HudCollection&lt;TElementContainer, TElement&gt;</span></div>
+    </dd>
+  </dl>
+
+  <dl class="typelist implements">
+    <dt>Implements</dt>
+    <dd>
+      <div><a class="xref" href="RichHudFramework.UI.IReadOnlyHudElement.html">IReadOnlyHudElement</a></div>
+      <div><a class="xref" href="RichHudFramework.UI.IReadOnlyHudNode.html">IReadOnlyHudNode</a></div>
+      <div><a class="xref" href="RichHudFramework.UI.IReadOnlyHudParent.html">IReadOnlyHudParent</a></div>
+      <div><a class="xref" href="RichHudFramework.UI.IHudCollection-2.html">IHudCollection</a>&lt;TElementContainer, TElement&gt;</div>
+      <div><a class="xref" href="RichHudFramework.UI.IReadOnlyHudCollection-2.html">IReadOnlyHudCollection</a>&lt;TElementContainer, TElement&gt;</div>
+      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ireadonlylist-1">IReadOnlyList</a>&lt;TElementContainer&gt;</div>
+      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ireadonlycollection-1">IReadOnlyCollection</a>&lt;TElementContainer&gt;</div>
+      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;TElementContainer&gt;</div>
+      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.ienumerable">IEnumerable</a></div>
+    </dd>
+  </dl>
+
+  <dl class="typelist derived">
+    <dt>Derived</dt>
+    <dd>
+      <div><a class="xref" href="RichHudFramework.UI.HudChain-2.html">HudChain&lt;TElementContainer, TElement&gt;</a></div>
+      <div><a class="xref" href="RichHudFramework.UI.HudCollection.html">HudCollection</a></div>
+      <div><a class="xref" href="RichHudFramework.UI.HudCollection-1.html">HudCollection&lt;TElementContainer&gt;</a></div>
+      <div><a class="xref" href="RichHudFramework.UI.RadialSelectionBox-2.html">RadialSelectionBox&lt;TContainer, TElement&gt;</a></div>
+    </dd>
+  </dl>
+
+  <dl class="typelist inheritedMembers">
+    <dt>Inherited Members</dt>
+    <dd>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.HudElementBase.html#RichHudFramework_UI_HudElementBase_Size">Size</a>
+    </div>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.HudElementBase.html#RichHudFramework_UI_HudElementBase_Width">Width</a>
+    </div>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.HudElementBase.html#RichHudFramework_UI_HudElementBase_Height">Height</a>
+    </div>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.HudElementBase.html#RichHudFramework_UI_HudElementBase_Padding">Padding</a>
+    </div>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.HudElementBase.html#RichHudFramework_UI_HudElementBase_UnpaddedSize">UnpaddedSize</a>
+    </div>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.HudElementBase.html#RichHudFramework_UI_HudElementBase_Origin">Origin</a>
+    </div>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.HudElementBase.html#RichHudFramework_UI_HudElementBase_Offset">Offset</a>
+    </div>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.HudElementBase.html#RichHudFramework_UI_HudElementBase_Position">Position</a>
+    </div>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.HudElementBase.html#RichHudFramework_UI_HudElementBase_ParentAlignment">ParentAlignment</a>
+    </div>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.HudElementBase.html#RichHudFramework_UI_HudElementBase_DimAlignment">DimAlignment</a>
+    </div>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.HudElementBase.html#RichHudFramework_UI_HudElementBase_UseCursor">UseCursor</a>
+    </div>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.HudElementBase.html#RichHudFramework_UI_HudElementBase_ShareCursor">ShareCursor</a>
+    </div>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.HudElementBase.html#RichHudFramework_UI_HudElementBase_IsMasking">IsMasking</a>
+    </div>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.HudElementBase.html#RichHudFramework_UI_HudElementBase_IsSelectivelyMasked">IsSelectivelyMasked</a>
+    </div>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.HudElementBase.html#RichHudFramework_UI_HudElementBase_CanIgnoreMasking">CanIgnoreMasking</a>
+    </div>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.HudElementBase.html#RichHudFramework_UI_HudElementBase_IsMousedOver">IsMousedOver</a>
+    </div>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.HudElementBase.html#RichHudFramework_UI_HudElementBase_CachedSize">CachedSize</a>
+    </div>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.HudElementBase.html#RichHudFramework_UI_HudElementBase_OriginAlignment">OriginAlignment</a>
+    </div>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.HudElementBase.html#RichHudFramework_UI_HudElementBase_MaskingBox">MaskingBox</a>
+    </div>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.HudNodeBase.html#RichHudFramework_UI_HudNodeBase_RichHudFramework_UI_IReadOnlyHudNode_Parent">IReadOnlyHudNode.Parent</a>
+    </div>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.HudNodeBase.html#RichHudFramework_UI_HudNodeBase_Parent">Parent</a>
+    </div>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.HudNodeBase.html#RichHudFramework_UI_HudNodeBase_Registered">Registered</a>
+    </div>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.HudNodeBase.html#RichHudFramework_UI_HudNodeBase_OverlayOffset">OverlayOffset</a>
+    </div>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.HudNodeBase.html#RichHudFramework_UI_HudNodeBase_Register_RichHudFramework_UI_HudParentBase_">Register(HudParentBase)</a>
+    </div>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.HudNodeBase.html#RichHudFramework_UI_HudNodeBase_Unregister">Unregister()</a>
+    </div>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.HudParentBase.html#RichHudFramework_UI_HudParentBase_HudSpace">HudSpace</a>
+    </div>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.HudParentBase.html#RichHudFramework_UI_HudParentBase_Visible">Visible</a>
+    </div>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.HudParentBase.html#RichHudFramework_UI_HudParentBase_InputEnabled">InputEnabled</a>
+    </div>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.HudParentBase.html#RichHudFramework_UI_HudParentBase_ZOffset">ZOffset</a>
+    </div>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.HudParentBase.html#RichHudFramework_UI_HudParentBase_Measure">Measure()</a>
+    </div>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.HudParentBase.html#RichHudFramework_UI_HudParentBase_Layout">Layout()</a>
+    </div>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.HudParentBase.html#RichHudFramework_UI_HudParentBase_Draw">Draw()</a>
+    </div>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.HudParentBase.html#RichHudFramework_UI_HudParentBase_InputDepth">InputDepth()</a>
+    </div>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.HudParentBase.html#RichHudFramework_UI_HudParentBase_HandleInput_VRageMath_Vector2_">HandleInput(Vector2)</a>
+    </div>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.HudParentBase.html#RichHudFramework_UI_HudParentBase_RegisterChild_RichHudFramework_UI_HudNodeBase_">RegisterChild(HudNodeBase)</a>
+    </div>
+  </dd></dl>
+
+
+
+
+  <h2 id="RichHudFramework_UI_HudCollection_2_remarks">Remarks</h2>
+  <div class="markdown level0 remarks">
+<p>The <code>HudCollection</code> class serves as the fundamental storage mechanism for managing ordered lists of HUD elements. By pairing child elements with customizable wrapper objects (implementing <a class="xref" href="RichHudFramework.UI.IHudNodeContainer-1.html">IHudNodeContainer&lt;TElement&gt;</a>), the collection allows developers to associate metadata or extend functionality without modifying the underlying element.</p>
+<p>This infrastructure is the foundation for several key layout and control types:</p>
+<ul>
+<li><a class="xref" href="RichHudFramework.UI.HudChain-2.html">HudChain&lt;TElementContainer, TElement&gt;</a>: Uses the collection to implement linear layout logic, organizing elements into vertical or horizontal stacks. Unlike standard parenting, the chain order determines the visual sequence. Chain-specific wrappers (implementing <a class="xref" href="RichHudFramework.UI.IChainElementContainer-1.html">IChainElementContainer&lt;TElement&gt;</a>) introduce layout properties such as <a class="xref" href="RichHudFramework.UI.IChainElementContainer-1.html#RichHudFramework_UI_IChainElementContainer_1_AlignAxisScale">AlignAxisScale</a>. These properties work in conjunction with the <a class="xref" href="RichHudFramework.UI.HudChain-2.html#RichHudFramework_UI_HudChain_2_SizingMode">SizingMode</a> to control the dynamic sizing and alignment of members within the stack.</li>
+<li><a class="xref" href="RichHudFramework.UI.ScrollBox-2.html">ScrollBox&lt;TElementContainer, TElement&gt;</a>: Builds upon the <code>HudChain</code> architecture to create scrollable regions. It utilizes a specialized container interface that adds an <a class="xref" href="RichHudFramework.UI.IScrollBoxEntry-1.html#RichHudFramework_UI_IScrollBoxEntry_1_Enabled">Enabled</a> property. This allows specific entries to be dynamically hidden or shown within the scrolling list without creating layout gaps or removing them from the underlying collection.</li>
+<li><a class="xref" href="RichHudFramework.UI.SelectionBoxBase-3.html">SelectionBoxBase&lt;TChain, TContainer, TElement&gt;</a>: Extends the collection functionality to support complex interaction patterns and data binding. By implementing interfaces such as <a class="xref" href="RichHudFramework.UI.IEntryBox-2.html">IEntryBox&lt;TContainer, TElement&gt;</a>, these types associate UI elements with data tuples (via <a class="xref" href="RichHudFramework.UI.IScrollBoxEntryTuple-2.html">IScrollBoxEntryTuple</a> and <a class="xref" href="RichHudFramework.UI.ISelectionBoxEntryTuple-2.html">ISelectionBoxEntryTuple</a>) and often integrate object pooling. This flexibility supports the creation of mixed-type lists, where distinct entry types—such as simple labels and folder groups—can coexist within the same structure.</li>
+</ul>
+<p>A key advantage of this modular design is the decoupling of storage and layout. Because the container logic is generic, a specific control can often be configured to use either a static <code>HudChain</code> or a scrolling <code>ScrollBox</code> by simply changing the generic type argument, while retaining the same entry management logic.</p>
+</div>
+
+
+  <h2 class="section" id="constructors">Constructors
+</h2>
+
+
+  <a id="RichHudFramework_UI_HudCollection_2__ctor_" data-uid="RichHudFramework.UI.HudCollection`2.#ctor*"></a>
+
+  <h3 id="RichHudFramework_UI_HudCollection_2__ctor_RichHudFramework_UI_HudParentBase_" data-uid="RichHudFramework.UI.HudCollection`2.#ctor(RichHudFramework.UI.HudParentBase)">
+  HudCollection(HudParentBase)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/HudElements/HudCollection.cs/#L65"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public HudCollection(HudParentBase parent = null)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>parent</code> <a class="xref" href="RichHudFramework.UI.HudParentBase.html">HudParentBase</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <h2 class="section" id="properties">Properties
+</h2>
+
+
+  <a id="RichHudFramework_UI_HudCollection_2_Collection_" data-uid="RichHudFramework.UI.HudCollection`2.Collection*"></a>
+
+  <h3 id="RichHudFramework_UI_HudCollection_2_Collection" data-uid="RichHudFramework.UI.HudCollection`2.Collection">
+  Collection
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/HudElements/HudCollection.cs/#L27"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Read-only access to the list of element containers in this collection.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public IReadOnlyList&lt;TElementContainer&gt; Collection { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ireadonlylist-1">IReadOnlyList</a>&lt;TElementContainer&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="RichHudFramework_UI_HudCollection_2_CollectionContainer_" data-uid="RichHudFramework.UI.HudCollection`2.CollectionContainer*"></a>
+
+  <h3 id="RichHudFramework_UI_HudCollection_2_CollectionContainer" data-uid="RichHudFramework.UI.HudCollection`2.CollectionContainer">
+  CollectionContainer
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/HudElements/HudCollection.cs/#L33"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Enables collection-initializer syntax (e.g., new HudCollection { element1, element2 }).
+Returns this instance so initializers can chain with container additions.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public HudCollection&lt;TElementContainer, TElement&gt; CollectionContainer { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="RichHudFramework.UI.HudCollection-2.html">HudCollection</a>&lt;TElementContainer, TElement&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="RichHudFramework_UI_HudCollection_2_Count_" data-uid="RichHudFramework.UI.HudCollection`2.Count*"></a>
+
+  <h3 id="RichHudFramework_UI_HudCollection_2_Count" data-uid="RichHudFramework.UI.HudCollection`2.Count">
+  Count
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/HudElements/HudCollection.cs/#L52"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Number of containers currently in the collection.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int Count { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="RichHudFramework_UI_HudCollection_2_IsReadOnly_" data-uid="RichHudFramework.UI.HudCollection`2.IsReadOnly*"></a>
+
+  <h3 id="RichHudFramework_UI_HudCollection_2_IsReadOnly" data-uid="RichHudFramework.UI.HudCollection`2.IsReadOnly">
+  IsReadOnly
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/HudElements/HudCollection.cs/#L57"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Always false — this collection is mutable.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool IsReadOnly { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="RichHudFramework_UI_HudCollection_2_Item_" data-uid="RichHudFramework.UI.HudCollection`2.Item*"></a>
+
+  <h3 id="RichHudFramework_UI_HudCollection_2_Item_System_Int32_" data-uid="RichHudFramework.UI.HudCollection`2.Item(System.Int32)">
+  this[int]
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/HudElements/HudCollection.cs/#L38"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Indexer providing access to the container at the specified position.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public TElementContainer this[int index] { get; }</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>index</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">TElementContainer</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <h2 class="section" id="methods">Methods
+</h2>
+
+
+  <a id="RichHudFramework_UI_HudCollection_2_Add_" data-uid="RichHudFramework.UI.HudCollection`2.Add*"></a>
+
+  <h3 id="RichHudFramework_UI_HudCollection_2_Add__0_" data-uid="RichHudFramework.UI.HudCollection`2.Add(`0)">
+  Add(TElementContainer)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/HudElements/HudCollection.cs/#L90"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Adds a pre-constructed container to the end of the collection.
+The container's element will be registered as a child of this collection.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual void Add(TElementContainer container)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>container</code> <span class="xref">TElementContainer</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+  <h4 class="section">Exceptions</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.exception">Exception</a></dt>
+    <dd><p>Thrown if the element is already registered elsewhere or registration fails.</p>
+</dd>
+  </dl>
+
+
+
+  <a id="RichHudFramework_UI_HudCollection_2_Add_" data-uid="RichHudFramework.UI.HudCollection`2.Add*"></a>
+
+  <h3 id="RichHudFramework_UI_HudCollection_2_Add__1_" data-uid="RichHudFramework.UI.HudCollection`2.Add(`1)">
+  Add(TElement)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/HudElements/HudCollection.cs/#L78"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Adds a raw <code class="typeparamref">TElement</code> by automatically wrapping it in a new <code class="typeparamref">TElementContainer</code>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual void Add(TElement element)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>element</code> <span class="xref">TElement</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="RichHudFramework_UI_HudCollection_2_AddRange_" data-uid="RichHudFramework.UI.HudCollection`2.AddRange*"></a>
+
+  <h3 id="RichHudFramework_UI_HudCollection_2_AddRange_System_Collections_Generic_IReadOnlyList__0__" data-uid="RichHudFramework.UI.HudCollection`2.AddRange(System.Collections.Generic.IReadOnlyList{`0})">
+  AddRange(IReadOnlyList&lt;TElementContainer&gt;)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/HudElements/HudCollection.cs/#L105"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Adds multiple pre-constructed containers to the end of the collection in a single operation.
+All elements are registered as children of this collection.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual void AddRange(IReadOnlyList&lt;TElementContainer&gt; newContainers)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>newContainers</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ireadonlylist-1">IReadOnlyList</a>&lt;TElementContainer&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="RichHudFramework_UI_HudCollection_2_Clear_" data-uid="RichHudFramework.UI.HudCollection`2.Clear*"></a>
+
+  <h3 id="RichHudFramework_UI_HudCollection_2_Clear" data-uid="RichHudFramework.UI.HudCollection`2.Clear">
+  Clear()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/HudElements/HudCollection.cs/#L190"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Removes all containers from the collection.
+Regular child elements (added directly via normal parenting) are not affected.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual void Clear()</code></pre>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="RichHudFramework_UI_HudCollection_2_Contains_" data-uid="RichHudFramework.UI.HudCollection`2.Contains*"></a>
+
+  <h3 id="RichHudFramework_UI_HudCollection_2_Contains__0_" data-uid="RichHudFramework.UI.HudCollection`2.Contains(`0)">
+  Contains(TElementContainer)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/HudElements/HudCollection.cs/#L211"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Determines whether the collection contains the specified container.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual bool Contains(TElementContainer item)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>item</code> <span class="xref">TElementContainer</span></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="RichHudFramework_UI_HudCollection_2_CopyTo_" data-uid="RichHudFramework.UI.HudCollection`2.CopyTo*"></a>
+
+  <h3 id="RichHudFramework_UI_HudCollection_2_CopyTo__0___System_Int32_" data-uid="RichHudFramework.UI.HudCollection`2.CopyTo(`0[],System.Int32)">
+  CopyTo(TElementContainer[], int)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/HudElements/HudCollection.cs/#L216"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Copies the collection's containers to an array starting at the specified index.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual void CopyTo(TElementContainer[] array, int arrayIndex)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>array</code> TElementContainer[]</dt>
+    <dd></dd>
+    <dt><code>arrayIndex</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="RichHudFramework_UI_HudCollection_2_Find_" data-uid="RichHudFramework.UI.HudCollection`2.Find*"></a>
+
+  <h3 id="RichHudFramework_UI_HudCollection_2_Find_System_Func__0_System_Boolean__" data-uid="RichHudFramework.UI.HudCollection`2.Find(System.Func{`0,System.Boolean})">
+  Find(Func&lt;TElementContainer, bool&gt;)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/HudElements/HudCollection.cs/#L199"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Returns the first container matching the predicate, or default(<code class="typeparamref">TElementContainer</code>) if none found.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual TElementContainer Find(Func&lt;TElementContainer, bool&gt; predicate)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>predicate</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.func-2">Func</a>&lt;TElementContainer, <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a>&gt;</dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><span class="xref">TElementContainer</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="RichHudFramework_UI_HudCollection_2_FindIndex_" data-uid="RichHudFramework.UI.HudCollection`2.FindIndex*"></a>
+
+  <h3 id="RichHudFramework_UI_HudCollection_2_FindIndex_System_Func__0_System_Boolean__" data-uid="RichHudFramework.UI.HudCollection`2.FindIndex(System.Func{`0,System.Boolean})">
+  FindIndex(Func&lt;TElementContainer, bool&gt;)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/HudElements/HudCollection.cs/#L205"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Returns the index of the first container matching the predicate, or -1 if none found.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual int FindIndex(Func&lt;TElementContainer, bool&gt; predicate)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>predicate</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.func-2">Func</a>&lt;TElementContainer, <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a>&gt;</dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="RichHudFramework_UI_HudCollection_2_GetEnumerator_" data-uid="RichHudFramework.UI.HudCollection`2.GetEnumerator*"></a>
+
+  <h3 id="RichHudFramework_UI_HudCollection_2_GetEnumerator" data-uid="RichHudFramework.UI.HudCollection`2.GetEnumerator">
+  GetEnumerator()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/HudElements/HudCollection.cs/#L72"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Returns an enumerator that iterates through the collection.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public IEnumerator&lt;TElementContainer&gt; GetEnumerator()</code></pre>
+  </div>
+
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerator-1">IEnumerator</a>&lt;TElementContainer&gt;</dt>
+    <dd><p>An enumerator that can be used to iterate through the collection.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="RichHudFramework_UI_HudCollection_2_Insert_" data-uid="RichHudFramework.UI.HudCollection`2.Insert*"></a>
+
+  <h3 id="RichHudFramework_UI_HudCollection_2_Insert_System_Int32__0_" data-uid="RichHudFramework.UI.HudCollection`2.Insert(System.Int32,`0)">
+  Insert(int, TElementContainer)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/HudElements/HudCollection.cs/#L114"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Inserts a container at the specified index.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual void Insert(int index, TElementContainer container)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>index</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd></dd>
+    <dt><code>container</code> <span class="xref">TElementContainer</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="RichHudFramework_UI_HudCollection_2_InsertRange_" data-uid="RichHudFramework.UI.HudCollection`2.InsertRange*"></a>
+
+  <h3 id="RichHudFramework_UI_HudCollection_2_InsertRange_System_Int32_System_Collections_Generic_IReadOnlyList__0__" data-uid="RichHudFramework.UI.HudCollection`2.InsertRange(System.Int32,System.Collections.Generic.IReadOnlyList{`0})">
+  InsertRange(int, IReadOnlyList&lt;TElementContainer&gt;)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/HudElements/HudCollection.cs/#L125"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Inserts a range of containers starting at the specified index.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual void InsertRange(int index, IReadOnlyList&lt;TElementContainer&gt; newContainers)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>index</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd></dd>
+    <dt><code>newContainers</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ireadonlylist-1">IReadOnlyList</a>&lt;TElementContainer&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="RichHudFramework_UI_HudCollection_2_Remove_" data-uid="RichHudFramework.UI.HudCollection`2.Remove*"></a>
+
+  <h3 id="RichHudFramework_UI_HudCollection_2_Remove_System_Func__0_System_Boolean__" data-uid="RichHudFramework.UI.HudCollection`2.Remove(System.Func{`0,System.Boolean})">
+  Remove(Func&lt;TElementContainer, bool&gt;)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/HudElements/HudCollection.cs/#L150"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Removes the first container that matches the given predicate.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual bool Remove(Func&lt;TElementContainer, bool&gt; predicate)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>predicate</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.func-2">Func</a>&lt;TElementContainer, <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a>&gt;</dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd><p>true if a matching container was found and removed.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="RichHudFramework_UI_HudCollection_2_Remove_" data-uid="RichHudFramework.UI.HudCollection`2.Remove*"></a>
+
+  <h3 id="RichHudFramework_UI_HudCollection_2_Remove__0_" data-uid="RichHudFramework.UI.HudCollection`2.Remove(`0)">
+  Remove(TElementContainer)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/HudElements/HudCollection.cs/#L135"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Removes the specified container if it belongs to this collection.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual bool Remove(TElementContainer entry)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>entry</code> <span class="xref">TElementContainer</span></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd><p>true if the container was removed and its element unregistered successfully.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="RichHudFramework_UI_HudCollection_2_RemoveAt_" data-uid="RichHudFramework.UI.HudCollection`2.RemoveAt*"></a>
+
+  <h3 id="RichHudFramework_UI_HudCollection_2_RemoveAt_System_Int32_" data-uid="RichHudFramework.UI.HudCollection`2.RemoveAt(System.Int32)">
+  RemoveAt(int)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/HudElements/HudCollection.cs/#L166"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Removes the container at the specified index.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual bool RemoveAt(int index)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>index</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd><p>true if removal and unregistration succeeded.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="RichHudFramework_UI_HudCollection_2_RemoveChild_" data-uid="RichHudFramework.UI.HudCollection`2.RemoveChild*"></a>
+
+  <h3 id="RichHudFramework_UI_HudCollection_2_RemoveChild_RichHudFramework_UI_HudNodeBase_" data-uid="RichHudFramework.UI.HudCollection`2.RemoveChild(RichHudFramework.UI.HudNodeBase)">
+  RemoveChild(HudNodeBase)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/HudElements/HudCollection.cs/#L223"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Overrides <a class="xref" href="RichHudFramework.UI.HudParentBase.html#RichHudFramework_UI_HudParentBase_RemoveChild_RichHudFramework_UI_HudNodeBase_">RemoveChild(HudNodeBase)</a> to handle removal of elements that were added via the collection.
+Ensures both the container list and regular child tracking stay in sync.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override bool RemoveChild(HudNodeBase child)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>child</code> <a class="xref" href="RichHudFramework.UI.HudNodeBase.html">HudNodeBase</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="RichHudFramework_UI_HudCollection_2_RemoveRange_" data-uid="RichHudFramework.UI.HudCollection`2.RemoveRange*"></a>
+
+  <h3 id="RichHudFramework_UI_HudCollection_2_RemoveRange_System_Int32_System_Int32_" data-uid="RichHudFramework.UI.HudCollection`2.RemoveRange(System.Int32,System.Int32)">
+  RemoveRange(int, int)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/HudElements/HudCollection.cs/#L180"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Removes a contiguous range of containers starting at <code class="paramref">index</code>.
+Only affects collection members — regular (non-collection) children are untouched.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual void RemoveRange(int index, int count)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>index</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd></dd>
+    <dt><code>count</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <h2 class="section" id="eii">Explicit Interface Implementations
+</h2>
+
+
+  <a id="RichHudFramework_UI_HudCollection_2_System_Collections_IEnumerable_GetEnumerator_" data-uid="RichHudFramework.UI.HudCollection`2.System#Collections#IEnumerable#GetEnumerator*"></a>
+
+  <h3 id="RichHudFramework_UI_HudCollection_2_System_Collections_IEnumerable_GetEnumerator" data-uid="RichHudFramework.UI.HudCollection`2.System#Collections#IEnumerable#GetEnumerator">
+  IEnumerable.GetEnumerator()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/HudElements/HudCollection.cs/#L73"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Returns an enumerator that iterates through a collection.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">IEnumerator IEnumerable.GetEnumerator()</code></pre>
+  </div>
+
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.ienumerator">IEnumerator</a></dt>
+    <dd><p>An <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.ienumerator">IEnumerator</a> object that can be used to iterate through the collection.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/HudElements/HudCollection.cs/#L20" class="edit-link">Edit this page</a>
+        </div>
+
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

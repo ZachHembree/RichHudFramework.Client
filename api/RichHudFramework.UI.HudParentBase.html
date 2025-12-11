@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Class HudParentBase | Rich HUD Framework </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Class HudParentBase | Rich HUD Framework ">
+      
+      <meta name="description" content="Abstract base for HUD elements to which other elements are parented. Types deriving from this class cannot be parented to other elements; only types of  can be parented.">
+      <link rel="icon" href="../resources/images/favicon.ico">
+      <link rel="stylesheet" href="../public/docfx.min.css">
+      <link rel="stylesheet" href="../public/main.css">
+      <meta name="docfx:navrel" content="../toc.html">
+      <meta name="docfx:tocrel" content="toc.html">
+      
+      <meta name="docfx:rel" content="../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/ZachHembree/RichHudFramework.Client/blob/docfx/api-supplements/Shared/UI/HudElementBases/HudParentBase.md/#L2">
+
+      <!-- Optional nav title customization -->
+      <meta name="loc:inThisArticle" content="Sections">
+      
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="ManagedReference">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand d-flex align-items-center" href="../index.html">
+            <img id="logo" class="svg me-2" src="../resources/images/logo.svg" alt="Rich HUD Framework">
+            
+            <!-- Vertical divider -->
+            <span class="vr align-self-stretch opacity-75" aria-hidden="true"></span>
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="RichHudFramework.UI.HudParentBase">
+
+
+
+  <h1 id="RichHudFramework_UI_HudParentBase" data-uid="RichHudFramework.UI.HudParentBase" class="text-break">
+Class HudParentBase  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/HudElementBases/ParentUtils.cs/#L12"><i class="bi bi-code-slash"></i></a>
+  </h1>
+
+  <div class="facts text-secondary">
+    <dl><dt>Namespace</dt><dd><a class="xref" href="RichHudFramework.html">RichHudFramework</a>.<a class="xref" href="RichHudFramework.UI.html">UI</a></dd></dl>
+  <dl><dt>Assembly</dt><dd>RichHudClient.dll</dd></dl>
+  </div>
+
+  <div class="markdown summary"><p>Abstract base for HUD elements to which other elements are parented. Types deriving from this class cannot be
+parented to other elements; only types of <a class="xref" href="RichHudFramework.UI.HudNodeBase.html">HudNodeBase</a> can be parented.</p>
+</div>
+  <div class="markdown conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public abstract class HudParentBase : IReadOnlyHudParent</code></pre>
+  </div>
+
+
+
+
+  <dl class="typelist inheritance">
+    <dt>Inheritance</dt>
+    <dd>
+      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
+      <div><span class="xref">HudParentBase</span></div>
+    </dd>
+  </dl>
+
+  <dl class="typelist implements">
+    <dt>Implements</dt>
+    <dd>
+      <div><a class="xref" href="RichHudFramework.UI.IReadOnlyHudParent.html">IReadOnlyHudParent</a></div>
+    </dd>
+  </dl>
+
+  <dl class="typelist derived">
+    <dt>Derived</dt>
+    <dd>
+      <div><a class="xref" href="RichHudFramework.UI.HudNodeBase.html">HudNodeBase</a></div>
+    </dd>
+  </dl>
+
+
+
+
+
+  <h2 id="RichHudFramework_UI_HudParentBase_remarks">Remarks</h2>
+  <div class="markdown level0 remarks">
+<p><code>HudParentBase</code> serves as the fundamental base class for all components capable of serving as parent nodes in the UI tree. It defines the core lifecycle hooks for the framework's update loop, including <code>Measure</code>, <code>Layout</code>, <code>Draw</code>, and input handling.</p>
+<p>Unlike its derived types, this class represents a root-level object; types deriving strictly from <code>HudParentBase</code> cannot be parented to other elements. Consequently, it is primarily used as the foundation for the framework's global root nodes, such as <a class="xref" href="RichHudFramework.UI.Client.HudMain.html#RichHudFramework_UI_Client_HudMain_Root">Root</a> and <a class="xref" href="RichHudFramework.UI.Client.HudMain.html#RichHudFramework_UI_Client_HudMain_HighDpiRoot">HighDpiRoot</a>, which serve as the anchors for the entire UI node graph.</p>
+<div class="NOTE">
+<h5>Note</h5>
+<p>It is generally not recommended to extend this type directly for custom controls. In standard usage, <a class="xref" href="RichHudFramework.UI.HudElementBase.html">HudElementBase</a> should be used as the base type for creating custom UI elements, as it includes the necessary logic for sizing, positioning, and parenting.</p>
+</div>
+</div>
+
+
+  <h2 class="section" id="constructors">Constructors
+</h2>
+
+
+  <a id="RichHudFramework_UI_HudParentBase__ctor_" data-uid="RichHudFramework.UI.HudParentBase.#ctor*"></a>
+
+  <h3 id="RichHudFramework_UI_HudParentBase__ctor" data-uid="RichHudFramework.UI.HudParentBase.#ctor">
+  HudParentBase()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/HudElementBases/HudParentBase.cs/#L262"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public HudParentBase()</code></pre>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <h2 class="section" id="properties">Properties
+</h2>
+
+
+  <a id="RichHudFramework_UI_HudParentBase_HudSpace_" data-uid="RichHudFramework.UI.HudParentBase.HudSpace*"></a>
+
+  <h3 id="RichHudFramework_UI_HudParentBase_HudSpace" data-uid="RichHudFramework.UI.HudParentBase.HudSpace">
+  HudSpace
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/HudElementBases/HudParentBase.cs/#L45"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Node defining the coordinate space used to render the UI element</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual IReadOnlyHudSpaceNode HudSpace { get; protected set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="RichHudFramework.UI.IReadOnlyHudSpaceNode.html">IReadOnlyHudSpaceNode</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="RichHudFramework_UI_HudParentBase_InputEnabled_" data-uid="RichHudFramework.UI.HudParentBase.InputEnabled*"></a>
+
+  <h3 id="RichHudFramework_UI_HudParentBase_InputEnabled" data-uid="RichHudFramework.UI.HudParentBase.InputEnabled">
+  InputEnabled
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/HudElementBases/HudParentBase.cs/#L65"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Returns true if input is enabled</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool InputEnabled { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="RichHudFramework_UI_HudParentBase_Visible_" data-uid="RichHudFramework.UI.HudParentBase.Visible*"></a>
+
+  <h3 id="RichHudFramework_UI_HudParentBase_Visible" data-uid="RichHudFramework.UI.HudParentBase.Visible">
+  Visible
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/HudElementBases/HudParentBase.cs/#L50"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Returns true if the element is enabled and able to be drawn and accept input.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool Visible { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="RichHudFramework_UI_HudParentBase_ZOffset_" data-uid="RichHudFramework.UI.HudParentBase.ZOffset*"></a>
+
+  <h3 id="RichHudFramework_UI_HudParentBase_ZOffset" data-uid="RichHudFramework.UI.HudParentBase.ZOffset">
+  ZOffset
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/HudElementBases/HudParentBase.cs/#L82"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Moves the UI element up or down in draw order. -1 will draw an element behind its immediate
+parent. +1 will draw it on top of siblings. Higher values will allow it to draw behind or over
+more distantly related elements.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public sbyte ZOffset { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.sbyte">sbyte</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <h2 class="section" id="methods">Methods
+</h2>
+
+
+  <a id="RichHudFramework_UI_HudParentBase_Draw_" data-uid="RichHudFramework.UI.HudParentBase.Draw*"></a>
+
+  <h3 id="RichHudFramework_UI_HudParentBase_Draw" data-uid="RichHudFramework.UI.HudParentBase.Draw">
+  Draw()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/HudElementBases/HudParentBase.cs/#L379"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Custom drawing hook. Useful for drawing custom billboards.</p>
+<p>Updates in back-to-front order after Layout(), with elements on the bottom drawing first,
+and elements in front drawing last.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected virtual void Draw()</code></pre>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="RichHudFramework_UI_HudParentBase_HandleInput_" data-uid="RichHudFramework.UI.HudParentBase.HandleInput*"></a>
+
+  <h3 id="RichHudFramework_UI_HudParentBase_HandleInput_VRageMath_Vector2_" data-uid="RichHudFramework.UI.HudParentBase.HandleInput(VRageMath.Vector2)">
+  HandleInput(Vector2)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/HudElementBases/HudParentBase.cs/#L397"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Input polling hook.</p>
+<p>Updates in front-to-back order after InputDepth(), with elements on top updating first, and
+elements in the back updating last.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected virtual void HandleInput(Vector2 cursorPos)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>cursorPos</code> <a class="xref" href="https://keensoftwarehouse.github.io/SpaceEngineersModAPI/api/VRageMath.Vector2.html">Vector2</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="RichHudFramework_UI_HudParentBase_InputDepth_" data-uid="RichHudFramework.UI.HudParentBase.InputDepth*"></a>
+
+  <h3 id="RichHudFramework_UI_HudParentBase_InputDepth" data-uid="RichHudFramework.UI.HudParentBase.InputDepth">
+  InputDepth()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/HudElementBases/HudParentBase.cs/#L388"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Update hook for testing cursor bounding and depth tests.</p>
+<p>Updates in back-to-front order after Draw(). Elements on the bottom update first, and elements
+on top update last.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected virtual void InputDepth()</code></pre>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="RichHudFramework_UI_HudParentBase_Layout_" data-uid="RichHudFramework.UI.HudParentBase.Layout*"></a>
+
+  <h3 id="RichHudFramework_UI_HudParentBase_Layout" data-uid="RichHudFramework.UI.HudParentBase.Layout">
+  Layout()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/HudElementBases/HudParentBase.cs/#L370"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Custom element arrangement/layout hook. Used for sizing and arranging child nodes within
+the bounds of the element.</p>
+<p>Custom Layout updates should be designed to respect any size that may be set by a parent,
+whether it implements UpdateSize() or not.</p>
+<p>Updates in top-down order, after UpdateSize().</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected virtual void Layout()</code></pre>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="RichHudFramework_UI_HudParentBase_Measure_" data-uid="RichHudFramework.UI.HudParentBase.Measure*"></a>
+
+  <h3 id="RichHudFramework_UI_HudParentBase_Measure" data-uid="RichHudFramework.UI.HudParentBase.Measure">
+  Measure()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/HudElementBases/HudParentBase.cs/#L358"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Automatic self-resizing and measurement hook. Required for correct and stable
+self-resizing. Unnecessary for elements that don't need to set their own size.</p>
+<p>Updates in bottom-up order before anything else, with elements at the bottom of the node
+heirarchy (furthest from root) updating first, and nodes at the top (closer to root)
+updating last.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected virtual void Measure()</code></pre>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="RichHudFramework_UI_HudParentBase_RegisterChild_" data-uid="RichHudFramework.UI.HudParentBase.RegisterChild*"></a>
+
+  <h3 id="RichHudFramework_UI_HudParentBase_RegisterChild_RichHudFramework_UI_HudNodeBase_" data-uid="RichHudFramework.UI.HudParentBase.RegisterChild(RichHudFramework.UI.HudNodeBase)">
+  RegisterChild(HudNodeBase)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/HudElementBases/HudParentBase.cs/#L403"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Registers a child node to the parent.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual bool RegisterChild(HudNodeBase child)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>child</code> <a class="xref" href="RichHudFramework.UI.HudNodeBase.html">HudNodeBase</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="RichHudFramework_UI_HudParentBase_RemoveChild_" data-uid="RichHudFramework.UI.HudParentBase.RemoveChild*"></a>
+
+  <h3 id="RichHudFramework_UI_HudParentBase_RemoveChild_RichHudFramework_UI_HudNodeBase_" data-uid="RichHudFramework.UI.HudParentBase.RemoveChild(RichHudFramework.UI.HudNodeBase)">
+  RemoveChild(HudNodeBase)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/HudElementBases/HudParentBase.cs/#L436"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Unregisters the specified node from the parent.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual bool RemoveChild(HudNodeBase child)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>child</code> <a class="xref" href="RichHudFramework.UI.HudNodeBase.html">HudNodeBase</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/HudElementBases/ParentUtils.cs/#L12" class="edit-link">Edit this page</a>
+        </div>
+
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

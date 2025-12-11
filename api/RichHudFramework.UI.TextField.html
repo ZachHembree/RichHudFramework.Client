@@ -1,0 +1,1614 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Class TextField | Rich HUD Framework </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Class TextField | Rich HUD Framework ">
+      
+      <meta name="description" content="Unlined clickable textbox with a background and border designed to look like text fields in the SE terminal.">
+      <link rel="icon" href="../resources/images/favicon.ico">
+      <link rel="stylesheet" href="../public/docfx.min.css">
+      <link rel="stylesheet" href="../public/main.css">
+      <meta name="docfx:navrel" content="../toc.html">
+      <meta name="docfx:tocrel" content="toc.html">
+      
+      <meta name="docfx:rel" content="../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/ZachHembree/RichHudFramework.Client/new/master/apiSpec/new?filename=RichHudFramework_UI_TextField.md&amp;value=---%0Auid%3A%20RichHudFramework.UI.TextField%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">
+
+      <!-- Optional nav title customization -->
+      <meta name="loc:inThisArticle" content="Sections">
+      
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="ManagedReference">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand d-flex align-items-center" href="../index.html">
+            <img id="logo" class="svg me-2" src="../resources/images/logo.svg" alt="Rich HUD Framework">
+            
+            <!-- Vertical divider -->
+            <span class="vr align-self-stretch opacity-75" aria-hidden="true"></span>
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="RichHudFramework.UI.TextField">
+
+
+
+  <h1 id="RichHudFramework_UI_TextField" data-uid="RichHudFramework.UI.TextField" class="text-break">
+Class TextField  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/HudElements/ClickableHudElements/TextField.cs/#L11"><i class="bi bi-code-slash"></i></a>
+  </h1>
+
+  <div class="facts text-secondary">
+    <dl><dt>Namespace</dt><dd><a class="xref" href="RichHudFramework.html">RichHudFramework</a>.<a class="xref" href="RichHudFramework.UI.html">UI</a></dd></dl>
+  <dl><dt>Assembly</dt><dd>RichHudClient.dll</dd></dl>
+  </div>
+
+  <div class="markdown summary"><p>Unlined clickable textbox with a background and border designed to look like text fields in the SE
+terminal.</p>
+</div>
+  <div class="markdown conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public class TextField : LabelBoxBase, IReadOnlyHudElement, IReadOnlyHudNode, IReadOnlyHudParent, IClickableElement, IBindInputElement, IFocusableElement, ILabelElement, IMinLabelElement, IValueControl&lt;ITextBuilder&gt;, IValueControl</code></pre>
+  </div>
+
+
+
+
+  <dl class="typelist inheritance">
+    <dt>Inheritance</dt>
+    <dd>
+      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
+      <div><a class="xref" href="RichHudFramework.UI.HudParentBase.html">HudParentBase</a></div>
+      <div><a class="xref" href="RichHudFramework.UI.HudNodeBase.html">HudNodeBase</a></div>
+      <div><a class="xref" href="RichHudFramework.UI.HudElementBase.html">HudElementBase</a></div>
+      <div><a class="xref" href="RichHudFramework.UI.LabelBoxBase.html">LabelBoxBase</a></div>
+      <div><span class="xref">TextField</span></div>
+    </dd>
+  </dl>
+
+  <dl class="typelist implements">
+    <dt>Implements</dt>
+    <dd>
+      <div><a class="xref" href="RichHudFramework.UI.IReadOnlyHudElement.html">IReadOnlyHudElement</a></div>
+      <div><a class="xref" href="RichHudFramework.UI.IReadOnlyHudNode.html">IReadOnlyHudNode</a></div>
+      <div><a class="xref" href="RichHudFramework.UI.IReadOnlyHudParent.html">IReadOnlyHudParent</a></div>
+      <div><a class="xref" href="RichHudFramework.UI.IClickableElement.html">IClickableElement</a></div>
+      <div><a class="xref" href="RichHudFramework.UI.IBindInputElement.html">IBindInputElement</a></div>
+      <div><a class="xref" href="RichHudFramework.UI.IFocusableElement.html">IFocusableElement</a></div>
+      <div><a class="xref" href="RichHudFramework.UI.ILabelElement.html">ILabelElement</a></div>
+      <div><a class="xref" href="RichHudFramework.UI.IMinLabelElement.html">IMinLabelElement</a></div>
+      <div><a class="xref" href="RichHudFramework.UI.IValueControl-1.html">IValueControl</a>&lt;<a class="xref" href="RichHudFramework.UI.Rendering.ITextBuilder.html">ITextBuilder</a>&gt;</div>
+      <div><a class="xref" href="RichHudFramework.UI.IValueControl.html">IValueControl</a></div>
+    </dd>
+  </dl>
+
+
+  <dl class="typelist inheritedMembers">
+    <dt>Inherited Members</dt>
+    <dd>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.LabelBoxBase.html#RichHudFramework_UI_LabelBoxBase_FitToTextElement">FitToTextElement</a>
+    </div>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.LabelBoxBase.html#RichHudFramework_UI_LabelBoxBase_Color">Color</a>
+    </div>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.LabelBoxBase.html#RichHudFramework_UI_LabelBoxBase_Background">Background</a>
+    </div>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.HudElementBase.html#RichHudFramework_UI_HudElementBase_Size">Size</a>
+    </div>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.HudElementBase.html#RichHudFramework_UI_HudElementBase_Width">Width</a>
+    </div>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.HudElementBase.html#RichHudFramework_UI_HudElementBase_Height">Height</a>
+    </div>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.HudElementBase.html#RichHudFramework_UI_HudElementBase_Padding">Padding</a>
+    </div>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.HudElementBase.html#RichHudFramework_UI_HudElementBase_UnpaddedSize">UnpaddedSize</a>
+    </div>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.HudElementBase.html#RichHudFramework_UI_HudElementBase_Origin">Origin</a>
+    </div>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.HudElementBase.html#RichHudFramework_UI_HudElementBase_Offset">Offset</a>
+    </div>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.HudElementBase.html#RichHudFramework_UI_HudElementBase_Position">Position</a>
+    </div>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.HudElementBase.html#RichHudFramework_UI_HudElementBase_ParentAlignment">ParentAlignment</a>
+    </div>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.HudElementBase.html#RichHudFramework_UI_HudElementBase_DimAlignment">DimAlignment</a>
+    </div>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.HudElementBase.html#RichHudFramework_UI_HudElementBase_UseCursor">UseCursor</a>
+    </div>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.HudElementBase.html#RichHudFramework_UI_HudElementBase_ShareCursor">ShareCursor</a>
+    </div>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.HudElementBase.html#RichHudFramework_UI_HudElementBase_IsMasking">IsMasking</a>
+    </div>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.HudElementBase.html#RichHudFramework_UI_HudElementBase_IsSelectivelyMasked">IsSelectivelyMasked</a>
+    </div>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.HudElementBase.html#RichHudFramework_UI_HudElementBase_CanIgnoreMasking">CanIgnoreMasking</a>
+    </div>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.HudElementBase.html#RichHudFramework_UI_HudElementBase_CachedSize">CachedSize</a>
+    </div>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.HudElementBase.html#RichHudFramework_UI_HudElementBase_OriginAlignment">OriginAlignment</a>
+    </div>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.HudElementBase.html#RichHudFramework_UI_HudElementBase_MaskingBox">MaskingBox</a>
+    </div>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.HudNodeBase.html#RichHudFramework_UI_HudNodeBase_RichHudFramework_UI_IReadOnlyHudNode_Parent">IReadOnlyHudNode.Parent</a>
+    </div>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.HudNodeBase.html#RichHudFramework_UI_HudNodeBase_Parent">Parent</a>
+    </div>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.HudNodeBase.html#RichHudFramework_UI_HudNodeBase_Registered">Registered</a>
+    </div>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.HudNodeBase.html#RichHudFramework_UI_HudNodeBase_OverlayOffset">OverlayOffset</a>
+    </div>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.HudNodeBase.html#RichHudFramework_UI_HudNodeBase_Register_RichHudFramework_UI_HudParentBase_">Register(HudParentBase)</a>
+    </div>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.HudNodeBase.html#RichHudFramework_UI_HudNodeBase_Unregister">Unregister()</a>
+    </div>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.HudParentBase.html#RichHudFramework_UI_HudParentBase_HudSpace">HudSpace</a>
+    </div>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.HudParentBase.html#RichHudFramework_UI_HudParentBase_Visible">Visible</a>
+    </div>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.HudParentBase.html#RichHudFramework_UI_HudParentBase_InputEnabled">InputEnabled</a>
+    </div>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.HudParentBase.html#RichHudFramework_UI_HudParentBase_ZOffset">ZOffset</a>
+    </div>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.HudParentBase.html#RichHudFramework_UI_HudParentBase_Measure">Measure()</a>
+    </div>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.HudParentBase.html#RichHudFramework_UI_HudParentBase_Layout">Layout()</a>
+    </div>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.HudParentBase.html#RichHudFramework_UI_HudParentBase_Draw">Draw()</a>
+    </div>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.HudParentBase.html#RichHudFramework_UI_HudParentBase_InputDepth">InputDepth()</a>
+    </div>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.HudParentBase.html#RichHudFramework_UI_HudParentBase_HandleInput_VRageMath_Vector2_">HandleInput(Vector2)</a>
+    </div>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.HudParentBase.html#RichHudFramework_UI_HudParentBase_RegisterChild_RichHudFramework_UI_HudNodeBase_">RegisterChild(HudNodeBase)</a>
+    </div>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.HudParentBase.html#RichHudFramework_UI_HudParentBase_RemoveChild_RichHudFramework_UI_HudNodeBase_">RemoveChild(HudNodeBase)</a>
+    </div>
+  </dd></dl>
+
+
+
+
+
+
+  <h2 class="section" id="constructors">Constructors
+</h2>
+
+
+  <a id="RichHudFramework_UI_TextField__ctor_" data-uid="RichHudFramework.UI.TextField.#ctor*"></a>
+
+  <h3 id="RichHudFramework_UI_TextField__ctor" data-uid="RichHudFramework.UI.TextField.#ctor">
+  TextField()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/HudElements/ClickableHudElements/TextField.cs/#L223"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public TextField()</code></pre>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="RichHudFramework_UI_TextField__ctor_" data-uid="RichHudFramework.UI.TextField.#ctor*"></a>
+
+  <h3 id="RichHudFramework_UI_TextField__ctor_RichHudFramework_UI_HudParentBase_" data-uid="RichHudFramework.UI.TextField.#ctor(RichHudFramework.UI.HudParentBase)">
+  TextField(HudParentBase)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/HudElements/ClickableHudElements/TextField.cs/#L180"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public TextField(HudParentBase parent)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>parent</code> <a class="xref" href="RichHudFramework.UI.HudParentBase.html">HudParentBase</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <h2 class="section" id="fields">Fields
+</h2>
+
+
+
+  <h3 id="RichHudFramework_UI_TextField_border" data-uid="RichHudFramework.UI.TextField.border">
+  border
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/HudElements/ClickableHudElements/TextField.cs/#L168"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Border around the text field</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected readonly BorderBox border</code></pre>
+  </div>
+
+
+
+
+  <h4 class="section">Field Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="RichHudFramework.UI.BorderBox.html">BorderBox</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+  <h3 id="RichHudFramework_UI_TextField_lastColor" data-uid="RichHudFramework.UI.TextField.lastColor">
+  lastColor
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/HudElements/ClickableHudElements/TextField.cs/#L173"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Last color set before highlighting/taking focus</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected Color lastColor</code></pre>
+  </div>
+
+
+
+
+  <h4 class="section">Field Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://keensoftwarehouse.github.io/SpaceEngineersModAPI/api/VRageMath.Color.html">Color</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+  <h3 id="RichHudFramework_UI_TextField_lastTextColor" data-uid="RichHudFramework.UI.TextField.lastTextColor">
+  lastTextColor
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/HudElements/ClickableHudElements/TextField.cs/#L178"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Last text color set before highlighting/taking focus</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected Color lastTextColor</code></pre>
+  </div>
+
+
+
+
+  <h4 class="section">Field Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://keensoftwarehouse.github.io/SpaceEngineersModAPI/api/VRageMath.Color.html">Color</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+  <h3 id="RichHudFramework_UI_TextField_textBox" data-uid="RichHudFramework.UI.TextField.textBox">
+  textBox
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/HudElements/ClickableHudElements/TextField.cs/#L163"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Interactable text element backing the field</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected readonly TextBox textBox</code></pre>
+  </div>
+
+
+
+
+  <h4 class="section">Field Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="RichHudFramework.UI.TextBox.html">TextBox</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+  <h2 class="section" id="properties">Properties
+</h2>
+
+
+  <a id="RichHudFramework_UI_TextField_AutoResize_" data-uid="RichHudFramework.UI.TextField.AutoResize*"></a>
+
+  <h3 id="RichHudFramework_UI_TextField_AutoResize" data-uid="RichHudFramework.UI.TextField.AutoResize">
+  AutoResize
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/HudElements/ClickableHudElements/TextField.cs/#L66"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>If true, the element will automatically resize to fit the text.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override bool AutoResize { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="RichHudFramework_UI_TextField_BindInput_" data-uid="RichHudFramework.UI.TextField.BindInput*"></a>
+
+  <h3 id="RichHudFramework_UI_TextField_BindInput" data-uid="RichHudFramework.UI.TextField.BindInput">
+  BindInput
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/HudElements/ClickableHudElements/TextField.cs/#L141"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Custom bind input interface for this element</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public IBindInput BindInput { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="RichHudFramework.UI.IBindInput.html">IBindInput</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="RichHudFramework_UI_TextField_BorderColor_" data-uid="RichHudFramework.UI.TextField.BorderColor*"></a>
+
+  <h3 id="RichHudFramework_UI_TextField_BorderColor" data-uid="RichHudFramework.UI.TextField.BorderColor">
+  BorderColor
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/HudElements/ClickableHudElements/TextField.cs/#L116"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Color of the thin border surrounding the text field</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Color BorderColor { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://keensoftwarehouse.github.io/SpaceEngineersModAPI/api/VRageMath.Color.html">Color</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="RichHudFramework_UI_TextField_BorderThickness_" data-uid="RichHudFramework.UI.TextField.BorderThickness*"></a>
+
+  <h3 id="RichHudFramework_UI_TextField_BorderThickness" data-uid="RichHudFramework.UI.TextField.BorderThickness">
+  BorderThickness
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/HudElements/ClickableHudElements/TextField.cs/#L121"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Thickness of the border around the text field</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public float BorderThickness { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="RichHudFramework_UI_TextField_BuilderMode_" data-uid="RichHudFramework.UI.TextField.BuilderMode*"></a>
+
+  <h3 id="RichHudFramework_UI_TextField_BuilderMode" data-uid="RichHudFramework.UI.TextField.BuilderMode">
+  BuilderMode
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/HudElements/ClickableHudElements/TextField.cs/#L153"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Line formatting mode used by the field</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public TextBuilderModes BuilderMode { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="RichHudFramework.UI.TextBuilderModes.html">TextBuilderModes</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="RichHudFramework_UI_TextField_CharFilterFunc_" data-uid="RichHudFramework.UI.TextField.CharFilterFunc*"></a>
+
+  <h3 id="RichHudFramework_UI_TextField_CharFilterFunc" data-uid="RichHudFramework.UI.TextField.CharFilterFunc">
+  CharFilterFunc
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/HudElements/ClickableHudElements/TextField.cs/#L86"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Used to restrict the range of characters allowed for input.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Func&lt;char, bool&gt; CharFilterFunc { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.func-2">Func</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.char">char</a>, <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a>&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="RichHudFramework_UI_TextField_EnableEditing_" data-uid="RichHudFramework.UI.TextField.EnableEditing*"></a>
+
+  <h3 id="RichHudFramework_UI_TextField_EnableEditing" data-uid="RichHudFramework.UI.TextField.EnableEditing">
+  EnableEditing
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/HudElements/ClickableHudElements/TextField.cs/#L71"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Determines whether or not the textbox will allow the user to edit its contents</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool EnableEditing { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="RichHudFramework_UI_TextField_EnableTextHighlighting_" data-uid="RichHudFramework.UI.TextField.EnableTextHighlighting*"></a>
+
+  <h3 id="RichHudFramework_UI_TextField_EnableTextHighlighting" data-uid="RichHudFramework.UI.TextField.EnableTextHighlighting">
+  EnableTextHighlighting
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/HudElements/ClickableHudElements/TextField.cs/#L76"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Determines whether the user will be allowed to highlight text</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool EnableTextHighlighting { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="RichHudFramework_UI_TextField_FocusColor_" data-uid="RichHudFramework.UI.TextField.FocusColor*"></a>
+
+  <h3 id="RichHudFramework_UI_TextField_FocusColor" data-uid="RichHudFramework.UI.TextField.FocusColor">
+  FocusColor
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/HudElements/ClickableHudElements/TextField.cs/#L111"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Background color when the text field has input focus</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Color FocusColor { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://keensoftwarehouse.github.io/SpaceEngineersModAPI/api/VRageMath.Color.html">Color</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="RichHudFramework_UI_TextField_FocusHandler_" data-uid="RichHudFramework.UI.TextField.FocusHandler*"></a>
+
+  <h3 id="RichHudFramework_UI_TextField_FocusHandler" data-uid="RichHudFramework.UI.TextField.FocusHandler">
+  FocusHandler
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/HudElements/ClickableHudElements/TextField.cs/#L136"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Interface used to manage the element's input focus state</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public IFocusHandler FocusHandler { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="RichHudFramework.UI.IFocusHandler.html">IFocusHandler</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="RichHudFramework_UI_TextField_FocusTextColor_" data-uid="RichHudFramework.UI.TextField.FocusTextColor*"></a>
+
+  <h3 id="RichHudFramework_UI_TextField_FocusTextColor" data-uid="RichHudFramework.UI.TextField.FocusTextColor">
+  FocusTextColor
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/HudElements/ClickableHudElements/TextField.cs/#L51"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Text formatting used when the control gains focus.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Color FocusTextColor { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://keensoftwarehouse.github.io/SpaceEngineersModAPI/api/VRageMath.Color.html">Color</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="RichHudFramework_UI_TextField_Format_" data-uid="RichHudFramework.UI.TextField.Format*"></a>
+
+  <h3 id="RichHudFramework_UI_TextField_Format" data-uid="RichHudFramework.UI.TextField.Format">
+  Format
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/HudElements/ClickableHudElements/TextField.cs/#L46"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Default formatting used by the text field.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public GlyphFormat Format { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="RichHudFramework.UI.GlyphFormat.html">GlyphFormat</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="RichHudFramework_UI_TextField_HighlightColor_" data-uid="RichHudFramework.UI.TextField.HighlightColor*"></a>
+
+  <h3 id="RichHudFramework_UI_TextField_HighlightColor" data-uid="RichHudFramework.UI.TextField.HighlightColor">
+  HighlightColor
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/HudElements/ClickableHudElements/TextField.cs/#L106"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Background color when the text field is moused over</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Color HighlightColor { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://keensoftwarehouse.github.io/SpaceEngineersModAPI/api/VRageMath.Color.html">Color</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="RichHudFramework_UI_TextField_HighlightEnabled_" data-uid="RichHudFramework.UI.TextField.HighlightEnabled*"></a>
+
+  <h3 id="RichHudFramework_UI_TextField_HighlightEnabled" data-uid="RichHudFramework.UI.TextField.HighlightEnabled">
+  HighlightEnabled
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/HudElements/ClickableHudElements/TextField.cs/#L126"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>If true then the text field will change color when moused over</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool HighlightEnabled { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="RichHudFramework_UI_TextField_InputOpen_" data-uid="RichHudFramework.UI.TextField.InputOpen*"></a>
+
+  <h3 id="RichHudFramework_UI_TextField_InputOpen" data-uid="RichHudFramework.UI.TextField.InputOpen">
+  InputOpen
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/HudElements/ClickableHudElements/TextField.cs/#L81"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Indicates whether or not the text field will accept input</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool InputOpen { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="RichHudFramework_UI_TextField_IsMousedOver_" data-uid="RichHudFramework.UI.TextField.IsMousedOver*"></a>
+
+  <h3 id="RichHudFramework_UI_TextField_IsMousedOver" data-uid="RichHudFramework.UI.TextField.IsMousedOver">
+  IsMousedOver
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/HudElements/ClickableHudElements/TextField.cs/#L148"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Indicates whether or not the element is capturing the cursor.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override bool IsMousedOver { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="RichHudFramework_UI_TextField_MouseInput_" data-uid="RichHudFramework.UI.TextField.MouseInput*"></a>
+
+  <h3 id="RichHudFramework_UI_TextField_MouseInput" data-uid="RichHudFramework.UI.TextField.MouseInput">
+  MouseInput
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/HudElements/ClickableHudElements/TextField.cs/#L146"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Mouse input interface for this clickable element</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public IMouseInput MouseInput { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="RichHudFramework.UI.IMouseInput.html">IMouseInput</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="RichHudFramework_UI_TextField_SelectionEmpty_" data-uid="RichHudFramework.UI.TextField.SelectionEmpty*"></a>
+
+  <h3 id="RichHudFramework_UI_TextField_SelectionEmpty" data-uid="RichHudFramework.UI.TextField.SelectionEmpty">
+  SelectionEmpty
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/HudElements/ClickableHudElements/TextField.cs/#L101"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>If true, then text box currently has a range of characters selected.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool SelectionEmpty { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="RichHudFramework_UI_TextField_SelectionEnd_" data-uid="RichHudFramework.UI.TextField.SelectionEnd*"></a>
+
+  <h3 id="RichHudFramework_UI_TextField_SelectionEnd" data-uid="RichHudFramework.UI.TextField.SelectionEnd">
+  SelectionEnd
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/HudElements/ClickableHudElements/TextField.cs/#L96"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Index of the last character in the selected range.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Vector2I SelectionEnd { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://keensoftwarehouse.github.io/SpaceEngineersModAPI/api/VRageMath.Vector2I.html">Vector2I</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="RichHudFramework_UI_TextField_SelectionStart_" data-uid="RichHudFramework.UI.TextField.SelectionStart*"></a>
+
+  <h3 id="RichHudFramework_UI_TextField_SelectionStart" data-uid="RichHudFramework.UI.TextField.SelectionStart">
+  SelectionStart
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/HudElements/ClickableHudElements/TextField.cs/#L91"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Index of the first character in the selected range.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Vector2I SelectionStart { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://keensoftwarehouse.github.io/SpaceEngineersModAPI/api/VRageMath.Vector2I.html">Vector2I</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="RichHudFramework_UI_TextField_Text_" data-uid="RichHudFramework.UI.TextField.Text*"></a>
+
+  <h3 id="RichHudFramework_UI_TextField_Text" data-uid="RichHudFramework.UI.TextField.Text">
+  Text
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/HudElements/ClickableHudElements/TextField.cs/#L36"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Text rendered by the text field.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public RichText Text { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="RichHudFramework.UI.RichText.html">RichText</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="RichHudFramework_UI_TextField_TextBoard_" data-uid="RichHudFramework.UI.TextField.TextBoard*"></a>
+
+  <h3 id="RichHudFramework_UI_TextField_TextBoard" data-uid="RichHudFramework.UI.TextField.TextBoard">
+  TextBoard
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/HudElements/ClickableHudElements/TextField.cs/#L41"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>TextBoard backing the text field.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public ITextBoard TextBoard { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="RichHudFramework.UI.Rendering.ITextBoard.html">ITextBoard</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="RichHudFramework_UI_TextField_TextPadding_" data-uid="RichHudFramework.UI.TextField.TextPadding*"></a>
+
+  <h3 id="RichHudFramework_UI_TextField_TextPadding" data-uid="RichHudFramework.UI.TextField.TextPadding">
+  TextPadding
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/HudElements/ClickableHudElements/TextField.cs/#L61"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Padding around text element</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override Vector2 TextPadding { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://keensoftwarehouse.github.io/SpaceEngineersModAPI/api/VRageMath.Vector2.html">Vector2</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="RichHudFramework_UI_TextField_TextSize_" data-uid="RichHudFramework.UI.TextField.TextSize*"></a>
+
+  <h3 id="RichHudFramework_UI_TextField_TextSize" data-uid="RichHudFramework.UI.TextField.TextSize">
+  TextSize
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/HudElements/ClickableHudElements/TextField.cs/#L56"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Size of the text as rendered</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override Vector2 TextSize { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://keensoftwarehouse.github.io/SpaceEngineersModAPI/api/VRageMath.Vector2.html">Vector2</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="RichHudFramework_UI_TextField_UpdateValueCallback_" data-uid="RichHudFramework.UI.TextField.UpdateValueCallback*"></a>
+
+  <h3 id="RichHudFramework_UI_TextField_UpdateValueCallback" data-uid="RichHudFramework.UI.TextField.UpdateValueCallback">
+  UpdateValueCallback
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/HudElements/ClickableHudElements/TextField.cs/#L25"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Registers a text update callback. For use in object initializers.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public EventHandler UpdateValueCallback { set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="RichHudFramework.EventHandler.html">EventHandler</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="RichHudFramework_UI_TextField_UseFocusFormatting_" data-uid="RichHudFramework.UI.TextField.UseFocusFormatting*"></a>
+
+  <h3 id="RichHudFramework_UI_TextField_UseFocusFormatting" data-uid="RichHudFramework.UI.TextField.UseFocusFormatting">
+  UseFocusFormatting
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/HudElements/ClickableHudElements/TextField.cs/#L131"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>If true, then the text field will change formatting when it takes focus.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool UseFocusFormatting { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="RichHudFramework_UI_TextField_Value_" data-uid="RichHudFramework.UI.TextField.Value*"></a>
+
+  <h3 id="RichHudFramework_UI_TextField_Value" data-uid="RichHudFramework.UI.TextField.Value">
+  Value
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/HudElements/ClickableHudElements/TextField.cs/#L31"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Returns an interface to the rich text content of the control.</p>
+<p>Supports <span class="xref">object.ToString()</span> for getting plain text copies.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public ITextBuilder Value { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="RichHudFramework.UI.Rendering.ITextBuilder.html">ITextBuilder</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="RichHudFramework_UI_TextField_VertCenterText_" data-uid="RichHudFramework.UI.TextField.VertCenterText*"></a>
+
+  <h3 id="RichHudFramework_UI_TextField_VertCenterText" data-uid="RichHudFramework.UI.TextField.VertCenterText">
+  VertCenterText
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/HudElements/ClickableHudElements/TextField.cs/#L158"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>If true, the text will be vertically centered.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool VertCenterText { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <h2 class="section" id="methods">Methods
+</h2>
+
+
+  <a id="RichHudFramework_UI_TextField_CloseInput_" data-uid="RichHudFramework.UI.TextField.CloseInput*"></a>
+
+  <h3 id="RichHudFramework_UI_TextField_CloseInput" data-uid="RichHudFramework.UI.TextField.CloseInput">
+  CloseInput()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/HudElements/ClickableHudElements/TextField.cs/#L235"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Closes field input and clears the text selection.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void CloseInput()</code></pre>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="RichHudFramework_UI_TextField_CursorEnter_" data-uid="RichHudFramework.UI.TextField.CursorEnter*"></a>
+
+  <h3 id="RichHudFramework_UI_TextField_CursorEnter_System_Object_System_EventArgs_" data-uid="RichHudFramework.UI.TextField.CursorEnter(System.Object,System.EventArgs)">
+  CursorEnter(object, EventArgs)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/HudElements/ClickableHudElements/TextField.cs/#L241"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Sets highlighting formatting when the field is moused over</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected virtual void CursorEnter(object sender, EventArgs args)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>sender</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></dt>
+    <dd></dd>
+    <dt><code>args</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.eventargs">EventArgs</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="RichHudFramework_UI_TextField_CursorExit_" data-uid="RichHudFramework.UI.TextField.CursorExit*"></a>
+
+  <h3 id="RichHudFramework_UI_TextField_CursorExit_System_Object_System_EventArgs_" data-uid="RichHudFramework.UI.TextField.CursorExit(System.Object,System.EventArgs)">
+  CursorExit(object, EventArgs)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/HudElements/ClickableHudElements/TextField.cs/#L265"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Clears highlighting when the cursor leaves</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected virtual void CursorExit(object sender, EventArgs args)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>sender</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></dt>
+    <dd></dd>
+    <dt><code>args</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.eventargs">EventArgs</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="RichHudFramework_UI_TextField_GainFocus_" data-uid="RichHudFramework.UI.TextField.GainFocus*"></a>
+
+  <h3 id="RichHudFramework_UI_TextField_GainFocus_System_Object_System_EventArgs_" data-uid="RichHudFramework.UI.TextField.GainFocus(System.Object,System.EventArgs)">
+  GainFocus(object, EventArgs)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/HudElements/ClickableHudElements/TextField.cs/#L287"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Sets focus formatting</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected virtual void GainFocus(object sender, EventArgs args)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>sender</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></dt>
+    <dd></dd>
+    <dt><code>args</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.eventargs">EventArgs</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="RichHudFramework_UI_TextField_LoseFocus_" data-uid="RichHudFramework.UI.TextField.LoseFocus*"></a>
+
+  <h3 id="RichHudFramework_UI_TextField_LoseFocus_System_Object_System_EventArgs_" data-uid="RichHudFramework.UI.TextField.LoseFocus(System.Object,System.EventArgs)">
+  LoseFocus(object, EventArgs)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/HudElements/ClickableHudElements/TextField.cs/#L305"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Resets focus formatting</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected virtual void LoseFocus(object sender, EventArgs args)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>sender</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></dt>
+    <dd></dd>
+    <dt><code>args</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.eventargs">EventArgs</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="RichHudFramework_UI_TextField_OpenInput_" data-uid="RichHudFramework.UI.TextField.OpenInput*"></a>
+
+  <h3 id="RichHudFramework_UI_TextField_OpenInput" data-uid="RichHudFramework.UI.TextField.OpenInput">
+  OpenInput()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/HudElements/ClickableHudElements/TextField.cs/#L229"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Opens the field for input and moves the caret to the end.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void OpenInput()</code></pre>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <h2 class="section" id="events">Events
+</h2>
+
+
+
+  <h3 id="RichHudFramework_UI_TextField_ValueChanged" data-uid="RichHudFramework.UI.TextField.ValueChanged">
+  ValueChanged
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/HudElements/ClickableHudElements/TextField.cs/#L16"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Invoked whenever a change is made to the text. Invokes once every 500ms, at most.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public event EventHandler ValueChanged</code></pre>
+  </div>
+
+
+
+
+
+
+  <h4 class="section">Event Type</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="RichHudFramework.EventHandler.html">EventHandler</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/HudElements/ClickableHudElements/TextField.cs/#L11" class="edit-link">Edit this page</a>
+        </div>
+
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

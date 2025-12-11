@@ -1,0 +1,701 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Class BindInputElement | Rich HUD Framework </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Class BindInputElement | Rich HUD Framework ">
+      
+      <meta name="description" content="Attaches custom control-bind (key/combo) event handling to a UI element. Allows arbitrary  definitions to trigger NewPressed/PressedAndHeld/Released events on a specific UI node, optionally requiring input focus.">
+      <link rel="icon" href="../resources/images/favicon.ico">
+      <link rel="stylesheet" href="../public/docfx.min.css">
+      <link rel="stylesheet" href="../public/main.css">
+      <meta name="docfx:navrel" content="../toc.html">
+      <meta name="docfx:tocrel" content="toc.html">
+      
+      <meta name="docfx:rel" content="../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/ZachHembree/RichHudFramework.Client/blob/docfx/api-supplements/Shared/UI/HudElements/InputElements/BindInputElement.md/#L8">
+
+      <!-- Optional nav title customization -->
+      <meta name="loc:inThisArticle" content="Sections">
+      
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="ManagedReference">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand d-flex align-items-center" href="../index.html">
+            <img id="logo" class="svg me-2" src="../resources/images/logo.svg" alt="Rich HUD Framework">
+            
+            <!-- Vertical divider -->
+            <span class="vr align-self-stretch opacity-75" aria-hidden="true"></span>
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="RichHudFramework.UI.BindInputElement">
+
+
+
+  <h1 id="RichHudFramework_UI_BindInputElement" data-uid="RichHudFramework.UI.BindInputElement" class="text-break">
+Class BindInputElement  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/HudElements/InputElements/BindInputElement.cs/#L16"><i class="bi bi-code-slash"></i></a>
+  </h1>
+
+  <div class="facts text-secondary">
+    <dl><dt>Namespace</dt><dd><a class="xref" href="RichHudFramework.html">RichHudFramework</a>.<a class="xref" href="RichHudFramework.UI.html">UI</a></dd></dl>
+  <dl><dt>Assembly</dt><dd>RichHudClient.dll</dd></dl>
+  </div>
+
+  <div class="markdown summary"><p>Attaches custom control-bind (key/combo) event handling to a UI element.
+Allows arbitrary <a class="xref" href="RichHudFramework.UI.IBind.html">IBind</a> definitions to trigger NewPressed/PressedAndHeld/Released events
+on a specific UI node, optionally requiring input focus.</p>
+</div>
+  <div class="markdown conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public class BindInputElement : HudNodeBase, IReadOnlyHudNode, IReadOnlyHudParent, IBindInput, IFocusableElement, IEnumerable&lt;IBindEventProxy&gt;, IEnumerable</code></pre>
+  </div>
+
+
+
+
+  <dl class="typelist inheritance">
+    <dt>Inheritance</dt>
+    <dd>
+      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
+      <div><a class="xref" href="RichHudFramework.UI.HudParentBase.html">HudParentBase</a></div>
+      <div><a class="xref" href="RichHudFramework.UI.HudNodeBase.html">HudNodeBase</a></div>
+      <div><span class="xref">BindInputElement</span></div>
+    </dd>
+  </dl>
+
+  <dl class="typelist implements">
+    <dt>Implements</dt>
+    <dd>
+      <div><a class="xref" href="RichHudFramework.UI.IReadOnlyHudNode.html">IReadOnlyHudNode</a></div>
+      <div><a class="xref" href="RichHudFramework.UI.IReadOnlyHudParent.html">IReadOnlyHudParent</a></div>
+      <div><a class="xref" href="RichHudFramework.UI.IBindInput.html">IBindInput</a></div>
+      <div><a class="xref" href="RichHudFramework.UI.IFocusableElement.html">IFocusableElement</a></div>
+      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;<a class="xref" href="RichHudFramework.UI.IBindEventProxy.html">IBindEventProxy</a>&gt;</div>
+      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.ienumerable">IEnumerable</a></div>
+    </dd>
+  </dl>
+
+
+  <dl class="typelist inheritedMembers">
+    <dt>Inherited Members</dt>
+    <dd>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.HudNodeBase.html#RichHudFramework_UI_HudNodeBase_RichHudFramework_UI_IReadOnlyHudNode_Parent">IReadOnlyHudNode.Parent</a>
+    </div>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.HudNodeBase.html#RichHudFramework_UI_HudNodeBase_Parent">Parent</a>
+    </div>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.HudNodeBase.html#RichHudFramework_UI_HudNodeBase_Registered">Registered</a>
+    </div>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.HudNodeBase.html#RichHudFramework_UI_HudNodeBase_OverlayOffset">OverlayOffset</a>
+    </div>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.HudNodeBase.html#RichHudFramework_UI_HudNodeBase_Register_RichHudFramework_UI_HudParentBase_">Register(HudParentBase)</a>
+    </div>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.HudNodeBase.html#RichHudFramework_UI_HudNodeBase_Unregister">Unregister()</a>
+    </div>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.HudParentBase.html#RichHudFramework_UI_HudParentBase_HudSpace">HudSpace</a>
+    </div>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.HudParentBase.html#RichHudFramework_UI_HudParentBase_Visible">Visible</a>
+    </div>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.HudParentBase.html#RichHudFramework_UI_HudParentBase_InputEnabled">InputEnabled</a>
+    </div>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.HudParentBase.html#RichHudFramework_UI_HudParentBase_ZOffset">ZOffset</a>
+    </div>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.HudParentBase.html#RichHudFramework_UI_HudParentBase_Measure">Measure()</a>
+    </div>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.HudParentBase.html#RichHudFramework_UI_HudParentBase_Layout">Layout()</a>
+    </div>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.HudParentBase.html#RichHudFramework_UI_HudParentBase_Draw">Draw()</a>
+    </div>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.HudParentBase.html#RichHudFramework_UI_HudParentBase_InputDepth">InputDepth()</a>
+    </div>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.HudParentBase.html#RichHudFramework_UI_HudParentBase_HandleInput_VRageMath_Vector2_">HandleInput(Vector2)</a>
+    </div>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.HudParentBase.html#RichHudFramework_UI_HudParentBase_RegisterChild_RichHudFramework_UI_HudNodeBase_">RegisterChild(HudNodeBase)</a>
+    </div>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.HudParentBase.html#RichHudFramework_UI_HudParentBase_RemoveChild_RichHudFramework_UI_HudNodeBase_">RemoveChild(HudNodeBase)</a>
+    </div>
+  </dd></dl>
+
+
+
+  <h2 id="RichHudFramework_UI_BindInputElement_examples">Examples</h2>
+  
+<p>This example demonstrates how to use a <code>BindInputElement</code> to add keyboard scrolling to a <a class="xref" href="RichHudFramework.UI.SliderBar.html">SliderBar</a>. Collection initializer syntax is used to map the <a class="xref" href="RichHudFramework.UI.SharedBinds.html#RichHudFramework_UI_SharedBinds_LeftArrow">LeftArrow</a> and <a class="xref" href="RichHudFramework.UI.SharedBinds.html#RichHudFramework_UI_SharedBinds_RightArrow">RightArrow</a> directly to handler methods.</p>
+<pre><code class="lang-csharp">public static void CreateSlider(HudParentBase parent)
+{
+    var slider = new SliderBar(parent)
+    {
+        Vertical = false,
+        Min = 0f, Max = 100f, Value = 50f
+    };
+
+    var input = new BindInputElement(slider)
+    {
+        // Declarative registration of binds and callbacks
+        CollectionInitializer = 
+        {
+            // Format: { IBind, NewPressed, PressedAndHeld, Released (null) }
+            { SharedBinds.LeftArrow, OnSliderLeftArrow, OnSliderLeftArrow },
+            { SharedBinds.RightArrow, OnSliderRightArrow, OnSliderRightArrow }
+        }
+    };
+}
+
+private static void OnSliderLeftArrow(object sender, EventArgs e)
+{
+    // The sender is the InputOwner (the SliderBar), not the BindInputElement
+    var slider = (SliderBar)sender;
+    slider.Value -= 1f;
+}
+
+private static void OnSliderRightArrow(object sender, EventArgs e)
+{
+    var slider = (SliderBar)sender;
+    slider.Value += 1f;
+}
+</code></pre>
+<h4 id="alternate-initialization">Alternate Initialization</h4>
+<p>This demonstrates an alternative initialization pattern. Instead of using the collection initializer, the specific <a class="xref" href="RichHudFramework.UI.IBindEventProxy.html">IBindEventProxy</a> objects are retrieved using the class indexer. This approach is useful when adding binds dynamically after the object has been constructed or when more explicit syntax is desired.</p>
+<pre><code class="lang-csharp">var input = new BindInputElement(slider) { IsFocusRequired = false };
+
+// Retrieve the event proxy for the Left Arrow bind
+IBindEventProxy leftProxy = input[SharedBinds.LeftArrow];
+
+// Subscribe to events
+leftProxy.NewPressed += OnSliderLeftArrow;
+leftProxy.PressedAndHeld += OnSliderLeftArrow;
+
+// Retrieve and subscribe for the Right Arrow bind
+IBindEventProxy rightProxy = input[SharedBinds.RightArrow];
+rightProxy.NewPressed += OnSliderRightArrow;
+rightProxy.PressedAndHeld += OnSliderRightArrow;
+</code></pre>
+
+
+  <h2 id="RichHudFramework_UI_BindInputElement_remarks">Remarks</h2>
+  <div class="markdown level0 remarks">
+<p><code>BindInputElement</code> functions as a specialized logic node that bridges <a class="xref" href="RichHudFramework.UI.IBind.html">IBind</a> input with the UI system. Events triggered by this element (such as <a class="xref" href="RichHudFramework.UI.IBindEventProxy.html#RichHudFramework_UI_IBindEventProxy_NewPressed">NewPressed</a> or <a class="xref" href="RichHudFramework.UI.IBindEventProxy.html#RichHudFramework_UI_IBindEventProxy_PressedAndHeld">PressedAndHeld</a>) will only fire if the parent UI node is currently <a class="xref" href="RichHudFramework.UI.HudParentBase.html#RichHudFramework_UI_HudParentBase_Visible">Visible</a> and has <a class="xref" href="RichHudFramework.UI.HudParentBase.html#RichHudFramework_UI_HudParentBase_InputEnabled">InputEnabled</a> set to true. This ensures that keybinds do not trigger actions when the UI is hidden or disabled.</p>
+</div>
+
+
+  <h2 class="section" id="constructors">Constructors
+</h2>
+
+
+  <a id="RichHudFramework_UI_BindInputElement__ctor_" data-uid="RichHudFramework.UI.BindInputElement.#ctor*"></a>
+
+  <h3 id="RichHudFramework_UI_BindInputElement__ctor_RichHudFramework_UI_HudParentBase_" data-uid="RichHudFramework.UI.BindInputElement.#ctor(RichHudFramework.UI.HudParentBase)">
+  BindInputElement(HudParentBase)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/HudElements/InputElements/BindInputElement.cs/#L58"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public BindInputElement(HudParentBase parent = null)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>parent</code> <a class="xref" href="RichHudFramework.UI.HudParentBase.html">HudParentBase</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <h2 class="section" id="properties">Properties
+</h2>
+
+
+  <a id="RichHudFramework_UI_BindInputElement_CollectionInitializer_" data-uid="RichHudFramework.UI.BindInputElement.CollectionInitializer*"></a>
+
+  <h3 id="RichHudFramework_UI_BindInputElement_CollectionInitializer" data-uid="RichHudFramework.UI.BindInputElement.CollectionInitializer">
+  CollectionInitializer
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/HudElements/InputElements/BindInputElement.cs/#L21"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Allows the addition of binds in conjunction with normal property initialization</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public IBindInput CollectionInitializer { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="RichHudFramework.UI.IBindInput.html">IBindInput</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="RichHudFramework_UI_BindInputElement_FocusHandler_" data-uid="RichHudFramework.UI.BindInputElement.FocusHandler*"></a>
+
+  <h3 id="RichHudFramework_UI_BindInputElement_FocusHandler" data-uid="RichHudFramework.UI.BindInputElement.FocusHandler">
+  FocusHandler
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/HudElements/InputElements/BindInputElement.cs/#L26"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Element that owns this input, used for event callbacks</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public IFocusHandler FocusHandler { get; protected set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="RichHudFramework.UI.IFocusHandler.html">IFocusHandler</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="RichHudFramework_UI_BindInputElement_InputFilter_" data-uid="RichHudFramework.UI.BindInputElement.InputFilter*"></a>
+
+  <h3 id="RichHudFramework_UI_BindInputElement_InputFilter" data-uid="RichHudFramework.UI.BindInputElement.InputFilter">
+  InputFilter
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/HudElements/InputElements/BindInputElement.cs/#L50"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>If set, the input groups indicated by the flags will be temporarily blocked
+until the BintInputElement is disabled.</p>
+<p>Uses <a class="xref" href="RichHudFramework.UI.Client.BindManager.html#RichHudFramework_UI_Client_BindManager_RequestTempBlacklist_RichHudFramework_UI_SeBlacklistModes_">RequestTempBlacklist(SeBlacklistModes)</a>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public SeBlacklistModes InputFilter { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="RichHudFramework.UI.SeBlacklistModes.html">SeBlacklistModes</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="RichHudFramework_UI_BindInputElement_InputPredicate_" data-uid="RichHudFramework.UI.BindInputElement.InputPredicate*"></a>
+
+  <h3 id="RichHudFramework_UI_BindInputElement_InputPredicate" data-uid="RichHudFramework.UI.BindInputElement.InputPredicate">
+  InputPredicate
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/HudElements/InputElements/BindInputElement.cs/#L43"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>If defined, bind events will only fire when the predicate returns true.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Func&lt;bool&gt; InputPredicate { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.func-1">Func</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a>&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="RichHudFramework_UI_BindInputElement_IsFocusRequired_" data-uid="RichHudFramework.UI.BindInputElement.IsFocusRequired*"></a>
+
+  <h3 id="RichHudFramework_UI_BindInputElement_IsFocusRequired" data-uid="RichHudFramework.UI.BindInputElement.IsFocusRequired">
+  IsFocusRequired
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/HudElements/InputElements/BindInputElement.cs/#L38"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>If true, bind events will only fire when the parent element has input focus.
+Default = false.</p>
+<p>Only applies if the parent/InputOwner implements <a class="xref" href="RichHudFramework.UI.IFocusableElement.html">IFocusableElement</a>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool IsFocusRequired { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="RichHudFramework_UI_BindInputElement_Item_" data-uid="RichHudFramework.UI.BindInputElement.Item*"></a>
+
+  <h3 id="RichHudFramework_UI_BindInputElement_Item_RichHudFramework_UI_IBind_" data-uid="RichHudFramework.UI.BindInputElement.Item(RichHudFramework.UI.IBind)">
+  this[IBind]
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/HudElements/InputElements/BindInputElement.cs/#L31"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Retrieves the event proxy (press/release events) for a specific bind on this UI element</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public IBindEventProxy this[IBind bind] { get; }</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>bind</code> <a class="xref" href="RichHudFramework.UI.IBind.html">IBind</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="RichHudFramework.UI.IBindEventProxy.html">IBindEventProxy</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <h2 class="section" id="methods">Methods
+</h2>
+
+
+  <a id="RichHudFramework_UI_BindInputElement_Add_" data-uid="RichHudFramework.UI.BindInputElement.Add*"></a>
+
+  <h3 id="RichHudFramework_UI_BindInputElement_Add_RichHudFramework_UI_IBind_RichHudFramework_EventHandler_RichHudFramework_EventHandler_RichHudFramework_EventHandler_" data-uid="RichHudFramework.UI.BindInputElement.Add(RichHudFramework.UI.IBind,RichHudFramework.EventHandler,RichHudFramework.EventHandler,RichHudFramework.EventHandler)">
+  Add(IBind, EventHandler, EventHandler, EventHandler)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/HudElements/InputElements/BindInputElement.cs/#L69"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Adds a bind (if not already present) and/or subscribes the provided event handlers.
+Multiple calls with the same bind are allowed and will stack handlers.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void Add(IBind bind, EventHandler NewPressed = null, EventHandler PressedAndHeld = null, EventHandler Released = null)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>bind</code> <a class="xref" href="RichHudFramework.UI.IBind.html">IBind</a></dt>
+    <dd></dd>
+    <dt><code>NewPressed</code> <a class="xref" href="RichHudFramework.EventHandler.html">EventHandler</a></dt>
+    <dd></dd>
+    <dt><code>PressedAndHeld</code> <a class="xref" href="RichHudFramework.EventHandler.html">EventHandler</a></dt>
+    <dd></dd>
+    <dt><code>Released</code> <a class="xref" href="RichHudFramework.EventHandler.html">EventHandler</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="RichHudFramework_UI_BindInputElement_GetEnumerator_" data-uid="RichHudFramework.UI.BindInputElement.GetEnumerator*"></a>
+
+  <h3 id="RichHudFramework_UI_BindInputElement_GetEnumerator" data-uid="RichHudFramework.UI.BindInputElement.GetEnumerator">
+  GetEnumerator()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/HudElements/InputElements/BindInputElement.cs/#L132"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Returns an enumerator that iterates through the collection.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public IEnumerator&lt;IBindEventProxy&gt; GetEnumerator()</code></pre>
+  </div>
+
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerator-1">IEnumerator</a>&lt;<a class="xref" href="RichHudFramework.UI.IBindEventProxy.html">IBindEventProxy</a>&gt;</dt>
+    <dd><p>An enumerator that can be used to iterate through the collection.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="RichHudFramework_UI_BindInputElement_GetHasBind_" data-uid="RichHudFramework.UI.BindInputElement.GetHasBind*"></a>
+
+  <h3 id="RichHudFramework_UI_BindInputElement_GetHasBind_RichHudFramework_UI_IBind_" data-uid="RichHudFramework.UI.BindInputElement.GetHasBind(RichHudFramework.UI.IBind)">
+  GetHasBind(IBind)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/HudElements/InputElements/BindInputElement.cs/#L97"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Returns true if the given bind is actively used and handled by this element</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool GetHasBind(IBind bind)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>bind</code> <a class="xref" href="RichHudFramework.UI.IBind.html">IBind</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="RichHudFramework_UI_BindInputElement_Reset_" data-uid="RichHudFramework.UI.BindInputElement.Reset*"></a>
+
+  <h3 id="RichHudFramework_UI_BindInputElement_Reset" data-uid="RichHudFramework.UI.BindInputElement.Reset">
+  Reset()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/HudElements/InputElements/BindInputElement.cs/#L92"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Removes all binds from the element</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void Reset()</code></pre>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <h2 class="section" id="eii">Explicit Interface Implementations
+</h2>
+
+
+  <a id="RichHudFramework_UI_BindInputElement_System_Collections_IEnumerable_GetEnumerator_" data-uid="RichHudFramework.UI.BindInputElement.System#Collections#IEnumerable#GetEnumerator*"></a>
+
+  <h3 id="RichHudFramework_UI_BindInputElement_System_Collections_IEnumerable_GetEnumerator" data-uid="RichHudFramework.UI.BindInputElement.System#Collections#IEnumerable#GetEnumerator">
+  IEnumerable.GetEnumerator()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/HudElements/InputElements/BindInputElement.cs/#L135"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Returns an enumerator that iterates through a collection.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">IEnumerator IEnumerable.GetEnumerator()</code></pre>
+  </div>
+
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.ienumerator">IEnumerator</a></dt>
+    <dd><p>An <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.ienumerator">IEnumerator</a> object that can be used to iterate through the collection.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/HudElements/InputElements/BindInputElement.cs/#L16" class="edit-link">Edit this page</a>
+        </div>
+
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

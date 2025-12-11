@@ -1,0 +1,833 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Enum RichHudControls | Rich HUD Framework </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Enum RichHudControls | Rich HUD Framework ">
+      
+      <meta name="description" content="Unified control enum type for keyboard, mouse and gamepad/joystick">
+      <link rel="icon" href="../resources/images/favicon.ico">
+      <link rel="stylesheet" href="../public/docfx.min.css">
+      <link rel="stylesheet" href="../public/main.css">
+      <meta name="docfx:navrel" content="../toc.html">
+      <meta name="docfx:tocrel" content="toc.html">
+      
+      <meta name="docfx:rel" content="../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/ZachHembree/RichHudFramework.Client/new/master/apiSpec/new?filename=RichHudFramework_UI_RichHudControls.md&amp;value=---%0Auid%3A%20RichHudFramework.UI.RichHudControls%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">
+
+      <!-- Optional nav title customization -->
+      <meta name="loc:inThisArticle" content="Sections">
+      
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="ManagedReference">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand d-flex align-items-center" href="../index.html">
+            <img id="logo" class="svg me-2" src="../resources/images/logo.svg" alt="Rich HUD Framework">
+            
+            <!-- Vertical divider -->
+            <span class="vr align-self-stretch opacity-75" aria-hidden="true"></span>
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="RichHudFramework.UI.RichHudControls">
+
+
+
+
+  <h1 id="RichHudFramework_UI_RichHudControls" data-uid="RichHudFramework.UI.RichHudControls" class="text-break">
+Enum RichHudControls  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/BindManager/CustomControls.cs/#L11"><i class="bi bi-code-slash"></i></a>
+  </h1>
+
+  <div class="facts text-secondary">
+    <dl><dt>Namespace</dt><dd><a class="xref" href="RichHudFramework.html">RichHudFramework</a>.<a class="xref" href="RichHudFramework.UI.html">UI</a></dd></dl>
+  <dl><dt>Assembly</dt><dd>RichHudClient.dll</dd></dl>
+  </div>
+
+  <div class="markdown summary"><p>Unified control enum type for keyboard, mouse and gamepad/joystick</p>
+</div>
+  <div class="markdown conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public enum RichHudControls</code></pre>
+  </div>
+
+
+
+
+
+
+
+
+
+  <h2 id="fields">Fields
+</h2>
+  <dl class="parameters">
+    <dt id="RichHudFramework_UI_RichHudControls_None"><code>None = 0</code></dt>
+  
+  <dd></dd>
+    <dt id="RichHudFramework_UI_RichHudControls_LeftButton"><code>LeftButton = 1</code></dt>
+  
+  <dd></dd>
+    <dt id="RichHudFramework_UI_RichHudControls_RightButton"><code>RightButton = 2</code></dt>
+  
+  <dd></dd>
+    <dt id="RichHudFramework_UI_RichHudControls_Cancel"><code>Cancel = 3</code></dt>
+  
+  <dd></dd>
+    <dt id="RichHudFramework_UI_RichHudControls_MiddleButton"><code>MiddleButton = 4</code></dt>
+  
+  <dd></dd>
+    <dt id="RichHudFramework_UI_RichHudControls_ExtraButton1"><code>ExtraButton1 = 5</code></dt>
+  
+  <dd></dd>
+    <dt id="RichHudFramework_UI_RichHudControls_ExtraButton2"><code>ExtraButton2 = 6</code></dt>
+  
+  <dd></dd>
+    <dt id="RichHudFramework_UI_RichHudControls_Back"><code>Back = 8</code></dt>
+  
+  <dd></dd>
+    <dt id="RichHudFramework_UI_RichHudControls_Tab"><code>Tab = 9</code></dt>
+  
+  <dd></dd>
+    <dt id="RichHudFramework_UI_RichHudControls_Clear"><code>Clear = 12</code></dt>
+  
+  <dd></dd>
+    <dt id="RichHudFramework_UI_RichHudControls_Enter"><code>Enter = 13</code></dt>
+  
+  <dd></dd>
+    <dt id="RichHudFramework_UI_RichHudControls_Shift"><code>Shift = 16</code></dt>
+  
+  <dd></dd>
+    <dt id="RichHudFramework_UI_RichHudControls_Control"><code>Control = 17</code></dt>
+  
+  <dd></dd>
+    <dt id="RichHudFramework_UI_RichHudControls_Alt"><code>Alt = 18</code></dt>
+  
+  <dd></dd>
+    <dt id="RichHudFramework_UI_RichHudControls_Pause"><code>Pause = 19</code></dt>
+  
+  <dd></dd>
+    <dt id="RichHudFramework_UI_RichHudControls_CapsLock"><code>CapsLock = 20</code></dt>
+  
+  <dd></dd>
+    <dt id="RichHudFramework_UI_RichHudControls_Kana"><code>Kana = 21</code></dt>
+  
+  <dd></dd>
+    <dt id="RichHudFramework_UI_RichHudControls_Hangeul"><code>Hangeul = 21</code></dt>
+  
+  <dd></dd>
+    <dt id="RichHudFramework_UI_RichHudControls_Hangul"><code>Hangul = 21</code></dt>
+  
+  <dd></dd>
+    <dt id="RichHudFramework_UI_RichHudControls_Junja"><code>Junja = 23</code></dt>
+  
+  <dd></dd>
+    <dt id="RichHudFramework_UI_RichHudControls_Final"><code>Final = 24</code></dt>
+  
+  <dd></dd>
+    <dt id="RichHudFramework_UI_RichHudControls_Hanja"><code>Hanja = 25</code></dt>
+  
+  <dd></dd>
+    <dt id="RichHudFramework_UI_RichHudControls_Kanji"><code>Kanji = 25</code></dt>
+  
+  <dd></dd>
+    <dt id="RichHudFramework_UI_RichHudControls_Ctrl_Y"><code>Ctrl_Y = 25</code></dt>
+  
+  <dd></dd>
+    <dt id="RichHudFramework_UI_RichHudControls_Ctrl_Z"><code>Ctrl_Z = 26</code></dt>
+  
+  <dd></dd>
+    <dt id="RichHudFramework_UI_RichHudControls_Escape"><code>Escape = 27</code></dt>
+  
+  <dd></dd>
+    <dt id="RichHudFramework_UI_RichHudControls_Convert"><code>Convert = 28</code></dt>
+  
+  <dd></dd>
+    <dt id="RichHudFramework_UI_RichHudControls_NonConvert"><code>NonConvert = 29</code></dt>
+  
+  <dd></dd>
+    <dt id="RichHudFramework_UI_RichHudControls_Accept"><code>Accept = 30</code></dt>
+  
+  <dd></dd>
+    <dt id="RichHudFramework_UI_RichHudControls_ModeChange"><code>ModeChange = 31</code></dt>
+  
+  <dd></dd>
+    <dt id="RichHudFramework_UI_RichHudControls_Space"><code>Space = 32</code></dt>
+  
+  <dd></dd>
+    <dt id="RichHudFramework_UI_RichHudControls_PageUp"><code>PageUp = 33</code></dt>
+  
+  <dd></dd>
+    <dt id="RichHudFramework_UI_RichHudControls_PageDown"><code>PageDown = 34</code></dt>
+  
+  <dd></dd>
+    <dt id="RichHudFramework_UI_RichHudControls_End"><code>End = 35</code></dt>
+  
+  <dd></dd>
+    <dt id="RichHudFramework_UI_RichHudControls_Home"><code>Home = 36</code></dt>
+  
+  <dd></dd>
+    <dt id="RichHudFramework_UI_RichHudControls_Left"><code>Left = 37</code></dt>
+  
+  <dd></dd>
+    <dt id="RichHudFramework_UI_RichHudControls_Up"><code>Up = 38</code></dt>
+  
+  <dd></dd>
+    <dt id="RichHudFramework_UI_RichHudControls_Right"><code>Right = 39</code></dt>
+  
+  <dd></dd>
+    <dt id="RichHudFramework_UI_RichHudControls_Down"><code>Down = 40</code></dt>
+  
+  <dd></dd>
+    <dt id="RichHudFramework_UI_RichHudControls_Select"><code>Select = 41</code></dt>
+  
+  <dd></dd>
+    <dt id="RichHudFramework_UI_RichHudControls_Print"><code>Print = 42</code></dt>
+  
+  <dd></dd>
+    <dt id="RichHudFramework_UI_RichHudControls_Execute"><code>Execute = 43</code></dt>
+  
+  <dd></dd>
+    <dt id="RichHudFramework_UI_RichHudControls_Snapshot"><code>Snapshot = 44</code></dt>
+  
+  <dd></dd>
+    <dt id="RichHudFramework_UI_RichHudControls_Insert"><code>Insert = 45</code></dt>
+  
+  <dd></dd>
+    <dt id="RichHudFramework_UI_RichHudControls_Delete"><code>Delete = 46</code></dt>
+  
+  <dd></dd>
+    <dt id="RichHudFramework_UI_RichHudControls_Help"><code>Help = 47</code></dt>
+  
+  <dd></dd>
+    <dt id="RichHudFramework_UI_RichHudControls_D0"><code>D0 = 48</code></dt>
+  
+  <dd></dd>
+    <dt id="RichHudFramework_UI_RichHudControls_D1"><code>D1 = 49</code></dt>
+  
+  <dd></dd>
+    <dt id="RichHudFramework_UI_RichHudControls_D2"><code>D2 = 50</code></dt>
+  
+  <dd></dd>
+    <dt id="RichHudFramework_UI_RichHudControls_D3"><code>D3 = 51</code></dt>
+  
+  <dd></dd>
+    <dt id="RichHudFramework_UI_RichHudControls_D4"><code>D4 = 52</code></dt>
+  
+  <dd></dd>
+    <dt id="RichHudFramework_UI_RichHudControls_D5"><code>D5 = 53</code></dt>
+  
+  <dd></dd>
+    <dt id="RichHudFramework_UI_RichHudControls_D6"><code>D6 = 54</code></dt>
+  
+  <dd></dd>
+    <dt id="RichHudFramework_UI_RichHudControls_D7"><code>D7 = 55</code></dt>
+  
+  <dd></dd>
+    <dt id="RichHudFramework_UI_RichHudControls_D8"><code>D8 = 56</code></dt>
+  
+  <dd></dd>
+    <dt id="RichHudFramework_UI_RichHudControls_D9"><code>D9 = 57</code></dt>
+  
+  <dd></dd>
+    <dt id="RichHudFramework_UI_RichHudControls_A"><code>A = 65</code></dt>
+  
+  <dd></dd>
+    <dt id="RichHudFramework_UI_RichHudControls_B"><code>B = 66</code></dt>
+  
+  <dd></dd>
+    <dt id="RichHudFramework_UI_RichHudControls_C"><code>C = 67</code></dt>
+  
+  <dd></dd>
+    <dt id="RichHudFramework_UI_RichHudControls_D"><code>D = 68</code></dt>
+  
+  <dd></dd>
+    <dt id="RichHudFramework_UI_RichHudControls_E"><code>E = 69</code></dt>
+  
+  <dd></dd>
+    <dt id="RichHudFramework_UI_RichHudControls_F"><code>F = 70</code></dt>
+  
+  <dd></dd>
+    <dt id="RichHudFramework_UI_RichHudControls_G"><code>G = 71</code></dt>
+  
+  <dd></dd>
+    <dt id="RichHudFramework_UI_RichHudControls_H"><code>H = 72</code></dt>
+  
+  <dd></dd>
+    <dt id="RichHudFramework_UI_RichHudControls_I"><code>I = 73</code></dt>
+  
+  <dd></dd>
+    <dt id="RichHudFramework_UI_RichHudControls_J"><code>J = 74</code></dt>
+  
+  <dd></dd>
+    <dt id="RichHudFramework_UI_RichHudControls_K"><code>K = 75</code></dt>
+  
+  <dd></dd>
+    <dt id="RichHudFramework_UI_RichHudControls_L"><code>L = 76</code></dt>
+  
+  <dd></dd>
+    <dt id="RichHudFramework_UI_RichHudControls_M"><code>M = 77</code></dt>
+  
+  <dd></dd>
+    <dt id="RichHudFramework_UI_RichHudControls_N"><code>N = 78</code></dt>
+  
+  <dd></dd>
+    <dt id="RichHudFramework_UI_RichHudControls_O"><code>O = 79</code></dt>
+  
+  <dd></dd>
+    <dt id="RichHudFramework_UI_RichHudControls_P"><code>P = 80</code></dt>
+  
+  <dd></dd>
+    <dt id="RichHudFramework_UI_RichHudControls_Q"><code>Q = 81</code></dt>
+  
+  <dd></dd>
+    <dt id="RichHudFramework_UI_RichHudControls_R"><code>R = 82</code></dt>
+  
+  <dd></dd>
+    <dt id="RichHudFramework_UI_RichHudControls_S"><code>S = 83</code></dt>
+  
+  <dd></dd>
+    <dt id="RichHudFramework_UI_RichHudControls_T"><code>T = 84</code></dt>
+  
+  <dd></dd>
+    <dt id="RichHudFramework_UI_RichHudControls_U"><code>U = 85</code></dt>
+  
+  <dd></dd>
+    <dt id="RichHudFramework_UI_RichHudControls_V"><code>V = 86</code></dt>
+  
+  <dd></dd>
+    <dt id="RichHudFramework_UI_RichHudControls_W"><code>W = 87</code></dt>
+  
+  <dd></dd>
+    <dt id="RichHudFramework_UI_RichHudControls_X"><code>X = 88</code></dt>
+  
+  <dd></dd>
+    <dt id="RichHudFramework_UI_RichHudControls_Y"><code>Y = 89</code></dt>
+  
+  <dd></dd>
+    <dt id="RichHudFramework_UI_RichHudControls_Z"><code>Z = 90</code></dt>
+  
+  <dd></dd>
+    <dt id="RichHudFramework_UI_RichHudControls_Apps"><code>Apps = 93</code></dt>
+  
+  <dd></dd>
+    <dt id="RichHudFramework_UI_RichHudControls_Sleep"><code>Sleep = 95</code></dt>
+  
+  <dd></dd>
+    <dt id="RichHudFramework_UI_RichHudControls_NumPad0"><code>NumPad0 = 96</code></dt>
+  
+  <dd></dd>
+    <dt id="RichHudFramework_UI_RichHudControls_NumPad1"><code>NumPad1 = 97</code></dt>
+  
+  <dd></dd>
+    <dt id="RichHudFramework_UI_RichHudControls_NumPad2"><code>NumPad2 = 98</code></dt>
+  
+  <dd></dd>
+    <dt id="RichHudFramework_UI_RichHudControls_NumPad3"><code>NumPad3 = 99</code></dt>
+  
+  <dd></dd>
+    <dt id="RichHudFramework_UI_RichHudControls_NumPad4"><code>NumPad4 = 100</code></dt>
+  
+  <dd></dd>
+    <dt id="RichHudFramework_UI_RichHudControls_NumPad5"><code>NumPad5 = 101</code></dt>
+  
+  <dd></dd>
+    <dt id="RichHudFramework_UI_RichHudControls_NumPad6"><code>NumPad6 = 102</code></dt>
+  
+  <dd></dd>
+    <dt id="RichHudFramework_UI_RichHudControls_NumPad7"><code>NumPad7 = 103</code></dt>
+  
+  <dd></dd>
+    <dt id="RichHudFramework_UI_RichHudControls_NumPad8"><code>NumPad8 = 104</code></dt>
+  
+  <dd></dd>
+    <dt id="RichHudFramework_UI_RichHudControls_NumPad9"><code>NumPad9 = 105</code></dt>
+  
+  <dd></dd>
+    <dt id="RichHudFramework_UI_RichHudControls_Multiply"><code>Multiply = 106</code></dt>
+  
+  <dd></dd>
+    <dt id="RichHudFramework_UI_RichHudControls_Add"><code>Add = 107</code></dt>
+  
+  <dd></dd>
+    <dt id="RichHudFramework_UI_RichHudControls_Separator"><code>Separator = 108</code></dt>
+  
+  <dd></dd>
+    <dt id="RichHudFramework_UI_RichHudControls_Subtract"><code>Subtract = 109</code></dt>
+  
+  <dd></dd>
+    <dt id="RichHudFramework_UI_RichHudControls_Decimal"><code>Decimal = 110</code></dt>
+  
+  <dd></dd>
+    <dt id="RichHudFramework_UI_RichHudControls_Divide"><code>Divide = 111</code></dt>
+  
+  <dd></dd>
+    <dt id="RichHudFramework_UI_RichHudControls_F1"><code>F1 = 112</code></dt>
+  
+  <dd></dd>
+    <dt id="RichHudFramework_UI_RichHudControls_F2"><code>F2 = 113</code></dt>
+  
+  <dd></dd>
+    <dt id="RichHudFramework_UI_RichHudControls_F3"><code>F3 = 114</code></dt>
+  
+  <dd></dd>
+    <dt id="RichHudFramework_UI_RichHudControls_F4"><code>F4 = 115</code></dt>
+  
+  <dd></dd>
+    <dt id="RichHudFramework_UI_RichHudControls_F5"><code>F5 = 116</code></dt>
+  
+  <dd></dd>
+    <dt id="RichHudFramework_UI_RichHudControls_F6"><code>F6 = 117</code></dt>
+  
+  <dd></dd>
+    <dt id="RichHudFramework_UI_RichHudControls_F7"><code>F7 = 118</code></dt>
+  
+  <dd></dd>
+    <dt id="RichHudFramework_UI_RichHudControls_F8"><code>F8 = 119</code></dt>
+  
+  <dd></dd>
+    <dt id="RichHudFramework_UI_RichHudControls_F9"><code>F9 = 120</code></dt>
+  
+  <dd></dd>
+    <dt id="RichHudFramework_UI_RichHudControls_F10"><code>F10 = 121</code></dt>
+  
+  <dd></dd>
+    <dt id="RichHudFramework_UI_RichHudControls_F11"><code>F11 = 122</code></dt>
+  
+  <dd></dd>
+    <dt id="RichHudFramework_UI_RichHudControls_F12"><code>F12 = 123</code></dt>
+  
+  <dd></dd>
+    <dt id="RichHudFramework_UI_RichHudControls_F13"><code>F13 = 124</code></dt>
+  
+  <dd></dd>
+    <dt id="RichHudFramework_UI_RichHudControls_F14"><code>F14 = 125</code></dt>
+  
+  <dd></dd>
+    <dt id="RichHudFramework_UI_RichHudControls_F15"><code>F15 = 126</code></dt>
+  
+  <dd></dd>
+    <dt id="RichHudFramework_UI_RichHudControls_F16"><code>F16 = 127</code></dt>
+  
+  <dd></dd>
+    <dt id="RichHudFramework_UI_RichHudControls_F17"><code>F17 = 128</code></dt>
+  
+  <dd></dd>
+    <dt id="RichHudFramework_UI_RichHudControls_F18"><code>F18 = 129</code></dt>
+  
+  <dd></dd>
+    <dt id="RichHudFramework_UI_RichHudControls_F19"><code>F19 = 130</code></dt>
+  
+  <dd></dd>
+    <dt id="RichHudFramework_UI_RichHudControls_F20"><code>F20 = 131</code></dt>
+  
+  <dd></dd>
+    <dt id="RichHudFramework_UI_RichHudControls_F21"><code>F21 = 132</code></dt>
+  
+  <dd></dd>
+    <dt id="RichHudFramework_UI_RichHudControls_F22"><code>F22 = 133</code></dt>
+  
+  <dd></dd>
+    <dt id="RichHudFramework_UI_RichHudControls_F23"><code>F23 = 134</code></dt>
+  
+  <dd></dd>
+    <dt id="RichHudFramework_UI_RichHudControls_F24"><code>F24 = 135</code></dt>
+  
+  <dd></dd>
+    <dt id="RichHudFramework_UI_RichHudControls_NumLock"><code>NumLock = 144</code></dt>
+  
+  <dd></dd>
+    <dt id="RichHudFramework_UI_RichHudControls_ScrollLock"><code>ScrollLock = 145</code></dt>
+  
+  <dd></dd>
+    <dt id="RichHudFramework_UI_RichHudControls_NEC_Equal"><code>NEC_Equal = 146</code></dt>
+  
+  <dd></dd>
+    <dt id="RichHudFramework_UI_RichHudControls_Fujitsu_Jisho"><code>Fujitsu_Jisho = 146</code></dt>
+  
+  <dd></dd>
+    <dt id="RichHudFramework_UI_RichHudControls_Fujitsu_Masshou"><code>Fujitsu_Masshou = 147</code></dt>
+  
+  <dd></dd>
+    <dt id="RichHudFramework_UI_RichHudControls_Fujitsu_Touroku"><code>Fujitsu_Touroku = 148</code></dt>
+  
+  <dd></dd>
+    <dt id="RichHudFramework_UI_RichHudControls_Fujitsu_Loya"><code>Fujitsu_Loya = 149</code></dt>
+  
+  <dd></dd>
+    <dt id="RichHudFramework_UI_RichHudControls_Fujitsu_Roya"><code>Fujitsu_Roya = 150</code></dt>
+  
+  <dd></dd>
+    <dt id="RichHudFramework_UI_RichHudControls_BrowserBack"><code>BrowserBack = 166</code></dt>
+  
+  <dd></dd>
+    <dt id="RichHudFramework_UI_RichHudControls_BrowserForward"><code>BrowserForward = 167</code></dt>
+  
+  <dd></dd>
+    <dt id="RichHudFramework_UI_RichHudControls_BrowserRefresh"><code>BrowserRefresh = 168</code></dt>
+  
+  <dd></dd>
+    <dt id="RichHudFramework_UI_RichHudControls_BrowserStop"><code>BrowserStop = 169</code></dt>
+  
+  <dd></dd>
+    <dt id="RichHudFramework_UI_RichHudControls_BrowserSearch"><code>BrowserSearch = 170</code></dt>
+  
+  <dd></dd>
+    <dt id="RichHudFramework_UI_RichHudControls_BrowserFavorites"><code>BrowserFavorites = 171</code></dt>
+  
+  <dd></dd>
+    <dt id="RichHudFramework_UI_RichHudControls_BrowserHome"><code>BrowserHome = 172</code></dt>
+  
+  <dd></dd>
+    <dt id="RichHudFramework_UI_RichHudControls_VolumeMute"><code>VolumeMute = 173</code></dt>
+  
+  <dd></dd>
+    <dt id="RichHudFramework_UI_RichHudControls_VolumeDown"><code>VolumeDown = 174</code></dt>
+  
+  <dd></dd>
+    <dt id="RichHudFramework_UI_RichHudControls_VolumeUp"><code>VolumeUp = 175</code></dt>
+  
+  <dd></dd>
+    <dt id="RichHudFramework_UI_RichHudControls_MediaNextTrack"><code>MediaNextTrack = 176</code></dt>
+  
+  <dd></dd>
+    <dt id="RichHudFramework_UI_RichHudControls_MediaPrevTrack"><code>MediaPrevTrack = 177</code></dt>
+  
+  <dd></dd>
+    <dt id="RichHudFramework_UI_RichHudControls_MediaStop"><code>MediaStop = 178</code></dt>
+  
+  <dd></dd>
+    <dt id="RichHudFramework_UI_RichHudControls_MediaPlayPause"><code>MediaPlayPause = 179</code></dt>
+  
+  <dd></dd>
+    <dt id="RichHudFramework_UI_RichHudControls_LaunchMail"><code>LaunchMail = 180</code></dt>
+  
+  <dd></dd>
+    <dt id="RichHudFramework_UI_RichHudControls_LaunchMediaSelect"><code>LaunchMediaSelect = 181</code></dt>
+  
+  <dd></dd>
+    <dt id="RichHudFramework_UI_RichHudControls_LaunchApplication1"><code>LaunchApplication1 = 182</code></dt>
+  
+  <dd></dd>
+    <dt id="RichHudFramework_UI_RichHudControls_LaunchApplication2"><code>LaunchApplication2 = 183</code></dt>
+  
+  <dd></dd>
+    <dt id="RichHudFramework_UI_RichHudControls_OemSemicolon"><code>OemSemicolon = 186</code></dt>
+  
+  <dd></dd>
+    <dt id="RichHudFramework_UI_RichHudControls_OemPlus"><code>OemPlus = 187</code></dt>
+  
+  <dd></dd>
+    <dt id="RichHudFramework_UI_RichHudControls_OemComma"><code>OemComma = 188</code></dt>
+  
+  <dd></dd>
+    <dt id="RichHudFramework_UI_RichHudControls_OemMinus"><code>OemMinus = 189</code></dt>
+  
+  <dd></dd>
+    <dt id="RichHudFramework_UI_RichHudControls_OemPeriod"><code>OemPeriod = 190</code></dt>
+  
+  <dd></dd>
+    <dt id="RichHudFramework_UI_RichHudControls_OemQuestion"><code>OemQuestion = 191</code></dt>
+  
+  <dd></dd>
+    <dt id="RichHudFramework_UI_RichHudControls_OemTilde"><code>OemTilde = 192</code></dt>
+  
+  <dd></dd>
+    <dt id="RichHudFramework_UI_RichHudControls_ChatPadGreen"><code>ChatPadGreen = 202</code></dt>
+  
+  <dd></dd>
+    <dt id="RichHudFramework_UI_RichHudControls_ChatPadOrange"><code>ChatPadOrange = 203</code></dt>
+  
+  <dd></dd>
+    <dt id="RichHudFramework_UI_RichHudControls_OemOpenBrackets"><code>OemOpenBrackets = 219</code></dt>
+  
+  <dd></dd>
+    <dt id="RichHudFramework_UI_RichHudControls_OemPipe"><code>OemPipe = 220</code></dt>
+  
+  <dd></dd>
+    <dt id="RichHudFramework_UI_RichHudControls_OemCloseBrackets"><code>OemCloseBrackets = 221</code></dt>
+  
+  <dd></dd>
+    <dt id="RichHudFramework_UI_RichHudControls_OemQuotes"><code>OemQuotes = 222</code></dt>
+  
+  <dd></dd>
+    <dt id="RichHudFramework_UI_RichHudControls_Oem8"><code>Oem8 = 223</code></dt>
+  
+  <dd></dd>
+    <dt id="RichHudFramework_UI_RichHudControls_OEMAX"><code>OEMAX = 225</code></dt>
+  
+  <dd></dd>
+    <dt id="RichHudFramework_UI_RichHudControls_OemBackslash"><code>OemBackslash = 226</code></dt>
+  
+  <dd></dd>
+    <dt id="RichHudFramework_UI_RichHudControls_ICOHelp"><code>ICOHelp = 227</code></dt>
+  
+  <dd></dd>
+    <dt id="RichHudFramework_UI_RichHudControls_ICO00"><code>ICO00 = 228</code></dt>
+  
+  <dd></dd>
+    <dt id="RichHudFramework_UI_RichHudControls_ProcessKey"><code>ProcessKey = 229</code></dt>
+  
+  <dd></dd>
+    <dt id="RichHudFramework_UI_RichHudControls_ICOClear"><code>ICOClear = 230</code></dt>
+  
+  <dd></dd>
+    <dt id="RichHudFramework_UI_RichHudControls_Packet"><code>Packet = 231</code></dt>
+  
+  <dd></dd>
+    <dt id="RichHudFramework_UI_RichHudControls_OEMReset"><code>OEMReset = 233</code></dt>
+  
+  <dd></dd>
+    <dt id="RichHudFramework_UI_RichHudControls_OEMJump"><code>OEMJump = 234</code></dt>
+  
+  <dd></dd>
+    <dt id="RichHudFramework_UI_RichHudControls_OEMPA1"><code>OEMPA1 = 235</code></dt>
+  
+  <dd></dd>
+    <dt id="RichHudFramework_UI_RichHudControls_OEMPA2"><code>OEMPA2 = 236</code></dt>
+  
+  <dd></dd>
+    <dt id="RichHudFramework_UI_RichHudControls_OEMPA3"><code>OEMPA3 = 237</code></dt>
+  
+  <dd></dd>
+    <dt id="RichHudFramework_UI_RichHudControls_OEMWSCtrl"><code>OEMWSCtrl = 238</code></dt>
+  
+  <dd></dd>
+    <dt id="RichHudFramework_UI_RichHudControls_OEMCUSel"><code>OEMCUSel = 239</code></dt>
+  
+  <dd></dd>
+    <dt id="RichHudFramework_UI_RichHudControls_OEMATTN"><code>OEMATTN = 240</code></dt>
+  
+  <dd></dd>
+    <dt id="RichHudFramework_UI_RichHudControls_OEMFinish"><code>OEMFinish = 241</code></dt>
+  
+  <dd></dd>
+    <dt id="RichHudFramework_UI_RichHudControls_OEMCopy"><code>OEMCopy = 242</code></dt>
+  
+  <dd></dd>
+    <dt id="RichHudFramework_UI_RichHudControls_OEMAuto"><code>OEMAuto = 243</code></dt>
+  
+  <dd></dd>
+    <dt id="RichHudFramework_UI_RichHudControls_OEMENLW"><code>OEMENLW = 244</code></dt>
+  
+  <dd></dd>
+    <dt id="RichHudFramework_UI_RichHudControls_OEMBackTab"><code>OEMBackTab = 245</code></dt>
+  
+  <dd></dd>
+    <dt id="RichHudFramework_UI_RichHudControls_ATTN"><code>ATTN = 246</code></dt>
+  
+  <dd></dd>
+    <dt id="RichHudFramework_UI_RichHudControls_CRSel"><code>CRSel = 247</code></dt>
+  
+  <dd></dd>
+    <dt id="RichHudFramework_UI_RichHudControls_EXSel"><code>EXSel = 248</code></dt>
+  
+  <dd></dd>
+    <dt id="RichHudFramework_UI_RichHudControls_EREOF"><code>EREOF = 249</code></dt>
+  
+  <dd></dd>
+    <dt id="RichHudFramework_UI_RichHudControls_Play"><code>Play = 250</code></dt>
+  
+  <dd></dd>
+    <dt id="RichHudFramework_UI_RichHudControls_Zoom"><code>Zoom = 251</code></dt>
+  
+  <dd></dd>
+    <dt id="RichHudFramework_UI_RichHudControls_Noname"><code>Noname = 252</code></dt>
+  
+  <dd></dd>
+    <dt id="RichHudFramework_UI_RichHudControls_PA1"><code>PA1 = 253</code></dt>
+  
+  <dd></dd>
+    <dt id="RichHudFramework_UI_RichHudControls_OEMClear"><code>OEMClear = 254</code></dt>
+  
+  <dd></dd>
+    <dt id="RichHudFramework_UI_RichHudControls_MousewheelUp"><code>MousewheelUp = 256</code></dt>
+  
+  <dd></dd>
+    <dt id="RichHudFramework_UI_RichHudControls_MousewheelDown"><code>MousewheelDown = 257</code></dt>
+  
+  <dd></dd>
+    <dt id="RichHudFramework_UI_RichHudControls_LeftStickLeft"><code>LeftStickLeft = 258</code></dt>
+  
+  <dd></dd>
+    <dt id="RichHudFramework_UI_RichHudControls_LeftStickRight"><code>LeftStickRight = 259</code></dt>
+  
+  <dd></dd>
+    <dt id="RichHudFramework_UI_RichHudControls_LeftStickUp"><code>LeftStickUp = 260</code></dt>
+  
+  <dd></dd>
+    <dt id="RichHudFramework_UI_RichHudControls_LeftStickDown"><code>LeftStickDown = 261</code></dt>
+  
+  <dd></dd>
+    <dt id="RichHudFramework_UI_RichHudControls_LeftStickX"><code>LeftStickX = 262</code></dt>
+  
+  <dd></dd>
+    <dt id="RichHudFramework_UI_RichHudControls_LeftStickY"><code>LeftStickY = 263</code></dt>
+  
+  <dd></dd>
+    <dt id="RichHudFramework_UI_RichHudControls_RightStickLeft"><code>RightStickLeft = 264</code></dt>
+  
+  <dd></dd>
+    <dt id="RichHudFramework_UI_RichHudControls_RightStickRight"><code>RightStickRight = 265</code></dt>
+  
+  <dd></dd>
+    <dt id="RichHudFramework_UI_RichHudControls_RightStickUp"><code>RightStickUp = 266</code></dt>
+  
+  <dd></dd>
+    <dt id="RichHudFramework_UI_RichHudControls_RightStickDown"><code>RightStickDown = 267</code></dt>
+  
+  <dd></dd>
+    <dt id="RichHudFramework_UI_RichHudControls_RightStickX"><code>RightStickX = 268</code></dt>
+  
+  <dd></dd>
+    <dt id="RichHudFramework_UI_RichHudControls_RightStickY"><code>RightStickY = 269</code></dt>
+  
+  <dd></dd>
+    <dt id="RichHudFramework_UI_RichHudControls_LeftTrigger"><code>LeftTrigger = 270</code></dt>
+  
+  <dd></dd>
+    <dt id="RichHudFramework_UI_RichHudControls_RightTrigger"><code>RightTrigger = 271</code></dt>
+  
+  <dd></dd>
+    <dt id="RichHudFramework_UI_RichHudControls_Slider1"><code>Slider1 = 272</code></dt>
+  
+  <dd></dd>
+    <dt id="RichHudFramework_UI_RichHudControls_Slider2"><code>Slider2 = 273</code></dt>
+  
+  <dd></dd>
+    <dt id="RichHudFramework_UI_RichHudControls_ReservedEnd"><code>ReservedEnd = 288</code></dt>
+  
+  <dd></dd>
+    <dt id="RichHudFramework_UI_RichHudControls_DPadLeft"><code>DPadLeft = 289</code></dt>
+  
+  <dd></dd>
+    <dt id="RichHudFramework_UI_RichHudControls_DPadRight"><code>DPadRight = 290</code></dt>
+  
+  <dd></dd>
+    <dt id="RichHudFramework_UI_RichHudControls_DPadUp"><code>DPadUp = 291</code></dt>
+  
+  <dd></dd>
+    <dt id="RichHudFramework_UI_RichHudControls_DPadDown"><code>DPadDown = 292</code></dt>
+  
+  <dd></dd>
+    <dt id="RichHudFramework_UI_RichHudControls_GpadA"><code>GpadA = 293</code></dt>
+  
+  <dd></dd>
+    <dt id="RichHudFramework_UI_RichHudControls_GpadB"><code>GpadB = 294</code></dt>
+  
+  <dd></dd>
+    <dt id="RichHudFramework_UI_RichHudControls_GpadX"><code>GpadX = 295</code></dt>
+  
+  <dd></dd>
+    <dt id="RichHudFramework_UI_RichHudControls_GpadY"><code>GpadY = 296</code></dt>
+  
+  <dd></dd>
+    <dt id="RichHudFramework_UI_RichHudControls_LeftBumper"><code>LeftBumper = 297</code></dt>
+  
+  <dd></dd>
+    <dt id="RichHudFramework_UI_RichHudControls_RightBumper"><code>RightBumper = 298</code></dt>
+  
+  <dd></dd>
+    <dt id="RichHudFramework_UI_RichHudControls_GpadView"><code>GpadView = 299</code></dt>
+  
+  <dd><p>Back button on Xbox 360, View button on newer controllers</p>
+</dd>
+    <dt id="RichHudFramework_UI_RichHudControls_GpadMenu"><code>GpadMenu = 300</code></dt>
+  
+  <dd><p>Start button on 360, Menu button on newer controllers</p>
+</dd>
+    <dt id="RichHudFramework_UI_RichHudControls_LeftStickBtn"><code>LeftStickBtn = 301</code></dt>
+  
+  <dd></dd>
+    <dt id="RichHudFramework_UI_RichHudControls_RightStickBtn"><code>RightStickBtn = 302</code></dt>
+  
+  <dd></dd>
+  </dl>
+
+
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/BindManager/CustomControls.cs/#L11" class="edit-link">Edit this page</a>
+        </div>
+
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

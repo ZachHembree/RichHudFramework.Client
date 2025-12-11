@@ -1,0 +1,1105 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Struct GlyphFormat | Rich HUD Framework </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Struct GlyphFormat | Rich HUD Framework ">
+      
+      <meta name="description" content="Defines the formatting applied to characters in  and . Includes color, font, style, size, and alignment.">
+      <link rel="icon" href="../resources/images/favicon.ico">
+      <link rel="stylesheet" href="../public/docfx.min.css">
+      <link rel="stylesheet" href="../public/main.css">
+      <meta name="docfx:navrel" content="../toc.html">
+      <meta name="docfx:tocrel" content="toc.html">
+      
+      <meta name="docfx:rel" content="../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/ZachHembree/RichHudFramework.Client/blob/docfx/api-supplements/Shared/UI/RichText/GlyphFormat.md/#L2">
+
+      <!-- Optional nav title customization -->
+      <meta name="loc:inThisArticle" content="Sections">
+      
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="ManagedReference">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand d-flex align-items-center" href="../index.html">
+            <img id="logo" class="svg me-2" src="../resources/images/logo.svg" alt="Rich HUD Framework">
+            
+            <!-- Vertical divider -->
+            <span class="vr align-self-stretch opacity-75" aria-hidden="true"></span>
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="RichHudFramework.UI.GlyphFormat">
+
+
+
+  <h1 id="RichHudFramework_UI_GlyphFormat" data-uid="RichHudFramework.UI.GlyphFormat" class="text-break">
+Struct GlyphFormat  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/RichText/GlyphFormat.cs/#L27"><i class="bi bi-code-slash"></i></a>
+  </h1>
+
+  <div class="facts text-secondary">
+    <dl><dt>Namespace</dt><dd><a class="xref" href="RichHudFramework.html">RichHudFramework</a>.<a class="xref" href="RichHudFramework.UI.html">UI</a></dd></dl>
+  <dl><dt>Assembly</dt><dd>RichHudClient.dll</dd></dl>
+  </div>
+
+  <div class="markdown summary"><p>Defines the formatting applied to characters in <a class="xref" href="RichHudFramework.UI.RichText.html">RichText</a> and <a class="xref" href="RichHudFramework.UI.Rendering.ITextBoard.html">ITextBoard</a>.
+Includes color, font, style, size, and alignment.</p>
+</div>
+  <div class="markdown conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public struct GlyphFormat : IEquatable&lt;GlyphFormat&gt;</code></pre>
+  </div>
+
+
+
+
+
+  <dl class="typelist implements">
+    <dt>Implements</dt>
+    <dd>
+      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.iequatable-1">IEquatable</a>&lt;<a class="xref" href="RichHudFramework.UI.GlyphFormat.html">GlyphFormat</a>&gt;</div>
+    </dd>
+  </dl>
+
+
+
+
+
+  <h2 id="RichHudFramework_UI_GlyphFormat_examples">Examples</h2>
+  
+<pre><code class="lang-csharp">public static readonly GlyphFormat basicRed = new GlyphFormat(textSize: 1.0f, color: Color.Red);
+public static readonly GlyphFormat fancyRed = basicRed.WithFont(&quot;AbhayaLibreMedium&quot;);
+public static readonly GlyphFormat sansSerifHeader = new GlyphFormat(Color.LightBlue, TextAlignment.Center, 1.4f, &quot;BitstreamVeraSans&quot;);
+public static readonly GlyphFormat fluentPurple = GlyphFormat.White.
+    WithColor(Color.Purple).
+    WithSize(0.8f);
+</code></pre>
+
+
+
+
+  <h2 class="section" id="constructors">Constructors
+</h2>
+
+
+  <a id="RichHudFramework_UI_GlyphFormat__ctor_" data-uid="RichHudFramework.UI.GlyphFormat.#ctor*"></a>
+
+  <h3 id="RichHudFramework_UI_GlyphFormat__ctor_RichHudFramework_UI_GlyphFormat_" data-uid="RichHudFramework.UI.GlyphFormat.#ctor(RichHudFramework.UI.GlyphFormat)">
+  GlyphFormat(GlyphFormat)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/RichText/GlyphFormat.cs/#L132"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Copy constructor. Creates a new independent copy of the given format.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public GlyphFormat(GlyphFormat original)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>original</code> <a class="xref" href="RichHudFramework.UI.GlyphFormat.html">GlyphFormat</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="RichHudFramework_UI_GlyphFormat__ctor_" data-uid="RichHudFramework.UI.GlyphFormat.#ctor*"></a>
+
+  <h3 id="RichHudFramework_UI_GlyphFormat__ctor_VRageMath_Color_RichHudFramework_UI_TextAlignment_System_Single_RichHudFramework_UI_Rendering_FontStyles_RichHudFramework_UI_Rendering_IFontMin_" data-uid="RichHudFramework.UI.GlyphFormat.#ctor(VRageMath.Color,RichHudFramework.UI.TextAlignment,System.Single,RichHudFramework.UI.Rendering.FontStyles,RichHudFramework.UI.Rendering.IFontMin)">
+  GlyphFormat(Color, TextAlignment, float, FontStyles, IFontMin)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/RichText/GlyphFormat.cs/#L112"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Creates a new <a class="xref" href="RichHudFramework.UI.GlyphFormat.html">GlyphFormat</a> using an <a class="xref" href="RichHudFramework.UI.Rendering.IFontMin.html">IFontMin</a> instance and style.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public GlyphFormat(Color color = default, TextAlignment alignment = TextAlignment.Left, float textSize = 1, FontStyles style = FontStyles.Regular, IFontMin font = null)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>color</code> <a class="xref" href="https://keensoftwarehouse.github.io/SpaceEngineersModAPI/api/VRageMath.Color.html">Color</a></dt>
+    <dd><p>Text color. Defaults to black.</p>
+</dd>
+    <dt><code>alignment</code> <a class="xref" href="RichHudFramework.UI.TextAlignment.html">TextAlignment</a></dt>
+    <dd><p>Text alignment. Defaults to Left.</p>
+</dd>
+    <dt><code>textSize</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></dt>
+    <dd><p>Text size. Defaults to 1.0f ~= 12pts.</p>
+</dd>
+    <dt><code>style</code> <a class="xref" href="RichHudFramework.UI.Rendering.FontStyles.html">FontStyles</a></dt>
+    <dd><p>Font style. Defaults to Regular.</p>
+</dd>
+    <dt><code>font</code> <a class="xref" href="RichHudFramework.UI.Rendering.IFontMin.html">IFontMin</a></dt>
+    <dd><p>Font instance. Defaults to the system default font if null.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="RichHudFramework_UI_GlyphFormat__ctor_" data-uid="RichHudFramework.UI.GlyphFormat.#ctor*"></a>
+
+  <h3 id="RichHudFramework_UI_GlyphFormat__ctor_VRageMath_Color_RichHudFramework_UI_TextAlignment_System_Single_System_String_RichHudFramework_UI_Rendering_FontStyles_" data-uid="RichHudFramework.UI.GlyphFormat.#ctor(VRageMath.Color,RichHudFramework.UI.TextAlignment,System.Single,System.String,RichHudFramework.UI.Rendering.FontStyles)">
+  GlyphFormat(Color, TextAlignment, float, string, FontStyles)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/RichText/GlyphFormat.cs/#L88"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Creates a new <a class="xref" href="RichHudFramework.UI.GlyphFormat.html">GlyphFormat</a> using a font name string.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public GlyphFormat(Color color, TextAlignment alignment, float textSize, string fontName, FontStyles style = FontStyles.Regular)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>color</code> <a class="xref" href="https://keensoftwarehouse.github.io/SpaceEngineersModAPI/api/VRageMath.Color.html">Color</a></dt>
+    <dd><p>Text color. Defaults to black if unspecified.</p>
+</dd>
+    <dt><code>alignment</code> <a class="xref" href="RichHudFramework.UI.TextAlignment.html">TextAlignment</a></dt>
+    <dd><p>Text alignment.</p>
+</dd>
+    <dt><code>textSize</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></dt>
+    <dd><p>Text size normalized to 1.0f ~= 12pts.</p>
+</dd>
+    <dt><code>fontName</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd><p>Name of the font registered in <a class="xref" href="RichHudFramework.UI.Rendering.Client.FontManager.html">FontManager</a>.</p>
+</dd>
+    <dt><code>style</code> <a class="xref" href="RichHudFramework.UI.Rendering.FontStyles.html">FontStyles</a></dt>
+    <dd><p>Font style (Regular, Bold, Italic, etc.).</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="RichHudFramework_UI_GlyphFormat__ctor_" data-uid="RichHudFramework.UI.GlyphFormat.#ctor*"></a>
+
+  <h3 id="RichHudFramework_UI_GlyphFormat__ctor_VRageMath_Color_RichHudFramework_UI_TextAlignment_System_Single_VRageMath_Vector2I_" data-uid="RichHudFramework.UI.GlyphFormat.#ctor(VRageMath.Color,RichHudFramework.UI.TextAlignment,System.Single,VRageMath.Vector2I)">
+  GlyphFormat(Color, TextAlignment, float, Vector2I)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/RichText/GlyphFormat.cs/#L96"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Creates a new <a class="xref" href="RichHudFramework.UI.GlyphFormat.html">GlyphFormat</a> using raw font/style indices.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public GlyphFormat(Color color, TextAlignment alignment, float textSize, Vector2I fontStyle)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>color</code> <a class="xref" href="https://keensoftwarehouse.github.io/SpaceEngineersModAPI/api/VRageMath.Color.html">Color</a></dt>
+    <dd></dd>
+    <dt><code>alignment</code> <a class="xref" href="RichHudFramework.UI.TextAlignment.html">TextAlignment</a></dt>
+    <dd></dd>
+    <dt><code>textSize</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></dt>
+    <dd></dd>
+    <dt><code>fontStyle</code> <a class="xref" href="https://keensoftwarehouse.github.io/SpaceEngineersModAPI/api/VRageMath.Vector2I.html">Vector2I</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <h2 class="section" id="fields">Fields
+</h2>
+
+
+
+  <h3 id="RichHudFramework_UI_GlyphFormat_Black" data-uid="RichHudFramework.UI.GlyphFormat.Black">
+  Black
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/RichText/GlyphFormat.cs/#L31"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Black text using default font and regular style.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static readonly GlyphFormat Black</code></pre>
+  </div>
+
+
+
+
+  <h4 class="section">Field Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="RichHudFramework.UI.GlyphFormat.html">GlyphFormat</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+  <h3 id="RichHudFramework_UI_GlyphFormat_Blueish" data-uid="RichHudFramework.UI.GlyphFormat.Blueish">
+  Blueish
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/RichText/GlyphFormat.cs/#L37"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Light blue-ish text commonly used for highlighted or neutral UI elements.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static readonly GlyphFormat Blueish</code></pre>
+  </div>
+
+
+
+
+  <h4 class="section">Field Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="RichHudFramework.UI.GlyphFormat.html">GlyphFormat</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+  <h3 id="RichHudFramework_UI_GlyphFormat_Empty" data-uid="RichHudFramework.UI.GlyphFormat.Empty">
+  Empty
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/RichText/GlyphFormat.cs/#L40"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Empty/invalid format. All fields are default/zero.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static readonly GlyphFormat Empty</code></pre>
+  </div>
+
+
+
+
+  <h4 class="section">Field Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="RichHudFramework.UI.GlyphFormat.html">GlyphFormat</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+  <h3 id="RichHudFramework_UI_GlyphFormat_White" data-uid="RichHudFramework.UI.GlyphFormat.White">
+  White
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/RichText/GlyphFormat.cs/#L34"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>White text using default font and regular style.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static readonly GlyphFormat White</code></pre>
+  </div>
+
+
+
+
+  <h4 class="section">Field Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="RichHudFramework.UI.GlyphFormat.html">GlyphFormat</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+  <h2 class="section" id="properties">Properties
+</h2>
+
+
+  <a id="RichHudFramework_UI_GlyphFormat_Alignment_" data-uid="RichHudFramework.UI.GlyphFormat.Alignment*"></a>
+
+  <h3 id="RichHudFramework_UI_GlyphFormat_Alignment" data-uid="RichHudFramework.UI.GlyphFormat.Alignment">
+  Alignment
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/RichText/GlyphFormat.cs/#L45"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Text alignment for this format (Left, Center, or Right).</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public TextAlignment Alignment { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="RichHudFramework.UI.TextAlignment.html">TextAlignment</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="RichHudFramework_UI_GlyphFormat_Color_" data-uid="RichHudFramework.UI.GlyphFormat.Color*"></a>
+
+  <h3 id="RichHudFramework_UI_GlyphFormat_Color" data-uid="RichHudFramework.UI.GlyphFormat.Color">
+  Color
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/RichText/GlyphFormat.cs/#L70"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>The color of the text.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Color Color { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://keensoftwarehouse.github.io/SpaceEngineersModAPI/api/VRageMath.Color.html">Color</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="RichHudFramework_UI_GlyphFormat_Font_" data-uid="RichHudFramework.UI.GlyphFormat.Font*"></a>
+
+  <h3 id="RichHudFramework_UI_GlyphFormat_Font" data-uid="RichHudFramework.UI.GlyphFormat.Font">
+  Font
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/RichText/GlyphFormat.cs/#L55"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>The font used by this format, retrieved from the global <a class="xref" href="RichHudFramework.UI.Rendering.Client.FontManager.html">FontManager</a>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public IFontMin Font { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="RichHudFramework.UI.Rendering.IFontMin.html">IFontMin</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="RichHudFramework_UI_GlyphFormat_FontStyle_" data-uid="RichHudFramework.UI.GlyphFormat.FontStyle*"></a>
+
+  <h3 id="RichHudFramework_UI_GlyphFormat_FontStyle" data-uid="RichHudFramework.UI.GlyphFormat.FontStyle">
+  FontStyle
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/RichText/GlyphFormat.cs/#L60"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>The specific style (Regular, Bold, Italic, etc.) applied to the font.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public FontStyles FontStyle { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="RichHudFramework.UI.Rendering.FontStyles.html">FontStyles</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="RichHudFramework_UI_GlyphFormat_StyleIndex_" data-uid="RichHudFramework.UI.GlyphFormat.StyleIndex*"></a>
+
+  <h3 id="RichHudFramework_UI_GlyphFormat_StyleIndex" data-uid="RichHudFramework.UI.GlyphFormat.StyleIndex">
+  StyleIndex
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/RichText/GlyphFormat.cs/#L65"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Combined font index and style index as a <a class="xref" href="https://keensoftwarehouse.github.io/SpaceEngineersModAPI/api/VRageMath.Vector2I.html">Vector2I</a> (X = font index, Y = style index).</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Vector2I StyleIndex { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://keensoftwarehouse.github.io/SpaceEngineersModAPI/api/VRageMath.Vector2I.html">Vector2I</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="RichHudFramework_UI_GlyphFormat_TextSize_" data-uid="RichHudFramework.UI.GlyphFormat.TextSize*"></a>
+
+  <h3 id="RichHudFramework_UI_GlyphFormat_TextSize" data-uid="RichHudFramework.UI.GlyphFormat.TextSize">
+  TextSize
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/RichText/GlyphFormat.cs/#L50"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Scale multiplier for text size. 1.0f ~= 12pts</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public float TextSize { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <h2 class="section" id="methods">Methods
+</h2>
+
+
+  <a id="RichHudFramework_UI_GlyphFormat_Equals_" data-uid="RichHudFramework.UI.GlyphFormat.Equals*"></a>
+
+  <h3 id="RichHudFramework_UI_GlyphFormat_Equals_RichHudFramework_UI_GlyphFormat_" data-uid="RichHudFramework.UI.GlyphFormat.Equals(RichHudFramework.UI.GlyphFormat)">
+  Equals(GlyphFormat)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/RichText/GlyphFormat.cs/#L219"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Determines whether this format is equal to another <a class="xref" href="RichHudFramework.UI.GlyphFormat.html">GlyphFormat</a>.
+Two formats are equal if all fields match exactly.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool Equals(GlyphFormat format)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>format</code> <a class="xref" href="RichHudFramework.UI.GlyphFormat.html">GlyphFormat</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="RichHudFramework_UI_GlyphFormat_Equals_" data-uid="RichHudFramework.UI.GlyphFormat.Equals*"></a>
+
+  <h3 id="RichHudFramework_UI_GlyphFormat_Equals_System_Object_" data-uid="RichHudFramework.UI.GlyphFormat.Equals(System.Object)">
+  Equals(object)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/RichText/GlyphFormat.cs/#L207"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Determines whether this format is equal to another object.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override bool Equals(object obj)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>obj</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="RichHudFramework_UI_GlyphFormat_GetHashCode_" data-uid="RichHudFramework.UI.GlyphFormat.GetHashCode*"></a>
+
+  <h3 id="RichHudFramework_UI_GlyphFormat_GetHashCode" data-uid="RichHudFramework.UI.GlyphFormat.GetHashCode">
+  GetHashCode()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/RichText/GlyphFormat.cs/#L242"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Returns a hash code for this format.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override int GetHashCode()</code></pre>
+  </div>
+
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="RichHudFramework_UI_GlyphFormat_WithAlignment_" data-uid="RichHudFramework.UI.GlyphFormat.WithAlignment*"></a>
+
+  <h3 id="RichHudFramework_UI_GlyphFormat_WithAlignment_RichHudFramework_UI_TextAlignment_" data-uid="RichHudFramework.UI.GlyphFormat.WithAlignment(RichHudFramework.UI.TextAlignment)">
+  WithAlignment(TextAlignment)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/RichText/GlyphFormat.cs/#L145"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Returns a new <a class="xref" href="RichHudFramework.UI.GlyphFormat.html">GlyphFormat</a> with the specified alignment.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public GlyphFormat WithAlignment(TextAlignment textAlignment)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>textAlignment</code> <a class="xref" href="RichHudFramework.UI.TextAlignment.html">TextAlignment</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="RichHudFramework.UI.GlyphFormat.html">GlyphFormat</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="RichHudFramework_UI_GlyphFormat_WithColor_" data-uid="RichHudFramework.UI.GlyphFormat.WithColor*"></a>
+
+  <h3 id="RichHudFramework_UI_GlyphFormat_WithColor_VRageMath_Color_" data-uid="RichHudFramework.UI.GlyphFormat.WithColor(VRageMath.Color)">
+  WithColor(Color)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/RichText/GlyphFormat.cs/#L139"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Returns a new <a class="xref" href="RichHudFramework.UI.GlyphFormat.html">GlyphFormat</a> with the specified color.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public GlyphFormat WithColor(Color color)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>color</code> <a class="xref" href="https://keensoftwarehouse.github.io/SpaceEngineersModAPI/api/VRageMath.Color.html">Color</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="RichHudFramework.UI.GlyphFormat.html">GlyphFormat</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="RichHudFramework_UI_GlyphFormat_WithFont_" data-uid="RichHudFramework.UI.GlyphFormat.WithFont*"></a>
+
+  <h3 id="RichHudFramework_UI_GlyphFormat_WithFont_RichHudFramework_UI_Rendering_IFontMin_RichHudFramework_UI_Rendering_FontStyles_" data-uid="RichHudFramework.UI.GlyphFormat.WithFont(RichHudFramework.UI.Rendering.IFontMin,RichHudFramework.UI.Rendering.FontStyles)">
+  WithFont(IFontMin, FontStyles)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/RichText/GlyphFormat.cs/#L157"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Returns a new <a class="xref" href="RichHudFramework.UI.GlyphFormat.html">GlyphFormat</a> using the specified font and style.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public GlyphFormat WithFont(IFontMin font, FontStyles style = FontStyles.Regular)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>font</code> <a class="xref" href="RichHudFramework.UI.Rendering.IFontMin.html">IFontMin</a></dt>
+    <dd></dd>
+    <dt><code>style</code> <a class="xref" href="RichHudFramework.UI.Rendering.FontStyles.html">FontStyles</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="RichHudFramework.UI.GlyphFormat.html">GlyphFormat</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="RichHudFramework_UI_GlyphFormat_WithFont_" data-uid="RichHudFramework.UI.GlyphFormat.WithFont*"></a>
+
+  <h3 id="RichHudFramework_UI_GlyphFormat_WithFont_System_Int32_" data-uid="RichHudFramework.UI.GlyphFormat.WithFont(System.Int32)">
+  WithFont(int)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/RichText/GlyphFormat.cs/#L151"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Returns a new <a class="xref" href="RichHudFramework.UI.GlyphFormat.html">GlyphFormat</a> using the font at the given index (style unchanged).</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public GlyphFormat WithFont(int font)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>font</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="RichHudFramework.UI.GlyphFormat.html">GlyphFormat</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="RichHudFramework_UI_GlyphFormat_WithFont_" data-uid="RichHudFramework.UI.GlyphFormat.WithFont*"></a>
+
+  <h3 id="RichHudFramework_UI_GlyphFormat_WithFont_System_String_RichHudFramework_UI_Rendering_FontStyles_" data-uid="RichHudFramework.UI.GlyphFormat.WithFont(System.String,RichHudFramework.UI.Rendering.FontStyles)">
+  WithFont(string, FontStyles)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/RichText/GlyphFormat.cs/#L163"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Returns a new <a class="xref" href="RichHudFramework.UI.GlyphFormat.html">GlyphFormat</a> using the font with the specified name and style.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public GlyphFormat WithFont(string fontName, FontStyles style = FontStyles.Regular)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>fontName</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+    <dt><code>style</code> <a class="xref" href="RichHudFramework.UI.Rendering.FontStyles.html">FontStyles</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="RichHudFramework.UI.GlyphFormat.html">GlyphFormat</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="RichHudFramework_UI_GlyphFormat_WithFont_" data-uid="RichHudFramework.UI.GlyphFormat.WithFont*"></a>
+
+  <h3 id="RichHudFramework_UI_GlyphFormat_WithFont_VRageMath_Vector2I_" data-uid="RichHudFramework.UI.GlyphFormat.WithFont(VRageMath.Vector2I)">
+  WithFont(Vector2I)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/RichText/GlyphFormat.cs/#L169"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Returns a new <a class="xref" href="RichHudFramework.UI.GlyphFormat.html">GlyphFormat</a> using the specified font/style index pair.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public GlyphFormat WithFont(Vector2I fontStyle)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>fontStyle</code> <a class="xref" href="https://keensoftwarehouse.github.io/SpaceEngineersModAPI/api/VRageMath.Vector2I.html">Vector2I</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="RichHudFramework.UI.GlyphFormat.html">GlyphFormat</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="RichHudFramework_UI_GlyphFormat_WithSize_" data-uid="RichHudFramework.UI.GlyphFormat.WithSize*"></a>
+
+  <h3 id="RichHudFramework_UI_GlyphFormat_WithSize_System_Single_" data-uid="RichHudFramework.UI.GlyphFormat.WithSize(System.Single)">
+  WithSize(float)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/RichText/GlyphFormat.cs/#L199"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Returns a new <a class="xref" href="RichHudFramework.UI.GlyphFormat.html">GlyphFormat</a> with the specified text size.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public GlyphFormat WithSize(float size)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>size</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="RichHudFramework.UI.GlyphFormat.html">GlyphFormat</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="RichHudFramework_UI_GlyphFormat_WithStyle_" data-uid="RichHudFramework.UI.GlyphFormat.WithStyle*"></a>
+
+  <h3 id="RichHudFramework_UI_GlyphFormat_WithStyle_RichHudFramework_UI_Rendering_FontStyles_" data-uid="RichHudFramework.UI.GlyphFormat.WithStyle(RichHudFramework.UI.Rendering.FontStyles)">
+  WithStyle(FontStyles)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/RichText/GlyphFormat.cs/#L176"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Returns a new <a class="xref" href="RichHudFramework.UI.GlyphFormat.html">GlyphFormat</a> with the specified style applied, if the current font supports it.
+Otherwise returns the original format unchanged.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public GlyphFormat WithStyle(FontStyles style)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>style</code> <a class="xref" href="RichHudFramework.UI.Rendering.FontStyles.html">FontStyles</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="RichHudFramework.UI.GlyphFormat.html">GlyphFormat</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="RichHudFramework_UI_GlyphFormat_WithStyle_" data-uid="RichHudFramework.UI.GlyphFormat.WithStyle*"></a>
+
+  <h3 id="RichHudFramework_UI_GlyphFormat_WithStyle_System_Int32_" data-uid="RichHudFramework.UI.GlyphFormat.WithStyle(System.Int32)">
+  WithStyle(int)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/RichText/GlyphFormat.cs/#L188"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Returns a new <a class="xref" href="RichHudFramework.UI.GlyphFormat.html">GlyphFormat</a> with the specified numeric style index, if supported.
+Otherwise returns the original format unchanged.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public GlyphFormat WithStyle(int style)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>style</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="RichHudFramework.UI.GlyphFormat.html">GlyphFormat</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/RichText/GlyphFormat.cs/#L27" class="edit-link">Edit this page</a>
+        </div>
+
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

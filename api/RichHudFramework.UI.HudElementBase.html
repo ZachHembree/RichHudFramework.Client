@@ -1,0 +1,973 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Class HudElementBase | Rich HUD Framework </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Class HudElementBase | Rich HUD Framework ">
+      
+      <meta name="description" content="Abstract base for all UI elements with definite size and position. Extends HudParentBase and HudNodeBase.">
+      <link rel="icon" href="../resources/images/favicon.ico">
+      <link rel="stylesheet" href="../public/docfx.min.css">
+      <link rel="stylesheet" href="../public/main.css">
+      <meta name="docfx:navrel" content="../toc.html">
+      <meta name="docfx:tocrel" content="toc.html">
+      
+      <meta name="docfx:rel" content="../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/ZachHembree/RichHudFramework.Client/blob/docfx/api-supplements/Shared/UI/HudElementBases/HudElementBase.md/#L40">
+
+      <!-- Optional nav title customization -->
+      <meta name="loc:inThisArticle" content="Sections">
+      
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="ManagedReference">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand d-flex align-items-center" href="../index.html">
+            <img id="logo" class="svg me-2" src="../resources/images/logo.svg" alt="Rich HUD Framework">
+            
+            <!-- Vertical divider -->
+            <span class="vr align-self-stretch opacity-75" aria-hidden="true"></span>
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="RichHudFramework.UI.HudElementBase">
+
+
+
+  <h1 id="RichHudFramework_UI_HudElementBase" data-uid="RichHudFramework.UI.HudElementBase" class="text-break">
+Class HudElementBase  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/HudElementBases/NodeUtils.cs/#L165"><i class="bi bi-code-slash"></i></a>
+  </h1>
+
+  <div class="facts text-secondary">
+    <dl><dt>Namespace</dt><dd><a class="xref" href="RichHudFramework.html">RichHudFramework</a>.<a class="xref" href="RichHudFramework.UI.html">UI</a></dd></dl>
+  <dl><dt>Assembly</dt><dd>RichHudClient.dll</dd></dl>
+  </div>
+
+  <div class="markdown summary"><p>Abstract base for all UI elements with definite size and position. Extends HudParentBase and HudNodeBase.</p>
+</div>
+  <div class="markdown conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public abstract class HudElementBase : HudNodeBase, IReadOnlyHudElement, IReadOnlyHudNode, IReadOnlyHudParent</code></pre>
+  </div>
+
+
+
+
+  <dl class="typelist inheritance">
+    <dt>Inheritance</dt>
+    <dd>
+      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
+      <div><a class="xref" href="RichHudFramework.UI.HudParentBase.html">HudParentBase</a></div>
+      <div><a class="xref" href="RichHudFramework.UI.HudNodeBase.html">HudNodeBase</a></div>
+      <div><span class="xref">HudElementBase</span></div>
+    </dd>
+  </dl>
+
+  <dl class="typelist implements">
+    <dt>Implements</dt>
+    <dd>
+      <div><a class="xref" href="RichHudFramework.UI.IReadOnlyHudElement.html">IReadOnlyHudElement</a></div>
+      <div><a class="xref" href="RichHudFramework.UI.IReadOnlyHudNode.html">IReadOnlyHudNode</a></div>
+      <div><a class="xref" href="RichHudFramework.UI.IReadOnlyHudParent.html">IReadOnlyHudParent</a></div>
+    </dd>
+  </dl>
+
+  <dl class="typelist derived">
+    <dt>Derived</dt>
+    <dd>
+      <div><a class="xref" href="RichHudFramework.UI.BorderBox.html">BorderBox</a></div>
+      <div><a class="xref" href="RichHudFramework.UI.ColorPickerRGB.html">ColorPickerRGB</a></div>
+      <div><a class="xref" href="RichHudFramework.UI.Dropdown-3.html">Dropdown&lt;TContainer, TElement, TValue&gt;</a></div>
+      <div><a class="xref" href="RichHudFramework.UI.EmptyHudElement.html">EmptyHudElement</a></div>
+      <div><a class="xref" href="RichHudFramework.UI.HudCollection-2.html">HudCollection&lt;TElementContainer, TElement&gt;</a></div>
+      <div><a class="xref" href="RichHudFramework.UI.LabelBoxBase.html">LabelBoxBase</a></div>
+      <div><a class="xref" href="RichHudFramework.UI.LabelElementBase.html">LabelElementBase</a></div>
+      <div><a class="xref" href="RichHudFramework.UI.MouseInputElement.html">MouseInputElement</a></div>
+      <div><a class="xref" href="RichHudFramework.UI.NamedCheckBox.html">NamedCheckBox</a></div>
+      <div><a class="xref" href="RichHudFramework.UI.NamedOnOffButton.html">NamedOnOffButton</a></div>
+      <div><a class="xref" href="RichHudFramework.UI.NamedSliderBox.html">NamedSliderBox</a></div>
+      <div><a class="xref" href="RichHudFramework.UI.OnOffButton.html">OnOffButton</a></div>
+      <div><a class="xref" href="RichHudFramework.UI.ScrollBar.html">ScrollBar</a></div>
+      <div><a class="xref" href="RichHudFramework.UI.SelectionBoxBase-3.html">SelectionBoxBase&lt;TChain, TContainer, TElement&gt;</a></div>
+      <div><a class="xref" href="RichHudFramework.UI.SliderBox.html">SliderBox</a></div>
+      <div><a class="xref" href="RichHudFramework.UI.TexturedBox.html">TexturedBox</a></div>
+      <div><a class="xref" href="RichHudFramework.UI.WindowBase.html">WindowBase</a></div>
+    </dd>
+  </dl>
+
+  <dl class="typelist inheritedMembers">
+    <dt>Inherited Members</dt>
+    <dd>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.HudNodeBase.html#RichHudFramework_UI_HudNodeBase_RichHudFramework_UI_IReadOnlyHudNode_Parent">IReadOnlyHudNode.Parent</a>
+    </div>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.HudNodeBase.html#RichHudFramework_UI_HudNodeBase_Parent">Parent</a>
+    </div>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.HudNodeBase.html#RichHudFramework_UI_HudNodeBase_Registered">Registered</a>
+    </div>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.HudNodeBase.html#RichHudFramework_UI_HudNodeBase_OverlayOffset">OverlayOffset</a>
+    </div>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.HudNodeBase.html#RichHudFramework_UI_HudNodeBase_Register_RichHudFramework_UI_HudParentBase_">Register(HudParentBase)</a>
+    </div>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.HudNodeBase.html#RichHudFramework_UI_HudNodeBase_Unregister">Unregister()</a>
+    </div>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.HudParentBase.html#RichHudFramework_UI_HudParentBase_HudSpace">HudSpace</a>
+    </div>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.HudParentBase.html#RichHudFramework_UI_HudParentBase_Visible">Visible</a>
+    </div>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.HudParentBase.html#RichHudFramework_UI_HudParentBase_InputEnabled">InputEnabled</a>
+    </div>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.HudParentBase.html#RichHudFramework_UI_HudParentBase_ZOffset">ZOffset</a>
+    </div>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.HudParentBase.html#RichHudFramework_UI_HudParentBase_Measure">Measure()</a>
+    </div>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.HudParentBase.html#RichHudFramework_UI_HudParentBase_Layout">Layout()</a>
+    </div>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.HudParentBase.html#RichHudFramework_UI_HudParentBase_Draw">Draw()</a>
+    </div>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.HudParentBase.html#RichHudFramework_UI_HudParentBase_InputDepth">InputDepth()</a>
+    </div>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.HudParentBase.html#RichHudFramework_UI_HudParentBase_HandleInput_VRageMath_Vector2_">HandleInput(Vector2)</a>
+    </div>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.HudParentBase.html#RichHudFramework_UI_HudParentBase_RegisterChild_RichHudFramework_UI_HudNodeBase_">RegisterChild(HudNodeBase)</a>
+    </div>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.HudParentBase.html#RichHudFramework_UI_HudParentBase_RemoveChild_RichHudFramework_UI_HudNodeBase_">RemoveChild(HudNodeBase)</a>
+    </div>
+  </dd></dl>
+
+
+
+  <h2 id="RichHudFramework_UI_HudElementBase_examples">Examples</h2>
+  
+<p>The following example demonstrates how to create a custom UI element by extending this class. It implements a loading bar with an infinitely looping animation using two <a class="xref" href="RichHudFramework.UI.TexturedBox.html">TexturedBox</a> components. The background box uses masking to clip the foreground bar as it slides continuously from left to right.</p>
+<pre><code class="lang-csharp">public class LoadingBarExample : HudElementBase
+{
+    private float animStep;
+    private readonly TexturedBox foreground, background;
+
+    // Recommended constructor format
+    public LoadingBarExample(HudParentBase parent = null) : base(parent)
+    {
+        background = new TexturedBox(this)
+        {
+            Color = TerminalFormatting.DarkSlateGrey, // Dark background
+            DimAlignment = DimAlignments.UnpaddedSize,
+            IsMasking = true // Clip contents that slide out of bounds
+        };
+
+        foreground = new TexturedBox(background)
+        { 
+            Color = TerminalFormatting.Mercury, // Bright foreground
+            DimAlignment = DimAlignments.Height,
+            ParentAlignment = ParentAlignments.InnerLeft
+        };
+
+        // Set default size and padding
+        UnpaddedSize = new Vector2(200f, 30f);
+        Padding = new Vector2(20f);
+        animStep = 0f;
+    }
+
+    protected override void Layout()
+    {
+        // Update animation state
+        animStep = Math.Abs(animStep + 1E-2f) % 1.3f;
+
+        // Update position based on animation step
+        foreground.Width = background.Width * 0.3f;
+        foreground.Offset = new Vector2(background.Width * animStep - foreground.Width, 0f);
+    }
+}
+</code></pre>
+
+
+  <h2 id="RichHudFramework_UI_HudElementBase_remarks">Remarks</h2>
+  <div class="markdown level0 remarks">
+<p>This class serves as the foundational base class for UI elements within the framework, providing essential functionality for sizing, positioning, hierarchy management, and input interaction. While lighter base classes exist in the node graph, this class represents the minimum requirement for any element that requires definite dimensions and offsets.</p>
+<h3 id="parenting-and-registration">Parenting and Registration</h3>
+<p>Every UI element must be registered to a parent node to be updated, rendered, or receive input. Registration is normally performed automatically by the constructor, or manually via <a class="xref" href="RichHudFramework.UI.HudNodeBase.html#RichHudFramework_UI_HudNodeBase_Register_">Register</a>.</p>
+<ul>
+<li>For an element to be rendered or process input, its hierarchy must ultimately trace back to one of the global root nodes provided by <a class="xref" href="RichHudFramework.UI.Client.HudMain.html#RichHudFramework_UI_Client_HudMain_remarks">HudMain</a>.</li>
+<li>Visibility and input handling for registered nodes can be toggled dynamically using <a class="xref" href="RichHudFramework.UI.HudParentBase.html#RichHudFramework_UI_HudParentBase_Visible">Visible</a> and <a class="xref" href="RichHudFramework.UI.HudParentBase.html#RichHudFramework_UI_HudParentBase_InputEnabled">InputEnabled</a>.</li>
+</ul>
+<h3 id="update-cycle-and-customization">Update Cycle and Customization</h3>
+<p>This class extends <a class="xref" href="RichHudFramework.UI.HudNodeBase.html">HudNodeBase</a> and <a class="xref" href="RichHudFramework.UI.HudParentBase.html">HudParentBase</a>, exposing the core update loop hooks required to create custom UI behavior imperatively:</p>
+<ol>
+<li><a class="xref" href="RichHudFramework.UI.HudParentBase.html#RichHudFramework_UI_HudParentBase_Measure_">Measure</a>: Logic for calculating element dimensions for self-resizing (occurring before the main layout pass).</li>
+<li><a class="xref" href="RichHudFramework.UI.HudParentBase.html#RichHudFramework_UI_HudParentBase_Layout_">Layout</a>: Logic for arranging child elements, setting finalized sizes, and updating relative positioning.</li>
+<li><a class="xref" href="RichHudFramework.UI.HudParentBase.html#RichHudFramework_UI_HudParentBase_Draw_">Draw</a>: Logic for rendering the element (e.g., drawing billboards or text).</li>
+<li><a class="xref" href="RichHudFramework.UI.HudParentBase.html#RichHudFramework_UI_HudParentBase_InputDepth_">InputDepth</a> and <a class="xref" href="RichHudFramework.UI.HudParentBase.html#RichHudFramework_UI_HudParentBase_HandleInput_">HandleInput</a>: Logic for cursor and keyboard polling.</li>
+</ol>
+<div class="NOTE">
+<h5>Note</h5>
+<p>Parent nodes can override the sizing of child nodes during layout. Custom UI elements should be designed to respect overrides where practical to ensure stable and correct positioning.</p>
+</div>
+<h3 id="layout-and-alignment">Layout and Alignment</h3>
+<p>By default, UI elements are placed relative to the center of the parent node; their <a class="xref" href="RichHudFramework.UI.HudElementBase.html#RichHudFramework_UI_HudElementBase_Origin">Origin</a>s are centered. This differs from many UI systems that default to top-left. For UI elements attached directly to one of the root nodes, their position will be relative to the center of the screen. Positioning is set via <a class="xref" href="RichHudFramework.UI.HudElementBase.html#RichHudFramework_UI_HudElementBase_Offset">Offset</a>.</p>
+<p>This class includes declarative utilities to simplify layout management without requiring manual calculations in the <code>Layout</code> hook:</p>
+<ul>
+<li><p><a class="xref" href="RichHudFramework.UI.HudElementBase.html#RichHudFramework_UI_HudElementBase_ParentAlignment">ParentAlignment</a>: Configures the anchoring of the element's <code>Origin</code> relative to its parent. When attached directly to <code>Root</code> or <code>HighDpiRoot</code>, this alignment is clamped to keep the element within screen bounds.</p>
+</li>
+<li><p><a class="xref" href="RichHudFramework.UI.HudElementBase.html#RichHudFramework_UI_HudElementBase_DimAlignment">DimAlignment</a>: Configures automatic size matching. Elements can be set to match their parent's width, height, or both (with or without padding).</p>
+</li>
+</ul>
+<p>By combining these alignment properties with container types like <a class="xref" href="RichHudFramework.UI.HudChain-2.html">HudChain&lt;TElementContainer, TElement&gt;</a>, complex UI layouts can be constructed without resorting to writing manual layout logic.</p>
+<h3 id="input-handling">Input Handling</h3>
+<p>Input can be polled manually, using the <code>HandleInput</code> method seen above, but most standard UI elements have events for value changes, and mouse input events via <a class="xref" href="RichHudFramework.UI.IMouseInput.html">IMouseInput</a> components. <a class="xref" href="RichHudFramework.UI.BindInputElement.html">BindInputElement</a> provides events for registering custom <a class="xref" href="RichHudFramework.UI.IBind.html">IBind</a> presses (created with <a class="xref" href="RichHudFramework.UI.Client.BindManager.html">BindManager</a>) within the context of the UI node. This allows most common input handling to be implemented using only event-driven logic.</p>
+</div>
+
+
+  <h2 class="section" id="constructors">Constructors
+</h2>
+
+
+  <a id="RichHudFramework_UI_HudElementBase__ctor_" data-uid="RichHudFramework.UI.HudElementBase.#ctor*"></a>
+
+  <h3 id="RichHudFramework_UI_HudElementBase__ctor_RichHudFramework_UI_HudParentBase_" data-uid="RichHudFramework.UI.HudElementBase.#ctor(RichHudFramework.UI.HudParentBase)">
+  HudElementBase(HudParentBase)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/HudElementBases/HudElementBase.cs/#L210"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Initializes a new UI element attached to the given parent.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public HudElementBase(HudParentBase parent)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>parent</code> <a class="xref" href="RichHudFramework.UI.HudParentBase.html">HudParentBase</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <h2 class="section" id="properties">Properties
+</h2>
+
+
+  <a id="RichHudFramework_UI_HudElementBase_CachedSize_" data-uid="RichHudFramework.UI.HudElementBase.CachedSize*"></a>
+
+  <h3 id="RichHudFramework_UI_HudElementBase_CachedSize" data-uid="RichHudFramework.UI.HudElementBase.CachedSize">
+  CachedSize
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/HudElementBases/HudElementBase.cs/#L195"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Last known final size, and the next size that will be used on Draw.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected Vector2 CachedSize { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://keensoftwarehouse.github.io/SpaceEngineersModAPI/api/VRageMath.Vector2.html">Vector2</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="RichHudFramework_UI_HudElementBase_CanIgnoreMasking_" data-uid="RichHudFramework.UI.HudElementBase.CanIgnoreMasking*"></a>
+
+  <h3 id="RichHudFramework_UI_HudElementBase_CanIgnoreMasking" data-uid="RichHudFramework.UI.HudElementBase.CanIgnoreMasking">
+  CanIgnoreMasking
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/HudElementBases/HudElementBase.cs/#L175"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>If set to true, then the element can ignore any bounding masks imposed by its parents.
+Supersedes selective masking flag.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool CanIgnoreMasking { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="RichHudFramework_UI_HudElementBase_DimAlignment_" data-uid="RichHudFramework.UI.HudElementBase.DimAlignment*"></a>
+
+  <h3 id="RichHudFramework_UI_HudElementBase_DimAlignment" data-uid="RichHudFramework.UI.HudElementBase.DimAlignment">
+  DimAlignment
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/HudElementBases/HudElementBase.cs/#L104"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Determines how/if an element will copy its parent's dimensions.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public DimAlignments DimAlignment { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="RichHudFramework.UI.DimAlignments.html">DimAlignments</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="RichHudFramework_UI_HudElementBase_Height_" data-uid="RichHudFramework.UI.HudElementBase.Height*"></a>
+
+  <h3 id="RichHudFramework_UI_HudElementBase_Height" data-uid="RichHudFramework.UI.HudElementBase.Height">
+  Height
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/HudElementBases/HudElementBase.cs/#L58"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Height of the element. Units in pixels with HudMain.Root.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public float Height { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="RichHudFramework_UI_HudElementBase_IsMasking_" data-uid="RichHudFramework.UI.HudElementBase.IsMasking*"></a>
+
+  <h3 id="RichHudFramework_UI_HudElementBase_IsMasking" data-uid="RichHudFramework.UI.HudElementBase.IsMasking">
+  IsMasking
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/HudElementBases/HudElementBase.cs/#L143"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>If set to true, the hud element will act as a clipping mask for child elements.
+False by default. Masking parent elements can still affect non-masking children.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool IsMasking { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="RichHudFramework_UI_HudElementBase_IsMousedOver_" data-uid="RichHudFramework.UI.HudElementBase.IsMousedOver*"></a>
+
+  <h3 id="RichHudFramework_UI_HudElementBase_IsMousedOver" data-uid="RichHudFramework.UI.HudElementBase.IsMousedOver">
+  IsMousedOver
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/HudElementBases/HudElementBase.cs/#L190"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Indicates whether or not the element is capturing the cursor.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual bool IsMousedOver { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="RichHudFramework_UI_HudElementBase_IsSelectivelyMasked_" data-uid="RichHudFramework.UI.HudElementBase.IsSelectivelyMasked*"></a>
+
+  <h3 id="RichHudFramework_UI_HudElementBase_IsSelectivelyMasked" data-uid="RichHudFramework.UI.HudElementBase.IsSelectivelyMasked">
+  IsSelectivelyMasked
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/HudElementBases/HudElementBase.cs/#L159"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>If set to true, the hud element will treat its parent as a clipping mask, whether
+it's configured as a mask or not.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool IsSelectivelyMasked { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="RichHudFramework_UI_HudElementBase_MaskingBox_" data-uid="RichHudFramework.UI.HudElementBase.MaskingBox*"></a>
+
+  <h3 id="RichHudFramework_UI_HudElementBase_MaskingBox" data-uid="RichHudFramework.UI.HudElementBase.MaskingBox">
+  MaskingBox
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/HudElementBases/HudElementBase.cs/#L205"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Defines the clipping mask applied to the element and its children.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected BoundingBox2? MaskingBox { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://keensoftwarehouse.github.io/SpaceEngineersModAPI/api/VRageMath.BoundingBox2.html">BoundingBox2</a>?</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="RichHudFramework_UI_HudElementBase_Offset_" data-uid="RichHudFramework.UI.HudElementBase.Offset*"></a>
+
+  <h3 id="RichHudFramework_UI_HudElementBase_Offset" data-uid="RichHudFramework.UI.HudElementBase.Offset">
+  Offset
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/HudElementBases/HudElementBase.cs/#L89"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Position of the center of the UI element relative to its origin.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Vector2 Offset { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://keensoftwarehouse.github.io/SpaceEngineersModAPI/api/VRageMath.Vector2.html">Vector2</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="RichHudFramework_UI_HudElementBase_Origin_" data-uid="RichHudFramework.UI.HudElementBase.Origin*"></a>
+
+  <h3 id="RichHudFramework_UI_HudElementBase_Origin" data-uid="RichHudFramework.UI.HudElementBase.Origin">
+  Origin
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/HudElementBases/HudElementBase.cs/#L84"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Starting/anchoring position of the hud element. Starts in the center of the parent node
+by default. This behavior can be modified with ParentAlignment flags.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Vector2 Origin { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://keensoftwarehouse.github.io/SpaceEngineersModAPI/api/VRageMath.Vector2.html">Vector2</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="RichHudFramework_UI_HudElementBase_OriginAlignment_" data-uid="RichHudFramework.UI.HudElementBase.OriginAlignment*"></a>
+
+  <h3 id="RichHudFramework_UI_HudElementBase_OriginAlignment" data-uid="RichHudFramework.UI.HudElementBase.OriginAlignment">
+  OriginAlignment
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/HudElementBases/HudElementBase.cs/#L200"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Origin offset used internally for parent alignment</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected Vector2 OriginAlignment { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://keensoftwarehouse.github.io/SpaceEngineersModAPI/api/VRageMath.Vector2.html">Vector2</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="RichHudFramework_UI_HudElementBase_Padding_" data-uid="RichHudFramework.UI.HudElementBase.Padding*"></a>
+
+  <h3 id="RichHudFramework_UI_HudElementBase_Padding" data-uid="RichHudFramework.UI.HudElementBase.Padding">
+  Padding
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/HudElementBases/HudElementBase.cs/#L73"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Border size. Included in total element size.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Vector2 Padding { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://keensoftwarehouse.github.io/SpaceEngineersModAPI/api/VRageMath.Vector2.html">Vector2</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="RichHudFramework_UI_HudElementBase_ParentAlignment_" data-uid="RichHudFramework.UI.HudElementBase.ParentAlignment*"></a>
+
+  <h3 id="RichHudFramework_UI_HudElementBase_ParentAlignment" data-uid="RichHudFramework.UI.HudElementBase.ParentAlignment">
+  ParentAlignment
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/HudElementBases/HudElementBase.cs/#L99"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Determines the starting position/anchoring behavior of the hud element relative to its parent.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public ParentAlignments ParentAlignment { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="RichHudFramework.UI.ParentAlignments.html">ParentAlignments</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="RichHudFramework_UI_HudElementBase_Position_" data-uid="RichHudFramework.UI.HudElementBase.Position*"></a>
+
+  <h3 id="RichHudFramework_UI_HudElementBase_Position" data-uid="RichHudFramework.UI.HudElementBase.Position">
+  Position
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/HudElementBases/HudElementBase.cs/#L94"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Current position of the center of the UI element. Origin + Offset.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Vector2 Position { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://keensoftwarehouse.github.io/SpaceEngineersModAPI/api/VRageMath.Vector2.html">Vector2</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="RichHudFramework_UI_HudElementBase_ShareCursor_" data-uid="RichHudFramework.UI.HudElementBase.ShareCursor*"></a>
+
+  <h3 id="RichHudFramework_UI_HudElementBase_ShareCursor" data-uid="RichHudFramework.UI.HudElementBase.ShareCursor">
+  ShareCursor
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/HudElementBases/HudElementBase.cs/#L127"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>If set to true the hud element will share the cursor with other elements.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool ShareCursor { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="RichHudFramework_UI_HudElementBase_Size_" data-uid="RichHudFramework.UI.HudElementBase.Size*"></a>
+
+  <h3 id="RichHudFramework_UI_HudElementBase_Size" data-uid="RichHudFramework.UI.HudElementBase.Size">
+  Size
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/HudElementBases/HudElementBase.cs/#L25"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Size of the element. Units in pixels with HudMain.Root.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Vector2 Size { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://keensoftwarehouse.github.io/SpaceEngineersModAPI/api/VRageMath.Vector2.html">Vector2</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="RichHudFramework_UI_HudElementBase_UnpaddedSize_" data-uid="RichHudFramework.UI.HudElementBase.UnpaddedSize*"></a>
+
+  <h3 id="RichHudFramework_UI_HudElementBase_UnpaddedSize" data-uid="RichHudFramework.UI.HudElementBase.UnpaddedSize">
+  UnpaddedSize
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/HudElementBases/HudElementBase.cs/#L78"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Element size without padding</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Vector2 UnpaddedSize { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://keensoftwarehouse.github.io/SpaceEngineersModAPI/api/VRageMath.Vector2.html">Vector2</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="RichHudFramework_UI_HudElementBase_UseCursor_" data-uid="RichHudFramework.UI.HudElementBase.UseCursor*"></a>
+
+  <h3 id="RichHudFramework_UI_HudElementBase_UseCursor" data-uid="RichHudFramework.UI.HudElementBase.UseCursor">
+  UseCursor
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/HudElementBases/HudElementBase.cs/#L109"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Enables or disables cursor input and capture</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool UseCursor { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="RichHudFramework_UI_HudElementBase_Width_" data-uid="RichHudFramework.UI.HudElementBase.Width*"></a>
+
+  <h3 id="RichHudFramework_UI_HudElementBase_Width" data-uid="RichHudFramework.UI.HudElementBase.Width">
+  Width
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/HudElementBases/HudElementBase.cs/#L43"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Width of the element. Units in pixels with HudMain.Root.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public float Width { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/HudElementBases/NodeUtils.cs/#L165" class="edit-link">Edit this page</a>
+        </div>
+
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

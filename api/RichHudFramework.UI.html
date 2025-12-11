@@ -1,0 +1,1018 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Namespace RichHudFramework.UI | Rich HUD Framework </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Namespace RichHudFramework.UI | Rich HUD Framework ">
+      
+      
+      <link rel="icon" href="../resources/images/favicon.ico">
+      <link rel="stylesheet" href="../public/docfx.min.css">
+      <link rel="stylesheet" href="../public/main.css">
+      <meta name="docfx:navrel" content="../toc.html">
+      <meta name="docfx:tocrel" content="toc.html">
+      
+      <meta name="docfx:rel" content="../">
+      
+      
+      
+
+      <!-- Optional nav title customization -->
+      <meta name="loc:inThisArticle" content="Sections">
+      
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="ManagedReference">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand d-flex align-items-center" href="../index.html">
+            <img id="logo" class="svg me-2" src="../resources/images/logo.svg" alt="Rich HUD Framework">
+            
+            <!-- Vertical divider -->
+            <span class="vr align-self-stretch opacity-75" aria-hidden="true"></span>
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="RichHudFramework.UI">
+
+  <h1 id="RichHudFramework_UI" data-uid="RichHudFramework.UI" class="text-break">Namespace RichHudFramework.UI</h1>
+  <div class="markdown level0 summary"></div>
+  <div class="markdown level0 conceptual"></div>
+  <div class="markdown level0 remarks"></div>
+
+    <h3 id="classes">
+Classes
+</h3>
+    <dl class="jumplist">
+      <dt><a class="xref" href="RichHudFramework.UI.BindGroupInitializer.html">BindGroupInitializer</a></dt>
+      <dd><p>A collection designed to simplify the definition and registration of groups of key binds.</p>
+<p>Supports mixed control types (Strings, MyKeys, RichHudControls, JoystickButtons) via <a class="xref" href="RichHudFramework.UI.ControlHandle.html">ControlHandle</a>.</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="RichHudFramework.UI.BindInputElement.html">BindInputElement</a></dt>
+      <dd><p>Attaches custom control-bind (key/combo) event handling to a UI element.
+Allows arbitrary <a class="xref" href="RichHudFramework.UI.IBind.html">IBind</a> definitions to trigger NewPressed/PressedAndHeld/Released events
+on a specific UI node, optionally requiring input focus.</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="RichHudFramework.UI.BorderBox.html">BorderBox</a></dt>
+      <dd><p>A UI element that renders a textured frame. Supports coloring, transparency,
+texture alignment/scaling, and masking.</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="RichHudFramework.UI.BorderedButton.html">BorderedButton</a></dt>
+      <dd><p><a class="xref" href="RichHudFramework.UI.LabelBoxButton.html">LabelBoxButton</a> styled to closely match the appearance of buttons in the SE terminal.</p>
+<p>Formatting temporarily changes when it gains input focus.</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="RichHudFramework.UI.BorderedCheckBox.html">BorderedCheckBox</a></dt>
+      <dd><p>Bordered checkbox designed to mimic the appearance of the checkbox used in the SE terminal.</p>
+<p>Does not have a label. Use <a class="xref" href="RichHudFramework.UI.NamedCheckBox.html">NamedCheckBox</a> for a version with a label.</p>
+<p>Formatting temporarily changes when it gains input focus.</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="RichHudFramework.UI.Button.html">Button</a></dt>
+      <dd><p>Clickable button with a textured background.</p>
+<p>No styling by default; it's just a clickable <a class="xref" href="RichHudFramework.UI.TexturedBox.html">TexturedBox</a> with highlighting.</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="RichHudFramework.UI.CamSpaceNode.html">CamSpaceNode</a></dt>
+      <dd><p>HudSpace node that builds its Plane-to-World matrix directly from the player camera.</p>
+<p>In its default state this exactly replicates the vanilla <a class="xref" href="RichHudFramework.UI.Client.HudMain.html#RichHudFramework_UI_Client_HudMain_HighDpiRoot">HighDpiRoot</a> 
+transform (screen-space UI). By modifying its properties you can create rotated, offset,
+or world-space (non-screen-space) HUDs that still follow the camera.</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="RichHudFramework.UI.ChainSelectionBoxBase-2.html">ChainSelectionBoxBase&lt;TContainer, TElement&gt;</a></dt>
+      <dd><p>Abstract selection box that uses a <a class="xref" href="RichHudFramework.UI.HudChain-2.html">HudChain&lt;TElementContainer, TElement&gt;</a> as its backing list.
+Intended for fixed-size lists that do not require scrolling.</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="RichHudFramework.UI.ChainSelectionBox-3.html">ChainSelectionBox&lt;TContainer, TElement, TValue&gt;</a></dt>
+      <dd><p>A non-scrolling list of arbitrary selectable UI elements.
+Specialization of SelectionBox using HudChain</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="RichHudFramework.UI.CmdGroupInitializer.html">CmdGroupInitializer</a></dt>
+      <dd><p>A helper container used to define a list of commands and their callbacks
+before registering them to a <a class="xref" href="RichHudFramework.UI.ICommandGroup.html">ICommandGroup</a>.</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="RichHudFramework.UI.CmdManager.html">CmdManager</a></dt>
+      <dd><p>Singleton Session Component responsible for managing chat command registration,
+parsing incoming chat messages, and executing matching commands.</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="RichHudFramework.UI.ColorPickerHSV.html">ColorPickerHSV</a></dt>
+      <dd><p>A named color picker using sliders designed to mimic the appearance of the Space Engineers terminal color picker.</p>
+<p>Operating in HSV mode (Hue, Saturation, Value). Alpha (transparency) is not supported.</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="RichHudFramework.UI.ColorPickerRGB.html">ColorPickerRGB</a></dt>
+      <dd><p>A named color picker component utilizing RGB sliders, styled to mimic the Space Engineers terminal interface.</p>
+<p>Operating in RGB mode. Alpha (transparency) is not supported.</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="RichHudFramework.UI.CustomSpaceNode.html">CustomSpaceNode</a></dt>
+      <dd><p>HudSpace node that uses a completely user-supplied world matrix each frame.
+If no delegate is assigned, the node simply inherits its parent's Plane-to-World matrix.</p>
+<p>Ideal for attaching UI to moving cockpits, turret bases, custom billboards, etc.</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="RichHudFramework.UI.DoubleLabelBox.html">DoubleLabelBox</a></dt>
+      <dd><p>A text box with a text field on the left and another on the right.</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="RichHudFramework.UI.Dropdown-1.html">Dropdown&lt;TValue&gt;</a></dt>
+      <dd><p>Collapsable list box. Designed to mimic the appearance of the dropdown in the SE terminal.</p>
+<p>
+Alias of <a class="xref" href="RichHudFramework.UI.Dropdown-3.html">Dropdown&lt;TContainer, TElement, TValue&gt;</a> using 
+<a class="xref" href="RichHudFramework.UI.ListBoxEntry-1.html">ListBoxEntry&lt;TValue&gt;</a> and <a class="xref" href="RichHudFramework.UI.Label.html">Label</a> as the container and element, respectively.
+</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="RichHudFramework.UI.Dropdown-2.html">Dropdown&lt;TElement, TValue&gt;</a></dt>
+      <dd><p>Collapsable list box. Designed to mimic the appearance of the dropdown in the SE terminal.</p>
+<p>
+Alias of <a class="xref" href="RichHudFramework.UI.Dropdown-3.html">Dropdown&lt;TContainer, TElement, TValue&gt;</a> using 
+<a class="xref" href="RichHudFramework.UI.ListBoxEntry-2.html">ListBoxEntry&lt;TElement, TValue&gt;</a> as the container.
+</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="RichHudFramework.UI.Dropdown-3.html">Dropdown&lt;TContainer, TElement, TValue&gt;</a></dt>
+      <dd><p>Generic collapsable list box. Allows use of custom entry element types.
+Designed to mimic the appearance of the dropdown in the SE terminal.</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="RichHudFramework.UI.EmptyHudElement.html">EmptyHudElement</a></dt>
+      <dd><p>A bare HUD element that renders nothing, does no input handling.</p>
+<p>
+Useful for organizing or grouping UI elements in an area using 
+<a class="xref" href="RichHudFramework.UI.HudElementBase.html#RichHudFramework_UI_HudElementBase_DimAlignment">DimAlignment</a> and <a class="xref" href="RichHudFramework.UI.HudElementBase.html#RichHudFramework_UI_HudElementBase_ParentAlignment">ParentAlignment</a>
+</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="RichHudFramework.UI.EntryData-1.html">EntryData&lt;T&gt;</a></dt>
+      <dd><p>Represents a single entry in a ListBox or Dropdown.</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="RichHudFramework.UI.HudChain.html">HudChain</a></dt>
+      <dd><p>Organizes child elements into a linear stack, either horizontally or vertically.</p>
+<p>Alias of <a class="xref" href="RichHudFramework.UI.HudChain-2.html">HudChain&lt;TElementContainer, TElement&gt;</a>.</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="RichHudFramework.UI.HudChain-1.html">HudChain&lt;TElementContainer&gt;</a></dt>
+      <dd><p>Organizes child elements into a linear stack, either horizontally or vertically.</p>
+<p>Alias of <a class="xref" href="RichHudFramework.UI.HudChain-2.html">HudChain&lt;TElementContainer, TElement&gt;</a>.</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="RichHudFramework.UI.HudChain-2.html">HudChain&lt;TElementContainer, TElement&gt;</a></dt>
+      <dd><p>Organizes child elements into a linear stack, either horizontally or vertically.
+Conceptually similar to a CSS Flexbox or a UI StackPanel.</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="RichHudFramework.UI.HudCollection.html">HudCollection</a></dt>
+      <dd><p>Generic collection of HUD elements, each wrapped in a decorator container.
+Elements inside containers are parented directly to this collection (not to their containers).
+Supports full IList-like manipulation while ensuring proper registration/unregistration with the HUD tree.</p>
+<p>
+Alias for <a class="xref" href="RichHudFramework.UI.HudCollection-2.html">HudCollection&lt;TElementContainer, TElement&gt;</a> using 
+<a class="xref" href="RichHudFramework.UI.HudElementContainer.html">HudElementContainer</a> as the wrapper and <a class="xref" href="RichHudFramework.UI.HudElementBase.html">HudElementBase</a> as the element type.
+</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="RichHudFramework.UI.HudCollection-1.html">HudCollection&lt;TElementContainer&gt;</a></dt>
+      <dd><p>Generic collection of HUD elements, each wrapped in a decorator container.
+Elements inside containers are parented directly to this collection (not to their containers).
+Supports full IList-like manipulation while ensuring proper registration/unregistration with the HUD tree.</p>
+<p>
+Alias for <a class="xref" href="RichHudFramework.UI.HudCollection-2.html">HudCollection&lt;TElementContainer, TElement&gt;</a> where the element type is 
+<a class="xref" href="RichHudFramework.UI.HudElementBase.html">HudElementBase</a>.
+</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="RichHudFramework.UI.HudCollection-2.html">HudCollection&lt;TElementContainer, TElement&gt;</a></dt>
+      <dd><p>Generic collection of HUD elements, each wrapped in a decorator container.
+Elements inside containers are parented directly to this collection (not to their containers).
+Supports full IList-like manipulation while ensuring proper registration/unregistration with the HUD tree.</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="RichHudFramework.UI.HudElementBase.html">HudElementBase</a></dt>
+      <dd><p>Abstract base for all UI elements with definite size and position. Extends HudParentBase and HudNodeBase.</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="RichHudFramework.UI.HudElementContainer.html">HudElementContainer</a></dt>
+      <dd><p>Standard container class for <a class="xref" href="RichHudFramework.UI.HudChain-2.html">HudChain&lt;TElementContainer, TElement&gt;</a>
+members using the base <a class="xref" href="RichHudFramework.UI.HudElementBase.html">HudElementBase</a>.</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="RichHudFramework.UI.HudElementContainer-1.html">HudElementContainer&lt;TElement&gt;</a></dt>
+      <dd><p>Standard container class for <a class="xref" href="RichHudFramework.UI.HudChain-2.html">HudChain&lt;TElementContainer, TElement&gt;</a>  members.</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="RichHudFramework.UI.HudElementTuple-1.html">HudElementTuple&lt;TData&gt;</a></dt>
+      <dd><p>Container class used to associate a base <a class="xref" href="RichHudFramework.UI.HudElementBase.html">HudElementBase</a> with an arbitrary data object.</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="RichHudFramework.UI.HudElementTuple-2.html">HudElementTuple&lt;TElement, TData&gt;</a></dt>
+      <dd><p>Container class used to associate a <a class="xref" href="RichHudFramework.UI.HudChain.html">HudChain</a> entry with an arbitrary data object.</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="RichHudFramework.UI.HudNodeBase.html">HudNodeBase</a></dt>
+      <dd><p>Abstract base for hud elements that can be parented to other elements.</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="RichHudFramework.UI.HudNodeContainer.html">HudNodeContainer</a></dt>
+      <dd><p>Standard container class for <a class="xref" href="RichHudFramework.UI.HudCollection-2.html">HudCollection&lt;TElementContainer, TElement&gt;</a> members
+using the base <a class="xref" href="RichHudFramework.UI.HudNodeBase.html">HudNodeBase</a>.</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="RichHudFramework.UI.HudNodeContainer-1.html">HudNodeContainer&lt;TElement&gt;</a></dt>
+      <dd><p>Base container class for generic <a class="xref" href="RichHudFramework.UI.HudCollection-2.html">HudCollection&lt;TElementContainer, TElement&gt;</a> members.</p>
+<p>Can be extended to associate data with arbitrary HUD nodes.</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="RichHudFramework.UI.HudParentBase.html">HudParentBase</a></dt>
+      <dd><p>Abstract base for HUD elements to which other elements are parented. Types deriving from this class cannot be
+parented to other elements; only types of <a class="xref" href="RichHudFramework.UI.HudNodeBase.html">HudNodeBase</a> can be parented.</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="RichHudFramework.UI.HudSpaceNodeBase.html">HudSpaceNodeBase</a></dt>
+      <dd><p>Abstract base for all HUD nodes that define their own custom coordinate space
+(replacing the default screen-space Pixel-to-World transform with an arbitrary world matrix).</p>
+<p>Provides cursor projection, facing/in-front detection, and origin retrieval for derived classes.</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="RichHudFramework.UI.InputFocusHandler.html">InputFocusHandler</a></dt>
+      <dd><p>Default implementation of <a class="xref" href="RichHudFramework.UI.IFocusHandler.html">IFocusHandler</a>. Handles acquiring and releasing global input focus
+through <a class="xref" href="RichHudFramework.UI.Client.HudMain.html">HudMain</a> and raises the appropriate events.</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="RichHudFramework.UI.KeyComboInit.html">KeyComboInit</a></dt>
+      <dd><p>Helper class for defining a specific combination of controls (up to 3).</p>
+<p>Used with <a class="xref" href="RichHudFramework.UI.BindGroupInitializer.html">BindGroupInitializer</a> to specify bind combos or aliases.</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="RichHudFramework.UI.Label.html">Label</a></dt>
+      <dd><p>A HUD element dedicated to rendering formatted <a class="xref" href="RichHudFramework.UI.RichText.html">RichText</a>.
+This element acts as a wrapper for the underlying <a class="xref" href="RichHudFramework.UI.Label.html#RichHudFramework_UI_Label_TextBoard">TextBoard</a>.</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="RichHudFramework.UI.LabelBox.html">LabelBox</a></dt>
+      <dd><p>A composite UI element that renders text over a textured background.</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="RichHudFramework.UI.LabelBoxBase.html">LabelBoxBase</a></dt>
+      <dd><p>Abstract base class for UI elements that combine a text label with a textured background.</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="RichHudFramework.UI.LabelBoxButton.html">LabelBoxButton</a></dt>
+      <dd><p>Clickable button with text on top of a textured background with highlighting.</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="RichHudFramework.UI.LabelButton.html">LabelButton</a></dt>
+      <dd><p>Clickable text element. Text only, no background.</p>
+<p>No styling by default; it's just a clickable <a class="xref" href="RichHudFramework.UI.Label.html">Label</a> with no highlighting.</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="RichHudFramework.UI.LabelElementBase.html">LabelElementBase</a></dt>
+      <dd><p>Abstract base class for UI elements responsible for rendering text.</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="RichHudFramework.UI.ListBoxEntry-1.html">ListBoxEntry&lt;TValue&gt;</a></dt>
+      <dd><p>A List Box entry that associates a <a class="xref" href="RichHudFramework.UI.Label.html">Label</a> with an object of type <code class="typeparamref">TValue</code>.</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="RichHudFramework.UI.ListBoxEntry-2.html">ListBoxEntry&lt;TElement, TValue&gt;</a></dt>
+      <dd><p>A concrete implementation of a List Box entry, pairing a text element with a data value.</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="RichHudFramework.UI.ListBox-1.html">ListBox&lt;TValue&gt;</a></dt>
+      <dd><p>Scrollable list of text elements. Each list entry is associated with a <code class="typeparamref">TValue</code></p>
+<p>
+Alias of <a class="xref" href="RichHudFramework.UI.ListBox-3.html">ListBox&lt;TContainer, TElement, TValue&gt;</a> using 
+<a class="xref" href="RichHudFramework.UI.ListBoxEntry-1.html">ListBoxEntry&lt;TValue&gt;</a> and <a class="xref" href="RichHudFramework.UI.Label.html">Label</a> as the container and element, respectively.
+</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="RichHudFramework.UI.ListBox-3.html">ListBox&lt;TContainer, TElement, TValue&gt;</a></dt>
+      <dd><p>Generic scrollable list of text elements. Allows use of custom entry element types.
+Each list entry is associated with a <code class="typeparamref">TValue</code></p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="RichHudFramework.UI.ListInputElement-2.html">ListInputElement&lt;TElementContainer, TElement&gt;</a></dt>
+      <dd><p>Specialized <a class="xref" href="RichHudFramework.UI.MouseInputElement.html">MouseInputElement</a> that manages selection, mouse highlighting, and keyboard navigation
+for scrollable lists (vertical or horizontal). Supports both mouse and keyboard-driven selection.</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="RichHudFramework.UI.MouseInputElement.html">MouseInputElement</a></dt>
+      <dd><p>Core mouse interaction component for clickable UI elements.
+Handles cursor enter/exit, left/right clicks, tooltip registration, and automatic focus acquisition on click.</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="RichHudFramework.UI.NamedCheckBox.html">NamedCheckBox</a></dt>
+      <dd><p>Named checkbox designed to mimic the appearance of checkboxes used in the SE terminal.</p>
+<p>Adds a label to <a class="xref" href="RichHudFramework.UI.BorderedCheckBox.html">BorderedCheckBox</a>.</p>
+<p>Formatting temporarily changes when it gains input focus.</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="RichHudFramework.UI.NamedOnOffButton.html">NamedOnOffButton</a></dt>
+      <dd><p>A labeled pair of horizontally aligned on and off bordered buttons used to indicate a boolean value.
+Made to resemble on/off toggle used in the SE terminal.</p>
+<p>Adds a label to <a class="xref" href="RichHudFramework.UI.OnOffButton.html">OnOffButton</a>.</p>
+<p>Formatting temporarily changes when it gains input focus.</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="RichHudFramework.UI.NamedSliderBox.html">NamedSliderBox</a></dt>
+      <dd><p>A composite control containing a horizontal slider box, a name label, and a value label.</p>
+<p>
+Note: The value label is not updated automatically; it must be updated manually via the ValueChanged event.
+</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="RichHudFramework.UI.OnOffButton.html">OnOffButton</a></dt>
+      <dd><p>A pair of horizontally aligned on and off bordered buttons used to indicate a boolean value.
+Styled to resemble on/off button used in the SE terminal.</p>
+<p>Does not have a label. Use <a class="xref" href="RichHudFramework.UI.NamedOnOffButton.html">NamedOnOffButton</a> for a version with a label.</p>
+<p>Formatting temporarily changes when it gains input focus.</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="RichHudFramework.UI.RadialSelectionBox.html">RadialSelectionBox</a></dt>
+      <dd><p>Non-generic radial selection box using the default <a class="xref" href="RichHudFramework.UI.ScrollBoxEntry.html">ScrollBoxEntry</a> container
+with plain <a class="xref" href="RichHudFramework.UI.HudElementBase.html">HudElementBase</a> elements.</p>
+<p>
+Alias of <a class="xref" href="RichHudFramework.UI.RadialSelectionBox-2.html">RadialSelectionBox&lt;TContainer, TElement&gt;</a> using 
+<a class="xref" href="RichHudFramework.UI.ScrollBoxEntry.html">ScrollBoxEntry</a> and <a class="xref" href="RichHudFramework.UI.HudElementBase.html">HudElementBase</a> as the container and element, respectively.
+</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="RichHudFramework.UI.RadialSelectionBox-1.html">RadialSelectionBox&lt;TContainer&gt;</a></dt>
+      <dd><p>Generic radial selection box allowing custom containers while keeping
+<a class="xref" href="RichHudFramework.UI.HudElementBase.html">HudElementBase</a> as the element type.</p>
+<p>
+Alias of <a class="xref" href="RichHudFramework.UI.RadialSelectionBox-2.html">RadialSelectionBox&lt;TContainer, TElement&gt;</a> using 
+<a class="xref" href="RichHudFramework.UI.HudElementBase.html">HudElementBase</a> as the element.
+</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="RichHudFramework.UI.RadialSelectionBox-2.html">RadialSelectionBox&lt;TContainer, TElement&gt;</a></dt>
+      <dd><p>Generic radial selection wheel (pie-menu style). Displays a collection of entries arranged
+in a circular pattern around a central point. Supports both cursor-based and gesture-based
+(drag-to-select) input methods.</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="RichHudFramework.UI.RichText.html">RichText</a></dt>
+      <dd><p>Reusable rich text builder designed for efficient construction and reuse of formatted text.
+Internally minimises StringBuilder allocations by merging  consecutive text segments that
+share identical formatting.</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="RichHudFramework.UI.ScaledSpaceNode.html">ScaledSpaceNode</a></dt>
+      <dd><p>A specialized HUD space node that rescales the X/Y (Right/Up) plane of its parent's
+plane-to-world transformation matrix, enlarging or shrinking all child UI elements
+attached to it uniformly.</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="RichHudFramework.UI.ScrollBar.html">ScrollBar</a></dt>
+      <dd><p>A clickable scrollbar designed to approximate the appearance of standard Space Engineers scrollbars.</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="RichHudFramework.UI.ScrollBox.html">ScrollBox</a></dt>
+      <dd><p>A scrollable container for HUD elements, based on <a class="xref" href="RichHudFramework.UI.HudChain-2.html">HudChain&lt;TElementContainer, TElement&gt;</a>.
+It clips content that exceeds its bounds and provides a scrollbar for navigation.</p>
+<p>
+Alias of <a class="xref" href="RichHudFramework.UI.ScrollBox-2.html">ScrollBox&lt;TElementContainer, TElement&gt;</a> with 
+<a class="xref" href="RichHudFramework.UI.ScrollBoxEntry-1.html">ScrollBoxEntry&lt;TElement&gt;</a> as the container and <a class="xref" href="RichHudFramework.UI.HudElementBase.html">HudElementBase</a> as the element.
+</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="RichHudFramework.UI.ScrollBoxEntry.html">ScrollBoxEntry</a></dt>
+      <dd><p>Base container class for ScrollBox members using <a class="xref" href="RichHudFramework.UI.HudElementBase.html">HudElementBase</a>.</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="RichHudFramework.UI.ScrollBoxEntryTuple-1.html">ScrollBoxEntryTuple&lt;TData&gt;</a></dt>
+      <dd><p>Container class associating a base ScrollBox element with an arbitrary object of
+type <code class="typeparamref">TData</code>.</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="RichHudFramework.UI.ScrollBoxEntryTuple-2.html">ScrollBoxEntryTuple&lt;TElement, TData&gt;</a></dt>
+      <dd><p>Container class associating a ScrollBox element with an arbitrary object of
+type <code class="typeparamref">TData</code>.</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="RichHudFramework.UI.ScrollBoxEntry-1.html">ScrollBoxEntry&lt;TElement&gt;</a></dt>
+      <dd><p>Base container class for ScrollBox members.</p>
+<p>Adds an <a class="xref" href="RichHudFramework.UI.ScrollBoxEntry-1.html#RichHudFramework_UI_ScrollBoxEntry_1_Enabled">Enabled</a> state to the standard <a class="xref" href="RichHudFramework.UI.HudElementContainer-1.html">HudElementContainer&lt;TElement&gt;</a>.</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="RichHudFramework.UI.ScrollBox-1.html">ScrollBox&lt;TElementContainer&gt;</a></dt>
+      <dd><p>A scrollable container for HUD elements, based on <a class="xref" href="RichHudFramework.UI.HudChain-2.html">HudChain&lt;TElementContainer, TElement&gt;</a>.
+It clips content that exceeds its bounds and provides a scrollbar for navigation.</p>
+<p>
+Alias of <a class="xref" href="RichHudFramework.UI.ScrollBox-2.html">ScrollBox&lt;TElementContainer, TElement&gt;</a> with <a class="xref" href="RichHudFramework.UI.HudElementBase.html">HudElementBase</a> as the element type.
+</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="RichHudFramework.UI.ScrollBox-2.html">ScrollBox&lt;TElementContainer, TElement&gt;</a></dt>
+      <dd><p>A scrollable container for HUD elements, based on <a class="xref" href="RichHudFramework.UI.HudChain-2.html">HudChain&lt;TElementContainer, TElement&gt;</a>.
+It clips content that exceeds its bounds and provides a scrollbar for navigation.</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="RichHudFramework.UI.ScrollSelectionBoxBase-2.html">ScrollSelectionBoxBase&lt;TContainer, TElement&gt;</a></dt>
+      <dd><p>Abstract selection box that uses a <a class="xref" href="RichHudFramework.UI.ScrollBox-2.html">ScrollBox&lt;TElementContainer, TElement&gt;</a> as its backing list.
+Supports scrolling (mouse wheel + scrollbar).</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="RichHudFramework.UI.ScrollSelectionBox-3.html">ScrollSelectionBox&lt;TContainer, TElement, TValue&gt;</a></dt>
+      <dd><p>A scrollable list of arbitrary selectable UI elements.
+Generic SelectionBox using ScrollBox</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="RichHudFramework.UI.SelectionBoxBase-3.html">SelectionBoxBase&lt;TChain, TContainer, TElement&gt;</a></dt>
+      <dd><p>Core abstract base class for selection box controls. Manages a list of entries,
+keyboard/mouse selection, highlighting, and visual feedback (selection box + highlight box).</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="RichHudFramework.UI.SelectionBoxEntryTuple-2.html">SelectionBoxEntryTuple&lt;TElement, TValue&gt;</a></dt>
+      <dd><p>Implementation of a Selection Box entry that pairs the element with a value.</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="RichHudFramework.UI.SelectionBoxEntry-1.html">SelectionBoxEntry&lt;TElement&gt;</a></dt>
+      <dd><p>Implementation of a Selection Box entry.</p>
+<p>Manages enablement and highlighting permissions for the contained element.</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="RichHudFramework.UI.SelectionBox-4.html">SelectionBox&lt;TChain, TContainer, TElement, TValue&gt;</a></dt>
+      <dd><p>Generic list of pooled, selectable entries of uniform size.</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="RichHudFramework.UI.SharedBinds.html">SharedBinds</a></dt>
+      <dd><p>A collection of immutable, commonly used key binds used by the framework library.</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="RichHudFramework.UI.SliderBar.html">SliderBar</a></dt>
+      <dd><p>A clickable slider bar consisting of a track (Bar) and a movable thumb (Slider), based on <a class="xref" href="RichHudFramework.UI.MouseInputElement.html">MouseInputElement</a>.
+It can be oriented vertically or horizontally, and the current value is automatically clamped between min and max.</p>
+<p>
+Size is determined by the slider and bar, not <a class="xref" href="RichHudFramework.UI.HudElementBase.html#RichHudFramework_UI_HudElementBase_Size">Size</a> or <a class="xref" href="RichHudFramework.UI.HudElementBase.html#RichHudFramework_UI_HudElementBase_UnpaddedSize">UnpaddedSize</a>.
+</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="RichHudFramework.UI.SliderBox.html">SliderBox</a></dt>
+      <dd><p>A horizontal slider control designed to mimic the appearance of the standard sliders found
+in the Space Engineers terminal.</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="RichHudFramework.UI.TerminalFormatting.html">TerminalFormatting</a></dt>
+      <dd><p>Colors and text formatting used in styling the Rich HUD Terminal and other UI elements themed on
+the Space Engineers terminal style.</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="RichHudFramework.UI.TextBox.html">TextBox</a></dt>
+      <dd><p>Interactive, clickable text box with caret and highlighting. Text only, no background or
+scrollbars.</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="RichHudFramework.UI.TextField.html">TextField</a></dt>
+      <dd><p>Unlined clickable textbox with a background and border designed to look like text fields in the SE
+terminal.</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="RichHudFramework.UI.TextInput.html">TextInput</a></dt>
+      <dd><p>Provides a simple mechanism for handling text input, integrating with the game's input system
+to process characters and backspace events.</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="RichHudFramework.UI.TexturedBox.html">TexturedBox</a></dt>
+      <dd><p>A UI element that renders a textured rectangle. Supports coloring, transparency,
+texture alignment/scaling, and masking.</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="RichHudFramework.UI.ToolTip.html">ToolTip</a></dt>
+      <dd><p>Class used to define tooltips attached to the RHF cursor.</p>
+<p>
+Set via the <a class="xref" href="RichHudFramework.UI.IMouseInput.html#RichHudFramework_UI_IMouseInput_ToolTip">ToolTip</a> property of the given UI element, or registered to 
+<a class="xref" href="RichHudFramework.UI.ICursor.html#RichHudFramework_UI_ICursor_RegisterToolTip_RichHudFramework_UI_ToolTip_">RegisterToolTip(ToolTip)</a> manually in HandleInput() every input tick. 
+</p>
+<p>The first tooltip registered takes precedence.</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="RichHudFramework.UI.TreeBoxBase-2.html">TreeBoxBase&lt;TContainer, TElement&gt;</a></dt>
+      <dd><p>Abstract, generic base class for tree-style dropdown lists
+Provides a collapsible hierarchy of entries with a header that toggles visibility of the list.</p>
+<p>
+Alias for <a class="xref" href="RichHudFramework.UI.TreeBoxBase-4.html">TreeBoxBase&lt;TSelectionBox, TChain, TContainer, TElement&gt;</a>
+using default non-scrolling chain and selection box types
+</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="RichHudFramework.UI.TreeBoxBase-2.TreeChainSelectionBox.html">TreeBoxBase&lt;TContainer, TElement&gt;.TreeChainSelectionBox</a></dt>
+      <dd><p>Minimal <a class="xref" href="RichHudFramework.UI.ChainSelectionBoxBase-2.html">ChainSelectionBoxBase&lt;TContainer, TElement&gt;</a> used internally
+by <a class="xref" href="RichHudFramework.UI.TreeBoxBase-2.html">TreeBoxBase&lt;TContainer, TElement&gt;</a>.</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="RichHudFramework.UI.TreeBoxBase-4.html">TreeBoxBase&lt;TSelectionBox, TChain, TContainer, TElement&gt;</a></dt>
+      <dd><p>Fully generic abstract base for tree box controls. Combines a clickable header (with expand/collapse arrow)
+and a dropdown selection list that appears below it when opened.</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="RichHudFramework.UI.TreeBox-1.html">TreeBox&lt;TValue&gt;</a></dt>
+      <dd><p>Tree box supporting custom entry types of arbitrary height, provided they have a label.</p>
+<p>Alias of <a class="xref" href="RichHudFramework.UI.TreeBox-2.html">TreeBox&lt;TContainer, TElement&gt;</a> with 
+<a class="xref" href="RichHudFramework.UI.LabelElementBase.html">LabelElementBase</a> as the element and <a class="xref" href="RichHudFramework.UI.SelectionBoxEntryTuple-2.html">SelectionBoxEntryTuple&lt;TElement, TValue&gt;</a> as the container.</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="RichHudFramework.UI.TreeBox-2.html">TreeBox&lt;TContainer, TElement&gt;</a></dt>
+      <dd><p>Generic tree box supporting custom entry types of arbitrary height, provided they have a label.</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="RichHudFramework.UI.TreeList-1.html">TreeList&lt;TValue&gt;</a></dt>
+      <dd><p>Indented, collapsable list. Designed to fit in with SE UI elements.</p>
+<p>
+Alias of <a class="xref" href="RichHudFramework.UI.TreeList-3.html">TreeList&lt;TContainer, TElement, TValue&gt;</a> using 
+<a class="xref" href="RichHudFramework.UI.ListBoxEntry-1.html">ListBoxEntry&lt;TValue&gt;</a> and <a class="xref" href="RichHudFramework.UI.Label.html">Label</a> as the container and element, respectively.
+</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="RichHudFramework.UI.TreeList-2.html">TreeList&lt;TElement, TValue&gt;</a></dt>
+      <dd><p>Indented, collapsable list. Designed to fit in with SE UI elements.</p>
+<p>
+Alias of <a class="xref" href="RichHudFramework.UI.TreeList-3.html">TreeList&lt;TContainer, TElement, TValue&gt;</a> using 
+<a class="xref" href="RichHudFramework.UI.ListBoxEntry-2.html">ListBoxEntry&lt;TElement, TValue&gt;</a> as the container.
+</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="RichHudFramework.UI.TreeList-3.html">TreeList&lt;TContainer, TElement, TValue&gt;</a></dt>
+      <dd><p>Generic indented collapsable list of pooled, uniformly-sized entries. Allows use of custom entry element types.
+Designed to fit in with SE UI elements.</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="RichHudFramework.UI.WindowBase.html">WindowBase</a></dt>
+      <dd><p>Base class for a standard window element featuring a header, body, and border.
+Includes built-in support for mouse dragging, edge resizing, and focus management.</p>
+</dd>
+    </dl>
+    <h3 id="structs">
+Structs
+</h3>
+    <dl class="jumplist">
+      <dt><a class="xref" href="RichHudFramework.UI.BindAliasDefinition.html">BindAliasDefinition</a></dt>
+      <dd><p>Wrapper for serializing bind aliases (alternate key combinations) to XML.</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="RichHudFramework.UI.BindDefinition.html">BindDefinition</a></dt>
+      <dd><p>Serializable container for individual key binds.</p>
+<p>Includes the bind name, the primary control combination, and any optional aliases.</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="RichHudFramework.UI.ControlHandle.html">ControlHandle</a></dt>
+      <dd><p>A unified handle for referencing UI controls.</p>
+<p>Abstracts the differences between <span class="xref">VRage.Input.MyKeys</span> (Keyboard), <a class="xref" href="RichHudFramework.UI.RichHudControls.html">RichHudControls</a> (Mouse/Custom), 
+and <span class="xref">VRage.Input.MyJoystickButtonsEnum</span> (Gamepad) by wrapping them in a unique integer ID.</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="RichHudFramework.UI.GlyphFormat.html">GlyphFormat</a></dt>
+      <dd><p>Defines the formatting applied to characters in <a class="xref" href="RichHudFramework.UI.RichText.html">RichText</a> and <a class="xref" href="RichHudFramework.UI.Rendering.ITextBoard.html">ITextBoard</a>.
+Includes color, font, style, size, and alignment.</p>
+</dd>
+    </dl>
+    <h3 id="interfaces">
+Interfaces
+</h3>
+    <dl class="jumplist">
+      <dt><a class="xref" href="RichHudFramework.UI.IBind.html">IBind</a></dt>
+      <dd><p>Interface representing an input tied to one or more key combinations in a <a class="xref" href="RichHudFramework.UI.IBindGroup.html">IBindGroup</a></p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="RichHudFramework.UI.IBindEventProxy.html">IBindEventProxy</a></dt>
+      <dd><p>Provides per-bind event proxies (NewPressed / PressedAndHeld / Released) for custom control bindings
+attached to a UI element.</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="RichHudFramework.UI.IBindGroup.html">IBindGroup</a></dt>
+      <dd><p>A collection of unique keybinds in the <a class="xref" href="RichHudFramework.UI.Client.BindManager.html">BindManager</a></p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="RichHudFramework.UI.IBindInput.html">IBindInput</a></dt>
+      <dd><p>Allows a UI element to respond to arbitrary custom control binds (<a class="xref" href="RichHudFramework.UI.IBind.html">IBind</a>).</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="RichHudFramework.UI.IBindInputElement.html">IBindInputElement</a></dt>
+      <dd><p>Marks a UI element as supporting custom bind input via an <a class="xref" href="RichHudFramework.UI.IBindInput.html">IBindInput</a> instance.</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="RichHudFramework.UI.IChainElementContainer-1.html">IChainElementContainer&lt;TElement&gt;</a></dt>
+      <dd><p>Interface for objects containing UI elements compatible with <a class="xref" href="RichHudFramework.UI.HudChain-2.html">HudChain&lt;TElementContainer, TElement&gt;</a>.</p>
+<p>Provides layout weighting information required for proportional sizing.</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="RichHudFramework.UI.IChatCommand.html">IChatCommand</a></dt>
+      <dd><p>Represents a single chat command registered within a <a class="xref" href="RichHudFramework.UI.ICommandGroup.html">ICommandGroup</a>.</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="RichHudFramework.UI.IClickableElement.html">IClickableElement</a></dt>
+      <dd><p>Indicates that a UI element supports mouse interaction via an <a class="xref" href="RichHudFramework.UI.IMouseInput.html">IMouseInput</a> instance.</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="RichHudFramework.UI.ICommandGroup.html">ICommandGroup</a></dt>
+      <dd><p>Represents a collection of <a class="xref" href="RichHudFramework.UI.IChatCommand.html">IChatCommand</a>s that share a common prefix (e.g., &quot;/modname&quot;).</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="RichHudFramework.UI.IControl.html">IControl</a></dt>
+      <dd><p>Interface for controls used by the <a class="xref" href="RichHudFramework.UI.Client.BindManager.html">BindManager</a></p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="RichHudFramework.UI.ICursor.html">ICursor</a></dt>
+      <dd><p>Represents the global mouse cursor managed by Rich HUD Framework.
+Provides screen/world position, capture state, and tooltip registration functionality.
+Used by all clickable UI elements for correct hit-testing and interaction within and
+between HUD spaces.</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="RichHudFramework.UI.IEntryBox-2.html">IEntryBox&lt;TContainer, TElement&gt;</a></dt>
+      <dd><p>Minimal interface for UI elements that represent a collection of selectable
+<a class="xref" href="RichHudFramework.UI.IScrollBoxEntry-1.html">IScrollBoxEntry&lt;TElement&gt;</a>.</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="RichHudFramework.UI.IFocusHandler.html">IFocusHandler</a></dt>
+      <dd><p>Manages keyboard/input focus for a UI element. Only one element in the entire UI can have focus at a time.
+Input-related events use <a class="xref" href="RichHudFramework.UI.IFocusHandler.html#RichHudFramework_UI_IFocusHandler_InputOwner">InputOwner</a> as the sender object.</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="RichHudFramework.UI.IFocusableElement.html">IFocusableElement</a></dt>
+      <dd><p>Represents a UI element that can receive keyboard/input focus.</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="RichHudFramework.UI.IHudCollection.html">IHudCollection</a></dt>
+      <dd><p>Mutable interface for HUD collections supporting decorator-wrapped child elements.</p>
+<p>
+Alias of <a class="xref" href="RichHudFramework.UI.IHudCollection-2.html">IHudCollection&lt;TElementContainer, TElement&gt;</a> using 
+<a class="xref" href="RichHudFramework.UI.HudElementBase.html">HudElementBase</a> as the element type and <a class="xref" href="RichHudFramework.UI.HudElementContainer.html">HudElementContainer</a> as the wrapper.
+</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="RichHudFramework.UI.IHudCollection-1.html">IHudCollection&lt;TElementContainer&gt;</a></dt>
+      <dd><p>Mutable interface for HUD collections supporting decorator-wrapped child elements.</p>
+<p>
+Alias of <a class="xref" href="RichHudFramework.UI.IHudCollection-2.html">IHudCollection&lt;TElementContainer, TElement&gt;</a> using 
+<a class="xref" href="RichHudFramework.UI.HudElementBase.html">HudElementBase</a> as the element type.
+</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="RichHudFramework.UI.IHudCollection-2.html">IHudCollection&lt;TElementContainer, TElement&gt;</a></dt>
+      <dd><p>Mutable interface for HUD collections supporting decorator-wrapped child elements.</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="RichHudFramework.UI.IHudNodeContainer-1.html">IHudNodeContainer&lt;TElement&gt;</a></dt>
+      <dd><p>Interface for objects acting as decorator wrappers for UI elements.</p>
+<p>Separates the UI element from metadata.</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="RichHudFramework.UI.ILabelElement.html">ILabelElement</a></dt>
+      <dd><p>Interface for UI elements rendering formatted <a class="xref" href="RichHudFramework.UI.RichText.html">RichText</a></p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="RichHudFramework.UI.IListBoxEntry-2.html">IListBoxEntry&lt;TElement, TValue&gt;</a></dt>
+      <dd><p>Interface implemented by objects that function as list box entries,
+pairing specific data types with a label-based UI element.</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="RichHudFramework.UI.IMinLabelElement.html">IMinLabelElement</a></dt>
+      <dd><p>Minimal interface for UI elements rendering formatted <a class="xref" href="RichHudFramework.UI.RichText.html">RichText</a></p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="RichHudFramework.UI.IModControlRoot.html">IModControlRoot</a></dt>
+      <dd><p>Interface for the root category for the client's settings.</p>
+<p>This is the entry point where pages and subcategories are added.</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="RichHudFramework.UI.IModRootMember.html">IModRootMember</a></dt>
+      <dd><p>Interface for items that can be added to a mod's control root</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="RichHudFramework.UI.IMouseInput.html">IMouseInput</a></dt>
+      <dd><p>Low-level mouse input handler providing cursor enter/exit detection and click events.
+Events are raised using the owning <a class="xref" href="RichHudFramework.UI.IFocusHandler.html#RichHudFramework_UI_IFocusHandler_InputOwner">InputOwner</a> as the sender.</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="RichHudFramework.UI.IReadOnlyHudCollection.html">IReadOnlyHudCollection</a></dt>
+      <dd><p>Default read-only collection interface using standard container and element types.</p>
+<p>
+Alias for <a class="xref" href="RichHudFramework.UI.IReadOnlyHudCollection-2.html">IReadOnlyHudCollection&lt;TElementContainer, TElement&gt;</a> with 
+<a class="xref" href="RichHudFramework.UI.HudElementBase.html">HudElementBase</a> as the element type and <a class="xref" href="RichHudFramework.UI.HudElementContainer.html">HudElementContainer</a> as the wrapper.
+</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="RichHudFramework.UI.IReadOnlyHudCollection-1.html">IReadOnlyHudCollection&lt;TElementContainer&gt;</a></dt>
+      <dd><p>Read-only interface for collections of HUD elements wrapped in decorator containers.</p>
+<p>
+Alias for <a class="xref" href="RichHudFramework.UI.IReadOnlyHudCollection-2.html">IReadOnlyHudCollection&lt;TElementContainer, TElement&gt;</a> with 
+<a class="xref" href="RichHudFramework.UI.HudElementBase.html">HudElementBase</a> as the element type.
+</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="RichHudFramework.UI.IReadOnlyHudCollection-2.html">IReadOnlyHudCollection&lt;TElementContainer, TElement&gt;</a></dt>
+      <dd><p>Read-only interface for collections of HUD elements wrapped in decorator containers.</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="RichHudFramework.UI.IReadOnlyHudElement.html">IReadOnlyHudElement</a></dt>
+      <dd><p>Read-only interface for hud elements with definite size and position.</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="RichHudFramework.UI.IReadOnlyHudNode.html">IReadOnlyHudNode</a></dt>
+      <dd><p>Read-only interface for hud elements that can be parented to another element.</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="RichHudFramework.UI.IReadOnlyHudParent.html">IReadOnlyHudParent</a></dt>
+      <dd><p>Read-only interface for types capable of serving as parent objects to <a class="xref" href="RichHudFramework.UI.HudNodeBase.html">HudNodeBase</a>s.</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="RichHudFramework.UI.IReadOnlyHudSpaceNode.html">IReadOnlyHudSpaceNode</a></dt>
+      <dd><p>Interface for all HUD nodes that define their own custom coordinate space.</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="RichHudFramework.UI.IScrollBoxEntryTuple-2.html">IScrollBoxEntryTuple&lt;TElement, TData&gt;</a></dt>
+      <dd><p>Interface for scrollbox entries that associate an arbitrary data object with the UI element.</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="RichHudFramework.UI.IScrollBoxEntry-1.html">IScrollBoxEntry&lt;TElement&gt;</a></dt>
+      <dd><p>Interface for container entries within a scrollable list or box.</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="RichHudFramework.UI.ISelectionBoxEntryTuple-2.html">ISelectionBoxEntryTuple&lt;TElement, TValue&gt;</a></dt>
+      <dd><p>Interface for a selection box entry that pairs a UI element with a data value of
+type <code class="typeparamref">TValue</code>.</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="RichHudFramework.UI.ISelectionBoxEntry-1.html">ISelectionBoxEntry&lt;TElement&gt;</a></dt>
+      <dd><p>Interface for a selection box entry wrapping a UI element.</p>
+<p>Adds selection highlighting capabilities to the standard scroll box entry.</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="RichHudFramework.UI.IValueControl.html">IValueControl</a></dt>
+      <dd><p>Minimal interface for UI elements controlling a value that invokes an event when changed.</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="RichHudFramework.UI.IValueControl-1.html">IValueControl&lt;T&gt;</a></dt>
+      <dd><p>Minimal interface for UI elements controlling a value that invokes an event when changed, with
+a property for reading that value.</p>
+</dd>
+    </dl>
+    <h3 id="enums">
+Enums
+</h3>
+    <dl class="jumplist">
+      <dt><a class="xref" href="RichHudFramework.UI.DimAlignments.html">DimAlignments</a></dt>
+      <dd><p>Automatic size matching flags for <a class="xref" href="RichHudFramework.UI.HudElementBase.html#RichHudFramework_UI_HudElementBase_DimAlignment">DimAlignment</a></p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="RichHudFramework.UI.HudChainSizingModes.html">HudChainSizingModes</a></dt>
+      <dd><p>Controls the sizing behavior of the <a class="xref" href="RichHudFramework.UI.HudChain-2.html">HudChain&lt;TElementContainer, TElement&gt;</a> and its members.
+The &quot;Align Axis&quot; is the direction the elements are stacked (Vertical = Y, Horizontal = X).
+The &quot;Off Axis&quot; is perpendicular to the stack (Vertical = X, Horizontal = Y).</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="RichHudFramework.UI.HudInputMode.html">HudInputMode</a></dt>
+      <dd><p>Used to indicate the global input state of the framework</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="RichHudFramework.UI.ParentAlignments.html">ParentAlignments</a></dt>
+      <dd><p>Used to determine the default position of an element relative to its parent via
+<a class="xref" href="RichHudFramework.UI.HudElementBase.html#RichHudFramework_UI_HudElementBase_ParentAlignment">ParentAlignment</a>.</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="RichHudFramework.UI.RichHudControls.html">RichHudControls</a></dt>
+      <dd><p>Unified control enum type for keyboard, mouse and gamepad/joystick</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="RichHudFramework.UI.SeBlacklistModes.html">SeBlacklistModes</a></dt>
+      <dd><p>Flags determining which game inputs are blocked (blacklisted) by the framework.</p>
+<p>Useful for modifying or disabling normal game input behavior while UI elements are active.</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="RichHudFramework.UI.TextAlignment.html">TextAlignment</a></dt>
+      <dd><p>Used to determine text alignment.</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="RichHudFramework.UI.TextBuilderModes.html">TextBuilderModes</a></dt>
+      <dd><p>Line breaking modes for <a class="xref" href="RichHudFramework.UI.Rendering.ITextBuilder.html">ITextBuilder</a></p>
+</dd>
+    </dl>
+
+
+</article>
+
+        <div class="contribution d-print-none">
+        </div>
+
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>
