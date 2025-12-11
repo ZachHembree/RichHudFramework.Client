@@ -95,9 +95,11 @@ namespace RichHudFramework
                 }
 
                 /// <summary>
-                /// The shared cursor instance available across all mods. Mods can use this for manual mouse
-                /// input, capture/release focus, and query position. It supports both screen-space and 
-                /// world-space interactions.
+                /// The shared cursor instance available across all mods. Mods can use this to manually query 
+                /// mouse position, capture/release focus or set tooltips.
+                /// 
+                /// <para>Direct use of this interface is usually not necessary. <see cref="IMouseInput"/> 
+                /// already integrates the relevant functionality directly into clickable UI elements.</para>
                 /// </summary>
                 public static ICursor Cursor
                 {
