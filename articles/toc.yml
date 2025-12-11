@@ -1,6 +1,7 @@
 - name: Get Started
 - href: ../index.md
 - href: Installation-and-Mod-Integration.md
+- href: Key-UI-Elements-Glossary.md
 - name: Advanced
 - href: HUD-Spaces.md
 - href: Custom-Textures.md
