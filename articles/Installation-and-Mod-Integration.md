@@ -2,7 +2,7 @@
 The RHF client should be installed in a preexisting C# mod project. See the official [Space Engineers Mod Scripting Reference](https://spaceengineers.wiki.gg/wiki/Modding/Reference/ModScripting) for details on mod creation. Installation is just a matter of copying the source into your project, and initializing the client:
 
 1. **Install the Rich Hud Framework client:**
-   - Download the latest release from [RichHudFramework.Client](https://github.com/ZachHembree/RichHudFramework.Client).
+   - Download the latest release from [Releases](~/Releases.md).
    - Copy the `Shared` and `Client` folders to `/{ModName}/Data/Scripts/{ModName}/RichHudFramework`. The final `RichHudFramework` folder is optional but recommended for organization.
 
    Three client variants are available:

@@ -19,4 +19,4 @@ This glossary provides a quick reference to controls and pages available in the 
 | | [TerminalColorPicker](xref:RichHudFramework.UI.Client.TerminalColorPicker) | An RGB color picker using three sliders (Red, Green, Blue). | Allowing users to manually configure colors. |
 | | [TerminalDragBox](xref:RichHudFramework.UI.Client.TerminalDragBox) | A control allowing the user to visually select a 2D screen position (Vector2). It spawns a temporary draggable window when interacted with. | User configurable HUD layout. |
 | | [TerminalDropdown](xref:RichHudFramework.UI.Client.TerminalDropdown`1) | A collapsing dropdown list with labels paired with data. | Compactly presenting a fixed list of choices in a confined space. |
-| | [TerminalList](xref:RichHudFramework.UI.Client.TerminalList`1) | A non-collapsing, fixed-height list box with a labels paired with data. | Presenting a fixed non-collapsing list of choices displayed in an open box. |
+| | [TerminalList](xref:RichHudFramework.UI.Client.TerminalList`1) | A non-collapsing, fixed-height list box with labels paired with data. | Presenting a fixed non-collapsing list of choices displayed in an open box. |
