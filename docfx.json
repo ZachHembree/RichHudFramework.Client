@@ -27,6 +27,11 @@
         "exclude": [ "_site/**", "_src/**", "api-supplements/**", ".git/**", "tools/**", "googlefe53ea247c41569b.html" ]
       }
     ],
+    "sitemap": {
+      "baseUrl": "https://zachhembree.github.io/RichHudFramework.Client/",
+      "priority": 0.5,
+      "changefreq": "monthly"
+    },
     "overwrite": [ "api-supplements/**/*.md" ],
     "resource": [
       {

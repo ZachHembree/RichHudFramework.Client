@@ -35,4 +35,4 @@ public sealed class MainModClass : MySessionComponentBase
 ```
 
 > [!WARNING]
-> Always ensure that you ahdere to the license terms of any font you use.
+> Always ensure that you adhere to the license terms of any font you use.
