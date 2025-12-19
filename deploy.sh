@@ -26,6 +26,7 @@ powershell.exe -NoProfile -ExecutionPolicy Bypass -File ".\Get-Releases.ps1" -Ow
 
 # Run docfx build
 docfx docfx.json
+touch _site/.nojekyll
 
 # Google Analytics Verification
 # Bash uses 'cp' for copy
