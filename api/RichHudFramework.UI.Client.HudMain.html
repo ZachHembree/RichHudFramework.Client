@@ -1,0 +1,876 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Class HudMain | Rich HUD Framework </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Class HudMain | Rich HUD Framework ">
+      
+      <meta name="description" content="Primary entry point for the client-side UI system. Provides shared access to root UI nodes, cursor, clipboard, screen metrics, and world-space projection utilities.">
+      <link rel="icon" href="../resources/images/favicon.ico">
+      <link rel="stylesheet" href="../public/docfx.min.css">
+      <link rel="stylesheet" href="../public/main.css">
+      <meta name="docfx:navrel" content="../toc.html">
+      <meta name="docfx:tocrel" content="toc.html">
+      
+      <meta name="docfx:rel" content="../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/ZachHembree/RichHudFramework.Client/blob/docfx/api-supplements/Client/UI/HUD/HudMain.md/#L2">
+
+      <!-- Optional nav title customization -->
+      <meta name="loc:inThisArticle" content="Sections">
+      
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="ManagedReference">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand d-flex align-items-center" href="../index.html">
+            <img id="logo" class="svg me-2" src="../resources/images/logo.svg" alt="Rich HUD Framework">
+            
+            <!-- Vertical divider -->
+            <span class="vr align-self-stretch opacity-75" aria-hidden="true"></span>
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="RichHudFramework.UI.Client.HudMain">
+
+
+
+  <h1 id="RichHudFramework_UI_Client_HudMain" data-uid="RichHudFramework.UI.Client.HudMain" class="text-break">
+Class HudMain  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Client/UI/HUD/HudMain.cs/#L59"><i class="bi bi-code-slash"></i></a>
+  </h1>
+
+  <div class="facts text-secondary">
+    <dl><dt>Namespace</dt><dd><a class="xref" href="RichHudFramework.html">RichHudFramework</a>.<a class="xref" href="RichHudFramework.UI.html">UI</a>.<a class="xref" href="RichHudFramework.UI.Client.html">Client</a></dd></dl>
+  <dl><dt>Assembly</dt><dd>RichHudClient.dll</dd></dl>
+  </div>
+
+  <div class="markdown summary"><p>Primary entry point for the client-side UI system.
+Provides shared access to root UI nodes, cursor, clipboard, screen metrics, and world-space
+projection utilities.</p>
+</div>
+  <div class="markdown conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public sealed class HudMain : RichHudClient.ApiModule</code></pre>
+  </div>
+
+
+
+
+  <dl class="typelist inheritance">
+    <dt>Inheritance</dt>
+    <dd>
+      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
+      <div><span class="xref">ModBase</span>.<span class="xref">ModuleBase</span></div>
+      <div><span class="xref">RichHudComponentBase</span></div>
+      <div><a class="xref" href="RichHudFramework.Client.RichHudClient.html">RichHudClient</a>.<a class="xref" href="RichHudFramework.Client.RichHudClient.html">ApiModule</a></div>
+      <div><span class="xref">HudMain</span></div>
+    </dd>
+  </dl>
+
+
+
+
+
+
+
+  <h2 id="RichHudFramework_UI_Client_HudMain_remarks">Remarks</h2>
+  <div class="markdown level0 remarks">
+<p><code>HudMain</code> is the entry point for the framework's tree management and update system. It connects individual mod UI subtrees to the Rich HUD Master module, facilitating the creation of a unified and efficient node graph.</p>
+<p>All UI elements created via the framework must ultimately be attached to one of the provided root nodes to be rendered and processed. This architecture allows for stable, load-order independent layering and seamless depth sorting between different mods.</p>
+<ul>
+<li><a class="xref" href="RichHudFramework.UI.Client.HudMain.html#RichHudFramework_UI_Client_HudMain_Root">Root</a>: This node represents the standard pixel-space root. Elements attached here map 1:1 with screen pixels. This is useful for manual scaling or fixed-size UI.</li>
+<li><a class="xref" href="RichHudFramework.UI.Client.HudMain.html#RichHudFramework_UI_Client_HudMain_HighDpiRoot">HighDpiRoot</a>: This node is designed for resolution independence, and is the <strong>recommended</strong> default for new UI. It automatically applies a scaling factor (<a class="xref" href="RichHudFramework.UI.Client.HudMain.html#RichHudFramework_UI_Client_HudMain_ResScale">ResScale</a>) to its children, ensuring that UI elements maintain a consistent apparent size on high-DPI displays (such as 1440p or 4K monitors) without requiring manual layout adjustments.</li>
+</ul>
+<h3 id="update-cycle">Update Cycle</h3>
+<p>The framework manages the update logic for the entire node graph to ensure synchronization. Update passes are handled internally, propagating from the root down to leaf nodes. For a detailed explanation of the update cycle (including <code>Measure</code>, <code>Layout</code>, and <code>Draw</code> passes), refer to the documentation for <a class="xref" href="RichHudFramework.UI.HudElementBase.html#RichHudFramework_UI_HudElementBase_remarks">HudElementBase</a>.</p>
+<h3 id="input-management">Input Management</h3>
+<p>The framework creates a unified input environment to handle mouse and keyboard interactions across multiple mods.</p>
+<ul>
+<li><strong>Shared Cursor:</strong> Access to the global cursor is provided via the <a class="xref" href="RichHudFramework.UI.Client.HudMain.html#RichHudFramework_UI_Client_HudMain_Cursor">Cursor</a> property. This interface allows for position querying, tooltip registration, and capture logic. However, direct interaction with the cursor interface is rarely necessary for standard UI components; the framework automatically handles interaction via the <a class="xref" href="RichHudFramework.UI.IMouseInput.html">IMouseInput</a> interface and the <a class="xref" href="RichHudFramework.UI.HudParentBase.html#RichHudFramework_UI_HudParentBase_HudSpace">HudSpace</a>.</li>
+<li><strong>Cursor State:</strong> The <a class="xref" href="RichHudFramework.UI.Client.HudMain.html#RichHudFramework_UI_Client_HudMain_EnableCursor">EnableCursor</a> and <a class="xref" href="RichHudFramework.UI.IMouseInput.html#RichHudFramework_UI_IMouseInput_RequestCursor">RequestCursor</a> properties are used to signal the framework that the mod requests the cursor to be visible.</li>
+<li><strong>Input Mode:</strong> The <a class="xref" href="RichHudFramework.UI.Client.HudMain.html#RichHudFramework_UI_Client_HudMain_InputMode">InputMode</a> property reflects the current state of the input system, indicating whether the cursor is visible or if text input is active.</li>
+</ul>
+<div class="NOTE">
+<h5>Note</h5>
+<p><code>EnableCursor</code> does not indicate when the cursor has been enabled through other means, such as by other mods or incidentally by built-in Space Engineers UI. Always check <code>InputMode</code> to determine the actual input state.</p>
+</div>
+<h3 id="coordinate-systems-and-metrics">Coordinate Systems and Metrics</h3>
+<p>While <code>HudMain</code> provides the 2D screen-space roots, the framework allows the definition of custom coordinate systems via <strong>HUD Spaces</strong>. These allow UI subtrees to be mapped to 3D world coordinates, such as cockpit displays. Refer to the article on <a href="../articles/HUD-Spaces.html">HUD Spaces</a> for details.</p>
+<p>To assist with layout and rendering, <code>HudMain</code> exposes several real-time screen metrics:</p>
+<ul>
+<li><strong>Screen Dimensions:</strong> <a class="xref" href="RichHudFramework.UI.Client.HudMain.html#RichHudFramework_UI_Client_HudMain_ScreenWidth">ScreenWidth</a>, <a class="xref" href="RichHudFramework.UI.Client.HudMain.html#RichHudFramework_UI_Client_HudMain_ScreenHeight">ScreenHeight</a>, and <a class="xref" href="RichHudFramework.UI.Client.HudMain.html#RichHudFramework_UI_Client_HudMain_AspectRatio">AspectRatio</a>.</li>
+<li><strong>Scaling:</strong> <a class="xref" href="RichHudFramework.UI.Client.HudMain.html#RichHudFramework_UI_Client_HudMain_ResScale">ResScale</a> provides the scaling factor used by the <code>HighDpiRoot</code>, normalized to a 1080p baseline.</li>
+<li><strong>Projection:</strong> <a class="xref" href="RichHudFramework.UI.Client.HudMain.html#RichHudFramework_UI_Client_HudMain_PixelToWorld">PixelToWorld</a> provides the matrix required to convert 2D screen-space coordinates into 3D world-space positions for rendering.</li>
+</ul>
+<h3 id="clipboard-integration">Clipboard Integration</h3>
+<p>The <a class="xref" href="RichHudFramework.UI.Client.HudMain.html#RichHudFramework_UI_Client_HudMain_ClipBoard">ClipBoard</a> property provides a shared, read/write clipboard specific to the framework. This clipboard supports <a class="xref" href="RichHudFramework.UI.RichText.html">RichText</a>, preserving formatting data (colors and fonts) when copying text between framework controls, such as <a class="xref" href="RichHudFramework.UI.TextField.html">TextField</a> and <a class="xref" href="RichHudFramework.UI.TextBox.html">TextBox</a>.</p>
+<div class="NOTE">
+<h5>Note</h5>
+<p>This is separate from the write-only system clipboard API (<a class="xref" href="https://keensoftwarehouse.github.io/SpaceEngineersModAPI/api/VRage.Utils.MyClipboardHelper.html">MyClipboardHelper</a>).</p>
+</div>
+</div>
+
+
+  <h2 class="section" id="properties">Properties
+</h2>
+
+
+  <a id="RichHudFramework_UI_Client_HudMain_AspectRatio_" data-uid="RichHudFramework.UI.Client.HudMain.AspectRatio*"></a>
+
+  <h3 id="RichHudFramework_UI_Client_HudMain_AspectRatio" data-uid="RichHudFramework.UI.Client.HudMain.AspectRatio">
+  AspectRatio
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Client/UI/HUD/HudMain.cs/#L188"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>The current aspect ratio of the screen, calculated as ScreenWidth / ScreenHeight (e.g., 1.777f for 16:9).</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static float AspectRatio { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="RichHudFramework_UI_Client_HudMain_ClipBoard_" data-uid="RichHudFramework.UI.Client.HudMain.ClipBoard*"></a>
+
+  <h3 id="RichHudFramework_UI_Client_HudMain_ClipBoard" data-uid="RichHudFramework.UI.Client.HudMain.ClipBoard">
+  ClipBoard
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Client/UI/HUD/HudMain.cs/#L122"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>The shared clipboard for rich text operations across mods. This allows copying formatted
+text (including colors, scales, and positions) from one mod's UI and pasting it into another.</p>
+<p>
+The is separate from the system clipboard, as access to the real clipboard is write-only.
+</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static RichText ClipBoard { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="RichHudFramework.UI.RichText.html">RichText</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="RichHudFramework_UI_Client_HudMain_Cursor_" data-uid="RichHudFramework.UI.Client.HudMain.Cursor*"></a>
+
+  <h3 id="RichHudFramework_UI_Client_HudMain_Cursor" data-uid="RichHudFramework.UI.Client.HudMain.Cursor">
+  Cursor
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Client/UI/HUD/HudMain.cs/#L104"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>The shared cursor instance available across all mods. Mods can use this to manually query
+mouse position, capture/release focus or set tooltips.</p>
+<p>Direct use of this interface is usually not necessary. <a class="xref" href="RichHudFramework.UI.IMouseInput.html">IMouseInput</a> 
+already integrates the relevant functionality directly into clickable UI elements.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static ICursor Cursor { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="RichHudFramework.UI.ICursor.html">ICursor</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="RichHudFramework_UI_Client_HudMain_EnableCursor_" data-uid="RichHudFramework.UI.Client.HudMain.EnableCursor*"></a>
+
+  <h3 id="RichHudFramework_UI_Client_HudMain_EnableCursor" data-uid="RichHudFramework.UI.Client.HudMain.EnableCursor">
+  EnableCursor
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Client/UI/HUD/HudMain.cs/#L212"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Enables or disables the shared cursor and switches the input mode accordingly (e.g., from
+movement controls to UI interaction). Setting this to true shows the cursor and allows
+mouse input for HUD elements.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static bool EnableCursor { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="RichHudFramework_UI_Client_HudMain_Fov_" data-uid="RichHudFramework.UI.Client.HudMain.Fov*"></a>
+
+  <h3 id="RichHudFramework_UI_Client_HudMain_Fov" data-uid="RichHudFramework.UI.Client.HudMain.Fov">
+  Fov
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Client/UI/HUD/HudMain.cs/#L193"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>The current field of view (FOV) angle in radians, as set by the game's camera settings.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static float Fov { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="RichHudFramework_UI_Client_HudMain_FovScale_" data-uid="RichHudFramework.UI.Client.HudMain.FovScale*"></a>
+
+  <h3 id="RichHudFramework_UI_Client_HudMain_FovScale" data-uid="RichHudFramework.UI.Client.HudMain.FovScale">
+  FovScale
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Client/UI/HUD/HudMain.cs/#L199"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>A scaling factor applied to billboard matrix transforms to compensate for changes
+in apparent size and position due to FOV adjustments</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static float FovScale { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="RichHudFramework_UI_Client_HudMain_HighDpiRoot_" data-uid="RichHudFramework.UI.Client.HudMain.HighDpiRoot*"></a>
+
+  <h3 id="RichHudFramework_UI_Client_HudMain_HighDpiRoot" data-uid="RichHudFramework.UI.Client.HudMain.HighDpiRoot">
+  HighDpiRoot
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Client/UI/HUD/HudMain.cs/#L86"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>The root node dedicated to high-DPI scaling for resolutions exceeding 1080p. This node
+automatically applies a draw matrix that rescales UI elements to compensate for the
+reduced apparent size caused by high-DPI displays, maintaining consistent visual sizing.</p>
+<p>All top-level UI elements added by mods should be parented to this node or 
+<a class="xref" href="RichHudFramework.UI.Client.HudMain.html#RichHudFramework_UI_Client_HudMain_Root">Root</a> to function.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static HudParentBase HighDpiRoot { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="RichHudFramework.UI.HudParentBase.html">HudParentBase</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="RichHudFramework_UI_Client_HudMain_InputMode_" data-uid="RichHudFramework.UI.Client.HudMain.InputMode*"></a>
+
+  <h3 id="RichHudFramework_UI_Client_HudMain_InputMode" data-uid="RichHudFramework.UI.Client.HudMain.InputMode">
+  InputMode
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Client/UI/HUD/HudMain.cs/#L218"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>The current input mode for the HUD system, indicating whether UI elements should process
+cursor (mouse) input, text (keyboard) input, or neither.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static HudInputMode InputMode { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="RichHudFramework.UI.HudInputMode.html">HudInputMode</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="RichHudFramework_UI_Client_HudMain_PixelToWorld_" data-uid="RichHudFramework.UI.Client.HudMain.PixelToWorld*"></a>
+
+  <h3 id="RichHudFramework_UI_Client_HudMain_PixelToWorld" data-uid="RichHudFramework.UI.Client.HudMain.PixelToWorld">
+  PixelToWorld
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Client/UI/HUD/HudMain.cs/#L156"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>The primary transformation matrix used to convert 2D screen-space coordinates (in pixels)
+to 3D world-space positions (in meters). This is required for rendering UI in screen space.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static MatrixD PixelToWorld { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://keensoftwarehouse.github.io/SpaceEngineersModAPI/api/VRageMath.MatrixD.html">MatrixD</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="RichHudFramework_UI_Client_HudMain_PixelToWorldRef_" data-uid="RichHudFramework.UI.Client.HudMain.PixelToWorldRef*"></a>
+
+  <h3 id="RichHudFramework_UI_Client_HudMain_PixelToWorldRef" data-uid="RichHudFramework.UI.Client.HudMain.PixelToWorldRef">
+  PixelToWorldRef
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Client/UI/HUD/HudMain.cs/#L162"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>The primary transformation matrix used to convert 2D screen-space coordinates (in pixels)
+to 3D world-space positions (in meters). This is required for rendering UI in screen space.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static MatrixD[] PixelToWorldRef { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://keensoftwarehouse.github.io/SpaceEngineersModAPI/api/VRageMath.MatrixD.html">MatrixD</a>[]</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="RichHudFramework_UI_Client_HudMain_ResScale_" data-uid="RichHudFramework.UI.Client.HudMain.ResScale*"></a>
+
+  <h3 id="RichHudFramework_UI_Client_HudMain_ResScale" data-uid="RichHudFramework.UI.Client.HudMain.ResScale">
+  ResScale
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Client/UI/HUD/HudMain.cs/#L150"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>The resolution scaling factor normalized to a 1080p baseline. For resolutions above 1080p,
+this provides a multiplier (e.g., 2.0 for 4K) to adjust UI sizing. For resolutions at or
+below 1080p, it returns 1.0f to avoid unnecessary scaling.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static float ResScale { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="RichHudFramework_UI_Client_HudMain_Root_" data-uid="RichHudFramework.UI.Client.HudMain.Root*"></a>
+
+  <h3 id="RichHudFramework_UI_Client_HudMain_Root" data-uid="RichHudFramework.UI.Client.HudMain.Root">
+  Root
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Client/UI/HUD/HudMain.cs/#L67"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>The root parent node for all client-side HUD elements in the framework.</p>
+<p>All top-level UI elements added by mods should be parented to this node or 
+<a class="xref" href="RichHudFramework.UI.Client.HudMain.html#RichHudFramework_UI_Client_HudMain_HighDpiRoot">HighDpiRoot</a> to function.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static HudParentBase Root { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="RichHudFramework.UI.HudParentBase.html">HudParentBase</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="RichHudFramework_UI_Client_HudMain_ScreenDim_" data-uid="RichHudFramework.UI.Client.HudMain.ScreenDim*"></a>
+
+  <h3 id="RichHudFramework_UI_Client_HudMain_ScreenDim" data-uid="RichHudFramework.UI.Client.HudMain.ScreenDim">
+  ScreenDim
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Client/UI/HUD/HudMain.cs/#L177"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>The current screen dimensions as a Vector2 (ScreenWidth x ScreenHeight) in pixels.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static Vector2 ScreenDim { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://keensoftwarehouse.github.io/SpaceEngineersModAPI/api/VRageMath.Vector2.html">Vector2</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="RichHudFramework_UI_Client_HudMain_ScreenDimHighDPI_" data-uid="RichHudFramework.UI.Client.HudMain.ScreenDimHighDPI*"></a>
+
+  <h3 id="RichHudFramework_UI_Client_HudMain_ScreenDimHighDPI" data-uid="RichHudFramework.UI.Client.HudMain.ScreenDimHighDPI">
+  ScreenDimHighDPI
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Client/UI/HUD/HudMain.cs/#L183"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>The current screen dimensions (ScreenWidth x ScreenHeight) adjusted for high-DPI scaling
+by dividing by ResScale, providing normalized coordinates for resolution-independent layouts.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static Vector2 ScreenDimHighDPI { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://keensoftwarehouse.github.io/SpaceEngineersModAPI/api/VRageMath.Vector2.html">Vector2</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="RichHudFramework_UI_Client_HudMain_ScreenHeight_" data-uid="RichHudFramework.UI.Client.HudMain.ScreenHeight*"></a>
+
+  <h3 id="RichHudFramework_UI_Client_HudMain_ScreenHeight" data-uid="RichHudFramework.UI.Client.HudMain.ScreenHeight">
+  ScreenHeight
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Client/UI/HUD/HudMain.cs/#L172"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>The current vertical resolution of the screen in pixels, updated every frame.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static float ScreenHeight { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="RichHudFramework_UI_Client_HudMain_ScreenWidth_" data-uid="RichHudFramework.UI.Client.HudMain.ScreenWidth*"></a>
+
+  <h3 id="RichHudFramework_UI_Client_HudMain_ScreenWidth" data-uid="RichHudFramework.UI.Client.HudMain.ScreenWidth">
+  ScreenWidth
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Client/UI/HUD/HudMain.cs/#L167"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>The current horizontal resolution of the screen in pixels, updated every frame.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static float ScreenWidth { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="RichHudFramework_UI_Client_HudMain_UiBkOpacity_" data-uid="RichHudFramework.UI.Client.HudMain.UiBkOpacity*"></a>
+
+  <h3 id="RichHudFramework_UI_Client_HudMain_UiBkOpacity" data-uid="RichHudFramework.UI.Client.HudMain.UiBkOpacity">
+  UiBkOpacity
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Client/UI/HUD/HudMain.cs/#L205"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>The current opacity level (0.0f to 1.0f) for in-game UI backgrounds and menus, as configured
+in the game's settings. Mods can use this to match native UI transparency.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static float UiBkOpacity { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <h2 class="section" id="methods">Methods
+</h2>
+
+
+  <a id="RichHudFramework_UI_Client_HudMain_EnableCursorTemp_" data-uid="RichHudFramework.UI.Client.HudMain.EnableCursorTemp*"></a>
+
+  <h3 id="RichHudFramework_UI_Client_HudMain_EnableCursorTemp" data-uid="RichHudFramework.UI.Client.HudMain.EnableCursorTemp">
+  EnableCursorTemp()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Client/UI/HUD/HudMain.cs/#L325"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Temporarily enables the cursor until the next frame.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void EnableCursorTemp()</code></pre>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="RichHudFramework_UI_Client_HudMain_GetFocusOffset_" data-uid="RichHudFramework.UI.Client.HudMain.GetFocusOffset*"></a>
+
+  <h3 id="RichHudFramework_UI_Client_HudMain_GetFocusOffset_System_Action_System_Byte__" data-uid="RichHudFramework.UI.Client.HudMain.GetFocusOffset(System.Action{System.Byte})">
+  GetFocusOffset(Action&lt;byte&gt;)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Client/UI/HUD/HudMain.cs/#L340"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Retrieves a overlay offset for layering a focused UI window and registers
+a callback that will be invoked if another element gains focus, passing the new offset.
+This helps manage UI overlap and depth sorting in 3D HUD space.</p>
+<p>Layering updates and callbacks are handled automatically in <a class="xref" href="RichHudFramework.UI.WindowBase.html">WindowBase</a>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static byte GetFocusOffset(Action&lt;byte&gt; LoseFocusCallback)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>LoseFocusCallback</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.action-1">Action</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.byte">byte</a>&gt;</dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.byte">byte</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="RichHudFramework_UI_Client_HudMain_GetInputFocus_" data-uid="RichHudFramework.UI.Client.HudMain.GetInputFocus*"></a>
+
+  <h3 id="RichHudFramework_UI_Client_HudMain_GetInputFocus_RichHudFramework_UI_IFocusHandler_" data-uid="RichHudFramework.UI.Client.HudMain.GetInputFocus(RichHudFramework.UI.IFocusHandler)">
+  GetInputFocus(IFocusHandler)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Client/UI/HUD/HudMain.cs/#L356"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Registers a callback for changes in input focus on UI elements. The callback is invoked
+whenever another element (e.g., a game menu or different mod UI) takes input focus away
+from the registered element.</p>
+<p>Input focus is typically handled automatically in <a class="xref" href="RichHudFramework.UI.MouseInputElement.html">MouseInputElement</a> and 
+standard library UI.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void GetInputFocus(IFocusHandler handler)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>handler</code> <a class="xref" href="RichHudFramework.UI.IFocusHandler.html">IFocusHandler</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Client/UI/HUD/HudMain.cs/#L59" class="edit-link">Edit this page</a>
+        </div>
+
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

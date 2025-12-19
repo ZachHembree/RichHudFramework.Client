@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Class FontManager | Rich HUD Framework </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Class FontManager | Rich HUD Framework ">
+      
+      <meta name="description" content="Client-side API for the font management system. Allows mods to query registered fonts and register custom fonts at runtime.  Most frequently used by  internally when setting font or style.">
+      <link rel="icon" href="../resources/images/favicon.ico">
+      <link rel="stylesheet" href="../public/docfx.min.css">
+      <link rel="stylesheet" href="../public/main.css">
+      <meta name="docfx:navrel" content="../toc.html">
+      <meta name="docfx:tocrel" content="toc.html">
+      
+      <meta name="docfx:rel" content="../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/ZachHembree/RichHudFramework.Client/new/master/apiSpec/new?filename=RichHudFramework_UI_Rendering_Client_FontManager.md&amp;value=---%0Auid%3A%20RichHudFramework.UI.Rendering.Client.FontManager%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">
+
+      <!-- Optional nav title customization -->
+      <meta name="loc:inThisArticle" content="Sections">
+      
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="ManagedReference">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand d-flex align-items-center" href="../index.html">
+            <img id="logo" class="svg me-2" src="../resources/images/logo.svg" alt="Rich HUD Framework">
+            
+            <!-- Vertical divider -->
+            <span class="vr align-self-stretch opacity-75" aria-hidden="true"></span>
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="RichHudFramework.UI.Rendering.Client.FontManager">
+
+
+
+  <h1 id="RichHudFramework_UI_Rendering_Client_FontManager" data-uid="RichHudFramework.UI.Rendering.Client.FontManager" class="text-break">
+Class FontManager  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Client/UI/HUD/Rendering/FontManager/FontManager.cs/#L53"><i class="bi bi-code-slash"></i></a>
+  </h1>
+
+  <div class="facts text-secondary">
+    <dl><dt>Namespace</dt><dd><a class="xref" href="RichHudFramework.html">RichHudFramework</a>.<a class="xref" href="RichHudFramework.UI.html">UI</a>.<a class="xref" href="RichHudFramework.UI.Rendering.html">Rendering</a>.<a class="xref" href="RichHudFramework.UI.Rendering.Client.html">Client</a></dd></dl>
+  <dl><dt>Assembly</dt><dd>RichHudClient.dll</dd></dl>
+  </div>
+
+  <div class="markdown summary"><p>Client-side API for the font management system. Allows mods to query registered
+fonts and register custom fonts at runtime.</p>
+<p>
+Most frequently used by <a class="xref" href="RichHudFramework.UI.GlyphFormat.html">GlyphFormat</a> internally when setting font or style.
+</p>
+</div>
+  <div class="markdown conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public sealed class FontManager : RichHudClient.ApiModule</code></pre>
+  </div>
+
+
+
+
+  <dl class="typelist inheritance">
+    <dt>Inheritance</dt>
+    <dd>
+      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
+      <div><span class="xref">ModBase</span>.<span class="xref">ModuleBase</span></div>
+      <div><span class="xref">RichHudComponentBase</span></div>
+      <div><a class="xref" href="RichHudFramework.Client.RichHudClient.html">RichHudClient</a>.<a class="xref" href="RichHudFramework.Client.RichHudClient.html">ApiModule</a></div>
+      <div><span class="xref">FontManager</span></div>
+    </dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+  <h2 class="section" id="properties">Properties
+</h2>
+
+
+  <a id="RichHudFramework_UI_Rendering_Client_FontManager_Default_" data-uid="RichHudFramework.UI.Rendering.Client.FontManager.Default*"></a>
+
+  <h3 id="RichHudFramework_UI_Rendering_Client_FontManager_Default" data-uid="RichHudFramework.UI.Rendering.Client.FontManager.Default">
+  Default
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Client/UI/HUD/Rendering/FontManager/FontManager.cs/#L59"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Index representing the default Space Engineers font with regular styling.
+Equivalent to <code>(0, 0)</code>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static Vector2I Default { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://keensoftwarehouse.github.io/SpaceEngineersModAPI/api/VRageMath.Vector2I.html">Vector2I</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="RichHudFramework_UI_Rendering_Client_FontManager_Fonts_" data-uid="RichHudFramework.UI.Rendering.Client.FontManager.Fonts*"></a>
+
+  <h3 id="RichHudFramework_UI_Rendering_Client_FontManager_Fonts" data-uid="RichHudFramework.UI.Rendering.Client.FontManager.Fonts">
+  Fonts
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Client/UI/HUD/Rendering/FontManager/FontManager.cs/#L65"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Read-only list of all fonts currently registered with RHM.
+Includes both built-in fonts and any fonts added by mods.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static IReadOnlyList&lt;IFontMin&gt; Fonts { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ireadonlylist-1">IReadOnlyList</a>&lt;<a class="xref" href="RichHudFramework.UI.Rendering.IFontMin.html">IFontMin</a>&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <h2 class="section" id="methods">Methods
+</h2>
+
+
+  <a id="RichHudFramework_UI_Rendering_Client_FontManager_GetFont_" data-uid="RichHudFramework.UI.Rendering.Client.FontManager.GetFont*"></a>
+
+  <h3 id="RichHudFramework_UI_Rendering_Client_FontManager_GetFont_System_Int32_" data-uid="RichHudFramework.UI.Rendering.Client.FontManager.GetFont(System.Int32)">
+  GetFont(int)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Client/UI/HUD/Rendering/FontManager/FontManager.cs/#L154"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Retrieves a registered font by its index in the global font list.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static IFontMin GetFont(int index)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>index</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="RichHudFramework.UI.Rendering.IFontMin.html">IFontMin</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <h4 class="section">Exceptions</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.indexoutofrangeexception">IndexOutOfRangeException</a></dt>
+    <dd><p>Thrown if the index is invalid.</p>
+</dd>
+  </dl>
+
+
+
+  <a id="RichHudFramework_UI_Rendering_Client_FontManager_GetFont_" data-uid="RichHudFramework.UI.Rendering.Client.FontManager.GetFont*"></a>
+
+  <h3 id="RichHudFramework_UI_Rendering_Client_FontManager_GetFont_System_String_" data-uid="RichHudFramework.UI.Rendering.Client.FontManager.GetFont(System.String)">
+  GetFont(string)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Client/UI/HUD/Rendering/FontManager/FontManager.cs/#L137"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Retrieves a registered font by its exact name (case insensitive).</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static IFontMin GetFont(string name)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>name</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd><p>The unique name the font was registered with.</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="RichHudFramework.UI.Rendering.IFontMin.html">IFontMin</a></dt>
+    <dd><p>The <a class="xref" href="RichHudFramework.UI.Rendering.IFontMin.html">IFontMin</a> interface for the font, or <code>null</code> if not found.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="RichHudFramework_UI_Rendering_Client_FontManager_GetStyleIndex_" data-uid="RichHudFramework.UI.Rendering.Client.FontManager.GetStyleIndex*"></a>
+
+  <h3 id="RichHudFramework_UI_Rendering_Client_FontManager_GetStyleIndex_System_String_RichHudFramework_UI_Rendering_FontStyles_" data-uid="RichHudFramework.UI.Rendering.Client.FontManager.GetStyleIndex(System.String,RichHudFramework.UI.Rendering.FontStyles)">
+  GetStyleIndex(string, FontStyles)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Client/UI/HUD/Rendering/FontManager/FontManager.cs/#L166"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Returns a <a class="xref" href="https://keensoftwarehouse.github.io/SpaceEngineersModAPI/api/VRageMath.Vector2I.html">Vector2I</a> that uniquely identifies a specific style of a font.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static Vector2I GetStyleIndex(string name, FontStyles style = FontStyles.Regular)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>name</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd><p>Name of the font.</p>
+</dd>
+    <dt><code>style</code> <a class="xref" href="RichHudFramework.UI.Rendering.FontStyles.html">FontStyles</a></dt>
+    <dd><p>Desired style (Regular, Bold, Italic, etc.). Defaults to <a class="xref" href="RichHudFramework.UI.Rendering.FontStyles.html#RichHudFramework_UI_Rendering_FontStyles_Regular">Regular</a>.</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://keensoftwarehouse.github.io/SpaceEngineersModAPI/api/VRageMath.Vector2I.html">Vector2I</a></dt>
+    <dd><p>A <code>Vector2I(x, y)</code> where <code>x</code> is the font index and <code>y</code> is the style index.
+Returns <code>(0, 0)</code> (default font, regular) if the font or style is not found.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="RichHudFramework_UI_Rendering_Client_FontManager_TryAddFont_" data-uid="RichHudFramework.UI.Rendering.Client.FontManager.TryAddFont*"></a>
+
+  <h3 id="RichHudFramework_UI_Rendering_Client_FontManager_TryAddFont_VRage_MyTuple_System_String_System_Single_VRage_MyTuple_System_Int32_System_Single_System_Single_VRage_MyTuple_System_String_VRageMath_Vector2____System_Collections_Generic_KeyValuePair_System_Char_VRage_MyTuple_System_Int32_VRageMath_Vector2_VRageMath_Vector2_System_Single_System_Single_____System_Collections_Generic_KeyValuePair_System_UInt32_System_Single________" data-uid="RichHudFramework.UI.Rendering.Client.FontManager.TryAddFont(VRage.MyTuple{System.String,System.Single,VRage.MyTuple{System.Int32,System.Single,System.Single,VRage.MyTuple{System.String,VRageMath.Vector2}[],System.Collections.Generic.KeyValuePair{System.Char,VRage.MyTuple{System.Int32,VRageMath.Vector2,VRageMath.Vector2,System.Single,System.Single}}[],System.Collections.Generic.KeyValuePair{System.UInt32,System.Single}[]}[]})">
+  TryAddFont(MyTuple&lt;string, float, MyTuple&lt;int, float, float, MyTuple&lt;string, Vector2&gt;[], KeyValuePair&lt;char, MyTuple&lt;int, Vector2, Vector2, float, float&gt;&gt;[], KeyValuePair&lt;uint, float&gt;[]&gt;[]&gt;)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Client/UI/HUD/Rendering/FontManager/FontManager.cs/#L107"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Attempts to register a new custom font with RHM.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static bool TryAddFont(MyTuple&lt;string, float, MyTuple&lt;int, float, float, MyTuple&lt;string, Vector2&gt;[], KeyValuePair&lt;char, MyTuple&lt;int, Vector2, Vector2, float, float&gt;&gt;[], KeyValuePair&lt;uint, float&gt;[]&gt;[]&gt; fontData)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>fontData</code> <span class="xref">MyTuple</span>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>, <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a>, <span class="xref">MyTuple</span>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a>, <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a>, <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a>, <span class="xref">MyTuple</span>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>, <a class="xref" href="https://keensoftwarehouse.github.io/SpaceEngineersModAPI/api/VRageMath.Vector2.html">Vector2</a>&gt;[], <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.keyvaluepair-2">KeyValuePair</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.char">char</a>, <span class="xref">MyTuple</span>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a>, <a class="xref" href="https://keensoftwarehouse.github.io/SpaceEngineersModAPI/api/VRageMath.Vector2.html">Vector2</a>, <a class="xref" href="https://keensoftwarehouse.github.io/SpaceEngineersModAPI/api/VRageMath.Vector2.html">Vector2</a>, <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a>, <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a>&gt;&gt;[], <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.keyvaluepair-2">KeyValuePair</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.uint32">uint</a>, <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a>&gt;[]&gt;[]&gt;</dt>
+    <dd><p>Complete font definition including name, base size, and all style data.</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd><p><code>true</code> if the font was successfully registered</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="RichHudFramework_UI_Rendering_Client_FontManager_TryAddFont_" data-uid="RichHudFramework.UI.Rendering.Client.FontManager.TryAddFont*"></a>
+
+  <h3 id="RichHudFramework_UI_Rendering_Client_FontManager_TryAddFont_VRage_MyTuple_System_String_System_Single_VRage_MyTuple_System_Int32_System_Single_System_Single_VRage_MyTuple_System_String_VRageMath_Vector2____System_Collections_Generic_KeyValuePair_System_Char_VRage_MyTuple_System_Int32_VRageMath_Vector2_VRageMath_Vector2_System_Single_System_Single_____System_Collections_Generic_KeyValuePair_System_UInt32_System_Single________RichHudFramework_UI_Rendering_IFontMin__" data-uid="RichHudFramework.UI.Rendering.Client.FontManager.TryAddFont(VRage.MyTuple{System.String,System.Single,VRage.MyTuple{System.Int32,System.Single,System.Single,VRage.MyTuple{System.String,VRageMath.Vector2}[],System.Collections.Generic.KeyValuePair{System.Char,VRage.MyTuple{System.Int32,VRageMath.Vector2,VRageMath.Vector2,System.Single,System.Single}}[],System.Collections.Generic.KeyValuePair{System.UInt32,System.Single}[]}[]},RichHudFramework.UI.Rendering.IFontMin@)">
+  TryAddFont(MyTuple&lt;string, float, MyTuple&lt;int, float, float, MyTuple&lt;string, Vector2&gt;[], KeyValuePair&lt;char, MyTuple&lt;int, Vector2, Vector2, float, float&gt;&gt;[], KeyValuePair&lt;uint, float&gt;[]&gt;[]&gt;, out IFontMin)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Client/UI/HUD/Rendering/FontManager/FontManager.cs/#L116"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Attempts to register a new custom font and returns the registered font interface if successful.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static bool TryAddFont(MyTuple&lt;string, float, MyTuple&lt;int, float, float, MyTuple&lt;string, Vector2&gt;[], KeyValuePair&lt;char, MyTuple&lt;int, Vector2, Vector2, float, float&gt;&gt;[], KeyValuePair&lt;uint, float&gt;[]&gt;[]&gt; fontData, out IFontMin font)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>fontData</code> <span class="xref">MyTuple</span>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>, <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a>, <span class="xref">MyTuple</span>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a>, <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a>, <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a>, <span class="xref">MyTuple</span>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>, <a class="xref" href="https://keensoftwarehouse.github.io/SpaceEngineersModAPI/api/VRageMath.Vector2.html">Vector2</a>&gt;[], <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.keyvaluepair-2">KeyValuePair</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.char">char</a>, <span class="xref">MyTuple</span>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a>, <a class="xref" href="https://keensoftwarehouse.github.io/SpaceEngineersModAPI/api/VRageMath.Vector2.html">Vector2</a>, <a class="xref" href="https://keensoftwarehouse.github.io/SpaceEngineersModAPI/api/VRageMath.Vector2.html">Vector2</a>, <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a>, <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a>&gt;&gt;[], <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.keyvaluepair-2">KeyValuePair</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.uint32">uint</a>, <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a>&gt;[]&gt;[]&gt;</dt>
+    <dd><p>Complete font definition.</p>
+</dd>
+    <dt><code>font</code> <a class="xref" href="RichHudFramework.UI.Rendering.IFontMin.html">IFontMin</a></dt>
+    <dd><p>The newly registered <a class="xref" href="RichHudFramework.UI.Rendering.IFontMin.html">IFontMin</a> instance, or <code>null</code> on failure.</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd><p><code>true</code> if registration succeeded</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Client/UI/HUD/Rendering/FontManager/FontManager.cs/#L53" class="edit-link">Edit this page</a>
+        </div>
+
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

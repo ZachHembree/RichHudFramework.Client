@@ -1,0 +1,1132 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Class RichText | Rich HUD Framework </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Class RichText | Rich HUD Framework ">
+      
+      <meta name="description" content="Reusable rich text builder designed for efficient construction and reuse of formatted text. Internally minimises StringBuilder allocations by merging  consecutive text segments that share identical formatting.">
+      <link rel="icon" href="../resources/images/favicon.ico">
+      <link rel="stylesheet" href="../public/docfx.min.css">
+      <link rel="stylesheet" href="../public/main.css">
+      <meta name="docfx:navrel" content="../toc.html">
+      <meta name="docfx:tocrel" content="toc.html">
+      
+      <meta name="docfx:rel" content="../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/ZachHembree/RichHudFramework.Client/blob/docfx/api-supplements/Shared/UI/RichText/RichText.md/#L25">
+
+      <!-- Optional nav title customization -->
+      <meta name="loc:inThisArticle" content="Sections">
+      
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="ManagedReference">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand d-flex align-items-center" href="../index.html">
+            <img id="logo" class="svg me-2" src="../resources/images/logo.svg" alt="Rich HUD Framework">
+            
+            <!-- Vertical divider -->
+            <span class="vr align-self-stretch opacity-75" aria-hidden="true"></span>
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="RichHudFramework.UI.RichText">
+
+
+
+  <h1 id="RichHudFramework_UI_RichText" data-uid="RichHudFramework.UI.RichText" class="text-break">
+Class RichText  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/RichText/RichText.cs/#L19"><i class="bi bi-code-slash"></i></a>
+  </h1>
+
+  <div class="facts text-secondary">
+    <dl><dt>Namespace</dt><dd><a class="xref" href="RichHudFramework.html">RichHudFramework</a>.<a class="xref" href="RichHudFramework.UI.html">UI</a></dd></dl>
+  <dl><dt>Assembly</dt><dd>RichHudClient.dll</dd></dl>
+  </div>
+
+  <div class="markdown summary"><p>Reusable rich text builder designed for efficient construction and reuse of formatted text.
+Internally minimises StringBuilder allocations by merging  consecutive text segments that
+share identical formatting.</p>
+</div>
+  <div class="markdown conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public class RichText : IEnumerable&lt;MyTuple&lt;StringBuilder, MyTuple&lt;byte, float, Vector2I, Color&gt;&gt;&gt;, IEnumerable, IEquatable&lt;RichText&gt;</code></pre>
+  </div>
+
+
+
+
+  <dl class="typelist inheritance">
+    <dt>Inheritance</dt>
+    <dd>
+      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
+      <div><span class="xref">RichText</span></div>
+    </dd>
+  </dl>
+
+  <dl class="typelist implements">
+    <dt>Implements</dt>
+    <dd>
+      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;<span class="xref">MyTuple</span>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.text.stringbuilder">StringBuilder</a>, <span class="xref">MyTuple</span>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.byte">byte</a>, <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a>, <a class="xref" href="https://keensoftwarehouse.github.io/SpaceEngineersModAPI/api/VRageMath.Vector2I.html">Vector2I</a>, <a class="xref" href="https://keensoftwarehouse.github.io/SpaceEngineersModAPI/api/VRageMath.Color.html">Color</a>&gt;&gt;&gt;</div>
+      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.ienumerable">IEnumerable</a></div>
+      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.iequatable-1">IEquatable</a>&lt;<a class="xref" href="RichHudFramework.UI.RichText.html">RichText</a>&gt;</div>
+    </dd>
+  </dl>
+
+
+
+
+
+  <h2 id="RichHudFramework_UI_RichText_examples">Examples</h2>
+  <h4 id="example-1-dynamic-text-construction">Example 1: Dynamic Text Construction</h4>
+<p>The following example shows a reused <code>RichText</code> buffer to construct a formatted string in a loop. This pattern is efficient for text that updates frequently (e.g., every frame in <code>HandleInput</code>).</p>
+<pre><code class="lang-csharp">private static readonly GlyphFormat headerFormat = new GlyphFormat(textSize: 1.5f, alignment: TextAlignment.Center);
+private static readonly GlyphFormat footerFormat = new GlyphFormat(textSize: 0.8f, color: Color.LightGoldenrodYellow);
+
+private readonly Label multilineLabel;
+private readonly RichText buffer = new RichText();
+
+protected override void HandleInput(Vector2 cursorPos)
+{
+    // Clear the buffer to reuse the internal StringBuilders
+    buffer.Clear();
+
+    for (int i = 0; i &lt; 10; i++)
+    {
+        // Add text with specific styles
+        buffer.Add(&quot;This is a formatted header\n&quot;, headerFormat);
+        buffer.Add(&quot;This is body text that will receive defaulted formatting.\n&quot;);
+        buffer.Add(&quot;This is a formatted footer\n&quot;, footerFormat);
+    }
+
+    // Reassigning the buffer updates the UI element's text board
+    multilineLabel.Text = buffer;
+}
+</code></pre>
+<h4 id="example-2-declarative-styling">Example 2: Declarative Styling</h4>
+<p>This example demonstrates how to use collection initializers to create a static, multi-styled text block. This approach is ideal for help text, tooltips, or static UI labels.</p>
+<pre><code class="lang-csharp">// Define reusable formats
+var headerFormat = new GlyphFormat(textSize: 1.5f, alignment: TextAlignment.Center);
+var subheaderFormat = new GlyphFormat(textSize: 1.1f, color: Color.LightGoldenrodYellow);
+var bodyFormat = new GlyphFormat(textSize: 0.9f);
+
+// Initialize RichText with a default body format
+var text = new RichText(bodyFormat) 
+{
+    // 1. Add text with specific overriding formats (Header)
+    { &quot;Header for a Multi-Line Text Block\n&quot;, headerFormat },
+
+    // 2. Add plain strings (inherits bodyFormat from constructor)
+    &quot;Multi-line body text using bodyFormat via defaultFormat.\n&quot;, 
+    &quot;Strings, StringBuilders, or other RichText objects are appended via dedicated Add() overloads.\n&quot;,
+
+    // 3. Add a subsection header using the specific format
+    { &quot;Subsection: This is using subheaderFormat\n&quot;, subheaderFormat },
+
+    // 4. Continue adding body text
+    &quot;Multi-line text requires the ITextBuilder or Label being written to to be in &quot;,
+    &quot;the correct mode (Lined or Wrapped) to accept manual line breaks.\n&quot;
+};
+</code></pre>
+
+
+  <h2 id="RichHudFramework_UI_RichText_remarks">Remarks</h2>
+  <div class="markdown level0 remarks">
+<p><code>RichText</code> acts as a specialized, reusable string builder designed to facilitate the efficient construction and storage of formatted text. Unlike a standard <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.text.stringbuilder">StringBuilder</a>, this class maintains style information—such as color, font, and alignment—associated with specific text segments.</p>
+<p>Most text-rendering UI elements within the framework expose properties of this type or provide access to an underlying <a class="xref" href="RichHudFramework.UI.Rendering.ITextBuilder.html">ITextBuilder</a> (see: <a class="xref" href="RichHudFramework.UI.Label.html#RichHudFramework_UI_Label_Text">Label.Text</a> and <a class="xref" href="RichHudFramework.UI.Label.html#RichHudFramework_UI_Label_TextBoard">Label.TextBoard</a>). To streamline usage, <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a> and <code>StringBuilder</code> instances can be implicitly converted to <code>RichText</code>, allowing plain text to be assigned directly to UI properties without manual conversion.</p>
+<h4 id="formatting-behavior">Formatting Behavior</h4>
+<p>Text added to a <code>RichText</code> instance without explicit formatting will inherit style instructions based on the following precedence:</p>
+<ul>
+<li><p>If a <a class="xref" href="RichHudFramework.UI.RichText.html#RichHudFramework_UI_RichText_defaultFormat">defaultFormat</a> was specified during construction, that format is applied immediately.</p>
+</li>
+<li><p>If no default was specified, the text remains unformatted until it is assigned to a UI element. Upon assignment, it adopts the default configuration of the target's <code>ITextBuilder</code>.</p>
+</li>
+</ul>
+<h4 id="collection-initializers">Collection Initializers</h4>
+<p>This class supports collection-initializer syntax. This allows developers to compose complex, multi-styled text blocks declaratively, mixing formatted strings, unformatted strings, and other <code>RichText</code> objects within a single initialization block.</p>
+<div class="NOTE">
+<h5>Note</h5>
+<p>When retrieving a <code>RichText</code> property from a UI element (e.g., a Label), the accessor returns a <strong>deep copy</strong> of the content currently stored in the backing <code>ITextBuilder</code>. Modifying this returned instance—via methods like <code>Add()</code>—will not automatically update the UI element. To update the display, the modified instance must be reassigned to the property.</p>
+</div>
+</div>
+
+
+  <h2 class="section" id="constructors">Constructors
+</h2>
+
+
+  <a id="RichHudFramework_UI_RichText__ctor_" data-uid="RichHudFramework.UI.RichText.#ctor*"></a>
+
+  <h3 id="RichHudFramework_UI_RichText__ctor_RichHudFramework_UI_RichText_" data-uid="RichHudFramework.UI.RichText.#ctor(RichHudFramework.UI.RichText)">
+  RichText(RichText)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/RichText/RichText.cs/#L64"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Creates a new <a class="xref" href="RichHudFramework.UI.RichText.html">RichText</a> instance that is a deep copy of the given <a class="xref" href="RichHudFramework.UI.RichText.html">RichText</a>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public RichText(RichText original)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>original</code> <a class="xref" href="RichHudFramework.UI.RichText.html">RichText</a></dt>
+    <dd><p>The rich text object to copy.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="RichHudFramework_UI_RichText__ctor_" data-uid="RichHudFramework.UI.RichText.#ctor*"></a>
+
+  <h3 id="RichHudFramework_UI_RichText__ctor_System_Nullable_RichHudFramework_UI_GlyphFormat__" data-uid="RichHudFramework.UI.RichText.#ctor(System.Nullable{RichHudFramework.UI.GlyphFormat})">
+  RichText(GlyphFormat?)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/RichText/RichText.cs/#L41"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Initializes an empty <a class="xref" href="RichHudFramework.UI.RichText.html">RichText</a> instance.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public RichText(GlyphFormat? defaultFormat = null)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>defaultFormat</code> <a class="xref" href="RichHudFramework.UI.GlyphFormat.html">GlyphFormat</a>?</dt>
+    <dd><p>Optional default formatting applied to text added without explicit formatting.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="RichHudFramework_UI_RichText__ctor_" data-uid="RichHudFramework.UI.RichText.#ctor*"></a>
+
+  <h3 id="RichHudFramework_UI_RichText__ctor_System_String_System_Nullable_RichHudFramework_UI_GlyphFormat__" data-uid="RichHudFramework.UI.RichText.#ctor(System.String,System.Nullable{RichHudFramework.UI.GlyphFormat})">
+  RichText(string, GlyphFormat?)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/RichText/RichText.cs/#L76"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Initializes a new <a class="xref" href="RichHudFramework.UI.RichText.html">RichText</a> instance containing the specified plain string.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public RichText(string text, GlyphFormat? defaultFormat = null)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>text</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd><p>Initial text content.</p>
+</dd>
+    <dt><code>defaultFormat</code> <a class="xref" href="RichHudFramework.UI.GlyphFormat.html">GlyphFormat</a>?</dt>
+    <dd><p>Optional default formatting for the text.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="RichHudFramework_UI_RichText__ctor_" data-uid="RichHudFramework.UI.RichText.#ctor*"></a>
+
+  <h3 id="RichHudFramework_UI_RichText__ctor_System_Text_StringBuilder_System_Nullable_RichHudFramework_UI_GlyphFormat__" data-uid="RichHudFramework.UI.RichText.#ctor(System.Text.StringBuilder,System.Nullable{RichHudFramework.UI.GlyphFormat})">
+  RichText(StringBuilder, GlyphFormat?)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/RichText/RichText.cs/#L88"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Initializes a new <a class="xref" href="RichHudFramework.UI.RichText.html">RichText</a> instance containing the contents of the given <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.text.stringbuilder">StringBuilder</a>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public RichText(StringBuilder text, GlyphFormat? defaultFormat = null)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>text</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.text.stringbuilder">StringBuilder</a></dt>
+    <dd><p>Initial text content.</p>
+</dd>
+    <dt><code>defaultFormat</code> <a class="xref" href="RichHudFramework.UI.GlyphFormat.html">GlyphFormat</a>?</dt>
+    <dd><p>Optional default formatting for the text.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <h2 class="section" id="fields">Fields
+</h2>
+
+
+
+  <h3 id="RichHudFramework_UI_RichText_defaultFormat" data-uid="RichHudFramework.UI.RichText.defaultFormat">
+  defaultFormat
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/RichText/RichText.cs/#L26"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Default formatting applied to any added text that does not specify its own format.
+If null, the default format of the UI element this text is assigned to will be used
+as the default when it is copied.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public GlyphFormat? defaultFormat</code></pre>
+  </div>
+
+
+
+
+  <h4 class="section">Field Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="RichHudFramework.UI.GlyphFormat.html">GlyphFormat</a>?</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+  <h2 class="section" id="methods">Methods
+</h2>
+
+
+  <a id="RichHudFramework_UI_RichText_Add_" data-uid="RichHudFramework.UI.RichText.Add*"></a>
+
+  <h3 id="RichHudFramework_UI_RichText_Add_RichHudFramework_UI_GlyphFormat_System_String_" data-uid="RichHudFramework.UI.RichText.Add(RichHudFramework.UI.GlyphFormat,System.String)">
+  Add(GlyphFormat, string)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/RichText/RichText.cs/#L227"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Appends a string with explicit formatting (order reversed for convenience).</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void Add(GlyphFormat newFormat, string text)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>newFormat</code> <a class="xref" href="RichHudFramework.UI.GlyphFormat.html">GlyphFormat</a></dt>
+    <dd><p>Formatting to apply.</p>
+</dd>
+    <dt><code>text</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd><p>Text to append.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="RichHudFramework_UI_RichText_Add_" data-uid="RichHudFramework.UI.RichText.Add*"></a>
+
+  <h3 id="RichHudFramework_UI_RichText_Add_RichHudFramework_UI_GlyphFormat_System_Text_StringBuilder_" data-uid="RichHudFramework.UI.RichText.Add(RichHudFramework.UI.GlyphFormat,System.Text.StringBuilder)">
+  Add(GlyphFormat, StringBuilder)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/RichText/RichText.cs/#L191"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Appends a copy of the given <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.text.stringbuilder">StringBuilder</a> with explicit formatting (order reversed for convenience).</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void Add(GlyphFormat newFormat, StringBuilder text)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>newFormat</code> <a class="xref" href="RichHudFramework.UI.GlyphFormat.html">GlyphFormat</a></dt>
+    <dd><p>Formatting to apply.</p>
+</dd>
+    <dt><code>text</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.text.stringbuilder">StringBuilder</a></dt>
+    <dd><p>Text to append.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="RichHudFramework_UI_RichText_Add_" data-uid="RichHudFramework.UI.RichText.Add*"></a>
+
+  <h3 id="RichHudFramework_UI_RichText_Add_RichHudFramework_UI_RichText_" data-uid="RichHudFramework.UI.RichText.Add(RichHudFramework.UI.RichText)">
+  Add(RichText)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/RichText/RichText.cs/#L107"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Appends a deep copy of another <a class="xref" href="RichHudFramework.UI.RichText.html">RichText</a> object's contents to this instance.
+Consecutive segments with identical formatting are automatically merged into the same <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.text.stringbuilder">StringBuilder</a>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void Add(RichText text)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>text</code> <a class="xref" href="RichHudFramework.UI.RichText.html">RichText</a></dt>
+    <dd><p>The rich text to append.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="RichHudFramework_UI_RichText_Add_" data-uid="RichHudFramework.UI.RichText.Add*"></a>
+
+  <h3 id="RichHudFramework_UI_RichText_Add_System_Char_System_Nullable_RichHudFramework_UI_GlyphFormat__" data-uid="RichHudFramework.UI.RichText.Add(System.Char,System.Nullable{RichHudFramework.UI.GlyphFormat})">
+  Add(char, GlyphFormat?)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/RichText/RichText.cs/#L235"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Appends a single character using the specified formatting.
+If the new formatting matches the last segment's formatting, the character is added to the existing <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.text.stringbuilder">StringBuilder</a>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void Add(char ch, GlyphFormat? newFormat = null)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>ch</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.char">char</a></dt>
+    <dd><p>Character to append.</p>
+</dd>
+    <dt><code>newFormat</code> <a class="xref" href="RichHudFramework.UI.GlyphFormat.html">GlyphFormat</a>?</dt>
+    <dd><p>Formatting to apply. If null, <a class="xref" href="RichHudFramework.UI.RichText.html#RichHudFramework_UI_RichText_defaultFormat">defaultFormat</a> is used.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="RichHudFramework_UI_RichText_Add_" data-uid="RichHudFramework.UI.RichText.Add*"></a>
+
+  <h3 id="RichHudFramework_UI_RichText_Add_System_String_System_Nullable_RichHudFramework_UI_GlyphFormat__" data-uid="RichHudFramework.UI.RichText.Add(System.String,System.Nullable{RichHudFramework.UI.GlyphFormat})">
+  Add(string, GlyphFormat?)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/RichText/RichText.cs/#L200"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Appends a string using the specified formatting.
+If the new formatting matches the last segment's formatting, the text is merged into the existing <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.text.stringbuilder">StringBuilder</a>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void Add(string text, GlyphFormat? newFormat = null)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>text</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd><p>Text to append.</p>
+</dd>
+    <dt><code>newFormat</code> <a class="xref" href="RichHudFramework.UI.GlyphFormat.html">GlyphFormat</a>?</dt>
+    <dd><p>Formatting to apply. If null, <a class="xref" href="RichHudFramework.UI.RichText.html#RichHudFramework_UI_RichText_defaultFormat">defaultFormat</a> is used.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="RichHudFramework_UI_RichText_Add_" data-uid="RichHudFramework.UI.RichText.Add*"></a>
+
+  <h3 id="RichHudFramework_UI_RichText_Add_System_Text_StringBuilder_System_Nullable_RichHudFramework_UI_GlyphFormat__" data-uid="RichHudFramework.UI.RichText.Add(System.Text.StringBuilder,System.Nullable{RichHudFramework.UI.GlyphFormat})">
+  Add(StringBuilder, GlyphFormat?)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/RichText/RichText.cs/#L161"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Appends a copy of the given <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.text.stringbuilder">StringBuilder</a> using the specified formatting.
+If the new formatting matches the last segment's formatting, the text is merged into the existing <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.text.stringbuilder">StringBuilder</a>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void Add(StringBuilder text, GlyphFormat? newFormat = null)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>text</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.text.stringbuilder">StringBuilder</a></dt>
+    <dd><p>Text to append.</p>
+</dd>
+    <dt><code>newFormat</code> <a class="xref" href="RichHudFramework.UI.GlyphFormat.html">GlyphFormat</a>?</dt>
+    <dd><p>Formatting to apply. If null, <a class="xref" href="RichHudFramework.UI.RichText.html#RichHudFramework_UI_RichText_defaultFormat">defaultFormat</a> is used.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="RichHudFramework_UI_RichText_Clear_" data-uid="RichHudFramework.UI.RichText.Clear*"></a>
+
+  <h3 id="RichHudFramework_UI_RichText_Clear" data-uid="RichHudFramework.UI.RichText.Clear">
+  Clear()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/RichText/RichText.cs/#L297"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Removes all text from this instance and returns all pooled <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.text.stringbuilder">StringBuilder</a> objects.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void Clear()</code></pre>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="RichHudFramework_UI_RichText_Equals_" data-uid="RichHudFramework.UI.RichText.Equals*"></a>
+
+  <h3 id="RichHudFramework_UI_RichText_Equals_RichHudFramework_UI_RichText_" data-uid="RichHudFramework.UI.RichText.Equals(RichHudFramework.UI.RichText)">
+  Equals(RichText)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/RichText/RichText.cs/#L334"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Determines whether this <a class="xref" href="RichHudFramework.UI.RichText.html">RichText</a> instance contains identical text and formatting
+to another <a class="xref" href="RichHudFramework.UI.RichText.html">RichText</a> instance.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool Equals(RichText other)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>other</code> <a class="xref" href="RichHudFramework.UI.RichText.html">RichText</a></dt>
+    <dd><p>The object to compare with the current object.</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="RichHudFramework_UI_RichText_Equals_" data-uid="RichHudFramework.UI.RichText.Equals*"></a>
+
+  <h3 id="RichHudFramework_UI_RichText_Equals_System_Object_" data-uid="RichHudFramework.UI.RichText.Equals(System.Object)">
+  Equals(object)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/RichText/RichText.cs/#L317"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Determines whether this instance and a specified object, which must also be a <a class="xref" href="RichHudFramework.UI.RichText.html">RichText</a>
+object, have the same value.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override bool Equals(object obj)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>obj</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></dt>
+    <dd><p>The object to compare with the current object.</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="RichHudFramework_UI_RichText_GetCopy_" data-uid="RichHudFramework.UI.RichText.GetCopy*"></a>
+
+  <h3 id="RichHudFramework_UI_RichText_GetCopy" data-uid="RichHudFramework.UI.RichText.GetCopy">
+  GetCopy()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/RichText/RichText.cs/#L422"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Creates and returns a new <a class="xref" href="RichHudFramework.UI.RichText.html">RichText</a> instance that is a deep copy of this object.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public RichText GetCopy()</code></pre>
+  </div>
+
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="RichHudFramework.UI.RichText.html">RichText</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="RichHudFramework_UI_RichText_GetEnumerator_" data-uid="RichHudFramework.UI.RichText.GetEnumerator*"></a>
+
+  <h3 id="RichHudFramework_UI_RichText_GetEnumerator" data-uid="RichHudFramework.UI.RichText.GetEnumerator">
+  GetEnumerator()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/RichText/RichText.cs/#L98"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Returns an enumerator that iterates through the underlying rich string members.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public IEnumerator&lt;MyTuple&lt;StringBuilder, MyTuple&lt;byte, float, Vector2I, Color&gt;&gt;&gt; GetEnumerator()</code></pre>
+  </div>
+
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerator-1">IEnumerator</a>&lt;<span class="xref">MyTuple</span>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.text.stringbuilder">StringBuilder</a>, <span class="xref">MyTuple</span>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.byte">byte</a>, <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a>, <a class="xref" href="https://keensoftwarehouse.github.io/SpaceEngineersModAPI/api/VRageMath.Vector2I.html">Vector2I</a>, <a class="xref" href="https://keensoftwarehouse.github.io/SpaceEngineersModAPI/api/VRageMath.Color.html">Color</a>&gt;&gt;&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="RichHudFramework_UI_RichText_GetHashCode_" data-uid="RichHudFramework.UI.RichText.GetHashCode*"></a>
+
+  <h3 id="RichHudFramework_UI_RichText_GetHashCode" data-uid="RichHudFramework.UI.RichText.GetHashCode">
+  GetHashCode()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/RichText/RichText.cs/#L307"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Serves as the default hash function.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override int GetHashCode()</code></pre>
+  </div>
+
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd><p>A hash code for the current object.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="RichHudFramework_UI_RichText_ToString_" data-uid="RichHudFramework.UI.RichText.ToString*"></a>
+
+  <h3 id="RichHudFramework_UI_RichText_ToString" data-uid="RichHudFramework.UI.RichText.ToString">
+  ToString()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/RichText/RichText.cs/#L399"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Returns a concatenated, unformatted copy of the entire text content as a <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override string ToString()</code></pre>
+  </div>
+
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="RichHudFramework_UI_RichText_TrimExcess_" data-uid="RichHudFramework.UI.RichText.TrimExcess*"></a>
+
+  <h3 id="RichHudFramework_UI_RichText_TrimExcess" data-uid="RichHudFramework.UI.RichText.TrimExcess">
+  TrimExcess()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/RichText/RichText.cs/#L280"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Reduces memory usage by trimming excess capacity from all internal <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.text.stringbuilder">StringBuilder</a> instances
+and the object pool.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void TrimExcess()</code></pre>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <h2 class="section" id="operators">Operators
+</h2>
+
+
+  <a id="RichHudFramework_UI_RichText_op_Addition_" data-uid="RichHudFramework.UI.RichText.op_Addition*"></a>
+
+  <h3 id="RichHudFramework_UI_RichText_op_Addition_RichHudFramework_UI_RichText_RichHudFramework_UI_RichText_" data-uid="RichHudFramework.UI.RichText.op_Addition(RichHudFramework.UI.RichText,RichHudFramework.UI.RichText)">
+  operator +(RichText, RichText)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/RichText/RichText.cs/#L472"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Appends a copy of the right <a class="xref" href="RichHudFramework.UI.RichText.html">RichText</a> to the left <a class="xref" href="RichHudFramework.UI.RichText.html">RichText</a> and returns the modified left instance.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static RichText operator +(RichText left, RichText right)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>left</code> <a class="xref" href="RichHudFramework.UI.RichText.html">RichText</a></dt>
+    <dd></dd>
+    <dt><code>right</code> <a class="xref" href="RichHudFramework.UI.RichText.html">RichText</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="RichHudFramework.UI.RichText.html">RichText</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="RichHudFramework_UI_RichText_op_Addition_" data-uid="RichHudFramework.UI.RichText.op_Addition*"></a>
+
+  <h3 id="RichHudFramework_UI_RichText_op_Addition_RichHudFramework_UI_RichText_System_String_" data-uid="RichHudFramework.UI.RichText.op_Addition(RichHudFramework.UI.RichText,System.String)">
+  operator +(RichText, string)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/RichText/RichText.cs/#L454"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Appends a plain string to the left <a class="xref" href="RichHudFramework.UI.RichText.html">RichText</a> instance and returns the modified instance.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static RichText operator +(RichText left, string right)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>left</code> <a class="xref" href="RichHudFramework.UI.RichText.html">RichText</a></dt>
+    <dd></dd>
+    <dt><code>right</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="RichHudFramework.UI.RichText.html">RichText</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="RichHudFramework_UI_RichText_op_Addition_" data-uid="RichHudFramework.UI.RichText.op_Addition*"></a>
+
+  <h3 id="RichHudFramework_UI_RichText_op_Addition_RichHudFramework_UI_RichText_System_Text_StringBuilder_" data-uid="RichHudFramework.UI.RichText.op_Addition(RichHudFramework.UI.RichText,System.Text.StringBuilder)">
+  operator +(RichText, StringBuilder)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/RichText/RichText.cs/#L463"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Appends a <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.text.stringbuilder">StringBuilder</a> to the left <a class="xref" href="RichHudFramework.UI.RichText.html">RichText</a> instance and returns the modified instance.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static RichText operator +(RichText left, StringBuilder right)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>left</code> <a class="xref" href="RichHudFramework.UI.RichText.html">RichText</a></dt>
+    <dd></dd>
+    <dt><code>right</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.text.stringbuilder">StringBuilder</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="RichHudFramework.UI.RichText.html">RichText</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="RichHudFramework_UI_RichText_op_Implicit_" data-uid="RichHudFramework.UI.RichText.op_Implicit*"></a>
+
+  <h3 id="RichHudFramework_UI_RichText_op_Implicit_System_String__RichHudFramework_UI_RichText" data-uid="RichHudFramework.UI.RichText.op_Implicit(System.String)~RichHudFramework.UI.RichText">
+  implicit operator RichText(string)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/RichText/RichText.cs/#L481"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Implicitly converts a <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a> to a <a class="xref" href="RichHudFramework.UI.RichText.html">RichText</a> instance using the default formatting.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static implicit operator RichText(string text)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>text</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="RichHudFramework.UI.RichText.html">RichText</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="RichHudFramework_UI_RichText_op_Implicit_" data-uid="RichHudFramework.UI.RichText.op_Implicit*"></a>
+
+  <h3 id="RichHudFramework_UI_RichText_op_Implicit_System_Text_StringBuilder__RichHudFramework_UI_RichText" data-uid="RichHudFramework.UI.RichText.op_Implicit(System.Text.StringBuilder)~RichHudFramework.UI.RichText">
+  implicit operator RichText(StringBuilder)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/RichText/RichText.cs/#L486"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Implicitly converts a <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.text.stringbuilder">StringBuilder</a> to a <a class="xref" href="RichHudFramework.UI.RichText.html">RichText</a> instance using the default formatting.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static implicit operator RichText(StringBuilder text)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>text</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.text.stringbuilder">StringBuilder</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="RichHudFramework.UI.RichText.html">RichText</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <h2 class="section" id="eii">Explicit Interface Implementations
+</h2>
+
+
+  <a id="RichHudFramework_UI_RichText_System_Collections_IEnumerable_GetEnumerator_" data-uid="RichHudFramework.UI.RichText.System#Collections#IEnumerable#GetEnumerator*"></a>
+
+  <h3 id="RichHudFramework_UI_RichText_System_Collections_IEnumerable_GetEnumerator" data-uid="RichHudFramework.UI.RichText.System#Collections#IEnumerable#GetEnumerator">
+  IEnumerable.GetEnumerator()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/RichText/RichText.cs/#L100"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Returns an enumerator that iterates through a collection.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">IEnumerator IEnumerable.GetEnumerator()</code></pre>
+  </div>
+
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.ienumerator">IEnumerator</a></dt>
+    <dd><p>An <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.ienumerator">IEnumerator</a> object that can be used to iterate through the collection.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/RichText/RichText.cs/#L19" class="edit-link">Edit this page</a>
+        </div>
+
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

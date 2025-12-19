@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Releases | Rich HUD Framework </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Releases | Rich HUD Framework ">
+      
+      
+      <link rel="icon" href="resources/images/favicon.ico">
+      <link rel="stylesheet" href="public/docfx.min.css">
+      <link rel="stylesheet" href="public/main.css">
+      <meta name="docfx:navrel" content="toc.html">
+      <meta name="docfx:tocrel" content="toc.html">
+      
+      <meta name="docfx:rel" content="">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/ZachHembree/RichHudFramework.Client/blob/docfx/Releases.md/#L1">
+
+      <!-- Optional nav title customization -->
+      <meta name="loc:inThisArticle" content="History">
+      
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand d-flex align-items-center" href="index.html">
+            <img id="logo" class="svg me-2" src="resources/images/logo.svg" alt="Rich HUD Framework">
+            
+            <!-- Vertical divider -->
+            <span class="vr align-self-stretch opacity-75" aria-hidden="true"></span>
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+
+      <div class="content">
+        <div class="actionbar">
+
+        </div>
+
+        <article data-uid="">
+
+<style>
+.github-style-releases {
+    max-width: 920px;
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 0 16px;
+    box-sizing: border-box;
+}
+
+@media (max-width: 768px) {
+    .github-style-releases { padding: 0 16px; }
+}
+@media (max-width: 480px) {
+    .github-style-releases { padding: 0 8px; }
+}
+
+/* Each release row â€“ flex container with optional vertical divider */
+.release-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0 32px;
+    margin-bottom: 48px;
+    align-items: flex-start;
+    position: relative;                     /* Required for ::before divider */
+}
+
+/* Vertical divider visible only on desktop (â‰¥769px) */
+@media (min-width: 769px) {
+    .release-row::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 192px;                        /* 160px meta width + 32px gap */
+        width: 1px;
+        background-color: #7e7e7e7a;
+        z-index: 1;
+    }
+}
+
+/* Left column â€“ fixed-width metadata (appears second on mobile) */
+.release-meta {
+    flex: 0 0 160px;
+    font-size: 14px;
+    color: #57606a;
+    line-height: 1.5;
+    order: 1;
+    padding-right: 32px;                    /* Visual spacing; actual divider sits in gap */
+}
+
+/* Right column â€“ flexible release body (appears first on mobile) */
+.release-body {
+    flex: 1;
+    min-width: 0;
+    order: 2;
+    margin-left: 32px;                      /* Maintains gap symmetry */
+}
+
+/* Mobile layout â€“ stack vertically, content first */
+@media (max-width: 768px) {
+    .release-row {
+        flex-direction: column;
+        gap: 16px;
+        margin-bottom: 40px;
+    }
+    .release-body  { order: 1; margin-left: 0; }
+    .release-meta  { order: 2; margin-top: 8px; padding-right: 0; }
+    .release-row::before { display: none; }
+}
+
+/* Title section styling */
+.release-header {
+    padding-bottom: 8px;
+    margin-bottom: 16px;
+    border-bottom: 1px solid #7e7e7e7a;
+}
+.release-header h3 {
+    margin: 0;
+    font-size: 1.25em;
+    font-weight: 600;
+}
+</style>
+<div class="github-style-releases">
+<h1>Releases</h1>
+<div class="release-row">
+  <div class="release-meta">
+    <strong>08 Dec 2025</strong><br>
+    <a href='https://github.com/ZachHembree'>@ZachHembree</a><br>
+    <code>1.3.0.0</code><br>
+    <code><a href='https://github.com/ZachHembree/RichHudFramework.Client/commit/9eb595ec1f0d1f48a19fff39c68d4eef7ded2724'>9eb595e</a></code>
+  </div>
+  <div class="release-body">
+    <div class="release-header">
+      <h3>
+        <a href='https://github.com/ZachHembree/RichHudFramework.Client/releases/tag/1.3.0.0' style='text-decoration:none; color:inherit;'>[1.3.0.0] Performance & Stability Overhaul</a>&nbsp;<span style="background-color: #28a745; color: white; padding: 2px 6px; border-radius: 4px; font-size: 0.75em; vertical-align: middle;">Latest</span>
+      </h3>
+    </div>
+<p>This release delivers a comprehensive refactor of the UI implementation, focusing on performance, layout stability, and a few QOL utilities. Accumulated optimizations and architectural improvements significantly reduce latency, improve layout responsiveness, reduce jitter, and greatly reduce Space Engineers profiler overhead.</p>
+<h4>Highlights</h4>
+<ul>
+<li>
+<p><strong>Iterative tree update system</strong><br>
+Rich HUD Master now traverses and updates client UI trees directly via reference handles, eliminating inefficient polling. Core UI state management for v1.3 clients has been centralized in Rich HUD Master, yielding:</p>
+<ul>
+<li>Near-instant element registration and visibility changes (one-frame latency)</li>
+<li>80%+ fewer delegate invocations and lower mod profiler overhead</li>
+<li>Dramatically reduced cost for UI nodes; invisible but loaded nodes are now essentially free. Build Vision's list menu update time was reduced by 45%.</li>
+</ul>
+</li>
+<li>
+<p><strong>Improved layout stability</strong><br>
+The standard UI library has been refactored with separate bottom-up Measure and top-down Layout passes. This architectural change eliminates the bouncing and lag previously caused by timing issues and top-down data flow limitations. As a result, self-sizing elements and dynamic containers are now nearly jitter-free.</p>
+</li>
+<li>
+<p><strong>Public API documentation</strong><br>
+All public APIs and core source code now include expanded inline documentation. A new <a href="https://zachhembree.github.io/RichHudFramework.Client/index.html" rel="nofollow">DocFX-based reference site</a> provides detailed remarks, usage examples, and supplementary materials.</p>
+</li>
+</ul>
+<h4>Additions</h4>
+<ul>
+<li><strong>Bind Manager</strong>
+<ul>
+<li>Support for bind aliases (secondary and tertiary key combinations)</li>
+<li>Added analog control and gamepad input support</li>
+</ul>
+</li>
+<li><strong>Declarative input utilities</strong>
+<ul>
+<li><code>BindInputElement</code>, <code>IBindInput</code>, and <code>IBindInputElement</code> – logic-only nodes for context-aware, event-driven input handling, complimenting preexisting layout utilities like HudChain.</li>
+<li><code>IValueControls</code> interface with unified value accessors and change callbacks, enabling near-fully declarative custom UI when using library elements with built-in layout utilties.</li>
+</ul>
+</li>
+</ul>
+<h4>Other Changes</h4>
+<ul>
+<li>Added convenience combinations for <code>DimAlignment</code> and <code>ParentAlignment</code> flags</li>
+<li><code>TextBox</code> now supports text highlighting using Shift + arrow keys</li>
+<li>Input focus management separated from <code>IMouseInput</code>; now handled via dedicated <code>IFocusHandler</code> and <code>InputFocusHandler</code> interfaces</li>
+<li>Added <code>UnpaddedSize</code> property to <code>HudElementBase</code></li>
+<li><code>HudMain.Root</code> and <code>HudMain.HighDpiRoot</code> now support <code>DimAlignment</code> and <code>ParentAlignment</code> flags on child nodes</li>
+</ul>
+<h4>Breaking Changes (from v1.2.x)</h4>
+<p>Mods that directly modify or depend on internal library implementation will require refactoring. Mods that use public interfaces compositionally are minimally affected.</p>
+<ul>
+<li><code>HudElementBase</code>: <code>Width</code>, <code>Height</code>, and <code>Size</code> properties are no longer virtual</li>
+<li>Selection box and text element value properties renamed to align with <code>IValueControl</code> contract</li>
+<li>Mouse input focus/active state removed from <code>IMouseInput</code>/<code>MouseInputElement</code>
+<ul>
+<li>Now managed separately via <code>IFocusHandler</code>, <code>InputFocusHandler</code>, and <code>IFocusableElement</code></li>
+</ul>
+</li>
+<li><code>IClickableElement</code> implementations must now also implement <code>IFocusableElement</code></li>
+<li><code>BindManager</code> groups can no longer be instantiated directly from deserialized definitions; groups must be declared before loading</li>
+<li>Preload flag is now obsolete (removed from registration methods)</li>
+<li>Minor naming adjustments and method relocations in core types</li>
+</ul>
+<p>The above list is representative but not exhaustive. Consult the API reference as needed for more detail and usage examples.</p>
+<div style="margin-bottom:16px;"></div>
+    <details style="margin-top:16px;">
+      <summary style="cursor:pointer;"><strong>Assets <code>4</code></strong></summary>
+      <ul style="margin-top:8px;">
+        <li><a href='https://github.com/ZachHembree/RichHudFramework.Client/archive/refs/tags/1.3.0.0.zip'>Source code (zip)</a></li>
+        <li><a href='https://github.com/ZachHembree/RichHudFramework.Client/archive/refs/tags/1.3.0.0.tar.gz'>Source code (tar.gz)</a></li>
+        <li><a href='https://github.com/ZachHembree/RichHudFramework.Client/releases/download/1.3.0.0/Font.zip'>Font.zip</a> (31.82 KB)</li>
+        <li><a href='https://github.com/ZachHembree/RichHudFramework.Client/releases/download/1.3.0.0/Term.zip'>Term.zip</a> (77.35 KB)</li>
+      </ul>
+    </details>
+  </div>
+</div>
+<div class="release-row">
+  <div class="release-meta">
+    <strong>24 Feb 2023</strong><br>
+    <a href='https://github.com/ZachHembree'>@ZachHembree</a><br>
+    <code>1.2.3.1</code><br>
+    <code><a href='https://github.com/ZachHembree/RichHudFramework.Client/commit/a7f288aa74e8fcebc91d566be014fa290e360b44'>a7f288a</a></code>
+  </div>
+  <div class="release-body">
+    <div class="release-header">
+      <h3>
+        <a href='https://github.com/ZachHembree/RichHudFramework.Client/releases/tag/1.2.3.1' style='text-decoration:none; color:inherit;'>[1.2.3.1] Fix TextBox Exception and Unload Edge Case</a>
+      </h3>
+    </div>
+<p>• Fixed bug that could cause a TextBox to throw an out-of-range exception if formatting or content were changed externally.<br>
+• Added checks for edge case that could throw a null ref exception on unload</p>
+<div style="margin-bottom:16px;"></div>
+    <details style="margin-top:16px;">
+      <summary style="cursor:pointer;"><strong>Assets <code>5</code></strong></summary>
+      <ul style="margin-top:8px;">
+        <li><a href='https://github.com/ZachHembree/RichHudFramework.Client/archive/refs/tags/1.2.3.1.zip'>Source code (zip)</a></li>
+        <li><a href='https://github.com/ZachHembree/RichHudFramework.Client/archive/refs/tags/1.2.3.1.tar.gz'>Source code (tar.gz)</a></li>
+        <li><a href='https://github.com/ZachHembree/RichHudFramework.Client/releases/download/1.2.3.1/Font.zip'>Font.zip</a> (30.14 KB)</li>
+        <li><a href='https://github.com/ZachHembree/RichHudFramework.Client/releases/download/1.2.3.1/MinLib.zip'>MinLib.zip</a> (163.39 KB)</li>
+        <li><a href='https://github.com/ZachHembree/RichHudFramework.Client/releases/download/1.2.3.1/Term.zip'>Term.zip</a> (68.36 KB)</li>
+      </ul>
+    </details>
+  </div>
+</div>
+<div class="release-row">
+  <div class="release-meta">
+    <strong>26 Feb 2022</strong><br>
+    <a href='https://github.com/ZachHembree'>@ZachHembree</a><br>
+    <code>1.2.3.0</code><br>
+    <code><a href='https://github.com/ZachHembree/RichHudFramework.Client/commit/c1a1dab6144147ee2fe962bc1d596b75eaa6aa80'>c1a1dab</a></code>
+  </div>
+  <div class="release-body">
+    <div class="release-header">
+      <h3>
+        <a href='https://github.com/ZachHembree/RichHudFramework.Client/releases/tag/1.2.3.0' style='text-decoration:none; color:inherit;'>[1.2.3.0] Text and Cursor Fixes</a>
+      </h3>
+    </div>
+<h4>Additions</h4>
+<p>• Added universal InputEnabled flag to HudElement base for enabling/disabling input updates for any element type<br>
+• Added implicit conversion for RichText to ToolTip</p>
+<h4>Fixes</h4>
+<p>• Fixed bug causing reported cursor position to be out of sync for custom HUD spaces<br>
+• Fixed bug causing TextBox caret to jump back to start<br>
+• NamedSliderBox now clips name text to prevent overlap with value<br>
+• Fixed face range calculation in PolyBoard types causing incorrect triangles to be drawn for a given slice<br>
+• Stabilized input for RadialSelectionBox and increased sensitivity range<br>
+• Fixed null ref exception in TextBuilder lined formatter<br>
+• Fixed null ref exception preventing client reload on crash<br>
+• Fixed typo in IRichChar accessor index</p>
+<h4>Other Changes</h4>
+<p>• Removed HudSpaceNode.DrawCursorInHudSpace. The captured draw matrix is out of sync and not easily fixed, so I've removed this feature for now.<br>
+• BindGroupInitializer now accepts empty binds</p>
+<div style="margin-bottom:16px;"></div>
+    <details style="margin-top:16px;">
+      <summary style="cursor:pointer;"><strong>Assets <code>5</code></strong></summary>
+      <ul style="margin-top:8px;">
+        <li><a href='https://github.com/ZachHembree/RichHudFramework.Client/archive/refs/tags/1.2.3.0.zip'>Source code (zip)</a></li>
+        <li><a href='https://github.com/ZachHembree/RichHudFramework.Client/archive/refs/tags/1.2.3.0.tar.gz'>Source code (tar.gz)</a></li>
+        <li><a href='https://github.com/ZachHembree/RichHudFramework.Client/releases/download/1.2.3.0/Font.zip'>Font.zip</a> (31.68 KB)</li>
+        <li><a href='https://github.com/ZachHembree/RichHudFramework.Client/releases/download/1.2.3.0/MinLib.zip'>MinLib.zip</a> (175.33 KB)</li>
+        <li><a href='https://github.com/ZachHembree/RichHudFramework.Client/releases/download/1.2.3.0/Term.zip'>Term.zip</a> (69.47 KB)</li>
+      </ul>
+    </details>
+  </div>
+</div>
+<div class="release-row">
+  <div class="release-meta">
+    <strong>18 Feb 2022</strong><br>
+    <a href='https://github.com/ZachHembree'>@ZachHembree</a><br>
+    <code>1.2.2.0</code><br>
+    <code><a href='https://github.com/ZachHembree/RichHudFramework.Client/commit/fe72eae6451bba52dfc97ac1fea8d2f28aaacf54'>fe72eae</a></code>
+  </div>
+  <div class="release-body">
+    <div class="release-header">
+      <h3>
+        <a href='https://github.com/ZachHembree/RichHudFramework.Client/releases/tag/1.2.2.0' style='text-decoration:none; color:inherit;'>[1.2.2.0] Billboard Pooling, Text Renderer Optimizations & Misc. Library Changes</a>
+      </h3>
+    </div>
+<p>This update is focused on taking advantage of the changes made in SE's billboard API in v1.200, while also including a few bug fixes and minor additions for the UI library.</p>
+<h4>Additions</h4>
+<p>• Added system for handling billboard pooling using recent mod API additions<br>
+• Added BillboardUtils class to provide utilites for efficiently rendering billboards in bulk<br>
+• Added RadialSelectionBox, a generic radial selection menu extending HudCollection<br>
+• Added GlyphFormat constructor that takes font style enum instead of requiring full Vector2I index<br>
+• Added tools for rendering polygonal circles &amp; annuli<br>
+• Added name indexer to BindGroup<br>
+• Added utility methods to selection boxes to simplify adding entries from internal pools<br>
+• Added low latency IsChatOpen property to BindManager for input polling<br>
+• Added IsNewPressed and IsReleased properties to IControl</p>
+<h4>Fixes</h4>
+<p>• Cursor position now continues to update even when not visible<br>
+• Fixed bugs in textbox causing caret to appear out of position<br>
+• Fixed out of range exceptions in TextBox<br>
+• Fixed bug in Dropdown text formatting<br>
+• Fixed several instances where library UI elements would fail to initialize previous BG and text colors before taking input focus<br>
+• Fixed bug in ListInputElement affecting selection box types that would prevent it from handling disabled entries correctly<br>
+• Fixed bug in BindManager where binds would sometimes fail to finish releasing, blocking other inputs</p>
+<h4>Other Changes</h4>
+<p>• Refactored text renderer to render billboards in batches, combined with new pooling system,<br>
+reducing text draw time by 60-80%<br>
+• Binds now use EventHandler delegate type for events<br>
+• Removed candidate bind input filter<br>
+• Overlapping binds can now be pressed without previously pressed binds being fully released</p>
+<div style="margin-bottom:16px;"></div>
+    <details style="margin-top:16px;">
+      <summary style="cursor:pointer;"><strong>Assets <code>2</code></strong></summary>
+      <ul style="margin-top:8px;">
+        <li><a href='https://github.com/ZachHembree/RichHudFramework.Client/archive/refs/tags/1.2.2.0.zip'>Source code (zip)</a></li>
+        <li><a href='https://github.com/ZachHembree/RichHudFramework.Client/archive/refs/tags/1.2.2.0.tar.gz'>Source code (tar.gz)</a></li>
+      </ul>
+    </details>
+  </div>
+</div>
+<div class="release-row">
+  <div class="release-meta">
+    <strong>28 Nov 2021</strong><br>
+    <a href='https://github.com/ZachHembree'>@ZachHembree</a><br>
+    <code>1.2.0.1</code><br>
+    <code><a href='https://github.com/ZachHembree/RichHudFramework.Client/commit/09918de51b7b33cd3889e82c3a745536efff9fe4'>09918de</a></code>
+  </div>
+  <div class="release-body">
+    <div class="release-header">
+      <h3>
+        <a href='https://github.com/ZachHembree/RichHudFramework.Client/releases/tag/1.2.0.1' style='text-decoration:none; color:inherit;'>[1.2.0.1] Fix ScrollBox Min Visible Range Calculation</a>
+      </h3>
+    </div>
+<p>• Fixed bug preventing ScrollBoxes from correctly calculating logical end of visible range when MinVisibleCount property causes it to run over<br>
+• Moved some library UI elements erroneously placed in server ns</p>
+<div style="margin-bottom:16px;"></div>
+    <details style="margin-top:16px;">
+      <summary style="cursor:pointer;"><strong>Assets <code>5</code></strong></summary>
+      <ul style="margin-top:8px;">
+        <li><a href='https://github.com/ZachHembree/RichHudFramework.Client/archive/refs/tags/1.2.0.1.zip'>Source code (zip)</a></li>
+        <li><a href='https://github.com/ZachHembree/RichHudFramework.Client/archive/refs/tags/1.2.0.1.tar.gz'>Source code (tar.gz)</a></li>
+        <li><a href='https://github.com/ZachHembree/RichHudFramework.Client/releases/download/1.2.0.1/Font_RichHudFramework.Client.zip'>Font_RichHudFramework.Client.zip</a> (31.56 KB)</li>
+        <li><a href='https://github.com/ZachHembree/RichHudFramework.Client/releases/download/1.2.0.1/MinLib_RichHudFramework.Client.zip'>MinLib_RichHudFramework.Client.zip</a> (152.99 KB)</li>
+        <li><a href='https://github.com/ZachHembree/RichHudFramework.Client/releases/download/1.2.0.1/Term_RichHudFramework.Client.zip'>Term_RichHudFramework.Client.zip</a> (74.31 KB)</li>
+      </ul>
+    </details>
+  </div>
+</div>
+<div class="release-row">
+  <div class="release-meta">
+    <strong>13 Sep 2021</strong><br>
+    <a href='https://github.com/ZachHembree'>@ZachHembree</a><br>
+    <code>1.2.0.0</code><br>
+    <code><a href='https://github.com/ZachHembree/RichHudFramework.Client/commit/02c1347279791c75171358d1297d0c97975ef565'>02c1347</a></code>
+  </div>
+  <div class="release-body">
+    <div class="release-header">
+      <h3>
+        <a href='https://github.com/ZachHembree/RichHudFramework.Client/releases/tag/1.2.0.0' style='text-decoration:none; color:inherit;'>[1.2.0.0] UI Clipping, Better Cursor and Input Management</a>
+      </h3>
+    </div>
+<p>This is a smaller feature update. Unlike previous versions, this update is focused on adding new core functionality to the UI framework without any significant optimizations or changes to the UI library.</p>
+<p><strong>Additions:</strong></p>
+<ul>
+<li>Support for UI clipping. Partially visible elements in scrolling lists, windows, and the like are now clipped instead of simply being set to invisible if they can't fit.
+<ul>
+<li>Clipping controlled via <code>IsMasking</code>, <code>IsSelectivelyMasked</code> and <code>CanIgnoreMasking</code> properties in <a href="https://github.com/ZachHembree/RichHudFramework.Client/blob/d570deb3c932577e5065ddef7dccb8f19a0bd42c/Shared/UI/HUD/HudElementBases/HudElementBase.cs#L152">HudElementBase</a></li>
+</ul>
+</li>
+<li>ScrollBox and dependent elements now support smooth scrolling</li>
+<li>Added <a href="https://github.com/ZachHembree/RichHudFramework.Client/blob/d570deb3c932577e5065ddef7dccb8f19a0bd42c/Shared/UI/HUD/ToolTip.cs#L21">ToolTips</a>
+<ul>
+<li>Tooltips are registered with the <a href="https://github.com/ZachHembree/RichHudFramework.Client/blob/d570deb3c932577e5065ddef7dccb8f19a0bd42c/Shared/UI/HUD/ICursor.cs#L130">cursor</a> once every frame on <code>HandleInput</code></li>
+</ul>
+</li>
+<li>Added shared control blacklist to <a href="https://github.com/ZachHembree/RichHudFramework.Client/blob/d570deb3c932577e5065ddef7dccb8f19a0bd42c/Client/UI/BindManager/BindManager.cs#L44">BindManager</a> for disabling the game's built-in binds
+<ul>
+<li>Controlled  via <a href="https://github.com/ZachHembree/RichHudFramework.Client/blob/d570deb3c932577e5065ddef7dccb8f19a0bd42c/Shared/UI/BindManager/BindClientAccessors.cs#L10">SeBlacklistModes</a> flags. The current version doesn't allow per-control blacklisting. Instead, there are three groups of controls: mouse, camera look, and all binds.</li>
+</ul>
+</li>
+</ul>
+<p><strong>Fixes:</strong></p>
+<ul>
+<li>Slider bars sliders no longer jump to the cursor when clicked</li>
+<li>Fixed index out of range bug in TextBox when copying/pasting text</li>
+<li>UI elements will no longer attempt to capture the cursor when they're not visible</li>
+</ul>
+<p><strong>Other Changes:</strong></p>
+<ul>
+<li>Scaling properties removed from UI elements in favor of the new <a href="https://github.com/ZachHembree/RichHudFramework.Client/blob/d570deb3c932577e5065ddef7dccb8f19a0bd42c/Shared/UI/HUD/HudSpaceNodes/ScaledSpaceNode.cs#L15">ScaledSpaceNode</a>, a type of HUD Space Node. The scaling properties were made redundant in the 1.0 release when I introduced support for custom draw matrices and they were just adding a bunch of complexity and jitteriness for no reason. So, I've removed them.
+<ul>
+<li>Added a new <a href="https://github.com/ZachHembree/RichHudFramework.Client/blob/d570deb3c932577e5065ddef7dccb8f19a0bd42c/Client/UI/HUD/HudMain.cs#L80">HighDpiRoot</a> property to HudMain</li>
+</ul>
+</li>
+<li>Cursor can now be enabled without requiring chat to be open
+<ul>
+<li>Text entry still requires chat</li>
+<li>Added a new <a href="https://github.com/ZachHembree/RichHudFramework.Client/blob/d570deb3c932577e5065ddef7dccb8f19a0bd42c/Shared/UI/HUD/HudMainEnums.cs#L98">InputMode</a> property to <a href="https://github.com/ZachHembree/RichHudFramework.Client/blob/d570deb3c932577e5065ddef7dccb8f19a0bd42c/Client/UI/HUD/HudMain.cs#L177">HudMain</a> to differentiate between cursor input modes.</li>
+</ul>
+</li>
+<li>Removed obsolete fast unregister/reregister for UI elements</li>
+<li>Now using length 1 array wrappers to minimize copies of draw matrix copies when drawing billboards. Hud Space Nodes and HudMain also now expose these wrapper properties. The things I do in lieu of return by ref...</li>
+</ul>
+<div style="margin-bottom:16px;"></div>
+    <details style="margin-top:16px;">
+      <summary style="cursor:pointer;"><strong>Assets <code>5</code></strong></summary>
+      <ul style="margin-top:8px;">
+        <li><a href='https://github.com/ZachHembree/RichHudFramework.Client/archive/refs/tags/1.2.0.0.zip'>Source code (zip)</a></li>
+        <li><a href='https://github.com/ZachHembree/RichHudFramework.Client/archive/refs/tags/1.2.0.0.tar.gz'>Source code (tar.gz)</a></li>
+        <li><a href='https://github.com/ZachHembree/RichHudFramework.Client/releases/download/1.2.0.0/Font_RichHudFramework.Client.zip'>Font_RichHudFramework.Client.zip</a> (31.56 KB)</li>
+        <li><a href='https://github.com/ZachHembree/RichHudFramework.Client/releases/download/1.2.0.0/MinLib_RichHudFramework.Client.zip'>MinLib_RichHudFramework.Client.zip</a> (154.87 KB)</li>
+        <li><a href='https://github.com/ZachHembree/RichHudFramework.Client/releases/download/1.2.0.0/Term_RichHudFramework.Client.zip'>Term_RichHudFramework.Client.zip</a> (74.31 KB)</li>
+      </ul>
+    </details>
+  </div>
+</div>
+<div class="release-row">
+  <div class="release-meta">
+    <strong>05 May 2021</strong><br>
+    <a href='https://github.com/ZachHembree'>@ZachHembree</a><br>
+    <code>1.1.1.0</code><br>
+    <code><a href='https://github.com/ZachHembree/RichHudFramework.Client/commit/03b9652f7841405cb581cf47a7c1d15f8ee4f123'>03b9652</a></code>
+  </div>
+  <div class="release-body">
+    <div class="release-header">
+      <h3>
+        <a href='https://github.com/ZachHembree/RichHudFramework.Client/releases/tag/1.1.1.0' style='text-decoration:none; color:inherit;'>[1.1.1.0] Text Update Fixes and Minor Formatting Optimization</a>
+      </h3>
+    </div>
+<p>• Library UI elements that change text formatting now only change text color. This should make it easier to use custom text formats with these types, especially SelectionBox types.<br>
+• Fixed bug underline bounding calculation preventing it from correctly clipping underlines on text with a horizontal offset.<br>
+• SetText() and SetFormatting() methods in TextBuilders affecting the entire text now change default formatting.<br>
+• Changes to text formatting that only affect color will not trigger a full update; it'll just update the billboard color.<br>
+• GlyphFormat is now a value type.</p>
+<div style="margin-bottom:16px;"></div>
+    <details style="margin-top:16px;">
+      <summary style="cursor:pointer;"><strong>Assets <code>5</code></strong></summary>
+      <ul style="margin-top:8px;">
+        <li><a href='https://github.com/ZachHembree/RichHudFramework.Client/archive/refs/tags/1.1.1.0.zip'>Source code (zip)</a></li>
+        <li><a href='https://github.com/ZachHembree/RichHudFramework.Client/archive/refs/tags/1.1.1.0.tar.gz'>Source code (tar.gz)</a></li>
+        <li><a href='https://github.com/ZachHembree/RichHudFramework.Client/releases/download/1.1.1.0/Font_RichHudFramework.Client.zip'>Font_RichHudFramework.Client.zip</a> (33.11 KB)</li>
+        <li><a href='https://github.com/ZachHembree/RichHudFramework.Client/releases/download/1.1.1.0/MinLib_RichHudFramework.Client.zip'>MinLib_RichHudFramework.Client.zip</a> (150.58 KB)</li>
+        <li><a href='https://github.com/ZachHembree/RichHudFramework.Client/releases/download/1.1.1.0/Term_RichHudFramework.Client.zip'>Term_RichHudFramework.Client.zip</a> (95.23 KB)</li>
+      </ul>
+    </details>
+  </div>
+</div>
+<div class="release-row">
+  <div class="release-meta">
+    <strong>02 Apr 2021</strong><br>
+    <a href='https://github.com/ZachHembree'>@ZachHembree</a><br>
+    <code>1.1.0.1</code><br>
+    <code><a href='https://github.com/ZachHembree/RichHudFramework.Client/commit/f579221932f8fc12c7d1b0bb4c64aaf8c1a5aef3'>f579221</a></code>
+  </div>
+  <div class="release-body">
+    <div class="release-header">
+      <h3>
+        <a href='https://github.com/ZachHembree/RichHudFramework.Client/releases/tag/1.1.0.1' style='text-decoration:none; color:inherit;'>[1.1.0.1] Cursor Hotfix</a>
+      </h3>
+    </div>
+    <details style="margin-top:16px;">
+      <summary style="cursor:pointer;"><strong>Assets <code>4</code></strong></summary>
+      <ul style="margin-top:8px;">
+        <li><a href='https://github.com/ZachHembree/RichHudFramework.Client/archive/refs/tags/1.1.0.1.zip'>Source code (zip)</a></li>
+        <li><a href='https://github.com/ZachHembree/RichHudFramework.Client/archive/refs/tags/1.1.0.1.tar.gz'>Source code (tar.gz)</a></li>
+        <li><a href='https://github.com/ZachHembree/RichHudFramework.Client/releases/download/1.1.0.1/Font_RichHudFramework.Client-1.1.0.0.zip'>Font_RichHudFramework.Client-1.1.0.0.zip</a> (35.17 KB)</li>
+        <li><a href='https://github.com/ZachHembree/RichHudFramework.Client/releases/download/1.1.0.1/Term_RichHudFramework.Client-1.1.0.0.zip'>Term_RichHudFramework.Client-1.1.0.0.zip</a> (73.55 KB)</li>
+      </ul>
+    </details>
+  </div>
+</div>
+<div class="release-row">
+  <div class="release-meta">
+    <strong>27 Mar 2021</strong><br>
+    <a href='https://github.com/ZachHembree'>@ZachHembree</a><br>
+    <code>1.1.0.0</code><br>
+    <code><a href='https://github.com/ZachHembree/RichHudFramework.Client/commit/a6c98cb34ff2a706f843b12dca49fa782cd49a91'>a6c98cb</a></code>
+  </div>
+  <div class="release-body">
+    <div class="release-header">
+      <h3>
+        <a href='https://github.com/ZachHembree/RichHudFramework.Client/releases/tag/1.1.0.0' style='text-decoration:none; color:inherit;'>[1.1.0.0] UI Tree Optimization and Library Overhaul</a>
+      </h3>
+    </div>
+<p>This update doesn't feature any major feature additions and is mostly focused on improving performance, scalability, and the code quality of elements supplied in the included UI library.</p>
+<h4>Tree Optimization</h4>
+<p>In previous versions, update delegates for every node, visible or not, were loaded into the update list on Master. This had the advantage of only requiring the client to update its delegate list when new elements were registered, but with the downside of introducing a constant load, even if nothing was on screen, significantly limiting scalability. Fortunately, there's a simple solution to this problem: just stop trying to load everything at once!</p>
+<p>Master now rebuilds its update list constantly, and clients (1.1.0.0+) will only register visible elements; any invisible element in the tree will be omitted along with its children, simultaneously eliminating the overhead of invoking update methods for invisible elements and making tree rebuilds/sorting faster by just reducing the size of the collection. This has the consequence of both significantly raising the ceiling for UI complexity while lowering the cost of invisible UI elements to almost <em>nothing</em>.</p>
+<p><em>But there is one small snag:</em> the update list on Master doesn't update on every draw tick, it's spread out over <em>5 ticks</em>, meaning there's a little under 100ms of latency, causing perceptible lag time between making an element visible, and having it actually appear. For most use cases, this isn't an issue, but if you're implementing a scrolling list, you'll need to <em>preload</em> a range of elements before and after the visible range, unless you're okay waiting a few frames for your members to appear in the list. The generic ScrollBox in the UI library does this automatically.</p>
+<h4>Library Overhaul</h4>
+<p>Every non-generic UI element in the library has been reworked to more closely align with the changes to the appearance and function of Space Engineer's UI elements since the Xbox release, and have gained limited support for keyboard input when focused. Selection Box types, like ListBox, TreeBox and Dropdown, for example, by default, allow scrolling and selection using the arrow keys and space bar, in addition to normal mouse input. It's a small detail, but I think it's small details like that that really bring a UI together.</p>
+<p>And that's another thing: <strong>Input Focus</strong>. While window focusing functions to bring a window to the foreground, the new input focus functionality determines which element should be accepting keyboard input, usually, the last one clicked/selected. This functionality has been integrated into the MouseInputElement, and by extension, every other element that accepts mouse input.</p>
+<h4>Other Changes:</h4>
+<p>• <strong>Selection Boxes:</strong> The ListBox, TreeBox, and Dropdown UI elements have been completely reimplemented to improve reliability, appearance and flexibility, and are now all built on a new generic SelectionBox type. In previous iterations, they only supported a single type of entry element; now, they can support custom entry types with arbitrary dimensions, in addition to the more restrictive variants.</p>
+<p>• Added support for page <strong>subcategories</strong> to the terminal.</p>
+<div style="margin-bottom:16px;"></div>
+    <details style="margin-top:16px;">
+      <summary style="cursor:pointer;"><strong>Assets <code>5</code></strong></summary>
+      <ul style="margin-top:8px;">
+        <li><a href='https://github.com/ZachHembree/RichHudFramework.Client/archive/refs/tags/1.1.0.0.zip'>Source code (zip)</a></li>
+        <li><a href='https://github.com/ZachHembree/RichHudFramework.Client/archive/refs/tags/1.1.0.0.tar.gz'>Source code (tar.gz)</a></li>
+        <li><a href='https://github.com/ZachHembree/RichHudFramework.Client/releases/download/1.1.0.0/Font_RichHudFramework.Client-1.1.0.0.zip'>Font_RichHudFramework.Client-1.1.0.0.zip</a> (35.17 KB)</li>
+        <li><a href='https://github.com/ZachHembree/RichHudFramework.Client/releases/download/1.1.0.0/MinLib_RichHudFramework.Client-1.1.0.0.zip'>MinLib_RichHudFramework.Client-1.1.0.0.zip</a> (149.80 KB)</li>
+        <li><a href='https://github.com/ZachHembree/RichHudFramework.Client/releases/download/1.1.0.0/Term_RichHudFramework.Client-1.1.0.0.zip'>Term_RichHudFramework.Client-1.1.0.0.zip</a> (73.55 KB)</li>
+      </ul>
+    </details>
+  </div>
+</div>
+<div class="release-row">
+  <div class="release-meta">
+    <strong>12 Mar 2021</strong><br>
+    <a href='https://github.com/ZachHembree'>@ZachHembree</a><br>
+    <code>1.0.3</code><br>
+    <code><a href='https://github.com/ZachHembree/RichHudFramework.Client/commit/master'>master</a></code>
+  </div>
+  <div class="release-body">
+    <div class="release-header">
+      <h3>
+        <a href='https://github.com/ZachHembree/RichHudFramework.Client/releases/tag/1.0.3' style='text-decoration:none; color:inherit;'>[1.0.3] Minor Terminal Fixes and List Box Refactoring</a>
+      </h3>
+    </div>
+<p>• Added new API accessors for terminal ListBox types to allow insertion, removal, and retrieval of the selection's current index.<br>
+• Terminal ListBox entries now allow the user to retrieve/modify the name of the entry<br>
+• Refactored ListBox, Dropdown and TreeBox to allow the use of custom entry elements<br>
+• Fixed bug preventing clients from reading/writing to terminal ListBox entry properties<br>
+• The terminal will now automatically close when the SE terminal or other windows open</p>
+<div style="margin-bottom:16px;"></div>
+    <details style="margin-top:16px;">
+      <summary style="cursor:pointer;"><strong>Assets <code>2</code></strong></summary>
+      <ul style="margin-top:8px;">
+        <li><a href='https://github.com/ZachHembree/RichHudFramework.Client/archive/refs/tags/1.0.3.zip'>Source code (zip)</a></li>
+        <li><a href='https://github.com/ZachHembree/RichHudFramework.Client/archive/refs/tags/1.0.3.tar.gz'>Source code (tar.gz)</a></li>
+      </ul>
+    </details>
+  </div>
+</div>
+<p><a href="https://github.com/ZachHembree/RichHudFramework.Client/releases">View all releases on GitHub</a></p>
+</div>
+
+</article>
+
+
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

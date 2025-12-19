@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Namespace RichHudFramework | Rich HUD Framework </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Namespace RichHudFramework | Rich HUD Framework ">
+      
+      
+      <link rel="icon" href="../resources/images/favicon.ico">
+      <link rel="stylesheet" href="../public/docfx.min.css">
+      <link rel="stylesheet" href="../public/main.css">
+      <meta name="docfx:navrel" content="../toc.html">
+      <meta name="docfx:tocrel" content="toc.html">
+      
+      <meta name="docfx:rel" content="../">
+      
+      
+      
+
+      <!-- Optional nav title customization -->
+      <meta name="loc:inThisArticle" content="Sections">
+      
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="ManagedReference">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand d-flex align-items-center" href="../index.html">
+            <img id="logo" class="svg me-2" src="../resources/images/logo.svg" alt="Rich HUD Framework">
+            
+            <!-- Vertical divider -->
+            <span class="vr align-self-stretch opacity-75" aria-hidden="true"></span>
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="RichHudFramework">
+
+  <h1 id="RichHudFramework" data-uid="RichHudFramework" class="text-break">Namespace RichHudFramework</h1>
+  <div class="markdown level0 summary"></div>
+  <div class="markdown level0 conceptual"></div>
+  <div class="markdown level0 remarks"></div>
+
+    <h3 id="classes">
+Classes
+</h3>
+    <dl class="jumplist">
+      <dt><a class="xref" href="RichHudFramework.AggregateException.html">AggregateException</a></dt>
+      <dd><p>Aggregates multiple exceptions into a single exception with a combined message.
+Used by <span class="xref">RichHudFramework.TaskPool</span> for clean error reporting when parallel tasks fail.</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="RichHudFramework.CollectionExtensions.html">CollectionExtensions</a></dt>
+      <dd></dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="RichHudFramework.KnownException.html">KnownException</a></dt>
+      <dd><p>Marks an exception as expected/known (e.g., failed file load, invalid user data).
+Allows the framework to distinguish between bugs and recoverable errors.</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="RichHudFramework.ListPoolPolicy-1.html">ListPoolPolicy&lt;T&gt;</a></dt>
+      <dd><p><a class="xref" href="RichHudFramework.IPooledObjectPolicy-1.html">IPooledObjectPolicy&lt;T&gt;</a> implementation specialized for <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1">List&lt;T&gt;</a>.
+Reuses lists by calling <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1.clear">Clear()</a> instead of allocating new ones.</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="RichHudFramework.MathExtensions.html">MathExtensions</a></dt>
+      <dd></dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="RichHudFramework.MathUtils.html">MathUtils</a></dt>
+      <dd><p>Mathematical utilities, particularly work-arounds for missing BitConverter functionality in Space Engineers mod API.</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="RichHudFramework.ObjectPool-1.html">ObjectPool&lt;T&gt;</a></dt>
+      <dd><p>Simple, non-thread-safe object pool backed by a <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1">List&lt;T&gt;</a>.
+Reduces allocations for frequently created/disposed reference types.</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="RichHudFramework.PooledObjectPolicy-1.html">PooledObjectPolicy&lt;T&gt;</a></dt>
+      <dd><p>Delegate-based implementation of <a class="xref" href="RichHudFramework.IPooledObjectPolicy-1.html">IPooledObjectPolicy&lt;T&gt;</a>.</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="RichHudFramework.StringBuilderPoolPolicy.html">StringBuilderPoolPolicy</a></dt>
+      <dd><p><a class="xref" href="RichHudFramework.IPooledObjectPolicy-1.html">IPooledObjectPolicy&lt;T&gt;</a> implementation for <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.text.stringbuilder">StringBuilder</a>.
+Reuses instances by clearing them instead of allocating new ones.</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="RichHudFramework.Utils.html">Utils</a></dt>
+      <dd></dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="RichHudFramework.Utils.Color.html">Utils.Color</a></dt>
+      <dd><p>Utilities for parsing and formatting <a class="xref" href="https://keensoftwarehouse.github.io/SpaceEngineersModAPI/api/VRageMath.Color.html">Color</a> values from/to strings.
+Supports common formats such as &quot;255,255,255&quot;, &quot; 100,  50, 0 &quot;, or &quot;128,64,32,255&quot;.</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="RichHudFramework.Utils.Debug.html">Utils.Debug</a></dt>
+      <dd><p>Debugging and runtime assertion utilities.</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="RichHudFramework.Utils.ProtoBuf.html">Utils.ProtoBuf</a></dt>
+      <dd><p>Safe wrappers around Space Engineers' built-in ProtoBuf serialization utilities.
+Catches exceptions and returns them as <a class="xref" href="RichHudFramework.KnownException.html">KnownException</a> instead of letting them propagate.</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="RichHudFramework.Utils.Xml.html">Utils.Xml</a></dt>
+      <dd><p>Safe wrappers around Space Engineers' built-in XML serialization utilities.
+Exceptions are caught and returned as <a class="xref" href="RichHudFramework.KnownException.html">KnownException</a> rather than thrown.</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="RichHudFramework.VectorExtensions.html">VectorExtensions</a></dt>
+      <dd></dd>
+    </dl>
+    <h3 id="interfaces">
+Interfaces
+</h3>
+    <dl class="jumplist">
+      <dt><a class="xref" href="RichHudFramework.IIndexedCollection-1.html">IIndexedCollection&lt;T&gt;</a></dt>
+      <dd><p>Minimal interface for any indexed collection exposing a count and an indexer.</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="RichHudFramework.IPooledObjectPolicy-1.html">IPooledObjectPolicy&lt;T&gt;</a></dt>
+      <dd><p>Defines the creation and reset behavior for objects managed by an <a class="xref" href="RichHudFramework.ObjectPool-1.html">ObjectPool&lt;T&gt;</a>.</p>
+</dd>
+    </dl>
+    <h3 id="delegates">
+Delegates
+</h3>
+    <dl class="jumplist">
+      <dt><a class="xref" href="RichHudFramework.EventHandler.html">EventHandler</a></dt>
+      <dd><p>Represents a method that will handle an event, similar to System.EventHandler.
+<remarks></remarks></p>
+<p>For input or value change events on UI elements, the sender will usually be 
+<a class="xref" href="RichHudFramework.UI.IFocusHandler.html#RichHudFramework_UI_IFocusHandler_InputOwner">InputOwner</a>.
+</p>
+
+</dd>
+    </dl>
+
+
+</article>
+
+        <div class="contribution d-print-none">
+        </div>
+
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

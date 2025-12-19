@@ -1,0 +1,124 @@
+:root {
+    /* 1. General Variables */
+    --bs-border-radius: 4px;
+
+    /* 2. Branding Colors (Used in Navbar and Footer) */
+    --rhf-brand-link-color: rgb(255, 255, 255);
+    --rhf-brand-link-hover-color: rgb(255, 255, 255, 0.6);
+    --rhf-brand-link-disabled-color: rgb(167, 167, 167);
+    --rhf-brand-text-color: rgb(255, 255, 255);
+    --rhf-brand-toggler-border-color: rgba(255, 255, 255, .15);
+
+    /* 3. Code Styling Variables */
+    --rhf-code-font-size: 0.875em;
+    --rhf-code-block-font-size: 1.0em;
+    --rhf-code-padding: 0.125em 0.35em;
+    --rhf-code-margin: 0.2em 0.1em;
+
+    /* Theme-specific color variables */
+    --rhf-body-bg-light: #ffffff;
+    --rhf-brand-background-light: rgb(45, 60, 70);
+
+    --rhf-body-bg-dark: #1e1e1e;
+    --rhf-brand-background-dark: #1b2b3380;
+
+    --rhf-code-bg-light: #abb1b936;
+    --rhf-code-color-light: rgb(0, 0, 0);
+    --rhf-code-block-bg-light: #949ba51a;
+
+    --rhf-code-bg-dark: #ffffff26;
+    --rhf-code-color-dark: rgb(255, 255, 255);
+    --rhf-code-block-bg-dark: var(--rhf-brand-background-dark);
+
+    --rhf-code-shadow-light: #3d41440f;
+    --rhf-code-shadow-dark: rgba(81, 81, 81, 0.101);
+}
+
+/* --- Theme-Specific Overrides --- */
+
+[data-bs-theme=light] {
+    --bs-body-bg: var(--rhf-body-bg-light);
+    --rhf-brand-background: var(--rhf-brand-background-light);
+    --rhf-code-color: var(--rhf-code-color-light);
+    --rhf-code-bg: var(--rhf-code-bg-light);
+    --rhf-code-shadow: 0 1px 2px 0 var(--rhf-code-shadow-light), 0 1px 3px 1px var(--rhf-code-shadow-light);
+    --rhf-code-block-bg: var(--rhf-code-block-bg-light);
+}
+
+[data-bs-theme=dark] {
+    --bs-body-bg: var(--rhf-body-bg-dark);
+    --rhf-brand-background: var(--rhf-brand-background-dark);
+    --rhf-code-color: var(--rhf-code-color-dark);
+    --rhf-code-bg: var(--rhf-code-bg-dark);
+    --rhf-code-shadow: 0 1px 2px 0 var(--rhf-code-shadow-dark), 0 1px 3px 1px var(--rhf-code-shadow-dark);
+    --rhf-code-block-bg: var(--rhf-code-block-bg-dark); 
+}
+
+/* --- Unified Navbar & Footer Branding --- */
+
+.navbar,
+body>footer,
+body[data-layout=landing]>footer {
+    background: var(--rhf-brand-background);
+    
+    /* Nav Link Overrides */
+    --bs-link-color: var(--rhf-brand-link-color);
+    --bs-link-hover-color: var(--rhf-brand-link-hover-color);
+    --bs-nav-link-color: var(--rhf-brand-link-color);
+    --bs-nav-link-hover-color: var(--rhf-brand-link-hover-color);
+    --bs-nav-link-disabled-color: var(--rhf-brand-link-disabled-color);
+}
+
+.navbar-nav .nav-link:hover,
+.navbar-nav .nav-link:focus {
+    color: var(--rhf-brand-link-hover-color);
+}
+
+.navbar {
+    /* Navbar Component Overrides */
+    --bs-navbar-color: var(--rhf-brand-text-color);
+    --bs-navbar-disabled-color: var(--rhf-brand-link-disabled-color);
+    --bs-navbar-active-color: var(--rhf-brand-text-color);
+    --bs-navbar-brand-color: var(--rhf-brand-text-color);
+    --bs-navbar-brand-hover-color: var(--rhf-brand-text-color);
+    --bs-navbar-toggler-border-color: var(--rhf-brand-toggler-border-color);
+}
+
+footer.text-secondary {
+    color: var(--rhf-brand-text-color) !important;
+}
+
+/* --- Button Text Consistency --- */
+
+/* Ensure buttons inherit white text in dark navbar/footer contexts */
+.navbar .btn,
+body>footer .btn,
+body[data-layout=landing]>footer .btn {
+    --bs-btn-color: var(--rhf-brand-text-color);
+    --bs-btn-hover-color: var(--rhf-brand-link-hover-color);
+    --bs-btn-active-color: var(--rhf-brand-link-hover-color);
+}
+
+/* Code Block Formatting */
+
+.hljs {
+    background: var(--rhf-code-block-bg) !important;
+    font-size: var(--rhf-code-block-font-size);
+}
+
+/* --- Final Inline Code Styling --- */
+
+code {
+    color: var(--rhf-code-color);
+    background: var(--rhf-code-bg);
+    padding: var(--rhf-code-padding);
+    margin: var(--rhf-code-margin);
+    border-radius: var(--bs-border-radius);
+    box-shadow: var(--rhf-code-shadow);
+    font-size: var(--rhf-code-font-size);
+}
+
+body[data-yaml-mime=ManagedReference] article dl.parameters>dt>code, 
+body[data-yaml-mime=ApiPage] article dl.parameters>dt>code {
+    font-size: var(--rhf-code-font-size);
+}

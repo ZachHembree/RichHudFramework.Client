@@ -1,0 +1,3201 @@
+{
+  "sitemap": {
+    "baseUrl": "https://zachhembree.github.io/RichHudFramework.Client/",
+    "changefreq": "monthly",
+    "priority": 0.5
+  },
+  "source_base_path": "C:/Users/zhemb/source/repos/RichHudFramework/RHFWiki",
+  "xrefmap": "xrefmap.yml",
+  "files": [
+    {
+      "type": "Resource",
+      "output": {
+        "resource": {
+          "relative_path": "index.json"
+        }
+      }
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "Releases.md",
+      "output": {
+        ".html": {
+          "relative_path": "Releases.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/RichHudFramework.AggregateException.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/RichHudFramework.AggregateException.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "RichHudFramework.AggregateException",
+      "Summary": "<p sourcefile=\"api/RichHudFramework.AggregateException.yml\" sourcestartlinenumber=\"1\">Aggregates multiple exceptions into a single exception with a combined message.\nUsed by <xref href=\"RichHudFramework.TaskPool\" data-throw-if-not-resolved=\"false\"></xref> for clean error reporting when parallel tasks fail.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/RichHudFramework.Client.RichHudClient.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/RichHudFramework.Client.RichHudClient.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "RichHudFramework.Client.RichHudClient",
+      "Summary": "<p sourcefile=\"api/RichHudFramework.Client.RichHudClient.yml\" sourcestartlinenumber=\"1\">API Client for the Rich HUD Framework.</p>\n<p sourcefile=\"api/RichHudFramework.Client.RichHudClient.yml\" sourcestartlinenumber=\"3\">This class handles the initialization and registration of a mod with the\nRich HUD Master module.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/RichHudFramework.Client.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/RichHudFramework.Client.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "RichHudFramework.Client",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/RichHudFramework.CollectionExtensions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/RichHudFramework.CollectionExtensions.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "RichHudFramework.CollectionExtensions",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/RichHudFramework.EventHandler.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/RichHudFramework.EventHandler.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "RichHudFramework.EventHandler",
+      "Summary": "<p sourcefile=\"api/RichHudFramework.EventHandler.yml\" sourcestartlinenumber=\"1\">Represents a method that will handle an event, similar to System.EventHandler.\n<remarks></remarks></p>\n<p>For input or value change events on UI elements, the sender will usually be \n<xref href=\"RichHudFramework.UI.IFocusHandler.InputOwner\" data-throw-if-not-resolved=\"false\"></xref>.\n</p>\n\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/RichHudFramework.IIndexedCollection-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/RichHudFramework.IIndexedCollection-1.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "RichHudFramework.IIndexedCollection<T>",
+      "Summary": "<p sourcefile=\"api/RichHudFramework.IIndexedCollection-1.yml\" sourcestartlinenumber=\"1\">Minimal interface for any indexed collection exposing a count and an indexer.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/RichHudFramework.IO.LocalFileIO.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/RichHudFramework.IO.LocalFileIO.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "RichHudFramework.IO.LocalFileIO",
+      "Summary": "<p sourcefile=\"api/RichHudFramework.IO.LocalFileIO.yml\" sourcestartlinenumber=\"1\">Handles basic file I/O operations in the mod's local storage.</p>\n<p>Ensures thread safety by preventing concurrent operations on this specific instance.</p>\n<p>Wrapper around <xref href=\"Sandbox.ModAPI.MyAPIGateway.Utilities\" data-throw-if-not-resolved=\"false\"></xref> local storage file utilities.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/RichHudFramework.IO.ReadOnlyModFileIO.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/RichHudFramework.IO.ReadOnlyModFileIO.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "RichHudFramework.IO.ReadOnlyModFileIO",
+      "Summary": "<p sourcefile=\"api/RichHudFramework.IO.ReadOnlyModFileIO.yml\" sourcestartlinenumber=\"1\">Handles read-only file operations for files located within the mod's directory.</p>\n<p>Wrapper around <xref href=\"Sandbox.ModAPI.MyAPIGateway.Utilities\" data-throw-if-not-resolved=\"false\"></xref> mod location file utils.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/RichHudFramework.IO.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/RichHudFramework.IO.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "RichHudFramework.IO",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/RichHudFramework.IPooledObjectPolicy-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/RichHudFramework.IPooledObjectPolicy-1.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "RichHudFramework.IPooledObjectPolicy<T>",
+      "Summary": "<p sourcefile=\"api/RichHudFramework.IPooledObjectPolicy-1.yml\" sourcestartlinenumber=\"1\">Defines the creation and reset behavior for objects managed by an <xref href=\"RichHudFramework.ObjectPool%601\" data-throw-if-not-resolved=\"false\"></xref>.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/RichHudFramework.KnownException.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/RichHudFramework.KnownException.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "RichHudFramework.KnownException",
+      "Summary": "<p sourcefile=\"api/RichHudFramework.KnownException.yml\" sourcestartlinenumber=\"1\">Marks an exception as expected/known (e.g., failed file load, invalid user data).\nAllows the framework to distinguish between bugs and recoverable errors.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/RichHudFramework.ListPoolPolicy-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/RichHudFramework.ListPoolPolicy-1.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "RichHudFramework.ListPoolPolicy<T>",
+      "Summary": "<p sourcefile=\"api/RichHudFramework.ListPoolPolicy-1.yml\" sourcestartlinenumber=\"1\"><xref href=\"RichHudFramework.IPooledObjectPolicy%601\" data-throw-if-not-resolved=\"false\"></xref> implementation specialized for <xref href=\"System.Collections.Generic.List%601\" data-throw-if-not-resolved=\"false\"></xref>.\nReuses lists by calling <xref href=\"System.Collections.Generic.List%601.Clear\" data-throw-if-not-resolved=\"false\"></xref> instead of allocating new ones.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/RichHudFramework.MathExtensions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/RichHudFramework.MathExtensions.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "RichHudFramework.MathExtensions",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/RichHudFramework.MathUtils.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/RichHudFramework.MathUtils.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "RichHudFramework.MathUtils",
+      "Summary": "<p sourcefile=\"api/RichHudFramework.MathUtils.yml\" sourcestartlinenumber=\"1\">Mathematical utilities, particularly work-arounds for missing BitConverter functionality in Space Engineers mod API.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/RichHudFramework.ObjectPool-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/RichHudFramework.ObjectPool-1.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "RichHudFramework.ObjectPool<T>",
+      "Summary": "<p sourcefile=\"api/RichHudFramework.ObjectPool-1.yml\" sourcestartlinenumber=\"1\">Simple, non-thread-safe object pool backed by a <xref href=\"System.Collections.Generic.List%601\" data-throw-if-not-resolved=\"false\"></xref>.\nReduces allocations for frequently created/disposed reference types.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/RichHudFramework.PooledObjectPolicy-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/RichHudFramework.PooledObjectPolicy-1.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "RichHudFramework.PooledObjectPolicy<T>",
+      "Summary": "<p sourcefile=\"api/RichHudFramework.PooledObjectPolicy-1.yml\" sourcestartlinenumber=\"1\">Delegate-based implementation of <xref href=\"RichHudFramework.IPooledObjectPolicy%601\" data-throw-if-not-resolved=\"false\"></xref>.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/RichHudFramework.StringBuilderPoolPolicy.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/RichHudFramework.StringBuilderPoolPolicy.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "RichHudFramework.StringBuilderPoolPolicy",
+      "Summary": "<p sourcefile=\"api/RichHudFramework.StringBuilderPoolPolicy.yml\" sourcestartlinenumber=\"1\"><xref href=\"RichHudFramework.IPooledObjectPolicy%601\" data-throw-if-not-resolved=\"false\"></xref> implementation for <xref href=\"System.Text.StringBuilder\" data-throw-if-not-resolved=\"false\"></xref>.\nReuses instances by clearing them instead of allocating new ones.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/RichHudFramework.UI.BindAliasDefinition.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/RichHudFramework.UI.BindAliasDefinition.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "RichHudFramework.UI.BindAliasDefinition",
+      "Summary": "<p sourcefile=\"api/RichHudFramework.UI.BindAliasDefinition.yml\" sourcestartlinenumber=\"1\">Wrapper for serializing bind aliases (alternate key combinations) to XML.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/RichHudFramework.UI.BindDefinition.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/RichHudFramework.UI.BindDefinition.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "RichHudFramework.UI.BindDefinition",
+      "Summary": "<p sourcefile=\"api/RichHudFramework.UI.BindDefinition.yml\" sourcestartlinenumber=\"1\">Serializable container for individual key binds.</p>\n<p>Includes the bind name, the primary control combination, and any optional aliases.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/RichHudFramework.UI.BindGroupInitializer.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/RichHudFramework.UI.BindGroupInitializer.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "RichHudFramework.UI.BindGroupInitializer",
+      "Summary": "<p sourcefile=\"api/RichHudFramework.UI.BindGroupInitializer.yml\" sourcestartlinenumber=\"1\">A collection designed to simplify the definition and registration of groups of key binds.</p>\n<p>Supports mixed control types (Strings, MyKeys, RichHudControls, JoystickButtons) via <xref href=\"RichHudFramework.UI.ControlHandle\" data-throw-if-not-resolved=\"false\"></xref>.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/RichHudFramework.UI.BindInputElement.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/RichHudFramework.UI.BindInputElement.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "RichHudFramework.UI.BindInputElement",
+      "Summary": "<p sourcefile=\"api/RichHudFramework.UI.BindInputElement.yml\" sourcestartlinenumber=\"1\">Attaches custom control-bind (key/combo) event handling to a UI element.\nAllows arbitrary <xref href=\"RichHudFramework.UI.IBind\" data-throw-if-not-resolved=\"false\"></xref> definitions to trigger NewPressed/PressedAndHeld/Released events\non a specific UI node, optionally requiring input focus.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/RichHudFramework.UI.BorderBox.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/RichHudFramework.UI.BorderBox.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "RichHudFramework.UI.BorderBox",
+      "Summary": "<p sourcefile=\"api/RichHudFramework.UI.BorderBox.yml\" sourcestartlinenumber=\"1\">A UI element that renders a textured frame. Supports coloring, transparency,\ntexture alignment/scaling, and masking.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/RichHudFramework.UI.BorderedButton.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/RichHudFramework.UI.BorderedButton.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "RichHudFramework.UI.BorderedButton",
+      "Summary": "<p sourcefile=\"api/RichHudFramework.UI.BorderedButton.yml\" sourcestartlinenumber=\"1\"><xref href=\"RichHudFramework.UI.LabelBoxButton\" data-throw-if-not-resolved=\"false\"></xref> styled to closely match the appearance of buttons in the SE terminal.</p>\n<p>Formatting temporarily changes when it gains input focus.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/RichHudFramework.UI.BorderedCheckBox.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/RichHudFramework.UI.BorderedCheckBox.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "RichHudFramework.UI.BorderedCheckBox",
+      "Summary": "<p sourcefile=\"api/RichHudFramework.UI.BorderedCheckBox.yml\" sourcestartlinenumber=\"1\">Bordered checkbox designed to mimic the appearance of the checkbox used in the SE terminal.</p>\n<p>Does not have a label. Use <xref href=\"RichHudFramework.UI.NamedCheckBox\" data-throw-if-not-resolved=\"false\"></xref> for a version with a label.</p>\n<p>Formatting temporarily changes when it gains input focus.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/RichHudFramework.UI.Button.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/RichHudFramework.UI.Button.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "RichHudFramework.UI.Button",
+      "Summary": "<p sourcefile=\"api/RichHudFramework.UI.Button.yml\" sourcestartlinenumber=\"1\">Clickable button with a textured background.</p>\n<p>No styling by default; it's just a clickable <xref href=\"RichHudFramework.UI.TexturedBox\" data-throw-if-not-resolved=\"false\"></xref> with highlighting.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/RichHudFramework.UI.CamSpaceNode.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/RichHudFramework.UI.CamSpaceNode.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "RichHudFramework.UI.CamSpaceNode",
+      "Summary": "<p sourcefile=\"api/RichHudFramework.UI.CamSpaceNode.yml\" sourcestartlinenumber=\"1\">HudSpace node that builds its Plane-to-World matrix directly from the player camera.</p>\n<p>In its default state this exactly replicates the vanilla <xref href=\"RichHudFramework.UI.Client.HudMain.HighDpiRoot\" data-throw-if-not-resolved=\"false\"></xref> \ntransform (screen-space UI). By modifying its properties you can create rotated, offset,\nor world-space (non-screen-space) HUDs that still follow the camera.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/RichHudFramework.UI.ChainSelectionBox-3.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/RichHudFramework.UI.ChainSelectionBox-3.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "RichHudFramework.UI.ChainSelectionBox<TContainer, TElement, TValue>",
+      "Summary": "<p sourcefile=\"api/RichHudFramework.UI.ChainSelectionBox-3.yml\" sourcestartlinenumber=\"1\">A non-scrolling list of arbitrary selectable UI elements.\nSpecialization of SelectionBox using HudChain</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/RichHudFramework.UI.ChainSelectionBoxBase-2.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/RichHudFramework.UI.ChainSelectionBoxBase-2.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "RichHudFramework.UI.ChainSelectionBoxBase<TContainer, TElement>",
+      "Summary": "<p sourcefile=\"api/RichHudFramework.UI.ChainSelectionBoxBase-2.yml\" sourcestartlinenumber=\"1\">Abstract selection box that uses a <xref href=\"RichHudFramework.UI.HudChain%602\" data-throw-if-not-resolved=\"false\"></xref> as its backing list.\nIntended for fixed-size lists that do not require scrolling.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/RichHudFramework.UI.Client.BindManager.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/RichHudFramework.UI.Client.BindManager.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "RichHudFramework.UI.Client.BindManager",
+      "Summary": "<p sourcefile=\"api/RichHudFramework.UI.Client.BindManager.yml\" sourcestartlinenumber=\"1\">The central hub for creating and retrieving key binds, control groups, and\nconfiguring input blacklisting in the framework.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/RichHudFramework.UI.Client.ControlCategory.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/RichHudFramework.UI.Client.ControlCategory.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "RichHudFramework.UI.Client.ControlCategory",
+      "Summary": "<p sourcefile=\"api/RichHudFramework.UI.Client.ControlCategory.yml\" sourcestartlinenumber=\"1\">Represents a horizontally scrolling row of <xref href=\"RichHudFramework.UI.Client.ControlTile\" data-throw-if-not-resolved=\"false\"></xref>s within a <xref href=\"RichHudFramework.UI.Client.ControlPage\" data-throw-if-not-resolved=\"false\"></xref>\nin the <xref href=\"RichHudFramework.UI.Client.RichHudTerminal\" data-throw-if-not-resolved=\"false\"></xref>.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/RichHudFramework.UI.Client.ControlPage.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/RichHudFramework.UI.Client.ControlPage.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "RichHudFramework.UI.Client.ControlPage",
+      "Summary": "<p sourcefile=\"api/RichHudFramework.UI.Client.ControlPage.yml\" sourcestartlinenumber=\"1\">A page that organizes settings into vertically scrolling <xref href=\"RichHudFramework.UI.Client.ControlCategory\" data-throw-if-not-resolved=\"false\"></xref>s in the <xref href=\"RichHudFramework.UI.Client.RichHudTerminal\" data-throw-if-not-resolved=\"false\"></xref>.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/RichHudFramework.UI.Client.ControlTile.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/RichHudFramework.UI.Client.ControlTile.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "RichHudFramework.UI.Client.ControlTile",
+      "Summary": "<p sourcefile=\"api/RichHudFramework.UI.Client.ControlTile.yml\" sourcestartlinenumber=\"1\">Represents a vertical layout column within a <xref href=\"RichHudFramework.UI.Client.ControlCategory\" data-throw-if-not-resolved=\"false\"></xref> in the <xref href=\"RichHudFramework.UI.Client.RichHudTerminal\" data-throw-if-not-resolved=\"false\"></xref>.</p>\n<p>\nTiles are organized horizontally within a category. Each tile should generally contain \nno more than 3 controls to maintain proper UI scaling and layout bounds.\n</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/RichHudFramework.UI.Client.HudMain.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/RichHudFramework.UI.Client.HudMain.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "RichHudFramework.UI.Client.HudMain",
+      "Summary": "<p sourcefile=\"api/RichHudFramework.UI.Client.HudMain.yml\" sourcestartlinenumber=\"1\">Primary entry point for the client-side UI system.\nProvides shared access to root UI nodes, cursor, clipboard, screen metrics, and world-space\nprojection utilities.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/RichHudFramework.UI.Client.RebindPage.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/RichHudFramework.UI.Client.RebindPage.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "RichHudFramework.UI.Client.RebindPage",
+      "Summary": "<p sourcefile=\"api/RichHudFramework.UI.Client.RebindPage.yml\" sourcestartlinenumber=\"1\">A terminal page designed specifically for managing key bindings. Presents binds from a <xref href=\"RichHudFramework.UI.IBindGroup\" data-throw-if-not-resolved=\"false\"></xref>\nin a scrolling list in the <xref href=\"RichHudFramework.UI.Client.RichHudTerminal\" data-throw-if-not-resolved=\"false\"></xref> with a pop-up dialog for changing key combinations when\na bind is selected by the user.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/RichHudFramework.UI.Client.RichHudTerminal.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/RichHudFramework.UI.Client.RichHudTerminal.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "RichHudFramework.UI.Client.RichHudTerminal",
+      "Summary": "<p sourcefile=\"api/RichHudFramework.UI.Client.RichHudTerminal.yml\" sourcestartlinenumber=\"1\">The central windowed settings menu shared by all mods using the framework.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/RichHudFramework.UI.Client.TerminalButton.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/RichHudFramework.UI.Client.TerminalButton.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "RichHudFramework.UI.Client.TerminalButton",
+      "Summary": "<p sourcefile=\"api/RichHudFramework.UI.Client.TerminalButton.yml\" sourcestartlinenumber=\"1\">A clickable button control for a <xref href=\"RichHudFramework.UI.Client.ControlTile\" data-throw-if-not-resolved=\"false\"></xref>.</p>\n<p>Mimics the appearance of the standard Space Engineers terminal button.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/RichHudFramework.UI.Client.TerminalCheckbox.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/RichHudFramework.UI.Client.TerminalCheckbox.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "RichHudFramework.UI.Client.TerminalCheckbox",
+      "Summary": "<p sourcefile=\"api/RichHudFramework.UI.Client.TerminalCheckbox.yml\" sourcestartlinenumber=\"1\">A boolean checkbox control for a <xref href=\"RichHudFramework.UI.Client.ControlTile\" data-throw-if-not-resolved=\"false\"></xref>.</p>\n<p>Mimics the appearance of the standard Space Engineers terminal checkbox.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/RichHudFramework.UI.Client.TerminalColorPicker.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/RichHudFramework.UI.Client.TerminalColorPicker.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "RichHudFramework.UI.Client.TerminalColorPicker",
+      "Summary": "<p sourcefile=\"api/RichHudFramework.UI.Client.TerminalColorPicker.yml\" sourcestartlinenumber=\"1\">An RGB color picker using three sliders (Red, Green, Blue) for <xref href=\"RichHudFramework.UI.Client.ControlTile\" data-throw-if-not-resolved=\"false\"></xref>s.</p>\n<p>Designed to mimic the appearance of the color picker in the SE terminal.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/RichHudFramework.UI.Client.TerminalControlBase.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/RichHudFramework.UI.Client.TerminalControlBase.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "RichHudFramework.UI.Client.TerminalControlBase",
+      "Summary": "<p sourcefile=\"api/RichHudFramework.UI.Client.TerminalControlBase.yml\" sourcestartlinenumber=\"1\">The abstract base class for all controls in the <xref href=\"RichHudFramework.UI.Client.RichHudTerminal\" data-throw-if-not-resolved=\"false\"></xref></p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/RichHudFramework.UI.Client.TerminalDragBox.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/RichHudFramework.UI.Client.TerminalDragBox.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "RichHudFramework.UI.Client.TerminalDragBox",
+      "Summary": "<p sourcefile=\"api/RichHudFramework.UI.Client.TerminalDragBox.yml\" sourcestartlinenumber=\"1\">A control allowing the user to visually select a 2D screen position (Vector2) for a <xref href=\"RichHudFramework.UI.Client.ControlTile\" data-throw-if-not-resolved=\"false\"></xref>.</p>\n<p>Spawns a temporary draggable window when interacted with. Useful for configuring HUD element positions.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/RichHudFramework.UI.Client.TerminalDropdown-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/RichHudFramework.UI.Client.TerminalDropdown-1.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "RichHudFramework.UI.Client.TerminalDropdown<T>",
+      "Summary": "<p sourcefile=\"api/RichHudFramework.UI.Client.TerminalDropdown-1.yml\" sourcestartlinenumber=\"1\">A collapsing dropdown list with a label. For <xref href=\"RichHudFramework.UI.Client.ControlTile\" data-throw-if-not-resolved=\"false\"></xref>s.</p>\n<p>Designed to mimic the appearance of the dropdown in the SE terminal.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/RichHudFramework.UI.Client.TerminalLabel.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/RichHudFramework.UI.Client.TerminalLabel.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "RichHudFramework.UI.Client.TerminalLabel",
+      "Summary": "<p sourcefile=\"api/RichHudFramework.UI.Client.TerminalLabel.yml\" sourcestartlinenumber=\"1\">A static text label for a <xref href=\"RichHudFramework.UI.Client.ControlTile\" data-throw-if-not-resolved=\"false\"></xref>.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/RichHudFramework.UI.Client.TerminalList-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/RichHudFramework.UI.Client.TerminalList-1.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "RichHudFramework.UI.Client.TerminalList<T>",
+      "Summary": "<p sourcefile=\"api/RichHudFramework.UI.Client.TerminalList-1.yml\" sourcestartlinenumber=\"1\">A non-collapsing, fixed-height list box with a label. For <xref href=\"RichHudFramework.UI.Client.ControlTile\" data-throw-if-not-resolved=\"false\"></xref>s.</p>\n<p>Designed to mimic the appearance of the list box in the SE terminal.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/RichHudFramework.UI.Client.TerminalOnOffButton.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/RichHudFramework.UI.Client.TerminalOnOffButton.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "RichHudFramework.UI.Client.TerminalOnOffButton",
+      "Summary": "<p sourcefile=\"api/RichHudFramework.UI.Client.TerminalOnOffButton.yml\" sourcestartlinenumber=\"1\">An On/Off toggle button used for <xref href=\"RichHudFramework.UI.Client.ControlTile\" data-throw-if-not-resolved=\"false\"></xref>s.</p>\n<p>Mimics the appearance of the \"On/Off\" button in the SE Terminal.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/RichHudFramework.UI.Client.TerminalPageBase.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/RichHudFramework.UI.Client.TerminalPageBase.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "RichHudFramework.UI.Client.TerminalPageBase",
+      "Summary": "<p sourcefile=\"api/RichHudFramework.UI.Client.TerminalPageBase.yml\" sourcestartlinenumber=\"1\">Abstract base for interfacing with terminal page implementations</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/RichHudFramework.UI.Client.TerminalPageCategory.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/RichHudFramework.UI.Client.TerminalPageCategory.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "RichHudFramework.UI.Client.TerminalPageCategory",
+      "Summary": "<p sourcefile=\"api/RichHudFramework.UI.Client.TerminalPageCategory.yml\" sourcestartlinenumber=\"1\">A collapsable group of RHF terminal pages that can be added to a mod's control root.</p>\n<p>Functions as a folder in the sidebar navigation.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/RichHudFramework.UI.Client.TerminalPageCategoryBase.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/RichHudFramework.UI.Client.TerminalPageCategoryBase.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "RichHudFramework.UI.Client.TerminalPageCategoryBase",
+      "Summary": "<p sourcefile=\"api/RichHudFramework.UI.Client.TerminalPageCategoryBase.yml\" sourcestartlinenumber=\"1\">Abstract base class for terminal page containers/groups.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/RichHudFramework.UI.Client.TerminalSlider.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/RichHudFramework.UI.Client.TerminalSlider.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "RichHudFramework.UI.Client.TerminalSlider",
+      "Summary": "<p sourcefile=\"api/RichHudFramework.UI.Client.TerminalSlider.yml\" sourcestartlinenumber=\"1\">A labeled slider for selecting float values within a specific range. For <xref href=\"RichHudFramework.UI.Client.ControlTile\" data-throw-if-not-resolved=\"false\"></xref>s.</p>\n<p>Mimics the appearance of the slider in the SE terminal.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/RichHudFramework.UI.Client.TerminalTextField.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/RichHudFramework.UI.Client.TerminalTextField.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "RichHudFramework.UI.Client.TerminalTextField",
+      "Summary": "<p sourcefile=\"api/RichHudFramework.UI.Client.TerminalTextField.yml\" sourcestartlinenumber=\"1\">A single-line text input field with a configurable character filter. For <xref href=\"RichHudFramework.UI.Client.ControlTile\" data-throw-if-not-resolved=\"false\"></xref>s.</p>\n<p>Mimics the appearance of the text field in the SE terminal.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/RichHudFramework.UI.Client.TerminalValue-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/RichHudFramework.UI.Client.TerminalValue-1.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "RichHudFramework.UI.Client.TerminalValue<TValue>",
+      "Summary": "<p sourcefile=\"api/RichHudFramework.UI.Client.TerminalValue-1.yml\" sourcestartlinenumber=\"1\">Abstract base class for terminal controls that are associated with a specific data value\n(e.g., sliders, checkboxes) in the <xref href=\"RichHudFramework.UI.Client.RichHudTerminal\" data-throw-if-not-resolved=\"false\"></xref>.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/RichHudFramework.UI.Client.TextPage.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/RichHudFramework.UI.Client.TextPage.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "RichHudFramework.UI.Client.TextPage",
+      "Summary": "<p sourcefile=\"api/RichHudFramework.UI.Client.TextPage.yml\" sourcestartlinenumber=\"1\">A scrolling page of wrapped, read-only text in the <xref href=\"RichHudFramework.UI.Client.RichHudTerminal\" data-throw-if-not-resolved=\"false\"></xref>.</p>\n<p>Useful for help screens, changelogs, or information displays.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/RichHudFramework.UI.Client.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/RichHudFramework.UI.Client.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "RichHudFramework.UI.Client",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/RichHudFramework.UI.CmdGroupInitializer.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/RichHudFramework.UI.CmdGroupInitializer.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "RichHudFramework.UI.CmdGroupInitializer",
+      "Summary": "<p sourcefile=\"api/RichHudFramework.UI.CmdGroupInitializer.yml\" sourcestartlinenumber=\"1\">A helper container used to define a list of commands and their callbacks\nbefore registering them to a <xref href=\"RichHudFramework.UI.ICommandGroup\" data-throw-if-not-resolved=\"false\"></xref>.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/RichHudFramework.UI.CmdManager.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/RichHudFramework.UI.CmdManager.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "RichHudFramework.UI.CmdManager",
+      "Summary": "<p sourcefile=\"api/RichHudFramework.UI.CmdManager.yml\" sourcestartlinenumber=\"1\">Singleton Session Component responsible for managing chat command registration,\nparsing incoming chat messages, and executing matching commands.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/RichHudFramework.UI.ColorPickerHSV.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/RichHudFramework.UI.ColorPickerHSV.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "RichHudFramework.UI.ColorPickerHSV",
+      "Summary": "<p sourcefile=\"api/RichHudFramework.UI.ColorPickerHSV.yml\" sourcestartlinenumber=\"1\">A named color picker using sliders designed to mimic the appearance of the Space Engineers terminal color picker.</p>\n<p>Operating in HSV mode (Hue, Saturation, Value). Alpha (transparency) is not supported.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/RichHudFramework.UI.ColorPickerRGB.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/RichHudFramework.UI.ColorPickerRGB.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "RichHudFramework.UI.ColorPickerRGB",
+      "Summary": "<p sourcefile=\"api/RichHudFramework.UI.ColorPickerRGB.yml\" sourcestartlinenumber=\"1\">A named color picker component utilizing RGB sliders, styled to mimic the Space Engineers terminal interface.</p>\n<p>Operating in RGB mode. Alpha (transparency) is not supported.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/RichHudFramework.UI.ControlHandle.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/RichHudFramework.UI.ControlHandle.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "RichHudFramework.UI.ControlHandle",
+      "Summary": "<p sourcefile=\"api/RichHudFramework.UI.ControlHandle.yml\" sourcestartlinenumber=\"1\">A unified handle for referencing UI controls.</p>\n<p>Abstracts the differences between <xref href=\"VRage.Input.MyKeys\" data-throw-if-not-resolved=\"false\"></xref> (Keyboard), <xref href=\"RichHudFramework.UI.RichHudControls\" data-throw-if-not-resolved=\"false\"></xref> (Mouse/Custom), \nand <xref href=\"VRage.Input.MyJoystickButtonsEnum\" data-throw-if-not-resolved=\"false\"></xref> (Gamepad) by wrapping them in a unique integer ID.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/RichHudFramework.UI.CustomSpaceNode.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/RichHudFramework.UI.CustomSpaceNode.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "RichHudFramework.UI.CustomSpaceNode",
+      "Summary": "<p sourcefile=\"api/RichHudFramework.UI.CustomSpaceNode.yml\" sourcestartlinenumber=\"1\">HudSpace node that uses a completely user-supplied world matrix each frame.\nIf no delegate is assigned, the node simply inherits its parent's Plane-to-World matrix.</p>\n<p>Ideal for attaching UI to moving cockpits, turret bases, custom billboards, etc.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/RichHudFramework.UI.DimAlignments.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/RichHudFramework.UI.DimAlignments.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "RichHudFramework.UI.DimAlignments",
+      "Summary": "<p sourcefile=\"api/RichHudFramework.UI.DimAlignments.yml\" sourcestartlinenumber=\"1\">Automatic size matching flags for <xref href=\"RichHudFramework.UI.HudElementBase.DimAlignment\" data-throw-if-not-resolved=\"false\"></xref></p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/RichHudFramework.UI.DoubleLabelBox.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/RichHudFramework.UI.DoubleLabelBox.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "RichHudFramework.UI.DoubleLabelBox",
+      "Summary": "<p sourcefile=\"api/RichHudFramework.UI.DoubleLabelBox.yml\" sourcestartlinenumber=\"1\">A text box with a text field on the left and another on the right.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/RichHudFramework.UI.Dropdown-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/RichHudFramework.UI.Dropdown-1.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "RichHudFramework.UI.Dropdown<TValue>",
+      "Summary": "<p sourcefile=\"api/RichHudFramework.UI.Dropdown-1.yml\" sourcestartlinenumber=\"1\">Collapsable list box. Designed to mimic the appearance of the dropdown in the SE terminal.</p>\n<p>\nAlias of <xref href=\"RichHudFramework.UI.Dropdown%603\" data-throw-if-not-resolved=\"false\"></xref> using \n<xref href=\"RichHudFramework.UI.ListBoxEntry%601\" data-throw-if-not-resolved=\"false\"></xref> and <xref href=\"RichHudFramework.UI.Label\" data-throw-if-not-resolved=\"false\"></xref> as the container and element, respectively.\n</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/RichHudFramework.UI.Dropdown-2.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/RichHudFramework.UI.Dropdown-2.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "RichHudFramework.UI.Dropdown<TElement, TValue>",
+      "Summary": "<p sourcefile=\"api/RichHudFramework.UI.Dropdown-2.yml\" sourcestartlinenumber=\"1\">Collapsable list box. Designed to mimic the appearance of the dropdown in the SE terminal.</p>\n<p>\nAlias of <xref href=\"RichHudFramework.UI.Dropdown%603\" data-throw-if-not-resolved=\"false\"></xref> using \n<xref href=\"RichHudFramework.UI.ListBoxEntry%602\" data-throw-if-not-resolved=\"false\"></xref> as the container.\n</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/RichHudFramework.UI.Dropdown-3.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/RichHudFramework.UI.Dropdown-3.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "RichHudFramework.UI.Dropdown<TContainer, TElement, TValue>",
+      "Summary": "<p sourcefile=\"api/RichHudFramework.UI.Dropdown-3.yml\" sourcestartlinenumber=\"1\">Generic collapsable list box. Allows use of custom entry element types.\nDesigned to mimic the appearance of the dropdown in the SE terminal.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/RichHudFramework.UI.EmptyHudElement.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/RichHudFramework.UI.EmptyHudElement.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "RichHudFramework.UI.EmptyHudElement",
+      "Summary": "<p sourcefile=\"api/RichHudFramework.UI.EmptyHudElement.yml\" sourcestartlinenumber=\"1\">A bare HUD element that renders nothing, does no input handling.</p>\n<p>\nUseful for organizing or grouping UI elements in an area using \n<xref href=\"RichHudFramework.UI.HudElementBase.DimAlignment\" data-throw-if-not-resolved=\"false\"></xref> and <xref href=\"RichHudFramework.UI.HudElementBase.ParentAlignment\" data-throw-if-not-resolved=\"false\"></xref>\n</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/RichHudFramework.UI.EntryData-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/RichHudFramework.UI.EntryData-1.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "RichHudFramework.UI.EntryData<T>",
+      "Summary": "<p sourcefile=\"api/RichHudFramework.UI.EntryData-1.yml\" sourcestartlinenumber=\"1\">Represents a single entry in a ListBox or Dropdown.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/RichHudFramework.UI.GlyphFormat.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/RichHudFramework.UI.GlyphFormat.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "RichHudFramework.UI.GlyphFormat",
+      "Summary": "<p sourcefile=\"api/RichHudFramework.UI.GlyphFormat.yml\" sourcestartlinenumber=\"1\">Defines the formatting applied to characters in <xref href=\"RichHudFramework.UI.RichText\" data-throw-if-not-resolved=\"false\"></xref> and <xref href=\"RichHudFramework.UI.Rendering.ITextBoard\" data-throw-if-not-resolved=\"false\"></xref>.\nIncludes color, font, style, size, and alignment.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/RichHudFramework.UI.HudChain-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/RichHudFramework.UI.HudChain-1.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "RichHudFramework.UI.HudChain<TElementContainer>",
+      "Summary": "<p sourcefile=\"api/RichHudFramework.UI.HudChain-1.yml\" sourcestartlinenumber=\"1\">Organizes child elements into a linear stack, either horizontally or vertically.</p>\n<p>Alias of <xref href=\"RichHudFramework.UI.HudChain%602\" data-throw-if-not-resolved=\"false\"></xref>.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/RichHudFramework.UI.HudChain-2.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/RichHudFramework.UI.HudChain-2.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "RichHudFramework.UI.HudChain<TElementContainer, TElement>",
+      "Summary": "<p sourcefile=\"api/RichHudFramework.UI.HudChain-2.yml\" sourcestartlinenumber=\"1\">Organizes child elements into a linear stack, either horizontally or vertically.\nConceptually similar to a CSS Flexbox or a UI StackPanel.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/RichHudFramework.UI.HudChain.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/RichHudFramework.UI.HudChain.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "RichHudFramework.UI.HudChain",
+      "Summary": "<p sourcefile=\"api/RichHudFramework.UI.HudChain.yml\" sourcestartlinenumber=\"1\">Organizes child elements into a linear stack, either horizontally or vertically.</p>\n<p>Alias of <xref href=\"RichHudFramework.UI.HudChain%602\" data-throw-if-not-resolved=\"false\"></xref>.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/RichHudFramework.UI.HudChainSizingModes.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/RichHudFramework.UI.HudChainSizingModes.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "RichHudFramework.UI.HudChainSizingModes",
+      "Summary": "<p sourcefile=\"api/RichHudFramework.UI.HudChainSizingModes.yml\" sourcestartlinenumber=\"1\">Controls the sizing behavior of the <xref href=\"RichHudFramework.UI.HudChain%602\" data-throw-if-not-resolved=\"false\"></xref> and its members.\nThe &quot;Align Axis&quot; is the direction the elements are stacked (Vertical = Y, Horizontal = X).\nThe &quot;Off Axis&quot; is perpendicular to the stack (Vertical = X, Horizontal = Y).</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/RichHudFramework.UI.HudCollection-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/RichHudFramework.UI.HudCollection-1.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "RichHudFramework.UI.HudCollection<TElementContainer>",
+      "Summary": "<p sourcefile=\"api/RichHudFramework.UI.HudCollection-1.yml\" sourcestartlinenumber=\"1\">Generic collection of HUD elements, each wrapped in a decorator container.\nElements inside containers are parented directly to this collection (not to their containers).\nSupports full IList-like manipulation while ensuring proper registration/unregistration with the HUD tree.</p>\n<p>\nAlias for <xref href=\"RichHudFramework.UI.HudCollection%602\" data-throw-if-not-resolved=\"false\"></xref> where the element type is \n<xref href=\"RichHudFramework.UI.HudElementBase\" data-throw-if-not-resolved=\"false\"></xref>.\n</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/RichHudFramework.UI.HudCollection-2.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/RichHudFramework.UI.HudCollection-2.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "RichHudFramework.UI.HudCollection<TElementContainer, TElement>",
+      "Summary": "<p sourcefile=\"api/RichHudFramework.UI.HudCollection-2.yml\" sourcestartlinenumber=\"1\">Generic collection of HUD elements, each wrapped in a decorator container.\nElements inside containers are parented directly to this collection (not to their containers).\nSupports full IList-like manipulation while ensuring proper registration/unregistration with the HUD tree.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/RichHudFramework.UI.HudCollection.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/RichHudFramework.UI.HudCollection.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "RichHudFramework.UI.HudCollection",
+      "Summary": "<p sourcefile=\"api/RichHudFramework.UI.HudCollection.yml\" sourcestartlinenumber=\"1\">Generic collection of HUD elements, each wrapped in a decorator container.\nElements inside containers are parented directly to this collection (not to their containers).\nSupports full IList-like manipulation while ensuring proper registration/unregistration with the HUD tree.</p>\n<p>\nAlias for <xref href=\"RichHudFramework.UI.HudCollection%602\" data-throw-if-not-resolved=\"false\"></xref> using \n<xref href=\"RichHudFramework.UI.HudElementContainer\" data-throw-if-not-resolved=\"false\"></xref> as the wrapper and <xref href=\"RichHudFramework.UI.HudElementBase\" data-throw-if-not-resolved=\"false\"></xref> as the element type.\n</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/RichHudFramework.UI.HudElementBase.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/RichHudFramework.UI.HudElementBase.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "RichHudFramework.UI.HudElementBase",
+      "Summary": "<p sourcefile=\"api/RichHudFramework.UI.HudElementBase.yml\" sourcestartlinenumber=\"1\">Abstract base for all UI elements with definite size and position. Extends HudParentBase and HudNodeBase.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/RichHudFramework.UI.HudElementContainer-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/RichHudFramework.UI.HudElementContainer-1.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "RichHudFramework.UI.HudElementContainer<TElement>",
+      "Summary": "<p sourcefile=\"api/RichHudFramework.UI.HudElementContainer-1.yml\" sourcestartlinenumber=\"1\">Standard container class for <xref href=\"RichHudFramework.UI.HudChain%602\" data-throw-if-not-resolved=\"false\"></xref>  members.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/RichHudFramework.UI.HudElementContainer.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/RichHudFramework.UI.HudElementContainer.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "RichHudFramework.UI.HudElementContainer",
+      "Summary": "<p sourcefile=\"api/RichHudFramework.UI.HudElementContainer.yml\" sourcestartlinenumber=\"1\">Standard container class for <xref href=\"RichHudFramework.UI.HudChain%602\" data-throw-if-not-resolved=\"false\"></xref>\nmembers using the base <xref href=\"RichHudFramework.UI.HudElementBase\" data-throw-if-not-resolved=\"false\"></xref>.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/RichHudFramework.UI.HudElementTuple-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/RichHudFramework.UI.HudElementTuple-1.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "RichHudFramework.UI.HudElementTuple<TData>",
+      "Summary": "<p sourcefile=\"api/RichHudFramework.UI.HudElementTuple-1.yml\" sourcestartlinenumber=\"1\">Container class used to associate a base <xref href=\"RichHudFramework.UI.HudElementBase\" data-throw-if-not-resolved=\"false\"></xref> with an arbitrary data object.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/RichHudFramework.UI.HudElementTuple-2.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/RichHudFramework.UI.HudElementTuple-2.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "RichHudFramework.UI.HudElementTuple<TElement, TData>",
+      "Summary": "<p sourcefile=\"api/RichHudFramework.UI.HudElementTuple-2.yml\" sourcestartlinenumber=\"1\">Container class used to associate a <xref href=\"RichHudFramework.UI.HudChain\" data-throw-if-not-resolved=\"false\"></xref> entry with an arbitrary data object.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/RichHudFramework.UI.HudInputMode.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/RichHudFramework.UI.HudInputMode.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "RichHudFramework.UI.HudInputMode",
+      "Summary": "<p sourcefile=\"api/RichHudFramework.UI.HudInputMode.yml\" sourcestartlinenumber=\"1\">Used to indicate the global input state of the framework</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/RichHudFramework.UI.HudNodeBase.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/RichHudFramework.UI.HudNodeBase.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "RichHudFramework.UI.HudNodeBase",
+      "Summary": "<p sourcefile=\"api/RichHudFramework.UI.HudNodeBase.yml\" sourcestartlinenumber=\"1\">Abstract base for hud elements that can be parented to other elements.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/RichHudFramework.UI.HudNodeContainer-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/RichHudFramework.UI.HudNodeContainer-1.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "RichHudFramework.UI.HudNodeContainer<TElement>",
+      "Summary": "<p sourcefile=\"api/RichHudFramework.UI.HudNodeContainer-1.yml\" sourcestartlinenumber=\"1\">Base container class for generic <xref href=\"RichHudFramework.UI.HudCollection%602\" data-throw-if-not-resolved=\"false\"></xref> members.</p>\n<p>Can be extended to associate data with arbitrary HUD nodes.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/RichHudFramework.UI.HudNodeContainer.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/RichHudFramework.UI.HudNodeContainer.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "RichHudFramework.UI.HudNodeContainer",
+      "Summary": "<p sourcefile=\"api/RichHudFramework.UI.HudNodeContainer.yml\" sourcestartlinenumber=\"1\">Standard container class for <xref href=\"RichHudFramework.UI.HudCollection%602\" data-throw-if-not-resolved=\"false\"></xref> members\nusing the base <xref href=\"RichHudFramework.UI.HudNodeBase\" data-throw-if-not-resolved=\"false\"></xref>.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/RichHudFramework.UI.HudParentBase.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/RichHudFramework.UI.HudParentBase.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "RichHudFramework.UI.HudParentBase",
+      "Summary": "<p sourcefile=\"api/RichHudFramework.UI.HudParentBase.yml\" sourcestartlinenumber=\"1\">Abstract base for HUD elements to which other elements are parented. Types deriving from this class cannot be\nparented to other elements; only types of <xref href=\"RichHudFramework.UI.HudNodeBase\" data-throw-if-not-resolved=\"false\"></xref> can be parented.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/RichHudFramework.UI.HudSpaceNodeBase.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/RichHudFramework.UI.HudSpaceNodeBase.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "RichHudFramework.UI.HudSpaceNodeBase",
+      "Summary": "<p sourcefile=\"api/RichHudFramework.UI.HudSpaceNodeBase.yml\" sourcestartlinenumber=\"1\">Abstract base for all HUD nodes that define their own custom coordinate space\n(replacing the default screen-space Pixel-to-World transform with an arbitrary world matrix).</p>\n<p>Provides cursor projection, facing/in-front detection, and origin retrieval for derived classes.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/RichHudFramework.UI.IBind.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/RichHudFramework.UI.IBind.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "RichHudFramework.UI.IBind",
+      "Summary": "<p sourcefile=\"api/RichHudFramework.UI.IBind.yml\" sourcestartlinenumber=\"1\">Interface representing an input tied to one or more key combinations in a <xref href=\"RichHudFramework.UI.IBindGroup\" data-throw-if-not-resolved=\"false\"></xref></p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/RichHudFramework.UI.IBindEventProxy.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/RichHudFramework.UI.IBindEventProxy.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "RichHudFramework.UI.IBindEventProxy",
+      "Summary": "<p sourcefile=\"api/RichHudFramework.UI.IBindEventProxy.yml\" sourcestartlinenumber=\"1\">Provides per-bind event proxies (NewPressed / PressedAndHeld / Released) for custom control bindings\nattached to a UI element.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/RichHudFramework.UI.IBindGroup.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/RichHudFramework.UI.IBindGroup.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "RichHudFramework.UI.IBindGroup",
+      "Summary": "<p sourcefile=\"api/RichHudFramework.UI.IBindGroup.yml\" sourcestartlinenumber=\"1\">A collection of unique keybinds in the <xref href=\"RichHudFramework.UI.Client.BindManager\" data-throw-if-not-resolved=\"false\"></xref></p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/RichHudFramework.UI.IBindInput.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/RichHudFramework.UI.IBindInput.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "RichHudFramework.UI.IBindInput",
+      "Summary": "<p sourcefile=\"api/RichHudFramework.UI.IBindInput.yml\" sourcestartlinenumber=\"1\">Allows a UI element to respond to arbitrary custom control binds (<xref href=\"RichHudFramework.UI.IBind\" data-throw-if-not-resolved=\"false\"></xref>).</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/RichHudFramework.UI.IBindInputElement.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/RichHudFramework.UI.IBindInputElement.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "RichHudFramework.UI.IBindInputElement",
+      "Summary": "<p sourcefile=\"api/RichHudFramework.UI.IBindInputElement.yml\" sourcestartlinenumber=\"1\">Marks a UI element as supporting custom bind input via an <xref href=\"RichHudFramework.UI.IBindInput\" data-throw-if-not-resolved=\"false\"></xref> instance.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/RichHudFramework.UI.IChainElementContainer-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/RichHudFramework.UI.IChainElementContainer-1.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "RichHudFramework.UI.IChainElementContainer<TElement>",
+      "Summary": "<p sourcefile=\"api/RichHudFramework.UI.IChainElementContainer-1.yml\" sourcestartlinenumber=\"1\">Interface for objects containing UI elements compatible with <xref href=\"RichHudFramework.UI.HudChain%602\" data-throw-if-not-resolved=\"false\"></xref>.</p>\n<p>Provides layout weighting information required for proportional sizing.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/RichHudFramework.UI.IChatCommand.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/RichHudFramework.UI.IChatCommand.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "RichHudFramework.UI.IChatCommand",
+      "Summary": "<p sourcefile=\"api/RichHudFramework.UI.IChatCommand.yml\" sourcestartlinenumber=\"1\">Represents a single chat command registered within a <xref href=\"RichHudFramework.UI.ICommandGroup\" data-throw-if-not-resolved=\"false\"></xref>.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/RichHudFramework.UI.IClickableElement.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/RichHudFramework.UI.IClickableElement.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "RichHudFramework.UI.IClickableElement",
+      "Summary": "<p sourcefile=\"api/RichHudFramework.UI.IClickableElement.yml\" sourcestartlinenumber=\"1\">Indicates that a UI element supports mouse interaction via an <xref href=\"RichHudFramework.UI.IMouseInput\" data-throw-if-not-resolved=\"false\"></xref> instance.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/RichHudFramework.UI.ICommandGroup.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/RichHudFramework.UI.ICommandGroup.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "RichHudFramework.UI.ICommandGroup",
+      "Summary": "<p sourcefile=\"api/RichHudFramework.UI.ICommandGroup.yml\" sourcestartlinenumber=\"1\">Represents a collection of <xref href=\"RichHudFramework.UI.IChatCommand\" data-throw-if-not-resolved=\"false\"></xref>s that share a common prefix (e.g., &quot;/modname&quot;).</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/RichHudFramework.UI.IControl.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/RichHudFramework.UI.IControl.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "RichHudFramework.UI.IControl",
+      "Summary": "<p sourcefile=\"api/RichHudFramework.UI.IControl.yml\" sourcestartlinenumber=\"1\">Interface for controls used by the <xref href=\"RichHudFramework.UI.Client.BindManager\" data-throw-if-not-resolved=\"false\"></xref></p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/RichHudFramework.UI.ICursor.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/RichHudFramework.UI.ICursor.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "RichHudFramework.UI.ICursor",
+      "Summary": "<p sourcefile=\"api/RichHudFramework.UI.ICursor.yml\" sourcestartlinenumber=\"1\">Represents the global mouse cursor managed by Rich HUD Framework.\nProvides screen/world position, capture state, and tooltip registration functionality.\nUsed by all clickable UI elements for correct hit-testing and interaction within and\nbetween HUD spaces.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/RichHudFramework.UI.IEntryBox-2.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/RichHudFramework.UI.IEntryBox-2.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "RichHudFramework.UI.IEntryBox<TContainer, TElement>",
+      "Summary": "<p sourcefile=\"api/RichHudFramework.UI.IEntryBox-2.yml\" sourcestartlinenumber=\"1\">Minimal interface for UI elements that represent a collection of selectable\n<xref href=\"RichHudFramework.UI.IScrollBoxEntry%601\" data-throw-if-not-resolved=\"false\"></xref>.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/RichHudFramework.UI.IFocusHandler.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/RichHudFramework.UI.IFocusHandler.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "RichHudFramework.UI.IFocusHandler",
+      "Summary": "<p sourcefile=\"api/RichHudFramework.UI.IFocusHandler.yml\" sourcestartlinenumber=\"1\">Manages keyboard/input focus for a UI element. Only one element in the entire UI can have focus at a time.\nInput-related events use <xref href=\"RichHudFramework.UI.IFocusHandler.InputOwner\" data-throw-if-not-resolved=\"false\"></xref> as the sender object.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/RichHudFramework.UI.IFocusableElement.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/RichHudFramework.UI.IFocusableElement.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "RichHudFramework.UI.IFocusableElement",
+      "Summary": "<p sourcefile=\"api/RichHudFramework.UI.IFocusableElement.yml\" sourcestartlinenumber=\"1\">Represents a UI element that can receive keyboard/input focus.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/RichHudFramework.UI.IHudCollection-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/RichHudFramework.UI.IHudCollection-1.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "RichHudFramework.UI.IHudCollection<TElementContainer>",
+      "Summary": "<p sourcefile=\"api/RichHudFramework.UI.IHudCollection-1.yml\" sourcestartlinenumber=\"1\">Mutable interface for HUD collections supporting decorator-wrapped child elements.</p>\n<p>\nAlias of <xref href=\"RichHudFramework.UI.IHudCollection%602\" data-throw-if-not-resolved=\"false\"></xref> using \n<xref href=\"RichHudFramework.UI.HudElementBase\" data-throw-if-not-resolved=\"false\"></xref> as the element type.\n</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/RichHudFramework.UI.IHudCollection-2.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/RichHudFramework.UI.IHudCollection-2.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "RichHudFramework.UI.IHudCollection<TElementContainer, TElement>",
+      "Summary": "<p sourcefile=\"api/RichHudFramework.UI.IHudCollection-2.yml\" sourcestartlinenumber=\"1\">Mutable interface for HUD collections supporting decorator-wrapped child elements.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/RichHudFramework.UI.IHudCollection.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/RichHudFramework.UI.IHudCollection.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "RichHudFramework.UI.IHudCollection",
+      "Summary": "<p sourcefile=\"api/RichHudFramework.UI.IHudCollection.yml\" sourcestartlinenumber=\"1\">Mutable interface for HUD collections supporting decorator-wrapped child elements.</p>\n<p>\nAlias of <xref href=\"RichHudFramework.UI.IHudCollection%602\" data-throw-if-not-resolved=\"false\"></xref> using \n<xref href=\"RichHudFramework.UI.HudElementBase\" data-throw-if-not-resolved=\"false\"></xref> as the element type and <xref href=\"RichHudFramework.UI.HudElementContainer\" data-throw-if-not-resolved=\"false\"></xref> as the wrapper.\n</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/RichHudFramework.UI.IHudNodeContainer-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/RichHudFramework.UI.IHudNodeContainer-1.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "RichHudFramework.UI.IHudNodeContainer<TElement>",
+      "Summary": "<p sourcefile=\"api/RichHudFramework.UI.IHudNodeContainer-1.yml\" sourcestartlinenumber=\"1\">Interface for objects acting as decorator wrappers for UI elements.</p>\n<p>Separates the UI element from metadata.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/RichHudFramework.UI.ILabelElement.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/RichHudFramework.UI.ILabelElement.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "RichHudFramework.UI.ILabelElement",
+      "Summary": "<p sourcefile=\"api/RichHudFramework.UI.ILabelElement.yml\" sourcestartlinenumber=\"1\">Interface for UI elements rendering formatted <xref href=\"RichHudFramework.UI.RichText\" data-throw-if-not-resolved=\"false\"></xref></p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/RichHudFramework.UI.IListBoxEntry-2.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/RichHudFramework.UI.IListBoxEntry-2.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "RichHudFramework.UI.IListBoxEntry<TElement, TValue>",
+      "Summary": "<p sourcefile=\"api/RichHudFramework.UI.IListBoxEntry-2.yml\" sourcestartlinenumber=\"1\">Interface implemented by objects that function as list box entries,\npairing specific data types with a label-based UI element.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/RichHudFramework.UI.IMinLabelElement.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/RichHudFramework.UI.IMinLabelElement.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "RichHudFramework.UI.IMinLabelElement",
+      "Summary": "<p sourcefile=\"api/RichHudFramework.UI.IMinLabelElement.yml\" sourcestartlinenumber=\"1\">Minimal interface for UI elements rendering formatted <xref href=\"RichHudFramework.UI.RichText\" data-throw-if-not-resolved=\"false\"></xref></p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/RichHudFramework.UI.IModControlRoot.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/RichHudFramework.UI.IModControlRoot.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "RichHudFramework.UI.IModControlRoot",
+      "Summary": "<p sourcefile=\"api/RichHudFramework.UI.IModControlRoot.yml\" sourcestartlinenumber=\"1\">Interface for the root category for the client's settings.</p>\n<p>This is the entry point where pages and subcategories are added.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/RichHudFramework.UI.IModRootMember.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/RichHudFramework.UI.IModRootMember.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "RichHudFramework.UI.IModRootMember",
+      "Summary": "<p sourcefile=\"api/RichHudFramework.UI.IModRootMember.yml\" sourcestartlinenumber=\"1\">Interface for items that can be added to a mod's control root</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/RichHudFramework.UI.IMouseInput.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/RichHudFramework.UI.IMouseInput.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "RichHudFramework.UI.IMouseInput",
+      "Summary": "<p sourcefile=\"api/RichHudFramework.UI.IMouseInput.yml\" sourcestartlinenumber=\"1\">Low-level mouse input handler providing cursor enter/exit detection and click events.\nEvents are raised using the owning <xref href=\"RichHudFramework.UI.IFocusHandler.InputOwner\" data-throw-if-not-resolved=\"false\"></xref> as the sender.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/RichHudFramework.UI.IReadOnlyHudCollection-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/RichHudFramework.UI.IReadOnlyHudCollection-1.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "RichHudFramework.UI.IReadOnlyHudCollection<TElementContainer>",
+      "Summary": "<p sourcefile=\"api/RichHudFramework.UI.IReadOnlyHudCollection-1.yml\" sourcestartlinenumber=\"1\">Read-only interface for collections of HUD elements wrapped in decorator containers.</p>\n<p>\nAlias for <xref href=\"RichHudFramework.UI.IReadOnlyHudCollection%602\" data-throw-if-not-resolved=\"false\"></xref> with \n<xref href=\"RichHudFramework.UI.HudElementBase\" data-throw-if-not-resolved=\"false\"></xref> as the element type.\n</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/RichHudFramework.UI.IReadOnlyHudCollection-2.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/RichHudFramework.UI.IReadOnlyHudCollection-2.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "RichHudFramework.UI.IReadOnlyHudCollection<TElementContainer, TElement>",
+      "Summary": "<p sourcefile=\"api/RichHudFramework.UI.IReadOnlyHudCollection-2.yml\" sourcestartlinenumber=\"1\">Read-only interface for collections of HUD elements wrapped in decorator containers.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/RichHudFramework.UI.IReadOnlyHudCollection.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/RichHudFramework.UI.IReadOnlyHudCollection.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "RichHudFramework.UI.IReadOnlyHudCollection",
+      "Summary": "<p sourcefile=\"api/RichHudFramework.UI.IReadOnlyHudCollection.yml\" sourcestartlinenumber=\"1\">Default read-only collection interface using standard container and element types.</p>\n<p>\nAlias for <xref href=\"RichHudFramework.UI.IReadOnlyHudCollection%602\" data-throw-if-not-resolved=\"false\"></xref> with \n<xref href=\"RichHudFramework.UI.HudElementBase\" data-throw-if-not-resolved=\"false\"></xref> as the element type and <xref href=\"RichHudFramework.UI.HudElementContainer\" data-throw-if-not-resolved=\"false\"></xref> as the wrapper.\n</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/RichHudFramework.UI.IReadOnlyHudElement.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/RichHudFramework.UI.IReadOnlyHudElement.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "RichHudFramework.UI.IReadOnlyHudElement",
+      "Summary": "<p sourcefile=\"api/RichHudFramework.UI.IReadOnlyHudElement.yml\" sourcestartlinenumber=\"1\">Read-only interface for hud elements with definite size and position.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/RichHudFramework.UI.IReadOnlyHudNode.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/RichHudFramework.UI.IReadOnlyHudNode.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "RichHudFramework.UI.IReadOnlyHudNode",
+      "Summary": "<p sourcefile=\"api/RichHudFramework.UI.IReadOnlyHudNode.yml\" sourcestartlinenumber=\"1\">Read-only interface for hud elements that can be parented to another element.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/RichHudFramework.UI.IReadOnlyHudParent.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/RichHudFramework.UI.IReadOnlyHudParent.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "RichHudFramework.UI.IReadOnlyHudParent",
+      "Summary": "<p sourcefile=\"api/RichHudFramework.UI.IReadOnlyHudParent.yml\" sourcestartlinenumber=\"1\">Read-only interface for types capable of serving as parent objects to <xref href=\"RichHudFramework.UI.HudNodeBase\" data-throw-if-not-resolved=\"false\"></xref>s.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/RichHudFramework.UI.IReadOnlyHudSpaceNode.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/RichHudFramework.UI.IReadOnlyHudSpaceNode.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "RichHudFramework.UI.IReadOnlyHudSpaceNode",
+      "Summary": "<p sourcefile=\"api/RichHudFramework.UI.IReadOnlyHudSpaceNode.yml\" sourcestartlinenumber=\"1\">Interface for all HUD nodes that define their own custom coordinate space.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/RichHudFramework.UI.IScrollBoxEntry-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/RichHudFramework.UI.IScrollBoxEntry-1.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "RichHudFramework.UI.IScrollBoxEntry<TElement>",
+      "Summary": "<p sourcefile=\"api/RichHudFramework.UI.IScrollBoxEntry-1.yml\" sourcestartlinenumber=\"1\">Interface for container entries within a scrollable list or box.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/RichHudFramework.UI.IScrollBoxEntryTuple-2.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/RichHudFramework.UI.IScrollBoxEntryTuple-2.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "RichHudFramework.UI.IScrollBoxEntryTuple<TElement, TData>",
+      "Summary": "<p sourcefile=\"api/RichHudFramework.UI.IScrollBoxEntryTuple-2.yml\" sourcestartlinenumber=\"1\">Interface for scrollbox entries that associate an arbitrary data object with the UI element.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/RichHudFramework.UI.ISelectionBoxEntry-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/RichHudFramework.UI.ISelectionBoxEntry-1.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "RichHudFramework.UI.ISelectionBoxEntry<TElement>",
+      "Summary": "<p sourcefile=\"api/RichHudFramework.UI.ISelectionBoxEntry-1.yml\" sourcestartlinenumber=\"1\">Interface for a selection box entry wrapping a UI element.</p>\n<p>Adds selection highlighting capabilities to the standard scroll box entry.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/RichHudFramework.UI.ISelectionBoxEntryTuple-2.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/RichHudFramework.UI.ISelectionBoxEntryTuple-2.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "RichHudFramework.UI.ISelectionBoxEntryTuple<TElement, TValue>",
+      "Summary": "<p sourcefile=\"api/RichHudFramework.UI.ISelectionBoxEntryTuple-2.yml\" sourcestartlinenumber=\"1\">Interface for a selection box entry that pairs a UI element with a data value of\ntype <code class=\"typeparamref\">TValue</code>.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/RichHudFramework.UI.IValueControl-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/RichHudFramework.UI.IValueControl-1.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "RichHudFramework.UI.IValueControl<T>",
+      "Summary": "<p sourcefile=\"api/RichHudFramework.UI.IValueControl-1.yml\" sourcestartlinenumber=\"1\">Minimal interface for UI elements controlling a value that invokes an event when changed, with\na property for reading that value.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/RichHudFramework.UI.IValueControl.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/RichHudFramework.UI.IValueControl.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "RichHudFramework.UI.IValueControl",
+      "Summary": "<p sourcefile=\"api/RichHudFramework.UI.IValueControl.yml\" sourcestartlinenumber=\"1\">Minimal interface for UI elements controlling a value that invokes an event when changed.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/RichHudFramework.UI.InputFocusHandler.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/RichHudFramework.UI.InputFocusHandler.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "RichHudFramework.UI.InputFocusHandler",
+      "Summary": "<p sourcefile=\"api/RichHudFramework.UI.InputFocusHandler.yml\" sourcestartlinenumber=\"1\">Default implementation of <xref href=\"RichHudFramework.UI.IFocusHandler\" data-throw-if-not-resolved=\"false\"></xref>. Handles acquiring and releasing global input focus\nthrough <xref href=\"RichHudFramework.UI.Client.HudMain\" data-throw-if-not-resolved=\"false\"></xref> and raises the appropriate events.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/RichHudFramework.UI.KeyComboInit.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/RichHudFramework.UI.KeyComboInit.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "RichHudFramework.UI.KeyComboInit",
+      "Summary": "<p sourcefile=\"api/RichHudFramework.UI.KeyComboInit.yml\" sourcestartlinenumber=\"1\">Helper class for defining a specific combination of controls (up to 3).</p>\n<p>Used with <xref href=\"RichHudFramework.UI.BindGroupInitializer\" data-throw-if-not-resolved=\"false\"></xref> to specify bind combos or aliases.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/RichHudFramework.UI.Label.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/RichHudFramework.UI.Label.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "RichHudFramework.UI.Label",
+      "Summary": "<p sourcefile=\"api/RichHudFramework.UI.Label.yml\" sourcestartlinenumber=\"1\">A HUD element dedicated to rendering formatted <xref href=\"RichHudFramework.UI.RichText\" data-throw-if-not-resolved=\"false\"></xref>.\nThis element acts as a wrapper for the underlying <xref href=\"RichHudFramework.UI.Label.TextBoard\" data-throw-if-not-resolved=\"false\"></xref>.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/RichHudFramework.UI.LabelBox.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/RichHudFramework.UI.LabelBox.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "RichHudFramework.UI.LabelBox",
+      "Summary": "<p sourcefile=\"api/RichHudFramework.UI.LabelBox.yml\" sourcestartlinenumber=\"1\">A composite UI element that renders text over a textured background.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/RichHudFramework.UI.LabelBoxBase.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/RichHudFramework.UI.LabelBoxBase.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "RichHudFramework.UI.LabelBoxBase",
+      "Summary": "<p sourcefile=\"api/RichHudFramework.UI.LabelBoxBase.yml\" sourcestartlinenumber=\"1\">Abstract base class for UI elements that combine a text label with a textured background.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/RichHudFramework.UI.LabelBoxButton.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/RichHudFramework.UI.LabelBoxButton.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "RichHudFramework.UI.LabelBoxButton",
+      "Summary": "<p sourcefile=\"api/RichHudFramework.UI.LabelBoxButton.yml\" sourcestartlinenumber=\"1\">Clickable button with text on top of a textured background with highlighting.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/RichHudFramework.UI.LabelButton.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/RichHudFramework.UI.LabelButton.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "RichHudFramework.UI.LabelButton",
+      "Summary": "<p sourcefile=\"api/RichHudFramework.UI.LabelButton.yml\" sourcestartlinenumber=\"1\">Clickable text element. Text only, no background.</p>\n<p>No styling by default; it's just a clickable <xref href=\"RichHudFramework.UI.Label\" data-throw-if-not-resolved=\"false\"></xref> with no highlighting.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/RichHudFramework.UI.LabelElementBase.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/RichHudFramework.UI.LabelElementBase.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "RichHudFramework.UI.LabelElementBase",
+      "Summary": "<p sourcefile=\"api/RichHudFramework.UI.LabelElementBase.yml\" sourcestartlinenumber=\"1\">Abstract base class for UI elements responsible for rendering text.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/RichHudFramework.UI.ListBox-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/RichHudFramework.UI.ListBox-1.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "RichHudFramework.UI.ListBox<TValue>",
+      "Summary": "<p sourcefile=\"api/RichHudFramework.UI.ListBox-1.yml\" sourcestartlinenumber=\"1\">Scrollable list of text elements. Each list entry is associated with a <code class=\"typeparamref\">TValue</code></p>\n<p>\nAlias of <xref href=\"RichHudFramework.UI.ListBox%603\" data-throw-if-not-resolved=\"false\"></xref> using \n<xref href=\"RichHudFramework.UI.ListBoxEntry%601\" data-throw-if-not-resolved=\"false\"></xref> and <xref href=\"RichHudFramework.UI.Label\" data-throw-if-not-resolved=\"false\"></xref> as the container and element, respectively.\n</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/RichHudFramework.UI.ListBox-3.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/RichHudFramework.UI.ListBox-3.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "RichHudFramework.UI.ListBox<TContainer, TElement, TValue>",
+      "Summary": "<p sourcefile=\"api/RichHudFramework.UI.ListBox-3.yml\" sourcestartlinenumber=\"1\">Generic scrollable list of text elements. Allows use of custom entry element types.\nEach list entry is associated with a <code class=\"typeparamref\">TValue</code></p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/RichHudFramework.UI.ListBoxEntry-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/RichHudFramework.UI.ListBoxEntry-1.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "RichHudFramework.UI.ListBoxEntry<TValue>",
+      "Summary": "<p sourcefile=\"api/RichHudFramework.UI.ListBoxEntry-1.yml\" sourcestartlinenumber=\"1\">A List Box entry that associates a <xref href=\"RichHudFramework.UI.Label\" data-throw-if-not-resolved=\"false\"></xref> with an object of type <code class=\"typeparamref\">TValue</code>.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/RichHudFramework.UI.ListBoxEntry-2.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/RichHudFramework.UI.ListBoxEntry-2.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "RichHudFramework.UI.ListBoxEntry<TElement, TValue>",
+      "Summary": "<p sourcefile=\"api/RichHudFramework.UI.ListBoxEntry-2.yml\" sourcestartlinenumber=\"1\">A concrete implementation of a List Box entry, pairing a text element with a data value.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/RichHudFramework.UI.ListInputElement-2.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/RichHudFramework.UI.ListInputElement-2.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "RichHudFramework.UI.ListInputElement<TElementContainer, TElement>",
+      "Summary": "<p sourcefile=\"api/RichHudFramework.UI.ListInputElement-2.yml\" sourcestartlinenumber=\"1\">Specialized <xref href=\"RichHudFramework.UI.MouseInputElement\" data-throw-if-not-resolved=\"false\"></xref> that manages selection, mouse highlighting, and keyboard navigation\nfor scrollable lists (vertical or horizontal). Supports both mouse and keyboard-driven selection.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/RichHudFramework.UI.MouseInputElement.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/RichHudFramework.UI.MouseInputElement.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "RichHudFramework.UI.MouseInputElement",
+      "Summary": "<p sourcefile=\"api/RichHudFramework.UI.MouseInputElement.yml\" sourcestartlinenumber=\"1\">Core mouse interaction component for clickable UI elements.\nHandles cursor enter/exit, left/right clicks, tooltip registration, and automatic focus acquisition on click.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/RichHudFramework.UI.NamedCheckBox.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/RichHudFramework.UI.NamedCheckBox.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "RichHudFramework.UI.NamedCheckBox",
+      "Summary": "<p sourcefile=\"api/RichHudFramework.UI.NamedCheckBox.yml\" sourcestartlinenumber=\"1\">Named checkbox designed to mimic the appearance of checkboxes used in the SE terminal.</p>\n<p>Adds a label to <xref href=\"RichHudFramework.UI.BorderedCheckBox\" data-throw-if-not-resolved=\"false\"></xref>.</p>\n<p>Formatting temporarily changes when it gains input focus.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/RichHudFramework.UI.NamedOnOffButton.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/RichHudFramework.UI.NamedOnOffButton.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "RichHudFramework.UI.NamedOnOffButton",
+      "Summary": "<p sourcefile=\"api/RichHudFramework.UI.NamedOnOffButton.yml\" sourcestartlinenumber=\"1\">A labeled pair of horizontally aligned on and off bordered buttons used to indicate a boolean value.\nMade to resemble on/off toggle used in the SE terminal.</p>\n<p>Adds a label to <xref href=\"RichHudFramework.UI.OnOffButton\" data-throw-if-not-resolved=\"false\"></xref>.</p>\n<p>Formatting temporarily changes when it gains input focus.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/RichHudFramework.UI.NamedSliderBox.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/RichHudFramework.UI.NamedSliderBox.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "RichHudFramework.UI.NamedSliderBox",
+      "Summary": "<p sourcefile=\"api/RichHudFramework.UI.NamedSliderBox.yml\" sourcestartlinenumber=\"1\">A composite control containing a horizontal slider box, a name label, and a value label.</p>\n<p>\nNote: The value label is not updated automatically; it must be updated manually via the ValueChanged event.\n</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/RichHudFramework.UI.OnOffButton.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/RichHudFramework.UI.OnOffButton.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "RichHudFramework.UI.OnOffButton",
+      "Summary": "<p sourcefile=\"api/RichHudFramework.UI.OnOffButton.yml\" sourcestartlinenumber=\"1\">A pair of horizontally aligned on and off bordered buttons used to indicate a boolean value.\nStyled to resemble on/off button used in the SE terminal.</p>\n<p>Does not have a label. Use <xref href=\"RichHudFramework.UI.NamedOnOffButton\" data-throw-if-not-resolved=\"false\"></xref> for a version with a label.</p>\n<p>Formatting temporarily changes when it gains input focus.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/RichHudFramework.UI.ParentAlignments.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/RichHudFramework.UI.ParentAlignments.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "RichHudFramework.UI.ParentAlignments",
+      "Summary": "<p sourcefile=\"api/RichHudFramework.UI.ParentAlignments.yml\" sourcestartlinenumber=\"1\">Used to determine the default position of an element relative to its parent via\n<xref href=\"RichHudFramework.UI.HudElementBase.ParentAlignment\" data-throw-if-not-resolved=\"false\"></xref>.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/RichHudFramework.UI.RadialSelectionBox-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/RichHudFramework.UI.RadialSelectionBox-1.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "RichHudFramework.UI.RadialSelectionBox<TContainer>",
+      "Summary": "<p sourcefile=\"api/RichHudFramework.UI.RadialSelectionBox-1.yml\" sourcestartlinenumber=\"1\">Generic radial selection box allowing custom containers while keeping\n<xref href=\"RichHudFramework.UI.HudElementBase\" data-throw-if-not-resolved=\"false\"></xref> as the element type.</p>\n<p>\nAlias of <xref href=\"RichHudFramework.UI.RadialSelectionBox%602\" data-throw-if-not-resolved=\"false\"></xref> using \n<xref href=\"RichHudFramework.UI.HudElementBase\" data-throw-if-not-resolved=\"false\"></xref> as the element.\n</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/RichHudFramework.UI.RadialSelectionBox-2.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/RichHudFramework.UI.RadialSelectionBox-2.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "RichHudFramework.UI.RadialSelectionBox<TContainer, TElement>",
+      "Summary": "<p sourcefile=\"api/RichHudFramework.UI.RadialSelectionBox-2.yml\" sourcestartlinenumber=\"1\">Generic radial selection wheel (pie-menu style). Displays a collection of entries arranged\nin a circular pattern around a central point. Supports both cursor-based and gesture-based\n(drag-to-select) input methods.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/RichHudFramework.UI.RadialSelectionBox.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/RichHudFramework.UI.RadialSelectionBox.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "RichHudFramework.UI.RadialSelectionBox",
+      "Summary": "<p sourcefile=\"api/RichHudFramework.UI.RadialSelectionBox.yml\" sourcestartlinenumber=\"1\">Non-generic radial selection box using the default <xref href=\"RichHudFramework.UI.ScrollBoxEntry\" data-throw-if-not-resolved=\"false\"></xref> container\nwith plain <xref href=\"RichHudFramework.UI.HudElementBase\" data-throw-if-not-resolved=\"false\"></xref> elements.</p>\n<p>\nAlias of <xref href=\"RichHudFramework.UI.RadialSelectionBox%602\" data-throw-if-not-resolved=\"false\"></xref> using \n<xref href=\"RichHudFramework.UI.ScrollBoxEntry\" data-throw-if-not-resolved=\"false\"></xref> and <xref href=\"RichHudFramework.UI.HudElementBase\" data-throw-if-not-resolved=\"false\"></xref> as the container and element, respectively.\n</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/RichHudFramework.UI.Rendering.BlockBoard.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/RichHudFramework.UI.Rendering.BlockBoard.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "RichHudFramework.UI.Rendering.BlockBoard",
+      "Summary": "<p sourcefile=\"api/RichHudFramework.UI.Rendering.BlockBoard.yml\" sourcestartlinenumber=\"1\">Draws a 3D rectangular prism using billboards in world space. Useful for drawing bounding boxes.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/RichHudFramework.UI.Rendering.BoundedQuadBoard.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/RichHudFramework.UI.Rendering.BoundedQuadBoard.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "RichHudFramework.UI.Rendering.BoundedQuadBoard",
+      "Summary": "<p sourcefile=\"api/RichHudFramework.UI.Rendering.BoundedQuadBoard.yml\" sourcestartlinenumber=\"1\">A container struct associating a <xref href=\"RichHudFramework.UI.Rendering.QuadBoard\" data-throw-if-not-resolved=\"false\"></xref> definition with specific 2D bounds.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/RichHudFramework.UI.Rendering.BoundedQuadMaterial.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/RichHudFramework.UI.Rendering.BoundedQuadMaterial.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "RichHudFramework.UI.Rendering.BoundedQuadMaterial",
+      "Summary": "<p sourcefile=\"api/RichHudFramework.UI.Rendering.BoundedQuadMaterial.yml\" sourcestartlinenumber=\"1\">Defines the visual properties for rendering a quad where the texture coordinates are\naxis-aligned and defined by a bounding box (Min/Max). This is optimized for standard\nsprites or full textures without distortion.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/RichHudFramework.UI.Rendering.Client.FontManager.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/RichHudFramework.UI.Rendering.Client.FontManager.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "RichHudFramework.UI.Rendering.Client.FontManager",
+      "Summary": "<p sourcefile=\"api/RichHudFramework.UI.Rendering.Client.FontManager.yml\" sourcestartlinenumber=\"1\">Client-side API for the font management system. Allows mods to query registered\nfonts and register custom fonts at runtime.</p>\n<p>\nMost frequently used by <xref href=\"RichHudFramework.UI.GlyphFormat\" data-throw-if-not-resolved=\"false\"></xref> internally when setting font or style.\n</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/RichHudFramework.UI.Rendering.Client.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/RichHudFramework.UI.Rendering.Client.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "RichHudFramework.UI.Rendering.Client",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/RichHudFramework.UI.Rendering.CroppedBox.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/RichHudFramework.UI.Rendering.CroppedBox.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "RichHudFramework.UI.Rendering.CroppedBox",
+      "Summary": "<p sourcefile=\"api/RichHudFramework.UI.Rendering.CroppedBox.yml\" sourcestartlinenumber=\"1\">Represents a bounding box paired with a masking box. The mask is used to clip\nthe rendering of the associated billboard, acting as a scissor rectangle.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/RichHudFramework.UI.Rendering.FlatQuad.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/RichHudFramework.UI.Rendering.FlatQuad.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "RichHudFramework.UI.Rendering.FlatQuad",
+      "Summary": "<p sourcefile=\"api/RichHudFramework.UI.Rendering.FlatQuad.yml\" sourcestartlinenumber=\"1\">Represents a 2D quadrilateral defined by four points.\nUsed for both screen-space geometry definitions and texture coordinate (UV) mapping.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/RichHudFramework.UI.Rendering.FontStyles.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/RichHudFramework.UI.Rendering.FontStyles.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "RichHudFramework.UI.Rendering.FontStyles",
+      "Summary": "<p sourcefile=\"api/RichHudFramework.UI.Rendering.FontStyles.yml\" sourcestartlinenumber=\"1\">Font styles used by RHF. Regular, italic and underline styling is always available.\nBolding requires optional font atlases that may or may not be present.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/RichHudFramework.UI.Rendering.IFontMin.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/RichHudFramework.UI.Rendering.IFontMin.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "RichHudFramework.UI.Rendering.IFontMin",
+      "Summary": "<p sourcefile=\"api/RichHudFramework.UI.Rendering.IFontMin.yml\" sourcestartlinenumber=\"1\">Simplified Font interface for use by HUD API clients.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/RichHudFramework.UI.Rendering.ILine.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/RichHudFramework.UI.Rendering.ILine.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "RichHudFramework.UI.Rendering.ILine",
+      "Summary": "<p sourcefile=\"api/RichHudFramework.UI.Rendering.ILine.yml\" sourcestartlinenumber=\"1\">Represents a single horizontal line of text within a <xref href=\"RichHudFramework.UI.Rendering.ITextBuilder\" data-throw-if-not-resolved=\"false\"></xref>.</p>\n<p>\nThis interface serves as a collection of <xref href=\"RichHudFramework.UI.Rendering.IRichChar\" data-throw-if-not-resolved=\"false\"></xref> and stores line-specific layout properties, \nsuch as the line's dimensions and vertical offset.\n</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/RichHudFramework.UI.Rendering.IReadOnlyMaterialFrame.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/RichHudFramework.UI.Rendering.IReadOnlyMaterialFrame.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "RichHudFramework.UI.Rendering.IReadOnlyMaterialFrame",
+      "Summary": "<p sourcefile=\"api/RichHudFramework.UI.Rendering.IReadOnlyMaterialFrame.yml\" sourcestartlinenumber=\"1\">Read-only interface defining the mapping of a material to a quad.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/RichHudFramework.UI.Rendering.IRichChar.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/RichHudFramework.UI.Rendering.IRichChar.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "RichHudFramework.UI.Rendering.IRichChar",
+      "Summary": "<p sourcefile=\"api/RichHudFramework.UI.Rendering.IRichChar.yml\" sourcestartlinenumber=\"1\">Represents a single glyph within a rich text element.</p>\n<p>\nThis interface exposes the character content, its specific formatting (font/color), \nand its calculated layout geometry (size/offset) relative to the container.\n</p>\n<p>\n<strong>Warning:</strong> This object is a transient flyweight. It points to an index \nin a mutable buffer. Do not store references to <xref href=\"RichHudFramework.UI.Rendering.IRichChar\" data-throw-if-not-resolved=\"false\"></xref> across text updates.\nIf the parent text changes, this interface may point to stale or recycled data.\n</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/RichHudFramework.UI.Rendering.ITextBoard.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/RichHudFramework.UI.Rendering.ITextBoard.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "RichHudFramework.UI.Rendering.ITextBoard",
+      "Summary": "<p sourcefile=\"api/RichHudFramework.UI.Rendering.ITextBoard.yml\" sourcestartlinenumber=\"1\">Represents a renderable text element that supports rich text formatting, scrolling, and advanced layout.</p>\n<p>\nThis interface combines text manipulation (via <xref href=\"RichHudFramework.UI.Rendering.ITextBuilder\" data-throw-if-not-resolved=\"false\"></xref>) with rendering logic. \nIt handles text clipping, auto-resizing, text alignment, and coordinate-based character lookups.\n</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/RichHudFramework.UI.Rendering.ITextBuilder.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/RichHudFramework.UI.Rendering.ITextBuilder.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "RichHudFramework.UI.Rendering.ITextBuilder",
+      "Summary": "<p sourcefile=\"api/RichHudFramework.UI.Rendering.ITextBuilder.yml\" sourcestartlinenumber=\"1\">A mutable collection of lines and characters that supports RichText formatting.</p>\n<p>\nFunctioning similarly to a <xref href=\"System.Text.StringBuilder\" data-throw-if-not-resolved=\"false\"></xref>, this interface allows for appending, \ninserting, and removing text while maintaining formatting data (colors, fonts) and handling \nline wrapping modes (Unlined, Lined, Wrapped).\n</p>\n<p>Supports <xref href=\"System.Object.ToString\" data-throw-if-not-resolved=\"false\"></xref> for getting plain text copies.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/RichHudFramework.UI.Rendering.MatBoard.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/RichHudFramework.UI.Rendering.MatBoard.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "RichHudFramework.UI.Rendering.MatBoard",
+      "Summary": "<p sourcefile=\"api/RichHudFramework.UI.Rendering.MatBoard.yml\" sourcestartlinenumber=\"1\">A high-level wrapper for drawing textured, colored, and optionally clipped rectangular billboards.\nUtilizes <xref href=\"VRage.Game.MyTransparentGeometry\" data-throw-if-not-resolved=\"false\"></xref> for rendering.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/RichHudFramework.UI.Rendering.Material.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/RichHudFramework.UI.Rendering.Material.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "RichHudFramework.UI.Rendering.Material",
+      "Summary": "<p sourcefile=\"api/RichHudFramework.UI.Rendering.Material.yml\" sourcestartlinenumber=\"1\">Represents a handle to a Space Engineers Transparent Material.\nSupports defining full textures or specific sprites (texture regions) within a texture atlas.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/RichHudFramework.UI.Rendering.MaterialAlignment.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/RichHudFramework.UI.Rendering.MaterialAlignment.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "RichHudFramework.UI.Rendering.MaterialAlignment",
+      "Summary": "<p sourcefile=\"api/RichHudFramework.UI.Rendering.MaterialAlignment.yml\" sourcestartlinenumber=\"1\">Defines how a <xref href=\"RichHudFramework.UI.Rendering.Material\" data-throw-if-not-resolved=\"false\"></xref> texture is mapped to the geometry of the UI element.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/RichHudFramework.UI.Rendering.MaterialFrame.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/RichHudFramework.UI.Rendering.MaterialFrame.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "RichHudFramework.UI.Rendering.MaterialFrame",
+      "Summary": "<p sourcefile=\"api/RichHudFramework.UI.Rendering.MaterialFrame.yml\" sourcestartlinenumber=\"1\">Manages the positioning, scaling, and alignment of a <xref href=\"RichHudFramework.UI.Rendering.MaterialFrame.Material\" data-throw-if-not-resolved=\"false\"></xref> on a QuadBoard.\nHandles calculations for aspect-ratio preservation via UV cropping or geometry scaling.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/RichHudFramework.UI.Rendering.PolyBoard.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/RichHudFramework.UI.Rendering.PolyBoard.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "RichHudFramework.UI.Rendering.PolyBoard",
+      "Summary": "<p sourcefile=\"api/RichHudFramework.UI.Rendering.PolyBoard.yml\" sourcestartlinenumber=\"1\">Renders a regular 2D polygon (e.g., triangle, hexagon, circle approximation) using billboards.\nThe shape is constructed as a triangle fan from the center.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/RichHudFramework.UI.Rendering.PolyMaterial.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/RichHudFramework.UI.Rendering.PolyMaterial.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "RichHudFramework.UI.Rendering.PolyMaterial",
+      "Summary": "<p sourcefile=\"api/RichHudFramework.UI.Rendering.PolyMaterial.yml\" sourcestartlinenumber=\"1\">Defines the visual properties for rendering arbitrary N-sided polygons, including\na list of specific texture coordinates matching the polygon's vertices.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/RichHudFramework.UI.Rendering.PuncturedPolyBoard.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/RichHudFramework.UI.Rendering.PuncturedPolyBoard.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "RichHudFramework.UI.Rendering.PuncturedPolyBoard",
+      "Summary": "<p sourcefile=\"api/RichHudFramework.UI.Rendering.PuncturedPolyBoard.yml\" sourcestartlinenumber=\"1\">Renders a circular 2D polygon (annulus) using billboards with the center removed.\nGeometry is constructed as a strip of quads connecting an inner and outer ring.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/RichHudFramework.UI.Rendering.QuadBoard.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/RichHudFramework.UI.Rendering.QuadBoard.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "RichHudFramework.UI.Rendering.QuadBoard",
+      "Summary": "<p sourcefile=\"api/RichHudFramework.UI.Rendering.QuadBoard.yml\" sourcestartlinenumber=\"1\">Defines the visual properties of a rectangular billboard, including its texture, color,\ntexture coordinates, and skew.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/RichHudFramework.UI.Rendering.QuadBoardData.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/RichHudFramework.UI.Rendering.QuadBoardData.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "RichHudFramework.UI.Rendering.QuadBoardData",
+      "Summary": "<p sourcefile=\"api/RichHudFramework.UI.Rendering.QuadBoardData.yml\" sourcestartlinenumber=\"1\">Contains the final geometry and material data for a <xref href=\"RichHudFramework.UI.Rendering.QuadBoard\" data-throw-if-not-resolved=\"false\"></xref>,\nready to be submitted to the renderer.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/RichHudFramework.UI.Rendering.QuadMaterial.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/RichHudFramework.UI.Rendering.QuadMaterial.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "RichHudFramework.UI.Rendering.QuadMaterial",
+      "Summary": "<p sourcefile=\"api/RichHudFramework.UI.Rendering.QuadMaterial.yml\" sourcestartlinenumber=\"1\">Defines the visual properties for rendering a quadrilateral using explicit texture coordinates\nfor each corner, allowing for non-rectangular UV mappings (e.g., distortion or rotation).</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/RichHudFramework.UI.Rendering.TriMaterial.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/RichHudFramework.UI.Rendering.TriMaterial.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "RichHudFramework.UI.Rendering.TriMaterial",
+      "Summary": "<p sourcefile=\"api/RichHudFramework.UI.Rendering.TriMaterial.yml\" sourcestartlinenumber=\"1\">Defines the visual properties (texture, color, and UV mapping) for rendering a single triangle billboard.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/RichHudFramework.UI.Rendering.Triangle.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/RichHudFramework.UI.Rendering.Triangle.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "RichHudFramework.UI.Rendering.Triangle",
+      "Summary": "<p sourcefile=\"api/RichHudFramework.UI.Rendering.Triangle.yml\" sourcestartlinenumber=\"1\">Represents a 2D triangle defined by three points.\nUsed primarily for texture coordinate (UV) mapping or screen-space geometry.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/RichHudFramework.UI.Rendering.TriangleD.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/RichHudFramework.UI.Rendering.TriangleD.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "RichHudFramework.UI.Rendering.TriangleD",
+      "Summary": "<p sourcefile=\"api/RichHudFramework.UI.Rendering.TriangleD.yml\" sourcestartlinenumber=\"1\">Represents a 3D triangle defined by three double-precision world coordinates.\nUsed for defining world-space geometry.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/RichHudFramework.UI.Rendering.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/RichHudFramework.UI.Rendering.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "RichHudFramework.UI.Rendering",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/RichHudFramework.UI.RichHudControls.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/RichHudFramework.UI.RichHudControls.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "RichHudFramework.UI.RichHudControls",
+      "Summary": "<p sourcefile=\"api/RichHudFramework.UI.RichHudControls.yml\" sourcestartlinenumber=\"1\">Unified control enum type for keyboard, mouse and gamepad/joystick</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/RichHudFramework.UI.RichText.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/RichHudFramework.UI.RichText.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "RichHudFramework.UI.RichText",
+      "Summary": "<p sourcefile=\"api/RichHudFramework.UI.RichText.yml\" sourcestartlinenumber=\"1\">Reusable rich text builder designed for efficient construction and reuse of formatted text.\nInternally minimises StringBuilder allocations by merging  consecutive text segments that\nshare identical formatting.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/RichHudFramework.UI.ScaledSpaceNode.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/RichHudFramework.UI.ScaledSpaceNode.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "RichHudFramework.UI.ScaledSpaceNode",
+      "Summary": "<p sourcefile=\"api/RichHudFramework.UI.ScaledSpaceNode.yml\" sourcestartlinenumber=\"1\">A specialized HUD space node that rescales the X/Y (Right/Up) plane of its parent's\nplane-to-world transformation matrix, enlarging or shrinking all child UI elements\nattached to it uniformly.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/RichHudFramework.UI.ScrollBar.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/RichHudFramework.UI.ScrollBar.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "RichHudFramework.UI.ScrollBar",
+      "Summary": "<p sourcefile=\"api/RichHudFramework.UI.ScrollBar.yml\" sourcestartlinenumber=\"1\">A clickable scrollbar designed to approximate the appearance of standard Space Engineers scrollbars.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/RichHudFramework.UI.ScrollBox-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/RichHudFramework.UI.ScrollBox-1.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "RichHudFramework.UI.ScrollBox<TElementContainer>",
+      "Summary": "<p sourcefile=\"api/RichHudFramework.UI.ScrollBox-1.yml\" sourcestartlinenumber=\"1\">A scrollable container for HUD elements, based on <xref href=\"RichHudFramework.UI.HudChain%602\" data-throw-if-not-resolved=\"false\"></xref>.\nIt clips content that exceeds its bounds and provides a scrollbar for navigation.</p>\n<p>\nAlias of <xref href=\"RichHudFramework.UI.ScrollBox%602\" data-throw-if-not-resolved=\"false\"></xref> with <xref href=\"RichHudFramework.UI.HudElementBase\" data-throw-if-not-resolved=\"false\"></xref> as the element type.\n</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/RichHudFramework.UI.ScrollBox-2.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/RichHudFramework.UI.ScrollBox-2.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "RichHudFramework.UI.ScrollBox<TElementContainer, TElement>",
+      "Summary": "<p sourcefile=\"api/RichHudFramework.UI.ScrollBox-2.yml\" sourcestartlinenumber=\"1\">A scrollable container for HUD elements, based on <xref href=\"RichHudFramework.UI.HudChain%602\" data-throw-if-not-resolved=\"false\"></xref>.\nIt clips content that exceeds its bounds and provides a scrollbar for navigation.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/RichHudFramework.UI.ScrollBox.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/RichHudFramework.UI.ScrollBox.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "RichHudFramework.UI.ScrollBox",
+      "Summary": "<p sourcefile=\"api/RichHudFramework.UI.ScrollBox.yml\" sourcestartlinenumber=\"1\">A scrollable container for HUD elements, based on <xref href=\"RichHudFramework.UI.HudChain%602\" data-throw-if-not-resolved=\"false\"></xref>.\nIt clips content that exceeds its bounds and provides a scrollbar for navigation.</p>\n<p>\nAlias of <xref href=\"RichHudFramework.UI.ScrollBox%602\" data-throw-if-not-resolved=\"false\"></xref> with \n<xref href=\"RichHudFramework.UI.ScrollBoxEntry%601\" data-throw-if-not-resolved=\"false\"></xref> as the container and <xref href=\"RichHudFramework.UI.HudElementBase\" data-throw-if-not-resolved=\"false\"></xref> as the element.\n</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/RichHudFramework.UI.ScrollBoxEntry-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/RichHudFramework.UI.ScrollBoxEntry-1.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "RichHudFramework.UI.ScrollBoxEntry<TElement>",
+      "Summary": "<p sourcefile=\"api/RichHudFramework.UI.ScrollBoxEntry-1.yml\" sourcestartlinenumber=\"1\">Base container class for ScrollBox members.</p>\n<p>Adds an <xref href=\"RichHudFramework.UI.ScrollBoxEntry%601.Enabled\" data-throw-if-not-resolved=\"false\"></xref> state to the standard <xref href=\"RichHudFramework.UI.HudElementContainer%601\" data-throw-if-not-resolved=\"false\"></xref>.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/RichHudFramework.UI.ScrollBoxEntry.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/RichHudFramework.UI.ScrollBoxEntry.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "RichHudFramework.UI.ScrollBoxEntry",
+      "Summary": "<p sourcefile=\"api/RichHudFramework.UI.ScrollBoxEntry.yml\" sourcestartlinenumber=\"1\">Base container class for ScrollBox members using <xref href=\"RichHudFramework.UI.HudElementBase\" data-throw-if-not-resolved=\"false\"></xref>.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/RichHudFramework.UI.ScrollBoxEntryTuple-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/RichHudFramework.UI.ScrollBoxEntryTuple-1.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "RichHudFramework.UI.ScrollBoxEntryTuple<TData>",
+      "Summary": "<p sourcefile=\"api/RichHudFramework.UI.ScrollBoxEntryTuple-1.yml\" sourcestartlinenumber=\"1\">Container class associating a base ScrollBox element with an arbitrary object of\ntype <code class=\"typeparamref\">TData</code>.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/RichHudFramework.UI.ScrollBoxEntryTuple-2.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/RichHudFramework.UI.ScrollBoxEntryTuple-2.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "RichHudFramework.UI.ScrollBoxEntryTuple<TElement, TData>",
+      "Summary": "<p sourcefile=\"api/RichHudFramework.UI.ScrollBoxEntryTuple-2.yml\" sourcestartlinenumber=\"1\">Container class associating a ScrollBox element with an arbitrary object of\ntype <code class=\"typeparamref\">TData</code>.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/RichHudFramework.UI.ScrollSelectionBox-3.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/RichHudFramework.UI.ScrollSelectionBox-3.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "RichHudFramework.UI.ScrollSelectionBox<TContainer, TElement, TValue>",
+      "Summary": "<p sourcefile=\"api/RichHudFramework.UI.ScrollSelectionBox-3.yml\" sourcestartlinenumber=\"1\">A scrollable list of arbitrary selectable UI elements.\nGeneric SelectionBox using ScrollBox</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/RichHudFramework.UI.ScrollSelectionBoxBase-2.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/RichHudFramework.UI.ScrollSelectionBoxBase-2.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "RichHudFramework.UI.ScrollSelectionBoxBase<TContainer, TElement>",
+      "Summary": "<p sourcefile=\"api/RichHudFramework.UI.ScrollSelectionBoxBase-2.yml\" sourcestartlinenumber=\"1\">Abstract selection box that uses a <xref href=\"RichHudFramework.UI.ScrollBox%602\" data-throw-if-not-resolved=\"false\"></xref> as its backing list.\nSupports scrolling (mouse wheel + scrollbar).</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/RichHudFramework.UI.SeBlacklistModes.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/RichHudFramework.UI.SeBlacklistModes.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "RichHudFramework.UI.SeBlacklistModes",
+      "Summary": "<p sourcefile=\"api/RichHudFramework.UI.SeBlacklistModes.yml\" sourcestartlinenumber=\"1\">Flags determining which game inputs are blocked (blacklisted) by the framework.</p>\n<p>Useful for modifying or disabling normal game input behavior while UI elements are active.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/RichHudFramework.UI.SelectionBox-4.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/RichHudFramework.UI.SelectionBox-4.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "RichHudFramework.UI.SelectionBox<TChain, TContainer, TElement, TValue>",
+      "Summary": "<p sourcefile=\"api/RichHudFramework.UI.SelectionBox-4.yml\" sourcestartlinenumber=\"1\">Generic list of pooled, selectable entries of uniform size.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/RichHudFramework.UI.SelectionBoxBase-3.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/RichHudFramework.UI.SelectionBoxBase-3.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "RichHudFramework.UI.SelectionBoxBase<TChain, TContainer, TElement>",
+      "Summary": "<p sourcefile=\"api/RichHudFramework.UI.SelectionBoxBase-3.yml\" sourcestartlinenumber=\"1\">Core abstract base class for selection box controls. Manages a list of entries,\nkeyboard/mouse selection, highlighting, and visual feedback (selection box + highlight box).</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/RichHudFramework.UI.SelectionBoxEntry-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/RichHudFramework.UI.SelectionBoxEntry-1.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "RichHudFramework.UI.SelectionBoxEntry<TElement>",
+      "Summary": "<p sourcefile=\"api/RichHudFramework.UI.SelectionBoxEntry-1.yml\" sourcestartlinenumber=\"1\">Implementation of a Selection Box entry.</p>\n<p>Manages enablement and highlighting permissions for the contained element.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/RichHudFramework.UI.SelectionBoxEntryTuple-2.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/RichHudFramework.UI.SelectionBoxEntryTuple-2.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "RichHudFramework.UI.SelectionBoxEntryTuple<TElement, TValue>",
+      "Summary": "<p sourcefile=\"api/RichHudFramework.UI.SelectionBoxEntryTuple-2.yml\" sourcestartlinenumber=\"1\">Implementation of a Selection Box entry that pairs the element with a value.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/RichHudFramework.UI.SharedBinds.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/RichHudFramework.UI.SharedBinds.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "RichHudFramework.UI.SharedBinds",
+      "Summary": "<p sourcefile=\"api/RichHudFramework.UI.SharedBinds.yml\" sourcestartlinenumber=\"1\">A collection of immutable, commonly used key binds used by the framework library.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/RichHudFramework.UI.SliderBar.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/RichHudFramework.UI.SliderBar.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "RichHudFramework.UI.SliderBar",
+      "Summary": "<p sourcefile=\"api/RichHudFramework.UI.SliderBar.yml\" sourcestartlinenumber=\"1\">A clickable slider bar consisting of a track (Bar) and a movable thumb (Slider), based on <xref href=\"RichHudFramework.UI.MouseInputElement\" data-throw-if-not-resolved=\"false\"></xref>.\nIt can be oriented vertically or horizontally, and the current value is automatically clamped between min and max.</p>\n<p>\nSize is determined by the slider and bar, not <xref href=\"RichHudFramework.UI.HudElementBase.Size\" data-throw-if-not-resolved=\"false\"></xref> or <xref href=\"RichHudFramework.UI.HudElementBase.UnpaddedSize\" data-throw-if-not-resolved=\"false\"></xref>.\n</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/RichHudFramework.UI.SliderBox.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/RichHudFramework.UI.SliderBox.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "RichHudFramework.UI.SliderBox",
+      "Summary": "<p sourcefile=\"api/RichHudFramework.UI.SliderBox.yml\" sourcestartlinenumber=\"1\">A horizontal slider control designed to mimic the appearance of the standard sliders found\nin the Space Engineers terminal.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/RichHudFramework.UI.TerminalFormatting.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/RichHudFramework.UI.TerminalFormatting.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "RichHudFramework.UI.TerminalFormatting",
+      "Summary": "<p sourcefile=\"api/RichHudFramework.UI.TerminalFormatting.yml\" sourcestartlinenumber=\"1\">Colors and text formatting used in styling the Rich HUD Terminal and other UI elements themed on\nthe Space Engineers terminal style.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/RichHudFramework.UI.TextAlignment.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/RichHudFramework.UI.TextAlignment.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "RichHudFramework.UI.TextAlignment",
+      "Summary": "<p sourcefile=\"api/RichHudFramework.UI.TextAlignment.yml\" sourcestartlinenumber=\"1\">Used to determine text alignment.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/RichHudFramework.UI.TextBox.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/RichHudFramework.UI.TextBox.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "RichHudFramework.UI.TextBox",
+      "Summary": "<p sourcefile=\"api/RichHudFramework.UI.TextBox.yml\" sourcestartlinenumber=\"1\">Interactive, clickable text box with caret and highlighting. Text only, no background or\nscrollbars.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/RichHudFramework.UI.TextBuilderModes.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/RichHudFramework.UI.TextBuilderModes.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "RichHudFramework.UI.TextBuilderModes",
+      "Summary": "<p sourcefile=\"api/RichHudFramework.UI.TextBuilderModes.yml\" sourcestartlinenumber=\"1\">Line breaking modes for <xref href=\"RichHudFramework.UI.Rendering.ITextBuilder\" data-throw-if-not-resolved=\"false\"></xref></p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/RichHudFramework.UI.TextField.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/RichHudFramework.UI.TextField.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "RichHudFramework.UI.TextField",
+      "Summary": "<p sourcefile=\"api/RichHudFramework.UI.TextField.yml\" sourcestartlinenumber=\"1\">Unlined clickable textbox with a background and border designed to look like text fields in the SE\nterminal.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/RichHudFramework.UI.TextInput.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/RichHudFramework.UI.TextInput.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "RichHudFramework.UI.TextInput",
+      "Summary": "<p sourcefile=\"api/RichHudFramework.UI.TextInput.yml\" sourcestartlinenumber=\"1\">Provides a simple mechanism for handling text input, integrating with the game's input system\nto process characters and backspace events.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/RichHudFramework.UI.TexturedBox.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/RichHudFramework.UI.TexturedBox.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "RichHudFramework.UI.TexturedBox",
+      "Summary": "<p sourcefile=\"api/RichHudFramework.UI.TexturedBox.yml\" sourcestartlinenumber=\"1\">A UI element that renders a textured rectangle. Supports coloring, transparency,\ntexture alignment/scaling, and masking.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/RichHudFramework.UI.ToolTip.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/RichHudFramework.UI.ToolTip.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "RichHudFramework.UI.ToolTip",
+      "Summary": "<p sourcefile=\"api/RichHudFramework.UI.ToolTip.yml\" sourcestartlinenumber=\"1\">Class used to define tooltips attached to the RHF cursor.</p>\n<p>\nSet via the <xref href=\"RichHudFramework.UI.IMouseInput.ToolTip\" data-throw-if-not-resolved=\"false\"></xref> property of the given UI element, or registered to \n<xref href=\"RichHudFramework.UI.ICursor.RegisterToolTip(RichHudFramework.UI.ToolTip)\" data-throw-if-not-resolved=\"false\"></xref> manually in HandleInput() every input tick. \n</p>\n<p>The first tooltip registered takes precedence.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/RichHudFramework.UI.TreeBox-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/RichHudFramework.UI.TreeBox-1.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "RichHudFramework.UI.TreeBox<TValue>",
+      "Summary": "<p sourcefile=\"api/RichHudFramework.UI.TreeBox-1.yml\" sourcestartlinenumber=\"1\">Tree box supporting custom entry types of arbitrary height, provided they have a label.</p>\n<p>Alias of <xref href=\"RichHudFramework.UI.TreeBox%602\" data-throw-if-not-resolved=\"false\"></xref> with \n<xref href=\"RichHudFramework.UI.LabelElementBase\" data-throw-if-not-resolved=\"false\"></xref> as the element and <xref href=\"RichHudFramework.UI.SelectionBoxEntryTuple%602\" data-throw-if-not-resolved=\"false\"></xref> as the container.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/RichHudFramework.UI.TreeBox-2.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/RichHudFramework.UI.TreeBox-2.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "RichHudFramework.UI.TreeBox<TContainer, TElement>",
+      "Summary": "<p sourcefile=\"api/RichHudFramework.UI.TreeBox-2.yml\" sourcestartlinenumber=\"1\">Generic tree box supporting custom entry types of arbitrary height, provided they have a label.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/RichHudFramework.UI.TreeBoxBase-2.TreeChainSelectionBox.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/RichHudFramework.UI.TreeBoxBase-2.TreeChainSelectionBox.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "RichHudFramework.UI.TreeBoxBase<TContainer, TElement>.TreeChainSelectionBox",
+      "Summary": "<p sourcefile=\"api/RichHudFramework.UI.TreeBoxBase-2.TreeChainSelectionBox.yml\" sourcestartlinenumber=\"1\">Minimal <xref href=\"RichHudFramework.UI.ChainSelectionBoxBase%602\" data-throw-if-not-resolved=\"false\"></xref> used internally\nby <xref href=\"RichHudFramework.UI.TreeBoxBase%602\" data-throw-if-not-resolved=\"false\"></xref>.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/RichHudFramework.UI.TreeBoxBase-2.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/RichHudFramework.UI.TreeBoxBase-2.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "RichHudFramework.UI.TreeBoxBase<TContainer, TElement>",
+      "Summary": "<p sourcefile=\"api/RichHudFramework.UI.TreeBoxBase-2.yml\" sourcestartlinenumber=\"1\">Abstract, generic base class for tree-style dropdown lists\nProvides a collapsible hierarchy of entries with a header that toggles visibility of the list.</p>\n<p>\nAlias for <xref href=\"RichHudFramework.UI.TreeBoxBase%604\" data-throw-if-not-resolved=\"false\"></xref>\nusing default non-scrolling chain and selection box types\n</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/RichHudFramework.UI.TreeBoxBase-4.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/RichHudFramework.UI.TreeBoxBase-4.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "RichHudFramework.UI.TreeBoxBase<TSelectionBox, TChain, TContainer, TElement>",
+      "Summary": "<p sourcefile=\"api/RichHudFramework.UI.TreeBoxBase-4.yml\" sourcestartlinenumber=\"1\">Fully generic abstract base for tree box controls. Combines a clickable header (with expand/collapse arrow)\nand a dropdown selection list that appears below it when opened.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/RichHudFramework.UI.TreeList-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/RichHudFramework.UI.TreeList-1.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "RichHudFramework.UI.TreeList<TValue>",
+      "Summary": "<p sourcefile=\"api/RichHudFramework.UI.TreeList-1.yml\" sourcestartlinenumber=\"1\">Indented, collapsable list. Designed to fit in with SE UI elements.</p>\n<p>\nAlias of <xref href=\"RichHudFramework.UI.TreeList%603\" data-throw-if-not-resolved=\"false\"></xref> using \n<xref href=\"RichHudFramework.UI.ListBoxEntry%601\" data-throw-if-not-resolved=\"false\"></xref> and <xref href=\"RichHudFramework.UI.Label\" data-throw-if-not-resolved=\"false\"></xref> as the container and element, respectively.\n</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/RichHudFramework.UI.TreeList-2.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/RichHudFramework.UI.TreeList-2.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "RichHudFramework.UI.TreeList<TElement, TValue>",
+      "Summary": "<p sourcefile=\"api/RichHudFramework.UI.TreeList-2.yml\" sourcestartlinenumber=\"1\">Indented, collapsable list. Designed to fit in with SE UI elements.</p>\n<p>\nAlias of <xref href=\"RichHudFramework.UI.TreeList%603\" data-throw-if-not-resolved=\"false\"></xref> using \n<xref href=\"RichHudFramework.UI.ListBoxEntry%602\" data-throw-if-not-resolved=\"false\"></xref> as the container.\n</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/RichHudFramework.UI.TreeList-3.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/RichHudFramework.UI.TreeList-3.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "RichHudFramework.UI.TreeList<TContainer, TElement, TValue>",
+      "Summary": "<p sourcefile=\"api/RichHudFramework.UI.TreeList-3.yml\" sourcestartlinenumber=\"1\">Generic indented collapsable list of pooled, uniformly-sized entries. Allows use of custom entry element types.\nDesigned to fit in with SE UI elements.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/RichHudFramework.UI.WindowBase.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/RichHudFramework.UI.WindowBase.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "RichHudFramework.UI.WindowBase",
+      "Summary": "<p sourcefile=\"api/RichHudFramework.UI.WindowBase.yml\" sourcestartlinenumber=\"1\">Base class for a standard window element featuring a header, body, and border.\nIncludes built-in support for mouse dragging, edge resizing, and focus management.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/RichHudFramework.UI.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/RichHudFramework.UI.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "RichHudFramework.UI",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/RichHudFramework.Utils.Color.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/RichHudFramework.Utils.Color.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "RichHudFramework.Utils.Color",
+      "Summary": "<p sourcefile=\"api/RichHudFramework.Utils.Color.yml\" sourcestartlinenumber=\"1\">Utilities for parsing and formatting <xref href=\"VRageMath.Color\" data-throw-if-not-resolved=\"false\"></xref> values from/to strings.\nSupports common formats such as &quot;255,255,255&quot;, &quot; 100,  50, 0 &quot;, or &quot;128,64,32,255&quot;.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/RichHudFramework.Utils.Debug.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/RichHudFramework.Utils.Debug.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "RichHudFramework.Utils.Debug",
+      "Summary": "<p sourcefile=\"api/RichHudFramework.Utils.Debug.yml\" sourcestartlinenumber=\"1\">Debugging and runtime assertion utilities.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/RichHudFramework.Utils.ProtoBuf.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/RichHudFramework.Utils.ProtoBuf.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "RichHudFramework.Utils.ProtoBuf",
+      "Summary": "<p sourcefile=\"api/RichHudFramework.Utils.ProtoBuf.yml\" sourcestartlinenumber=\"1\">Safe wrappers around Space Engineers' built-in ProtoBuf serialization utilities.\nCatches exceptions and returns them as <xref href=\"RichHudFramework.KnownException\" data-throw-if-not-resolved=\"false\"></xref> instead of letting them propagate.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/RichHudFramework.Utils.Xml.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/RichHudFramework.Utils.Xml.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "RichHudFramework.Utils.Xml",
+      "Summary": "<p sourcefile=\"api/RichHudFramework.Utils.Xml.yml\" sourcestartlinenumber=\"1\">Safe wrappers around Space Engineers' built-in XML serialization utilities.\nExceptions are caught and returned as <xref href=\"RichHudFramework.KnownException\" data-throw-if-not-resolved=\"false\"></xref> rather than thrown.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/RichHudFramework.Utils.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/RichHudFramework.Utils.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "RichHudFramework.Utils",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/RichHudFramework.VectorExtensions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/RichHudFramework.VectorExtensions.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "RichHudFramework.VectorExtensions",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/RichHudFramework.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/RichHudFramework.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "RichHudFramework",
+      "Summary": null
+    },
+    {
+      "type": "Toc",
+      "source_relative_path": "api/toc.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/toc.html"
+        },
+        ".json": {
+          "relative_path": "api/toc.json"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "articles/Custom-Fonts.md",
+      "output": {
+        ".html": {
+          "relative_path": "articles/Custom-Fonts.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "articles/Custom-Textures.md",
+      "output": {
+        ".html": {
+          "relative_path": "articles/Custom-Textures.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "articles/HUD-Spaces.md",
+      "output": {
+        ".html": {
+          "relative_path": "articles/HUD-Spaces.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "articles/Installation-and-Mod-Integration.md",
+      "output": {
+        ".html": {
+          "relative_path": "articles/Installation-and-Mod-Integration.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "articles/Terminal-UI-Glossary.md",
+      "output": {
+        ".html": {
+          "relative_path": "articles/Terminal-UI-Glossary.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "articles/UI-Library-Glossary.md",
+      "output": {
+        ".html": {
+          "relative_path": "articles/UI-Library-Glossary.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Toc",
+      "source_relative_path": "articles/toc.yml",
+      "output": {
+        ".html": {
+          "relative_path": "articles/toc.html"
+        },
+        ".json": {
+          "relative_path": "articles/toc.json"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "index.md",
+      "output": {
+        ".html": {
+          "relative_path": "index.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "resources/images/favicon.ico",
+      "output": {
+        "resource": {
+          "relative_path": "resources/images/favicon.ico"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "resources/images/logo.svg",
+      "output": {
+        "resource": {
+          "relative_path": "resources/images/logo.svg"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Toc",
+      "source_relative_path": "toc.yml",
+      "output": {
+        ".html": {
+          "relative_path": "toc.html"
+        },
+        ".json": {
+          "relative_path": "toc.json"
+        }
+      },
+      "version": ""
+    }
+  ],
+  "groups": [
+    {
+      "xrefmap": "xrefmap.yml"
+    }
+  ]
+}

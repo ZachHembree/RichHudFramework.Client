@@ -1,0 +1,1041 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Class RadialSelectionBox&lt;TContainer, TElement&gt; | Rich HUD Framework </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Class RadialSelectionBox&lt;TContainer, TElement&gt; | Rich HUD Framework ">
+      
+      <meta name="description" content="Generic radial selection wheel (pie-menu style). Displays a collection of entries arranged in a circular pattern around a central point. Supports both cursor-based and gesture-based (drag-to-select) input methods.">
+      <link rel="icon" href="../resources/images/favicon.ico">
+      <link rel="stylesheet" href="../public/docfx.min.css">
+      <link rel="stylesheet" href="../public/main.css">
+      <meta name="docfx:navrel" content="../toc.html">
+      <meta name="docfx:tocrel" content="toc.html">
+      
+      <meta name="docfx:rel" content="../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/ZachHembree/RichHudFramework.Client/new/master/apiSpec/new?filename=RichHudFramework_UI_RadialSelectionBox_2.md&amp;value=---%0Auid%3A%20RichHudFramework.UI.RadialSelectionBox%602%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">
+
+      <!-- Optional nav title customization -->
+      <meta name="loc:inThisArticle" content="Sections">
+      
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="ManagedReference">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand d-flex align-items-center" href="../index.html">
+            <img id="logo" class="svg me-2" src="../resources/images/logo.svg" alt="Rich HUD Framework">
+            
+            <!-- Vertical divider -->
+            <span class="vr align-self-stretch opacity-75" aria-hidden="true"></span>
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="RichHudFramework.UI.RadialSelectionBox`2">
+
+
+
+  <h1 id="RichHudFramework_UI_RadialSelectionBox_2" data-uid="RichHudFramework.UI.RadialSelectionBox`2" class="text-break">
+Class RadialSelectionBox&lt;TContainer, TElement&gt;  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/HudElements/ClickableHudElements/SelectionBoxes/RadialSelectionBox.cs/#L23"><i class="bi bi-code-slash"></i></a>
+  </h1>
+
+  <div class="facts text-secondary">
+    <dl><dt>Namespace</dt><dd><a class="xref" href="RichHudFramework.html">RichHudFramework</a>.<a class="xref" href="RichHudFramework.UI.html">UI</a></dd></dl>
+  <dl><dt>Assembly</dt><dd>RichHudClient.dll</dd></dl>
+  </div>
+
+  <div class="markdown summary"><p>Generic radial selection wheel (pie-menu style). Displays a collection of entries arranged
+in a circular pattern around a central point. Supports both cursor-based and gesture-based
+(drag-to-select) input methods.</p>
+</div>
+  <div class="markdown conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public class RadialSelectionBox&lt;TContainer, TElement&gt; : HudCollection&lt;TContainer, TElement&gt;, IReadOnlyHudElement, IReadOnlyHudNode, IReadOnlyHudParent, IHudCollection&lt;TContainer, TElement&gt;, IReadOnlyHudCollection&lt;TContainer, TElement&gt;, IReadOnlyList&lt;TContainer&gt;, IReadOnlyCollection&lt;TContainer&gt;, IEnumerable&lt;TContainer&gt;, IEnumerable where TContainer : IScrollBoxEntry&lt;TElement&gt;, new() where TElement : HudElementBase</code></pre>
+  </div>
+
+
+
+  <h4 class="section">Type Parameters</h4>
+  <dl class="parameters">
+    <dt><code>TContainer</code></dt>
+    <dd><p>Container type that wraps each entry's UI element and provides selection/association data.</p>
+</dd>
+    <dt><code>TElement</code></dt>
+    <dd><p>The actual UI element displayed for each entry (must support minimal labeling).</p>
+</dd>
+  </dl>
+
+  <dl class="typelist inheritance">
+    <dt>Inheritance</dt>
+    <dd>
+      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
+      <div><a class="xref" href="RichHudFramework.UI.HudParentBase.html">HudParentBase</a></div>
+      <div><a class="xref" href="RichHudFramework.UI.HudNodeBase.html">HudNodeBase</a></div>
+      <div><a class="xref" href="RichHudFramework.UI.HudElementBase.html">HudElementBase</a></div>
+      <div><a class="xref" href="RichHudFramework.UI.HudCollection-2.html">HudCollection</a>&lt;TContainer, TElement&gt;</div>
+      <div><span class="xref">RadialSelectionBox&lt;TContainer, TElement&gt;</span></div>
+    </dd>
+  </dl>
+
+  <dl class="typelist implements">
+    <dt>Implements</dt>
+    <dd>
+      <div><a class="xref" href="RichHudFramework.UI.IReadOnlyHudElement.html">IReadOnlyHudElement</a></div>
+      <div><a class="xref" href="RichHudFramework.UI.IReadOnlyHudNode.html">IReadOnlyHudNode</a></div>
+      <div><a class="xref" href="RichHudFramework.UI.IReadOnlyHudParent.html">IReadOnlyHudParent</a></div>
+      <div><a class="xref" href="RichHudFramework.UI.IHudCollection-2.html">IHudCollection</a>&lt;TContainer, TElement&gt;</div>
+      <div><a class="xref" href="RichHudFramework.UI.IReadOnlyHudCollection-2.html">IReadOnlyHudCollection</a>&lt;TContainer, TElement&gt;</div>
+      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ireadonlylist-1">IReadOnlyList</a>&lt;TContainer&gt;</div>
+      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ireadonlycollection-1">IReadOnlyCollection</a>&lt;TContainer&gt;</div>
+      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;TContainer&gt;</div>
+      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.ienumerable">IEnumerable</a></div>
+    </dd>
+  </dl>
+
+  <dl class="typelist derived">
+    <dt>Derived</dt>
+    <dd>
+      <div><a class="xref" href="RichHudFramework.UI.RadialSelectionBox-1.html">RadialSelectionBox&lt;TContainer&gt;</a></div>
+    </dd>
+  </dl>
+
+  <dl class="typelist inheritedMembers">
+    <dt>Inherited Members</dt>
+    <dd>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.HudCollection-2.html#RichHudFramework_UI_HudCollection_2_Collection">Collection</a>
+    </div>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.HudCollection-2.html#RichHudFramework_UI_HudCollection_2_CollectionContainer">CollectionContainer</a>
+    </div>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.HudCollection-2.html#RichHudFramework_UI_HudCollection_2_Item_System_Int32_">this[int]</a>
+    </div>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.HudCollection-2.html#RichHudFramework_UI_HudCollection_2_Count">Count</a>
+    </div>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.HudCollection-2.html#RichHudFramework_UI_HudCollection_2_IsReadOnly">IsReadOnly</a>
+    </div>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.HudCollection-2.html#RichHudFramework_UI_HudCollection_2_GetEnumerator">GetEnumerator()</a>
+    </div>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.HudCollection-2.html#RichHudFramework_UI_HudCollection_2_System_Collections_IEnumerable_GetEnumerator">IEnumerable.GetEnumerator()</a>
+    </div>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.HudCollection-2.html#RichHudFramework_UI_HudCollection_2_Add__1_">Add(TElement)</a>
+    </div>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.HudCollection-2.html#RichHudFramework_UI_HudCollection_2_Add__0_">Add(TContainer)</a>
+    </div>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.HudCollection-2.html#RichHudFramework_UI_HudCollection_2_AddRange_System_Collections_Generic_IReadOnlyList__0__">AddRange(IReadOnlyList&lt;TContainer&gt;)</a>
+    </div>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.HudCollection-2.html#RichHudFramework_UI_HudCollection_2_Insert_System_Int32__0_">Insert(int, TContainer)</a>
+    </div>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.HudCollection-2.html#RichHudFramework_UI_HudCollection_2_InsertRange_System_Int32_System_Collections_Generic_IReadOnlyList__0__">InsertRange(int, IReadOnlyList&lt;TContainer&gt;)</a>
+    </div>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.HudCollection-2.html#RichHudFramework_UI_HudCollection_2_Remove__0_">Remove(TContainer)</a>
+    </div>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.HudCollection-2.html#RichHudFramework_UI_HudCollection_2_Remove_System_Func__0_System_Boolean__">Remove(Func&lt;TContainer, bool&gt;)</a>
+    </div>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.HudCollection-2.html#RichHudFramework_UI_HudCollection_2_RemoveAt_System_Int32_">RemoveAt(int)</a>
+    </div>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.HudCollection-2.html#RichHudFramework_UI_HudCollection_2_RemoveRange_System_Int32_System_Int32_">RemoveRange(int, int)</a>
+    </div>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.HudCollection-2.html#RichHudFramework_UI_HudCollection_2_Clear">Clear()</a>
+    </div>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.HudCollection-2.html#RichHudFramework_UI_HudCollection_2_Find_System_Func__0_System_Boolean__">Find(Func&lt;TContainer, bool&gt;)</a>
+    </div>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.HudCollection-2.html#RichHudFramework_UI_HudCollection_2_FindIndex_System_Func__0_System_Boolean__">FindIndex(Func&lt;TContainer, bool&gt;)</a>
+    </div>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.HudCollection-2.html#RichHudFramework_UI_HudCollection_2_Contains__0_">Contains(TContainer)</a>
+    </div>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.HudCollection-2.html#RichHudFramework_UI_HudCollection_2_CopyTo__0___System_Int32_">CopyTo(TContainer[], int)</a>
+    </div>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.HudCollection-2.html#RichHudFramework_UI_HudCollection_2_RemoveChild_RichHudFramework_UI_HudNodeBase_">RemoveChild(HudNodeBase)</a>
+    </div>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.HudElementBase.html#RichHudFramework_UI_HudElementBase_Size">Size</a>
+    </div>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.HudElementBase.html#RichHudFramework_UI_HudElementBase_Width">Width</a>
+    </div>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.HudElementBase.html#RichHudFramework_UI_HudElementBase_Height">Height</a>
+    </div>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.HudElementBase.html#RichHudFramework_UI_HudElementBase_Padding">Padding</a>
+    </div>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.HudElementBase.html#RichHudFramework_UI_HudElementBase_UnpaddedSize">UnpaddedSize</a>
+    </div>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.HudElementBase.html#RichHudFramework_UI_HudElementBase_Origin">Origin</a>
+    </div>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.HudElementBase.html#RichHudFramework_UI_HudElementBase_Offset">Offset</a>
+    </div>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.HudElementBase.html#RichHudFramework_UI_HudElementBase_Position">Position</a>
+    </div>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.HudElementBase.html#RichHudFramework_UI_HudElementBase_ParentAlignment">ParentAlignment</a>
+    </div>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.HudElementBase.html#RichHudFramework_UI_HudElementBase_DimAlignment">DimAlignment</a>
+    </div>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.HudElementBase.html#RichHudFramework_UI_HudElementBase_UseCursor">UseCursor</a>
+    </div>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.HudElementBase.html#RichHudFramework_UI_HudElementBase_ShareCursor">ShareCursor</a>
+    </div>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.HudElementBase.html#RichHudFramework_UI_HudElementBase_IsMasking">IsMasking</a>
+    </div>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.HudElementBase.html#RichHudFramework_UI_HudElementBase_IsSelectivelyMasked">IsSelectivelyMasked</a>
+    </div>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.HudElementBase.html#RichHudFramework_UI_HudElementBase_CanIgnoreMasking">CanIgnoreMasking</a>
+    </div>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.HudElementBase.html#RichHudFramework_UI_HudElementBase_IsMousedOver">IsMousedOver</a>
+    </div>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.HudElementBase.html#RichHudFramework_UI_HudElementBase_CachedSize">CachedSize</a>
+    </div>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.HudElementBase.html#RichHudFramework_UI_HudElementBase_OriginAlignment">OriginAlignment</a>
+    </div>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.HudElementBase.html#RichHudFramework_UI_HudElementBase_MaskingBox">MaskingBox</a>
+    </div>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.HudNodeBase.html#RichHudFramework_UI_HudNodeBase_RichHudFramework_UI_IReadOnlyHudNode_Parent">IReadOnlyHudNode.Parent</a>
+    </div>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.HudNodeBase.html#RichHudFramework_UI_HudNodeBase_Parent">Parent</a>
+    </div>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.HudNodeBase.html#RichHudFramework_UI_HudNodeBase_Registered">Registered</a>
+    </div>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.HudNodeBase.html#RichHudFramework_UI_HudNodeBase_OverlayOffset">OverlayOffset</a>
+    </div>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.HudNodeBase.html#RichHudFramework_UI_HudNodeBase_Register_RichHudFramework_UI_HudParentBase_">Register(HudParentBase)</a>
+    </div>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.HudNodeBase.html#RichHudFramework_UI_HudNodeBase_Unregister">Unregister()</a>
+    </div>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.HudParentBase.html#RichHudFramework_UI_HudParentBase_HudSpace">HudSpace</a>
+    </div>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.HudParentBase.html#RichHudFramework_UI_HudParentBase_Visible">Visible</a>
+    </div>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.HudParentBase.html#RichHudFramework_UI_HudParentBase_InputEnabled">InputEnabled</a>
+    </div>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.HudParentBase.html#RichHudFramework_UI_HudParentBase_ZOffset">ZOffset</a>
+    </div>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.HudParentBase.html#RichHudFramework_UI_HudParentBase_Measure">Measure()</a>
+    </div>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.HudParentBase.html#RichHudFramework_UI_HudParentBase_Layout">Layout()</a>
+    </div>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.HudParentBase.html#RichHudFramework_UI_HudParentBase_Draw">Draw()</a>
+    </div>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.HudParentBase.html#RichHudFramework_UI_HudParentBase_InputDepth">InputDepth()</a>
+    </div>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.HudParentBase.html#RichHudFramework_UI_HudParentBase_HandleInput_VRageMath_Vector2_">HandleInput(Vector2)</a>
+    </div>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.HudParentBase.html#RichHudFramework_UI_HudParentBase_RegisterChild_RichHudFramework_UI_HudNodeBase_">RegisterChild(HudNodeBase)</a>
+    </div>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.HudParentBase.html#RichHudFramework_UI_HudParentBase_RemoveChild_RichHudFramework_UI_HudNodeBase_">RemoveChild(HudNodeBase)</a>
+    </div>
+  </dd></dl>
+
+
+
+
+
+
+  <h2 class="section" id="constructors">Constructors
+</h2>
+
+
+  <a id="RichHudFramework_UI_RadialSelectionBox_2__ctor_" data-uid="RichHudFramework.UI.RadialSelectionBox`2.#ctor*"></a>
+
+  <h3 id="RichHudFramework_UI_RadialSelectionBox_2__ctor_RichHudFramework_UI_HudParentBase_" data-uid="RichHudFramework.UI.RadialSelectionBox`2.#ctor(RichHudFramework.UI.HudParentBase)">
+  RadialSelectionBox(HudParentBase)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/HudElements/ClickableHudElements/SelectionBoxes/RadialSelectionBox.cs/#L163"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public RadialSelectionBox(HudParentBase parent = null)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>parent</code> <a class="xref" href="RichHudFramework.UI.HudParentBase.html">HudParentBase</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <h2 class="section" id="properties">Properties
+</h2>
+
+
+  <a id="RichHudFramework_UI_RadialSelectionBox_2_BackgroundColor_" data-uid="RichHudFramework.UI.RadialSelectionBox`2.BackgroundColor*"></a>
+
+  <h3 id="RichHudFramework_UI_RadialSelectionBox_2_BackgroundColor" data-uid="RichHudFramework.UI.RadialSelectionBox`2.BackgroundColor">
+  BackgroundColor
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/HudElements/ClickableHudElements/SelectionBoxes/RadialSelectionBox.cs/#L87"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Background color of the entire radial wheel.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual Color BackgroundColor { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://keensoftwarehouse.github.io/SpaceEngineersModAPI/api/VRageMath.Color.html">Color</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="RichHudFramework_UI_RadialSelectionBox_2_CursorSensitivity_" data-uid="RichHudFramework.UI.RadialSelectionBox`2.CursorSensitivity*"></a>
+
+  <h3 id="RichHudFramework_UI_RadialSelectionBox_2_CursorSensitivity" data-uid="RichHudFramework.UI.RadialSelectionBox`2.CursorSensitivity">
+  CursorSensitivity
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/HudElements/ClickableHudElements/SelectionBoxes/RadialSelectionBox.cs/#L103"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Sensitivity of cursor/gesture movement when selecting slices. Range: 0.3–2.0.
+Higher values make the wheel react faster to movement.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public float CursorSensitivity { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="RichHudFramework_UI_RadialSelectionBox_2_EnabledCount_" data-uid="RichHudFramework.UI.RadialSelectionBox`2.EnabledCount*"></a>
+
+  <h3 id="RichHudFramework_UI_RadialSelectionBox_2_EnabledCount" data-uid="RichHudFramework.UI.RadialSelectionBox`2.EnabledCount">
+  EnabledCount
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/HudElements/ClickableHudElements/SelectionBoxes/RadialSelectionBox.cs/#L77"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Number of entries that are currently enabled and visible on the wheel.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual int EnabledCount { get; protected set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="RichHudFramework_UI_RadialSelectionBox_2_EntryList_" data-uid="RichHudFramework.UI.RadialSelectionBox`2.EntryList*"></a>
+
+  <h3 id="RichHudFramework_UI_RadialSelectionBox_2_EntryList" data-uid="RichHudFramework.UI.RadialSelectionBox`2.EntryList">
+  EntryList
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/HudElements/ClickableHudElements/SelectionBoxes/RadialSelectionBox.cs/#L30"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Read-only access to the full list of entries currently in the wheel.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual IReadOnlyList&lt;TContainer&gt; EntryList { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ireadonlylist-1">IReadOnlyList</a>&lt;TContainer&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="RichHudFramework_UI_RadialSelectionBox_2_HighlightColor_" data-uid="RichHudFramework.UI.RadialSelectionBox`2.HighlightColor*"></a>
+
+  <h3 id="RichHudFramework_UI_RadialSelectionBox_2_HighlightColor" data-uid="RichHudFramework.UI.RadialSelectionBox`2.HighlightColor">
+  HighlightColor
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/HudElements/ClickableHudElements/SelectionBoxes/RadialSelectionBox.cs/#L92"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Color used for the slice under the cursor (or gesture highlight).</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual Color HighlightColor { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://keensoftwarehouse.github.io/SpaceEngineersModAPI/api/VRageMath.Color.html">Color</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="RichHudFramework_UI_RadialSelectionBox_2_HighlightIndex_" data-uid="RichHudFramework.UI.RadialSelectionBox`2.HighlightIndex*"></a>
+
+  <h3 id="RichHudFramework_UI_RadialSelectionBox_2_HighlightIndex" data-uid="RichHudFramework.UI.RadialSelectionBox`2.HighlightIndex">
+  HighlightIndex
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/HudElements/ClickableHudElements/SelectionBoxes/RadialSelectionBox.cs/#L66"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Index of the currently highlighted entry in <a class="xref" href="RichHudFramework.UI.RadialSelectionBox-2.html#RichHudFramework_UI_RadialSelectionBox_2_EntryList">EntryList</a>. -1 if nothing highlighted.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual int HighlightIndex { get; protected set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="RichHudFramework_UI_RadialSelectionBox_2_HighlightedEntry_" data-uid="RichHudFramework.UI.RadialSelectionBox`2.HighlightedEntry*"></a>
+
+  <h3 id="RichHudFramework_UI_RadialSelectionBox_2_HighlightedEntry" data-uid="RichHudFramework.UI.RadialSelectionBox`2.HighlightedEntry">
+  HighlightedEntry
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/HudElements/ClickableHudElements/SelectionBoxes/RadialSelectionBox.cs/#L48"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>The entry currently under the cursor or highlighted by gesture. Returns null/default if none.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual TContainer HighlightedEntry { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">TContainer</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="RichHudFramework_UI_RadialSelectionBox_2_InnerRadius_" data-uid="RichHudFramework.UI.RadialSelectionBox`2.InnerRadius*"></a>
+
+  <h3 id="RichHudFramework_UI_RadialSelectionBox_2_InnerRadius" data-uid="RichHudFramework.UI.RadialSelectionBox`2.InnerRadius">
+  InnerRadius
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/HudElements/ClickableHudElements/SelectionBoxes/RadialSelectionBox.cs/#L109"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>The radius of the inner hole as a normalized fraction of the outer radius.
+Range: 0.0 (solid circle) to 1.0 (infinitely thin ring).</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public float InnerRadius { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="RichHudFramework_UI_RadialSelectionBox_2_MaxEntryCount_" data-uid="RichHudFramework.UI.RadialSelectionBox`2.MaxEntryCount*"></a>
+
+  <h3 id="RichHudFramework_UI_RadialSelectionBox_2_MaxEntryCount" data-uid="RichHudFramework.UI.RadialSelectionBox`2.MaxEntryCount">
+  MaxEntryCount
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/HudElements/ClickableHudElements/SelectionBoxes/RadialSelectionBox.cs/#L72"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Desired maximum number of visible slices. Determines polygon subdivision density.
+If the number of enabled entries exceeds this value, the actual enabled count takes precedence.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual int MaxEntryCount { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="RichHudFramework_UI_RadialSelectionBox_2_Selection_" data-uid="RichHudFramework.UI.RadialSelectionBox`2.Selection*"></a>
+
+  <h3 id="RichHudFramework_UI_RadialSelectionBox_2_Selection" data-uid="RichHudFramework.UI.RadialSelectionBox`2.Selection">
+  Selection
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/HudElements/ClickableHudElements/SelectionBoxes/RadialSelectionBox.cs/#L35"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>The currently selected entry. Returns null/default if nothing is selected.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual TContainer Selection { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">TContainer</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="RichHudFramework_UI_RadialSelectionBox_2_SelectionColor_" data-uid="RichHudFramework.UI.RadialSelectionBox`2.SelectionColor*"></a>
+
+  <h3 id="RichHudFramework_UI_RadialSelectionBox_2_SelectionColor" data-uid="RichHudFramework.UI.RadialSelectionBox`2.SelectionColor">
+  SelectionColor
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/HudElements/ClickableHudElements/SelectionBoxes/RadialSelectionBox.cs/#L97"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Color used for the currently selected slice.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual Color SelectionColor { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://keensoftwarehouse.github.io/SpaceEngineersModAPI/api/VRageMath.Color.html">Color</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="RichHudFramework_UI_RadialSelectionBox_2_SelectionIndex_" data-uid="RichHudFramework.UI.RadialSelectionBox`2.SelectionIndex*"></a>
+
+  <h3 id="RichHudFramework_UI_RadialSelectionBox_2_SelectionIndex" data-uid="RichHudFramework.UI.RadialSelectionBox`2.SelectionIndex">
+  SelectionIndex
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/HudElements/ClickableHudElements/SelectionBoxes/RadialSelectionBox.cs/#L61"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Index of the currently selected entry in <a class="xref" href="RichHudFramework.UI.RadialSelectionBox-2.html#RichHudFramework_UI_RadialSelectionBox_2_EntryList">EntryList</a>. -1 if no selection.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual int SelectionIndex { get; protected set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="RichHudFramework_UI_RadialSelectionBox_2_UseGestureInput_" data-uid="RichHudFramework.UI.RadialSelectionBox`2.UseGestureInput*"></a>
+
+  <h3 id="RichHudFramework_UI_RadialSelectionBox_2_UseGestureInput" data-uid="RichHudFramework.UI.RadialSelectionBox`2.UseGestureInput">
+  UseGestureInput
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/HudElements/ClickableHudElements/SelectionBoxes/RadialSelectionBox.cs/#L82"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>When true, selection is driven by drag gestures instead of absolute cursor position.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual bool UseGestureInput { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <h2 class="section" id="methods">Methods
+</h2>
+
+
+  <a id="RichHudFramework_UI_RadialSelectionBox_2_Clear_" data-uid="RichHudFramework.UI.RadialSelectionBox`2.Clear*"></a>
+
+  <h3 id="RichHudFramework_UI_RadialSelectionBox_2_Clear" data-uid="RichHudFramework.UI.RadialSelectionBox`2.Clear">
+  Clear()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/HudElements/ClickableHudElements/SelectionBoxes/RadialSelectionBox.cs/#L228"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Removes all entries and clears both selection and highlight.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override void Clear()</code></pre>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="RichHudFramework_UI_RadialSelectionBox_2_ClearHighlight_" data-uid="RichHudFramework.UI.RadialSelectionBox`2.ClearHighlight*"></a>
+
+  <h3 id="RichHudFramework_UI_RadialSelectionBox_2_ClearHighlight" data-uid="RichHudFramework.UI.RadialSelectionBox`2.ClearHighlight">
+  ClearHighlight()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/HudElements/ClickableHudElements/SelectionBoxes/RadialSelectionBox.cs/#L238"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Clears only the highlight (cursor/gesture hover).</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void ClearHighlight()</code></pre>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="RichHudFramework_UI_RadialSelectionBox_2_ClearSelection_" data-uid="RichHudFramework.UI.RadialSelectionBox`2.ClearSelection*"></a>
+
+  <h3 id="RichHudFramework_UI_RadialSelectionBox_2_ClearSelection" data-uid="RichHudFramework.UI.RadialSelectionBox`2.ClearSelection">
+  ClearSelection()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/HudElements/ClickableHudElements/SelectionBoxes/RadialSelectionBox.cs/#L243"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Clears only the current selection.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void ClearSelection()</code></pre>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="RichHudFramework_UI_RadialSelectionBox_2_SetHighlight_" data-uid="RichHudFramework.UI.RadialSelectionBox`2.SetHighlight*"></a>
+
+  <h3 id="RichHudFramework_UI_RadialSelectionBox_2_SetHighlight__0_" data-uid="RichHudFramework.UI.RadialSelectionBox`2.SetHighlight(`0)">
+  SetHighlight(TContainer)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/HudElements/ClickableHudElements/SelectionBoxes/RadialSelectionBox.cs/#L216"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Highlights the given entry if it exists in the collection.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void SetHighlight(TContainer container)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>container</code> <span class="xref">TContainer</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="RichHudFramework_UI_RadialSelectionBox_2_SetHighlightAt_" data-uid="RichHudFramework.UI.RadialSelectionBox`2.SetHighlightAt*"></a>
+
+  <h3 id="RichHudFramework_UI_RadialSelectionBox_2_SetHighlightAt_System_Int32_" data-uid="RichHudFramework.UI.RadialSelectionBox`2.SetHighlightAt(System.Int32)">
+  SetHighlightAt(int)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/HudElements/ClickableHudElements/SelectionBoxes/RadialSelectionBox.cs/#L207"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Highlights the entry at the specified index (clamped to valid range).</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void SetHighlightAt(int index)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>index</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="RichHudFramework_UI_RadialSelectionBox_2_SetSelection_" data-uid="RichHudFramework.UI.RadialSelectionBox`2.SetSelection*"></a>
+
+  <h3 id="RichHudFramework_UI_RadialSelectionBox_2_SetSelection__0_" data-uid="RichHudFramework.UI.RadialSelectionBox`2.SetSelection(`0)">
+  SetSelection(TContainer)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/HudElements/ClickableHudElements/SelectionBoxes/RadialSelectionBox.cs/#L195"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Sets the selection to the given entry if it exists in the collection.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void SetSelection(TContainer container)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>container</code> <span class="xref">TContainer</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="RichHudFramework_UI_RadialSelectionBox_2_SetSelectionAt_" data-uid="RichHudFramework.UI.RadialSelectionBox`2.SetSelectionAt*"></a>
+
+  <h3 id="RichHudFramework_UI_RadialSelectionBox_2_SetSelectionAt_System_Int32_" data-uid="RichHudFramework.UI.RadialSelectionBox`2.SetSelectionAt(System.Int32)">
+  SetSelectionAt(int)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/HudElements/ClickableHudElements/SelectionBoxes/RadialSelectionBox.cs/#L186"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Sets the selection to the entry at the specified index (clamped to valid range).</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void SetSelectionAt(int index)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>index</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/HudElements/ClickableHudElements/SelectionBoxes/RadialSelectionBox.cs/#L23" class="edit-link">Edit this page</a>
+        </div>
+
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

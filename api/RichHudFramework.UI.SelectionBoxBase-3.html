@@ -1,0 +1,1086 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Class SelectionBoxBase&lt;TChain, TContainer, TElement&gt; | Rich HUD Framework </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Class SelectionBoxBase&lt;TChain, TContainer, TElement&gt; | Rich HUD Framework ">
+      
+      <meta name="description" content="Core abstract base class for selection box controls. Manages a list of entries, keyboard/mouse selection, highlighting, and visual feedback (selection box + highlight box).">
+      <link rel="icon" href="../resources/images/favicon.ico">
+      <link rel="stylesheet" href="../public/docfx.min.css">
+      <link rel="stylesheet" href="../public/main.css">
+      <meta name="docfx:navrel" content="../toc.html">
+      <meta name="docfx:tocrel" content="toc.html">
+      
+      <meta name="docfx:rel" content="../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/ZachHembree/RichHudFramework.Client/blob/docfx/api-supplements/Shared/UI/HudElements/ClickableHudElements/SelectionBoxes/SelectionBoxBase.md/#L2">
+
+      <!-- Optional nav title customization -->
+      <meta name="loc:inThisArticle" content="Sections">
+      
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="ManagedReference">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand d-flex align-items-center" href="../index.html">
+            <img id="logo" class="svg me-2" src="../resources/images/logo.svg" alt="Rich HUD Framework">
+            
+            <!-- Vertical divider -->
+            <span class="vr align-self-stretch opacity-75" aria-hidden="true"></span>
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="RichHudFramework.UI.SelectionBoxBase`3">
+
+
+
+  <h1 id="RichHudFramework_UI_SelectionBoxBase_3" data-uid="RichHudFramework.UI.SelectionBoxBase`3" class="text-break">
+Class SelectionBoxBase&lt;TChain, TContainer, TElement&gt;  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/HudElements/ClickableHudElements/SelectionBoxes/SelectionBoxBase.cs/#L90"><i class="bi bi-code-slash"></i></a>
+  </h1>
+
+  <div class="facts text-secondary">
+    <dl><dt>Namespace</dt><dd><a class="xref" href="RichHudFramework.html">RichHudFramework</a>.<a class="xref" href="RichHudFramework.UI.html">UI</a></dd></dl>
+  <dl><dt>Assembly</dt><dd>RichHudClient.dll</dd></dl>
+  </div>
+
+  <div class="markdown summary"><p>Core abstract base class for selection box controls. Manages a list of entries,
+keyboard/mouse selection, highlighting, and visual feedback (selection box + highlight box).</p>
+</div>
+  <div class="markdown conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public abstract class SelectionBoxBase&lt;TChain, TContainer, TElement&gt; : HudElementBase, IReadOnlyHudElement, IReadOnlyHudNode, IReadOnlyHudParent, IEntryBox&lt;TContainer, TElement&gt;, IEnumerable&lt;TContainer&gt;, IEnumerable, IValueControl&lt;TContainer&gt;, IValueControl, IClickableElement, IFocusableElement where TChain : HudChain&lt;TContainer, TElement&gt;, new() where TContainer : class, ISelectionBoxEntry&lt;TElement&gt;, new() where TElement : HudElementBase, IMinLabelElement</code></pre>
+  </div>
+
+
+
+  <h4 class="section">Type Parameters</h4>
+  <dl class="parameters">
+    <dt><code>TChain</code></dt>
+    <dd><p>The concrete <a class="xref" href="RichHudFramework.UI.HudChain-2.html">HudChain&lt;TElementContainer, TElement&gt;</a> type used as the list container
+(e.g. <a class="xref" href="RichHudFramework.UI.HudChain-2.html">HudChain&lt;TElementContainer, TElement&gt;</a> or  <a class="xref" href="RichHudFramework.UI.ScrollBox-2.html">ScrollBox&lt;TElementContainer, TElement&gt;</a>)</p>
+</dd>
+    <dt><code>TContainer</code></dt>
+    <dd><p>Container type wrapping each entry</p>
+</dd>
+    <dt><code>TElement</code></dt>
+    <dd><p>UI element type displayed inside each container</p>
+</dd>
+  </dl>
+
+  <dl class="typelist inheritance">
+    <dt>Inheritance</dt>
+    <dd>
+      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
+      <div><a class="xref" href="RichHudFramework.UI.HudParentBase.html">HudParentBase</a></div>
+      <div><a class="xref" href="RichHudFramework.UI.HudNodeBase.html">HudNodeBase</a></div>
+      <div><a class="xref" href="RichHudFramework.UI.HudElementBase.html">HudElementBase</a></div>
+      <div><span class="xref">SelectionBoxBase&lt;TChain, TContainer, TElement&gt;</span></div>
+    </dd>
+  </dl>
+
+  <dl class="typelist implements">
+    <dt>Implements</dt>
+    <dd>
+      <div><a class="xref" href="RichHudFramework.UI.IReadOnlyHudElement.html">IReadOnlyHudElement</a></div>
+      <div><a class="xref" href="RichHudFramework.UI.IReadOnlyHudNode.html">IReadOnlyHudNode</a></div>
+      <div><a class="xref" href="RichHudFramework.UI.IReadOnlyHudParent.html">IReadOnlyHudParent</a></div>
+      <div><a class="xref" href="RichHudFramework.UI.IEntryBox-2.html">IEntryBox</a>&lt;TContainer, TElement&gt;</div>
+      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;TContainer&gt;</div>
+      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.ienumerable">IEnumerable</a></div>
+      <div><a class="xref" href="RichHudFramework.UI.IValueControl-1.html">IValueControl</a>&lt;TContainer&gt;</div>
+      <div><a class="xref" href="RichHudFramework.UI.IValueControl.html">IValueControl</a></div>
+      <div><a class="xref" href="RichHudFramework.UI.IClickableElement.html">IClickableElement</a></div>
+      <div><a class="xref" href="RichHudFramework.UI.IFocusableElement.html">IFocusableElement</a></div>
+    </dd>
+  </dl>
+
+  <dl class="typelist derived">
+    <dt>Derived</dt>
+    <dd>
+      <div><a class="xref" href="RichHudFramework.UI.ChainSelectionBoxBase-2.html">ChainSelectionBoxBase&lt;TContainer, TElement&gt;</a></div>
+      <div><a class="xref" href="RichHudFramework.UI.ScrollSelectionBoxBase-2.html">ScrollSelectionBoxBase&lt;TContainer, TElement&gt;</a></div>
+      <div><a class="xref" href="RichHudFramework.UI.SelectionBox-4.html">SelectionBox&lt;TChain, TContainer, TElement, TValue&gt;</a></div>
+    </dd>
+  </dl>
+
+  <dl class="typelist inheritedMembers">
+    <dt>Inherited Members</dt>
+    <dd>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.HudElementBase.html#RichHudFramework_UI_HudElementBase_Size">Size</a>
+    </div>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.HudElementBase.html#RichHudFramework_UI_HudElementBase_Width">Width</a>
+    </div>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.HudElementBase.html#RichHudFramework_UI_HudElementBase_Height">Height</a>
+    </div>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.HudElementBase.html#RichHudFramework_UI_HudElementBase_Padding">Padding</a>
+    </div>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.HudElementBase.html#RichHudFramework_UI_HudElementBase_UnpaddedSize">UnpaddedSize</a>
+    </div>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.HudElementBase.html#RichHudFramework_UI_HudElementBase_Origin">Origin</a>
+    </div>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.HudElementBase.html#RichHudFramework_UI_HudElementBase_Offset">Offset</a>
+    </div>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.HudElementBase.html#RichHudFramework_UI_HudElementBase_Position">Position</a>
+    </div>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.HudElementBase.html#RichHudFramework_UI_HudElementBase_ParentAlignment">ParentAlignment</a>
+    </div>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.HudElementBase.html#RichHudFramework_UI_HudElementBase_DimAlignment">DimAlignment</a>
+    </div>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.HudElementBase.html#RichHudFramework_UI_HudElementBase_UseCursor">UseCursor</a>
+    </div>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.HudElementBase.html#RichHudFramework_UI_HudElementBase_ShareCursor">ShareCursor</a>
+    </div>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.HudElementBase.html#RichHudFramework_UI_HudElementBase_IsMasking">IsMasking</a>
+    </div>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.HudElementBase.html#RichHudFramework_UI_HudElementBase_IsSelectivelyMasked">IsSelectivelyMasked</a>
+    </div>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.HudElementBase.html#RichHudFramework_UI_HudElementBase_CanIgnoreMasking">CanIgnoreMasking</a>
+    </div>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.HudElementBase.html#RichHudFramework_UI_HudElementBase_CachedSize">CachedSize</a>
+    </div>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.HudElementBase.html#RichHudFramework_UI_HudElementBase_OriginAlignment">OriginAlignment</a>
+    </div>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.HudElementBase.html#RichHudFramework_UI_HudElementBase_MaskingBox">MaskingBox</a>
+    </div>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.HudNodeBase.html#RichHudFramework_UI_HudNodeBase_RichHudFramework_UI_IReadOnlyHudNode_Parent">IReadOnlyHudNode.Parent</a>
+    </div>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.HudNodeBase.html#RichHudFramework_UI_HudNodeBase_Parent">Parent</a>
+    </div>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.HudNodeBase.html#RichHudFramework_UI_HudNodeBase_Registered">Registered</a>
+    </div>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.HudNodeBase.html#RichHudFramework_UI_HudNodeBase_OverlayOffset">OverlayOffset</a>
+    </div>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.HudNodeBase.html#RichHudFramework_UI_HudNodeBase_Register_RichHudFramework_UI_HudParentBase_">Register(HudParentBase)</a>
+    </div>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.HudNodeBase.html#RichHudFramework_UI_HudNodeBase_Unregister">Unregister()</a>
+    </div>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.HudParentBase.html#RichHudFramework_UI_HudParentBase_HudSpace">HudSpace</a>
+    </div>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.HudParentBase.html#RichHudFramework_UI_HudParentBase_Visible">Visible</a>
+    </div>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.HudParentBase.html#RichHudFramework_UI_HudParentBase_InputEnabled">InputEnabled</a>
+    </div>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.HudParentBase.html#RichHudFramework_UI_HudParentBase_ZOffset">ZOffset</a>
+    </div>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.HudParentBase.html#RichHudFramework_UI_HudParentBase_Measure">Measure()</a>
+    </div>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.HudParentBase.html#RichHudFramework_UI_HudParentBase_Layout">Layout()</a>
+    </div>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.HudParentBase.html#RichHudFramework_UI_HudParentBase_Draw">Draw()</a>
+    </div>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.HudParentBase.html#RichHudFramework_UI_HudParentBase_InputDepth">InputDepth()</a>
+    </div>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.HudParentBase.html#RichHudFramework_UI_HudParentBase_HandleInput_VRageMath_Vector2_">HandleInput(Vector2)</a>
+    </div>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.HudParentBase.html#RichHudFramework_UI_HudParentBase_RegisterChild_RichHudFramework_UI_HudNodeBase_">RegisterChild(HudNodeBase)</a>
+    </div>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.HudParentBase.html#RichHudFramework_UI_HudParentBase_RemoveChild_RichHudFramework_UI_HudNodeBase_">RemoveChild(HudNodeBase)</a>
+    </div>
+  </dd></dl>
+
+
+
+
+  <h2 id="RichHudFramework_UI_SelectionBoxBase_3_remarks">Remarks</h2>
+  <div class="markdown level0 remarks">
+<p><code>SelectionBoxBase</code> is the foundational abstract class for all selection-style list controls. It combines <strong>standardized input handling</strong> with a <a class="xref" href="RichHudFramework.UI.ListInputElement-2.html">ListInputElement&lt;TElementContainer, TElement&gt;</a> component to deliver core functionality. This includes features such as <strong>highlighting</strong>, <strong>selection</strong> management, and <strong>entry hiding</strong>.</p>
+<p>The list's layout and scrolling behavior are governed by the generic <strong>TChain</strong> parameter, which defines the underlying container. This container is typically a <a class="xref" href="RichHudFramework.UI.HudChain-2.html">HudChain&lt;TElementContainer, TElement&gt;</a> for <strong>non-scrolling</strong> lists or a <a class="xref" href="RichHudFramework.UI.ScrollBox-2.html">ScrollBox&lt;TElementContainer, TElement&gt;</a> for <strong>scrollable</strong> lists. In both cases, the container manages the collection of elements through a <a class="xref" href="RichHudFramework.UI.HudCollection-2.html">HudCollection&lt;TElementContainer, TElement&gt;</a>.</p>
+<h3 id="concrete-implementations">Concrete Implementations</h3>
+<p>To simplify usage, each concrete implementation of <code>SelectionBoxBase</code> provides aliases for its default generic parameters (<code>TElementContainer</code> and <code>TElement</code>).</p>
+<p>The primary specialization, <a class="xref" href="RichHudFramework.UI.SelectionBox-4.html">SelectionBox&lt;TChain, TContainer, TElement, TValue&gt;</a>, forms the basis for selection boxes that use <strong>reusable and uniform pooled entries</strong>. It offers two main variants based on the container type:</p>
+<ul>
+<li><a class="xref" href="RichHudFramework.UI.ChainSelectionBox-3.html">ChainSelectionBox&lt;TContainer, TElement, TValue&gt;</a>: The <strong>non-scrolling</strong> variant.</li>
+<li><a class="xref" href="RichHudFramework.UI.ScrollSelectionBox-3.html">ScrollSelectionBox&lt;TContainer, TElement, TValue&gt;</a>: The <strong>scrolling</strong> variant.</li>
+</ul>
+<p>Additional derived types include:</p>
+<ul>
+<li><a class="xref" href="RichHudFramework.UI.ListBox-3.html">ListBox&lt;TContainer, TElement, TValue&gt;</a>: A non-collapsing, scrolling list derived from <code>ScrollSelectionBox</code>.</li>
+<li><a class="xref" href="RichHudFramework.UI.Dropdown-3.html">Dropdown&lt;TContainer, TElement, TValue&gt;</a>: A collapsible scrolling list that incorporates <code>ListBox</code> internally.</li>
+<li><a class="xref" href="RichHudFramework.UI.TreeBox-2.html">TreeBox&lt;TContainer, TElement&gt;</a>: A non-scrolling, indented, collapsible list suited for heterogeneous, non-pooled entries.</li>
+<li><a class="xref" href="RichHudFramework.UI.TreeList-3.html">TreeList&lt;TContainer, TElement, TValue&gt;</a>: A non-scrolling, indented, collapsible list optimized for uniform, pooled entries.</li>
+</ul>
+</div>
+
+
+  <h2 class="section" id="properties">Properties
+</h2>
+
+
+  <a id="RichHudFramework_UI_SelectionBoxBase_3_Count_" data-uid="RichHudFramework.UI.SelectionBoxBase`3.Count*"></a>
+
+  <h3 id="RichHudFramework_UI_SelectionBoxBase_3_Count" data-uid="RichHudFramework.UI.SelectionBoxBase`3.Count">
+  Count
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/HudElements/ClickableHudElements/SelectionBoxes/SelectionBoxBase.cs/#L171"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Number of entries in the list.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int Count { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="RichHudFramework_UI_SelectionBoxBase_3_EntryList_" data-uid="RichHudFramework.UI.SelectionBoxBase`3.EntryList*"></a>
+
+  <h3 id="RichHudFramework_UI_SelectionBoxBase_3_EntryList" data-uid="RichHudFramework.UI.SelectionBoxBase`3.EntryList">
+  EntryList
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/HudElements/ClickableHudElements/SelectionBoxes/SelectionBoxBase.cs/#L118"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Read-only access to the list of entry containers.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public IReadOnlyList&lt;TContainer&gt; EntryList { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ireadonlylist-1">IReadOnlyList</a>&lt;TContainer&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="RichHudFramework_UI_SelectionBoxBase_3_FocusColor_" data-uid="RichHudFramework.UI.SelectionBoxBase`3.FocusColor*"></a>
+
+  <h3 id="RichHudFramework_UI_SelectionBoxBase_3_FocusColor" data-uid="RichHudFramework.UI.SelectionBoxBase`3.FocusColor">
+  FocusColor
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/HudElements/ClickableHudElements/SelectionBoxes/SelectionBoxBase.cs/#L128"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Background color of the selection overlay when the list has input focus.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Color FocusColor { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://keensoftwarehouse.github.io/SpaceEngineersModAPI/api/VRageMath.Color.html">Color</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="RichHudFramework_UI_SelectionBoxBase_3_FocusHandler_" data-uid="RichHudFramework.UI.SelectionBoxBase`3.FocusHandler*"></a>
+
+  <h3 id="RichHudFramework_UI_SelectionBoxBase_3_FocusHandler" data-uid="RichHudFramework.UI.SelectionBoxBase`3.FocusHandler">
+  FocusHandler
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/HudElements/ClickableHudElements/SelectionBoxes/SelectionBoxBase.cs/#L176"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Handles keyboard/mouse focus for the entire control.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public IFocusHandler FocusHandler { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="RichHudFramework.UI.IFocusHandler.html">IFocusHandler</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="RichHudFramework_UI_SelectionBoxBase_3_FocusTextColor_" data-uid="RichHudFramework.UI.SelectionBoxBase`3.FocusTextColor*"></a>
+
+  <h3 id="RichHudFramework_UI_SelectionBoxBase_3_FocusTextColor" data-uid="RichHudFramework.UI.SelectionBoxBase`3.FocusTextColor">
+  FocusTextColor
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/HudElements/ClickableHudElements/SelectionBoxes/SelectionBoxBase.cs/#L156"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Text color used for the currently focused entry (keyboard navigation).</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Color FocusTextColor { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://keensoftwarehouse.github.io/SpaceEngineersModAPI/api/VRageMath.Color.html">Color</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="RichHudFramework_UI_SelectionBoxBase_3_Format_" data-uid="RichHudFramework.UI.SelectionBoxBase`3.Format*"></a>
+
+  <h3 id="RichHudFramework_UI_SelectionBoxBase_3_Format" data-uid="RichHudFramework.UI.SelectionBoxBase`3.Format">
+  Format
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/HudElements/ClickableHudElements/SelectionBoxes/SelectionBoxBase.cs/#L151"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Default text format applied to entry labels.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public GlyphFormat Format { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="RichHudFramework.UI.GlyphFormat.html">GlyphFormat</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="RichHudFramework_UI_SelectionBoxBase_3_HighlightColor_" data-uid="RichHudFramework.UI.SelectionBoxBase`3.HighlightColor*"></a>
+
+  <h3 id="RichHudFramework_UI_SelectionBoxBase_3_HighlightColor" data-uid="RichHudFramework.UI.SelectionBoxBase`3.HighlightColor">
+  HighlightColor
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/HudElements/ClickableHudElements/SelectionBoxes/SelectionBoxBase.cs/#L123"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Default background color of the highlight/selection overlay when not focused.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Color HighlightColor { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://keensoftwarehouse.github.io/SpaceEngineersModAPI/api/VRageMath.Color.html">Color</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="RichHudFramework_UI_SelectionBoxBase_3_HighlightPadding_" data-uid="RichHudFramework.UI.SelectionBoxBase`3.HighlightPadding*"></a>
+
+  <h3 id="RichHudFramework_UI_SelectionBoxBase_3_HighlightPadding" data-uid="RichHudFramework.UI.SelectionBoxBase`3.HighlightPadding">
+  HighlightPadding
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/HudElements/ClickableHudElements/SelectionBoxes/SelectionBoxBase.cs/#L146"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Additional padding applied inside the highlight/selection overlay.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Vector2 HighlightPadding { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://keensoftwarehouse.github.io/SpaceEngineersModAPI/api/VRageMath.Vector2.html">Vector2</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="RichHudFramework_UI_SelectionBoxBase_3_IsMousedOver_" data-uid="RichHudFramework.UI.SelectionBoxBase`3.IsMousedOver*"></a>
+
+  <h3 id="RichHudFramework_UI_SelectionBoxBase_3_IsMousedOver" data-uid="RichHudFramework.UI.SelectionBoxBase`3.IsMousedOver">
+  IsMousedOver
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/HudElements/ClickableHudElements/SelectionBoxes/SelectionBoxBase.cs/#L186"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>True when the mouse cursor is over any part of the list.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override bool IsMousedOver { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="RichHudFramework_UI_SelectionBoxBase_3_ListContainer_" data-uid="RichHudFramework.UI.SelectionBoxBase`3.ListContainer*"></a>
+
+  <h3 id="RichHudFramework_UI_SelectionBoxBase_3_ListContainer" data-uid="RichHudFramework.UI.SelectionBoxBase`3.ListContainer">
+  ListContainer
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/HudElements/ClickableHudElements/SelectionBoxes/SelectionBoxBase.cs/#L113"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Allows nested collection-initializer syntax (e.g., new MyListBox { ListContainer = { entry1, entry2 } });</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public SelectionBoxBase&lt;TChain, TContainer, TElement&gt; ListContainer { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="RichHudFramework.UI.SelectionBoxBase-3.html">SelectionBoxBase</a>&lt;TChain, TContainer, TElement&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="RichHudFramework_UI_SelectionBoxBase_3_MouseInput_" data-uid="RichHudFramework.UI.SelectionBoxBase`3.MouseInput*"></a>
+
+  <h3 id="RichHudFramework_UI_SelectionBoxBase_3_MouseInput" data-uid="RichHudFramework.UI.SelectionBoxBase`3.MouseInput">
+  MouseInput
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/HudElements/ClickableHudElements/SelectionBoxes/SelectionBoxBase.cs/#L181"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Mouse input handler for the list (used for hover/click detection).</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public IMouseInput MouseInput { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="RichHudFramework.UI.IMouseInput.html">IMouseInput</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="RichHudFramework_UI_SelectionBoxBase_3_SelectionIndex_" data-uid="RichHudFramework.UI.SelectionBoxBase`3.SelectionIndex*"></a>
+
+  <h3 id="RichHudFramework_UI_SelectionBoxBase_3_SelectionIndex" data-uid="RichHudFramework.UI.SelectionBoxBase`3.SelectionIndex">
+  SelectionIndex
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/HudElements/ClickableHudElements/SelectionBoxes/SelectionBoxBase.cs/#L166"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Index of the currently selected entry (-1 if none).</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int SelectionIndex { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="RichHudFramework_UI_SelectionBoxBase_3_TabColor_" data-uid="RichHudFramework.UI.SelectionBoxBase`3.TabColor*"></a>
+
+  <h3 id="RichHudFramework_UI_SelectionBoxBase_3_TabColor" data-uid="RichHudFramework.UI.SelectionBoxBase`3.TabColor">
+  TabColor
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/HudElements/ClickableHudElements/SelectionBoxes/SelectionBoxBase.cs/#L133"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Color of the small vertical tab drawn on the left side of the highlight/selection box.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Color TabColor { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://keensoftwarehouse.github.io/SpaceEngineersModAPI/api/VRageMath.Color.html">Color</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="RichHudFramework_UI_SelectionBoxBase_3_UpdateValueCallback_" data-uid="RichHudFramework.UI.SelectionBoxBase`3.UpdateValueCallback*"></a>
+
+  <h3 id="RichHudFramework_UI_SelectionBoxBase_3_UpdateValueCallback" data-uid="RichHudFramework.UI.SelectionBoxBase`3.UpdateValueCallback">
+  UpdateValueCallback
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/HudElements/ClickableHudElements/SelectionBoxes/SelectionBoxBase.cs/#L108"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Convenience property for adding a selection callback during object initialization.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public EventHandler UpdateValueCallback { set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="RichHudFramework.EventHandler.html">EventHandler</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="RichHudFramework_UI_SelectionBoxBase_3_Value_" data-uid="RichHudFramework.UI.SelectionBoxBase`3.Value*"></a>
+
+  <h3 id="RichHudFramework_UI_SelectionBoxBase_3_Value" data-uid="RichHudFramework.UI.SelectionBoxBase`3.Value">
+  Value
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/HudElements/ClickableHudElements/SelectionBoxes/SelectionBoxBase.cs/#L161"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Currently selected entry, or null if nothing is selected.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public TContainer Value { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">TContainer</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <h2 class="section" id="methods">Methods
+</h2>
+
+
+  <a id="RichHudFramework_UI_SelectionBoxBase_3_ClearSelection_" data-uid="RichHudFramework.UI.SelectionBoxBase`3.ClearSelection*"></a>
+
+  <h3 id="RichHudFramework_UI_SelectionBoxBase_3_ClearSelection" data-uid="RichHudFramework.UI.SelectionBoxBase`3.ClearSelection">
+  ClearSelection()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/HudElements/ClickableHudElements/SelectionBoxes/SelectionBoxBase.cs/#L297"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Clears the current selection</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void ClearSelection()</code></pre>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="RichHudFramework_UI_SelectionBoxBase_3_GetEnumerator_" data-uid="RichHudFramework.UI.SelectionBoxBase`3.GetEnumerator*"></a>
+
+  <h3 id="RichHudFramework_UI_SelectionBoxBase_3_GetEnumerator" data-uid="RichHudFramework.UI.SelectionBoxBase`3.GetEnumerator">
+  GetEnumerator()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/HudElements/ClickableHudElements/SelectionBoxes/SelectionBoxBase.cs/#L271"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Returns an enumerator that iterates through the collection.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public IEnumerator&lt;TContainer&gt; GetEnumerator()</code></pre>
+  </div>
+
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerator-1">IEnumerator</a>&lt;TContainer&gt;</dt>
+    <dd><p>An enumerator that can be used to iterate through the collection.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="RichHudFramework_UI_SelectionBoxBase_3_GetRangeSize_" data-uid="RichHudFramework.UI.SelectionBoxBase`3.GetRangeSize*"></a>
+
+  <h3 id="RichHudFramework_UI_SelectionBoxBase_3_GetRangeSize_System_Int32_System_Int32_" data-uid="RichHudFramework.UI.SelectionBoxBase`3.GetRangeSize(System.Int32,System.Int32)">
+  GetRangeSize(int, int)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/HudElements/ClickableHudElements/SelectionBoxes/SelectionBoxBase.cs/#L306"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Calculates the combined size of the list entries within the given index range.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual Vector2 GetRangeSize(int start = 0, int end = -1)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>start</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd><p>Start index.</p>
+</dd>
+    <dt><code>end</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd><p>End index (-1 for last element).</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://keensoftwarehouse.github.io/SpaceEngineersModAPI/api/VRageMath.Vector2.html">Vector2</a></dt>
+    <dd><p>Total size vector (Width, Height) required to fit the range.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="RichHudFramework_UI_SelectionBoxBase_3_OffsetSelectionIndex_" data-uid="RichHudFramework.UI.SelectionBoxBase`3.OffsetSelectionIndex*"></a>
+
+  <h3 id="RichHudFramework_UI_SelectionBoxBase_3_OffsetSelectionIndex_System_Int32_System_Boolean_" data-uid="RichHudFramework.UI.SelectionBoxBase`3.OffsetSelectionIndex(System.Int32,System.Boolean)">
+  OffsetSelectionIndex(int, bool)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/HudElements/ClickableHudElements/SelectionBoxes/SelectionBoxBase.cs/#L285"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Offsets selection index in the direction of the offset. If wrap == true, the index will wrap around
+if the offset places it out of range.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void OffsetSelectionIndex(int offset, bool wrap = false)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>offset</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd></dd>
+    <dt><code>wrap</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="RichHudFramework_UI_SelectionBoxBase_3_SetSelection_" data-uid="RichHudFramework.UI.SelectionBoxBase`3.SetSelection*"></a>
+
+  <h3 id="RichHudFramework_UI_SelectionBoxBase_3_SetSelection__1_" data-uid="RichHudFramework.UI.SelectionBoxBase`3.SetSelection(`1)">
+  SetSelection(TContainer)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/HudElements/ClickableHudElements/SelectionBoxes/SelectionBoxBase.cs/#L291"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Sets the selection to the specified entry.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void SetSelection(TContainer member)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>member</code> <span class="xref">TContainer</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="RichHudFramework_UI_SelectionBoxBase_3_SetSelectionAt_" data-uid="RichHudFramework.UI.SelectionBoxBase`3.SetSelectionAt*"></a>
+
+  <h3 id="RichHudFramework_UI_SelectionBoxBase_3_SetSelectionAt_System_Int32_" data-uid="RichHudFramework.UI.SelectionBoxBase`3.SetSelectionAt(System.Int32)">
+  SetSelectionAt(int)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/HudElements/ClickableHudElements/SelectionBoxes/SelectionBoxBase.cs/#L278"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Sets the selection to the member associated with the given object.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void SetSelectionAt(int index)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>index</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <h2 class="section" id="events">Events
+</h2>
+
+
+
+  <h3 id="RichHudFramework_UI_SelectionBoxBase_3_ValueChanged" data-uid="RichHudFramework.UI.SelectionBoxBase`3.ValueChanged">
+  ValueChanged
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/HudElements/ClickableHudElements/SelectionBoxes/SelectionBoxBase.cs/#L99"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Raised when the selected entry changes.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public event EventHandler ValueChanged</code></pre>
+  </div>
+
+
+
+
+
+
+  <h4 class="section">Event Type</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="RichHudFramework.EventHandler.html">EventHandler</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+  <h2 class="section" id="eii">Explicit Interface Implementations
+</h2>
+
+
+  <a id="RichHudFramework_UI_SelectionBoxBase_3_System_Collections_IEnumerable_GetEnumerator_" data-uid="RichHudFramework.UI.SelectionBoxBase`3.System#Collections#IEnumerable#GetEnumerator*"></a>
+
+  <h3 id="RichHudFramework_UI_SelectionBoxBase_3_System_Collections_IEnumerable_GetEnumerator" data-uid="RichHudFramework.UI.SelectionBoxBase`3.System#Collections#IEnumerable#GetEnumerator">
+  IEnumerable.GetEnumerator()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/HudElements/ClickableHudElements/SelectionBoxes/SelectionBoxBase.cs/#L273"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Returns an enumerator that iterates through a collection.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">IEnumerator IEnumerable.GetEnumerator()</code></pre>
+  </div>
+
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.ienumerator">IEnumerator</a></dt>
+    <dd><p>An <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.ienumerator">IEnumerator</a> object that can be used to iterate through the collection.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/HudElements/ClickableHudElements/SelectionBoxes/SelectionBoxBase.cs/#L90" class="edit-link">Edit this page</a>
+        </div>
+
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

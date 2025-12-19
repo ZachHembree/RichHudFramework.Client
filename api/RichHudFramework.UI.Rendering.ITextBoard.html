@@ -1,0 +1,711 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Interface ITextBoard | Rich HUD Framework </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Interface ITextBoard | Rich HUD Framework ">
+      
+      <meta name="description" content="Represents a renderable text element that supports rich text formatting, scrolling, and advanced layout.  This interface combines text manipulation (via ) with rendering logic.  It handles text clipping, auto-resizing, text alignment, and coordinate-based character lookups.">
+      <link rel="icon" href="../resources/images/favicon.ico">
+      <link rel="stylesheet" href="../public/docfx.min.css">
+      <link rel="stylesheet" href="../public/main.css">
+      <meta name="docfx:navrel" content="../toc.html">
+      <meta name="docfx:tocrel" content="toc.html">
+      
+      <meta name="docfx:rel" content="../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/ZachHembree/RichHudFramework.Client/blob/docfx/api-supplements/Shared/UI/Rendering/ITextBoard.md/#L32">
+
+      <!-- Optional nav title customization -->
+      <meta name="loc:inThisArticle" content="Sections">
+      
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="ManagedReference">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand d-flex align-items-center" href="../index.html">
+            <img id="logo" class="svg me-2" src="../resources/images/logo.svg" alt="Rich HUD Framework">
+            
+            <!-- Vertical divider -->
+            <span class="vr align-self-stretch opacity-75" aria-hidden="true"></span>
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="RichHudFramework.UI.Rendering.ITextBoard">
+
+
+
+  <h1 id="RichHudFramework_UI_Rendering_ITextBoard" data-uid="RichHudFramework.UI.Rendering.ITextBoard" class="text-break">
+Interface ITextBoard  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/Rendering/ITextBoard.cs/#L59"><i class="bi bi-code-slash"></i></a>
+  </h1>
+
+  <div class="facts text-secondary">
+    <dl><dt>Namespace</dt><dd><a class="xref" href="RichHudFramework.html">RichHudFramework</a>.<a class="xref" href="RichHudFramework.UI.html">UI</a>.<a class="xref" href="RichHudFramework.UI.Rendering.html">Rendering</a></dd></dl>
+  <dl><dt>Assembly</dt><dd>RichHudClient.dll</dd></dl>
+  </div>
+
+  <div class="markdown summary"><p>Represents a renderable text element that supports rich text formatting, scrolling, and advanced layout.</p>
+<p>
+This interface combines text manipulation (via <a class="xref" href="RichHudFramework.UI.Rendering.ITextBuilder.html">ITextBuilder</a>) with rendering logic. 
+It handles text clipping, auto-resizing, text alignment, and coordinate-based character lookups.
+</p>
+</div>
+  <div class="markdown conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public interface ITextBoard : ITextBuilder, IIndexedCollection&lt;ILine&gt;</code></pre>
+  </div>
+
+
+
+
+
+
+
+  <dl class="typelist inheritedMembers">
+    <dt>Inherited Members</dt>
+    <dd>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.Rendering.ITextBuilder.html#RichHudFramework_UI_Rendering_ITextBuilder_Item_VRageMath_Vector2I_">this[Vector2I]</a>
+    </div>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.Rendering.ITextBuilder.html#RichHudFramework_UI_Rendering_ITextBuilder_Format">Format</a>
+    </div>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.Rendering.ITextBuilder.html#RichHudFramework_UI_Rendering_ITextBuilder_LineWrapWidth">LineWrapWidth</a>
+    </div>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.Rendering.ITextBuilder.html#RichHudFramework_UI_Rendering_ITextBuilder_BuilderMode">BuilderMode</a>
+    </div>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.Rendering.ITextBuilder.html#RichHudFramework_UI_Rendering_ITextBuilder_SetText_RichHudFramework_UI_RichText_">SetText(RichText)</a>
+    </div>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.Rendering.ITextBuilder.html#RichHudFramework_UI_Rendering_ITextBuilder_SetText_System_Text_StringBuilder_System_Nullable_RichHudFramework_UI_GlyphFormat__">SetText(StringBuilder, GlyphFormat?)</a>
+    </div>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.Rendering.ITextBuilder.html#RichHudFramework_UI_Rendering_ITextBuilder_SetText_System_String_System_Nullable_RichHudFramework_UI_GlyphFormat__">SetText(string, GlyphFormat?)</a>
+    </div>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.Rendering.ITextBuilder.html#RichHudFramework_UI_Rendering_ITextBuilder_Append_RichHudFramework_UI_RichText_">Append(RichText)</a>
+    </div>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.Rendering.ITextBuilder.html#RichHudFramework_UI_Rendering_ITextBuilder_Append_System_Text_StringBuilder_System_Nullable_RichHudFramework_UI_GlyphFormat__">Append(StringBuilder, GlyphFormat?)</a>
+    </div>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.Rendering.ITextBuilder.html#RichHudFramework_UI_Rendering_ITextBuilder_Append_System_String_System_Nullable_RichHudFramework_UI_GlyphFormat__">Append(string, GlyphFormat?)</a>
+    </div>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.Rendering.ITextBuilder.html#RichHudFramework_UI_Rendering_ITextBuilder_Append_System_Char_System_Nullable_RichHudFramework_UI_GlyphFormat__">Append(char, GlyphFormat?)</a>
+    </div>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.Rendering.ITextBuilder.html#RichHudFramework_UI_Rendering_ITextBuilder_Insert_RichHudFramework_UI_RichText_VRageMath_Vector2I_">Insert(RichText, Vector2I)</a>
+    </div>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.Rendering.ITextBuilder.html#RichHudFramework_UI_Rendering_ITextBuilder_Insert_System_Text_StringBuilder_VRageMath_Vector2I_System_Nullable_RichHudFramework_UI_GlyphFormat__">Insert(StringBuilder, Vector2I, GlyphFormat?)</a>
+    </div>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.Rendering.ITextBuilder.html#RichHudFramework_UI_Rendering_ITextBuilder_Insert_System_String_VRageMath_Vector2I_System_Nullable_RichHudFramework_UI_GlyphFormat__">Insert(string, Vector2I, GlyphFormat?)</a>
+    </div>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.Rendering.ITextBuilder.html#RichHudFramework_UI_Rendering_ITextBuilder_Insert_System_Char_VRageMath_Vector2I_System_Nullable_RichHudFramework_UI_GlyphFormat__">Insert(char, Vector2I, GlyphFormat?)</a>
+    </div>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.Rendering.ITextBuilder.html#RichHudFramework_UI_Rendering_ITextBuilder_SetFormatting_RichHudFramework_UI_GlyphFormat_">SetFormatting(GlyphFormat)</a>
+    </div>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.Rendering.ITextBuilder.html#RichHudFramework_UI_Rendering_ITextBuilder_SetFormatting_VRageMath_Vector2I_VRageMath_Vector2I_RichHudFramework_UI_GlyphFormat_">SetFormatting(Vector2I, Vector2I, GlyphFormat)</a>
+    </div>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.Rendering.ITextBuilder.html#RichHudFramework_UI_Rendering_ITextBuilder_GetText">GetText()</a>
+    </div>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.Rendering.ITextBuilder.html#RichHudFramework_UI_Rendering_ITextBuilder_GetTextRange_VRageMath_Vector2I_VRageMath_Vector2I_">GetTextRange(Vector2I, Vector2I)</a>
+    </div>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.Rendering.ITextBuilder.html#RichHudFramework_UI_Rendering_ITextBuilder_RemoveAt_VRageMath_Vector2I_">RemoveAt(Vector2I)</a>
+    </div>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.Rendering.ITextBuilder.html#RichHudFramework_UI_Rendering_ITextBuilder_RemoveRange_VRageMath_Vector2I_VRageMath_Vector2I_">RemoveRange(Vector2I, Vector2I)</a>
+    </div>
+    <div>
+      <a class="xref" href="RichHudFramework.UI.Rendering.ITextBuilder.html#RichHudFramework_UI_Rendering_ITextBuilder_Clear">Clear()</a>
+    </div>
+    <div>
+      <a class="xref" href="RichHudFramework.IIndexedCollection-1.html#RichHudFramework_IIndexedCollection_1_Item_System_Int32_">this[int]</a>
+    </div>
+    <div>
+      <a class="xref" href="RichHudFramework.IIndexedCollection-1.html#RichHudFramework_IIndexedCollection_1_Count">Count</a>
+    </div>
+  </dd></dl>
+
+
+
+  <h2 id="RichHudFramework_UI_Rendering_ITextBoard_examples">Examples</h2>
+  <h4 id="example-1-efficient-text-updates">Example 1: Efficient Text Updates</h4>
+<p>The following example demonstrates how to rebuild text in an update loop using the <a class="xref" href="RichHudFramework.UI.Rendering.ITextBuilder.html">ITextBuilder</a> interface methods inherited by the board. This pattern is often cleaner than manipulating <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.text.stringbuilder">StringBuilder</a> or <a class="xref" href="RichHudFramework.UI.RichText.html">RichText</a> objects.</p>
+<pre><code class="lang-csharp">public class TextBuilderExample : HudElementBase
+{
+    private static readonly List&lt;string&gt; values = new List&lt;string&gt; { &quot;Value 1&quot;, &quot;Value 2&quot;, &quot;Value 3&quot;, &quot;Value 4&quot; };
+    private readonly Label textElement;
+
+    // ... Initialization code ...
+
+    protected override void HandleInput(Vector2 cursorPos)
+    {
+        // Access the board directly to manipulate the buffer
+        ITextBuilder text = textElement.TextBoard;
+        text.Clear();
+
+        // Rebuild the list
+        foreach (string val in values)
+        {
+            text.Append(val);
+            text.Append('\n');
+        }
+    }
+}
+</code></pre>
+<h4 id="example-2-implementing-a-scrollable-text-box">Example 2: Implementing a Scrollable Text Box</h4>
+<p>This example demonstrates how to wrap a <a class="xref" href="RichHudFramework.UI.TextBox.html">TextBox</a> and a <a class="xref" href="RichHudFramework.UI.ScrollBar.html">ScrollBar</a> inside a basic <a class="xref" href="RichHudFramework.UI.HudElementBase.html">HudElementBase</a>. It synchronizes the slider's value with the board's <a class="xref" href="RichHudFramework.UI.Rendering.ITextBoard.html#RichHudFramework_UI_Rendering_ITextBoard_TextOffset">TextOffset</a>.</p>
+<pre><code class="lang-csharp">public class ScrollingTextBox : HudElementBase
+{
+    private readonly TextBox text;
+    private readonly ScrollBar vScroll;
+    private const string LoremIpsum = &quot;Arbitrary long text...&quot;; 
+
+    public ScrollingTextBox(HudParentBase parent = null) : base(parent)
+    {
+        text = new TextBox() 
+        { 
+            AutoResize = false, 
+            VertCenterText = false,
+            Text = LoremIpsum, 
+            BuilderMode = TextBuilderModes.Wrapped
+        };
+
+        vScroll = new ScrollBar() 
+        { 
+            Vertical = true, 
+            // Hook the slider event to update the text offset
+            UpdateValueCallback = OnScrollUpdate 
+        };
+
+        // Layout: Text takes available width (1f), ScrollBar takes fixed width
+        var layout = new HudChain(this)
+        {
+            AlignVertical = false,
+            DimAlignment = DimAlignments.UnpaddedSize,
+            SizingMode = HudChainSizingModes.FitMembersOffAxis,
+            CollectionContainer = { { text, 1f }, vScroll }
+        };
+
+        UnpaddedSize = new Vector2(300, 200);
+    }
+
+    protected override void Layout()
+    {
+        // 1. Synchronize the slider if the text offset changes externally (e.g., caret movement)
+        vScroll.Value = text.TextBoard.TextOffset.Y; 
+
+        // 2. Calculate the maximum scrollable range (Total Size - Visible Size)
+        float maxOffset = Math.Max(0f, text.TextBoard.TextSize.Y - text.TextBoard.Size.Y);
+        vScroll.Max = maxOffset;
+
+        // 3. Update the slider handle size to reflect the visible proportion of text
+        if (text.TextBoard.TextSize.Y &gt; 0)
+            vScroll.VisiblePercent = (text.TextBoard.Size.Y / text.TextBoard.TextSize.Y);
+    }
+
+    // Apply the slider value to the text board's Y offset
+    private void OnScrollUpdate(object sender, EventArgs args) =&gt;
+        text.TextBoard.TextOffset = new Vector2(0f, vScroll.Value);
+}
+</code></pre>
+
+
+  <h2 id="RichHudFramework_UI_Rendering_ITextBoard_remarks">Remarks</h2>
+  <div class="markdown level0 remarks">
+<p>The <code>ITextBoard</code> interface provides the fundamental rendering and layout logic for UI elements that display text. It acts as a bridge between the raw string manipulation provided by <a class="xref" href="RichHudFramework.UI.Rendering.ITextBuilder.html">ITextBuilder</a> (which it inherits) and the visual presentation. This interface is the backing component for standard controls such as <a class="xref" href="RichHudFramework.UI.Label.html">Label</a> and <a class="xref" href="RichHudFramework.UI.TextBox.html">TextBox</a>.</p>
+<h4 id="advanced-formatting-and-layout">Advanced Formatting and Layout</h4>
+<p>Unlike simple string or <a class="xref" href="RichHudFramework.UI.RichText.html">RichText</a> properties, <code>ITextBoard</code> exposes granular control over text presentation. It manages line breaking via <a class="xref" href="RichHudFramework.UI.Rendering.ITextBuilder.html#RichHudFramework_UI_Rendering_ITextBuilder_BuilderMode">BuilderMode</a>, vertical alignment via <a class="xref" href="RichHudFramework.UI.Rendering.ITextBoard.html#RichHudFramework_UI_Rendering_ITextBoard_VertCenterText">VertCenterText</a>, and dimensions via <a class="xref" href="RichHudFramework.UI.Rendering.ITextBoard.html#RichHudFramework_UI_Rendering_ITextBoard_AutoResize">AutoResize</a>. When <code>AutoResize</code> is disabled, the board clips content that exceeds its <a class="xref" href="RichHudFramework.UI.Rendering.ITextBoard.html#RichHudFramework_UI_Rendering_ITextBoard_FixedSize">FixedSize</a>.</p>
+<h4 id="dynamic-text-manipulation">Dynamic Text Manipulation</h4>
+<p>Because it extends <a class="xref" href="RichHudFramework.UI.Rendering.ITextBuilder.html">ITextBuilder</a>, this interface allows for the modification of text without generating significant garbage. Developers can append, insert, or clear text segments efficiently, making it suitable for high-frequency updates (e.g., debug stats or chat logs). It also provides access to structural metadata through <a class="xref" href="RichHudFramework.UI.Rendering.ILine.html">ILine</a> and <a class="xref" href="RichHudFramework.UI.Rendering.IRichChar.html">IRichChar</a>.</p>
+<h4 id="navigation-and-interaction">Navigation and Interaction</h4>
+<p><code>ITextBoard</code> supplies the utilities required for scrolling and click-based navigation:</p>
+<ul>
+<li><strong>Scrolling:</strong> The <a class="xref" href="RichHudFramework.UI.Rendering.ITextBoard.html#RichHudFramework_UI_Rendering_ITextBoard_TextOffset">TextOffset</a> property allows the visible window to be panned across the <a class="xref" href="RichHudFramework.UI.Rendering.ITextBoard.html#RichHudFramework_UI_Rendering_ITextBoard_TextSize">TextSize</a>.</li>
+<li><strong>Caret Navigation:</strong> <a class="xref" href="RichHudFramework.UI.Rendering.ITextBoard.html#RichHudFramework_UI_Rendering_ITextBoard_MoveToChar_">MoveToChar</a> calculates the offset required to bring a specific character index into view.</li>
+<li><strong>Hit Testing:</strong> <a class="xref" href="RichHudFramework.UI.Rendering.ITextBoard.html#RichHudFramework_UI_Rendering_ITextBoard_GetCharAtOffset_">GetCharAtOffset</a> translates a screen-space position into a character index, essential for mouse selection and cursor placement.</li>
+</ul>
+<div class="NOTE">
+<h5>Note</h5>
+<p>While the text elements in the built-in UI library (like <a class="xref" href="RichHudFramework.UI.Label.html">Label</a>) do not include scrollbars by default, <code>ITextBoard</code> provides the underlying infrastructure to implement them manually. See the examples above for a standard implementation pattern.</p>
+</div>
+</div>
+
+
+  <h2 class="section" id="properties">Properties
+</h2>
+
+
+  <a id="RichHudFramework_UI_Rendering_ITextBoard_AutoResize_" data-uid="RichHudFramework.UI.Rendering.ITextBoard.AutoResize*"></a>
+
+  <h3 id="RichHudFramework_UI_Rendering_ITextBoard_AutoResize" data-uid="RichHudFramework.UI.Rendering.ITextBoard.AutoResize">
+  AutoResize
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/Rendering/ITextBoard.cs/#L108"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>If true, the text board's <a class="xref" href="RichHudFramework.UI.Rendering.ITextBoard.html#RichHudFramework_UI_Rendering_ITextBoard_Size">Size</a> will automatically expand or contract to fit the <a class="xref" href="RichHudFramework.UI.Rendering.ITextBoard.html#RichHudFramework_UI_Rendering_ITextBoard_TextSize">TextSize</a>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">bool AutoResize { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="RichHudFramework_UI_Rendering_ITextBoard_FixedSize_" data-uid="RichHudFramework.UI.Rendering.ITextBoard.FixedSize*"></a>
+
+  <h3 id="RichHudFramework_UI_Rendering_ITextBoard_FixedSize" data-uid="RichHudFramework.UI.Rendering.ITextBoard.FixedSize">
+  FixedSize
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/Rendering/ITextBoard.cs/#L103"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>The fixed dimensions of the text box used when <a class="xref" href="RichHudFramework.UI.Rendering.ITextBoard.html#RichHudFramework_UI_Rendering_ITextBoard_AutoResize">AutoResize</a> is false.
+This property is ignored if AutoResize is enabled.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">Vector2 FixedSize { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://keensoftwarehouse.github.io/SpaceEngineersModAPI/api/VRageMath.Vector2.html">Vector2</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="RichHudFramework_UI_Rendering_ITextBoard_Scale_" data-uid="RichHudFramework.UI.Rendering.ITextBoard.Scale*"></a>
+
+  <h3 id="RichHudFramework_UI_Rendering_ITextBoard_Scale" data-uid="RichHudFramework.UI.Rendering.ITextBoard.Scale">
+  Scale
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/Rendering/ITextBoard.cs/#L71"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>The base visual scale of the text board.
+This is applied multiplicatively after the scaling specified in <a class="xref" href="RichHudFramework.UI.GlyphFormat.html">GlyphFormat</a>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">float Scale { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="RichHudFramework_UI_Rendering_ITextBoard_Size_" data-uid="RichHudFramework.UI.Rendering.ITextBoard.Size*"></a>
+
+  <h3 id="RichHudFramework_UI_Rendering_ITextBoard_Size" data-uid="RichHudFramework.UI.Rendering.ITextBoard.Size">
+  Size
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/Rendering/ITextBoard.cs/#L78"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>The current boundaries of the text box as rendered.
+If <a class="xref" href="RichHudFramework.UI.Rendering.ITextBoard.html#RichHudFramework_UI_Rendering_ITextBoard_AutoResize">AutoResize</a> is true, this matches <a class="xref" href="RichHudFramework.UI.Rendering.ITextBoard.html#RichHudFramework_UI_Rendering_ITextBoard_TextSize">TextSize</a>.
+If false, this returns <a class="xref" href="RichHudFramework.UI.Rendering.ITextBoard.html#RichHudFramework_UI_Rendering_ITextBoard_FixedSize">FixedSize</a>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">Vector2 Size { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://keensoftwarehouse.github.io/SpaceEngineersModAPI/api/VRageMath.Vector2.html">Vector2</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="RichHudFramework_UI_Rendering_ITextBoard_TextOffset_" data-uid="RichHudFramework.UI.Rendering.ITextBoard.TextOffset*"></a>
+
+  <h3 id="RichHudFramework_UI_Rendering_ITextBoard_TextOffset" data-uid="RichHudFramework.UI.Rendering.ITextBoard.TextOffset">
+  TextOffset
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/Rendering/ITextBoard.cs/#L91"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>The render offset of the text content (scrolling/panning).</p>
+<p>Note: <a class="xref" href="RichHudFramework.UI.Rendering.ITextBoard.html#RichHudFramework_UI_Rendering_ITextBoard_AutoResize">AutoResize</a> must be disabled for this to take effect.</p>
+<p>The value is automatically clamped to ensure the text remains within visible bounds.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">Vector2 TextOffset { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://keensoftwarehouse.github.io/SpaceEngineersModAPI/api/VRageMath.Vector2.html">Vector2</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="RichHudFramework_UI_Rendering_ITextBoard_TextSize_" data-uid="RichHudFramework.UI.Rendering.ITextBoard.TextSize*"></a>
+
+  <h3 id="RichHudFramework_UI_Rendering_ITextBoard_TextSize" data-uid="RichHudFramework.UI.Rendering.ITextBoard.TextSize">
+  TextSize
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/Rendering/ITextBoard.cs/#L84"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>The total dimensions of the text content, including text currently outside the visible range.
+This value updates immediately upon modification.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">Vector2 TextSize { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://keensoftwarehouse.github.io/SpaceEngineersModAPI/api/VRageMath.Vector2.html">Vector2</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="RichHudFramework_UI_Rendering_ITextBoard_VertCenterText_" data-uid="RichHudFramework.UI.Rendering.ITextBoard.VertCenterText*"></a>
+
+  <h3 id="RichHudFramework_UI_Rendering_ITextBoard_VertCenterText" data-uid="RichHudFramework.UI.Rendering.ITextBoard.VertCenterText">
+  VertCenterText
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/Rendering/ITextBoard.cs/#L113"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>If true, the text content will be vertically aligned to the center of the text board.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">bool VertCenterText { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="RichHudFramework_UI_Rendering_ITextBoard_VisibleLineRange_" data-uid="RichHudFramework.UI.Rendering.ITextBoard.VisibleLineRange*"></a>
+
+  <h3 id="RichHudFramework_UI_Rendering_ITextBoard_VisibleLineRange" data-uid="RichHudFramework.UI.Rendering.ITextBoard.VisibleLineRange">
+  VisibleLineRange
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/Rendering/ITextBoard.cs/#L97"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Returns the index range of the lines currently visible within the text board's bounds.
+X = Start Line Index, Y = End Line Index.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">Vector2I VisibleLineRange { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://keensoftwarehouse.github.io/SpaceEngineersModAPI/api/VRageMath.Vector2I.html">Vector2I</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <h2 class="section" id="methods">Methods
+</h2>
+
+
+  <a id="RichHudFramework_UI_Rendering_ITextBoard_GetCharAtOffset_" data-uid="RichHudFramework.UI.Rendering.ITextBoard.GetCharAtOffset*"></a>
+
+  <h3 id="RichHudFramework_UI_Rendering_ITextBoard_GetCharAtOffset_VRageMath_Vector2_" data-uid="RichHudFramework.UI.Rendering.ITextBoard.GetCharAtOffset(VRageMath.Vector2)">
+  GetCharAtOffset(Vector2)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/Rendering/ITextBoard.cs/#L126"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Retrieves the index of the character located at the specified local offset.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">Vector2I GetCharAtOffset(Vector2 localPos)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>localPos</code> <a class="xref" href="https://keensoftwarehouse.github.io/SpaceEngineersModAPI/api/VRageMath.Vector2.html">Vector2</a></dt>
+    <dd><p>Position relative to the center of the TextBoard.</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://keensoftwarehouse.github.io/SpaceEngineersModAPI/api/VRageMath.Vector2I.html">Vector2I</a></dt>
+    <dd><p>The index of the character (X: Line/Char, Y: Column).</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="RichHudFramework_UI_Rendering_ITextBoard_MoveToChar_" data-uid="RichHudFramework.UI.Rendering.ITextBoard.MoveToChar*"></a>
+
+  <h3 id="RichHudFramework_UI_Rendering_ITextBoard_MoveToChar_VRageMath_Vector2I_" data-uid="RichHudFramework.UI.Rendering.ITextBoard.MoveToChar(VRageMath.Vector2I)">
+  MoveToChar(Vector2I)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/Rendering/ITextBoard.cs/#L119"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Calculates and applies the minimum scroll offset required to bring the character at the specified index into view.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">void MoveToChar(Vector2I index)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>index</code> <a class="xref" href="https://keensoftwarehouse.github.io/SpaceEngineersModAPI/api/VRageMath.Vector2I.html">Vector2I</a></dt>
+    <dd><p>The index of the character (X: Line/Char, Y: Column).</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <h2 class="section" id="events">Events
+</h2>
+
+
+
+  <h3 id="RichHudFramework_UI_Rendering_ITextBoard_TextChanged" data-uid="RichHudFramework.UI.Rendering.ITextBoard.TextChanged">
+  TextChanged
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/Rendering/ITextBoard.cs/#L65"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Invoked whenever a change is made to the text.
+This event is rate-limited and invokes once every 500ms at most.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">event Action TextChanged</code></pre>
+  </div>
+
+
+
+
+
+
+  <h4 class="section">Event Type</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.action">Action</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/Rendering/ITextBoard.cs/#L59" class="edit-link">Edit this page</a>
+        </div>
+
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Enum HudChainSizingModes | Rich HUD Framework </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Enum HudChainSizingModes | Rich HUD Framework ">
+      
+      <meta name="description" content="Controls the sizing behavior of the  and its members. The &amp;quot;Align Axis&amp;quot; is the direction the elements are stacked (Vertical = Y, Horizontal = X). The &amp;quot;Off Axis&amp;quot; is perpendicular to the stack (Vertical = X, Horizontal = Y).">
+      <link rel="icon" href="../resources/images/favicon.ico">
+      <link rel="stylesheet" href="../public/docfx.min.css">
+      <link rel="stylesheet" href="../public/main.css">
+      <meta name="docfx:navrel" content="../toc.html">
+      <meta name="docfx:tocrel" content="toc.html">
+      
+      <meta name="docfx:rel" content="../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/ZachHembree/RichHudFramework.Client/new/master/apiSpec/new?filename=RichHudFramework_UI_HudChainSizingModes.md&amp;value=---%0Auid%3A%20RichHudFramework.UI.HudChainSizingModes%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">
+
+      <!-- Optional nav title customization -->
+      <meta name="loc:inThisArticle" content="Sections">
+      
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="ManagedReference">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand d-flex align-items-center" href="../index.html">
+            <img id="logo" class="svg me-2" src="../resources/images/logo.svg" alt="Rich HUD Framework">
+            
+            <!-- Vertical divider -->
+            <span class="vr align-self-stretch opacity-75" aria-hidden="true"></span>
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="RichHudFramework.UI.HudChainSizingModes">
+
+
+
+
+  <h1 id="RichHudFramework_UI_HudChainSizingModes" data-uid="RichHudFramework.UI.HudChainSizingModes" class="text-break">
+Enum HudChainSizingModes  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/HudElements/HudChain.cs/#L15"><i class="bi bi-code-slash"></i></a>
+  </h1>
+
+  <div class="facts text-secondary">
+    <dl><dt>Namespace</dt><dd><a class="xref" href="RichHudFramework.html">RichHudFramework</a>.<a class="xref" href="RichHudFramework.UI.html">UI</a></dd></dl>
+  <dl><dt>Assembly</dt><dd>RichHudClient.dll</dd></dl>
+  </div>
+
+  <div class="markdown summary"><p>Controls the sizing behavior of the <a class="xref" href="RichHudFramework.UI.HudChain-2.html">HudChain&lt;TElementContainer, TElement&gt;</a> and its members.
+The &quot;Align Axis&quot; is the direction the elements are stacked (Vertical = Y, Horizontal = X).
+The &quot;Off Axis&quot; is perpendicular to the stack (Vertical = X, Horizontal = Y).</p>
+</div>
+  <div class="markdown conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Flags]
+public enum HudChainSizingModes : ushort</code></pre>
+  </div>
+
+
+
+
+
+
+
+
+
+  <h2 id="fields">Fields
+</h2>
+  <dl class="parameters">
+    <dt id="RichHudFramework_UI_HudChainSizingModes_None"><code>None = 0</code></dt>
+  
+  <dd><p>Disables chain-self sizing and member size constraints, other than per-member proportional scaling.</p>
+</dd>
+    <dt id="RichHudFramework_UI_HudChainSizingModes_ClampChainOffAxis"><code>ClampChainOffAxis = 4</code></dt>
+  
+  <dd><p>Allows the chain's size on the off axis (width if vertical, height if horizontal) to vary,
+expanding only enough to contain its widest/tallest member.</p>
+</dd>
+    <dt id="RichHudFramework_UI_HudChainSizingModes_ClampChainAlignAxis"><code>ClampChainAlignAxis = 8</code></dt>
+  
+  <dd><p>Allows the chain's size on the align axis (height if vertical, width if horizontal) to vary,
+expanding only enough to contain all members plus spacing.</p>
+</dd>
+    <dt id="RichHudFramework_UI_HudChainSizingModes_ClampChainBoth"><code>ClampChainBoth = ClampChainOffAxis | ClampChainAlignAxis</code></dt>
+  
+  <dd><p>Allows the chain's size to vary in both dimensions based on the size of its contents.</p>
+</dd>
+    <dt id="RichHudFramework_UI_HudChainSizingModes_FitChainOffAxis"><code>FitChainOffAxis = 16</code></dt>
+  
+  <dd><p>Forces the chain to match the size of its contents on the off axis.
+Supersedes <a class="xref" href="RichHudFramework.UI.HudChainSizingModes.html#RichHudFramework_UI_HudChainSizingModes_ClampChainOffAxis">ClampChainOffAxis</a>.</p>
+</dd>
+    <dt id="RichHudFramework_UI_HudChainSizingModes_FitChainAlignAxis"><code>FitChainAlignAxis = 32</code></dt>
+  
+  <dd><p>Forces the chain to match the size of its contents on the align axis.
+Supersedes <a class="xref" href="RichHudFramework.UI.HudChainSizingModes.html#RichHudFramework_UI_HudChainSizingModes_ClampChainAlignAxis">ClampChainAlignAxis</a>.</p>
+</dd>
+    <dt id="RichHudFramework_UI_HudChainSizingModes_FitChainBoth"><code>FitChainBoth = FitChainOffAxis | FitChainAlignAxis</code></dt>
+  
+  <dd><p>Forces the chain to match the size of its contents in both dimensions.
+Supersedes <a class="xref" href="RichHudFramework.UI.HudChainSizingModes.html#RichHudFramework_UI_HudChainSizingModes_ClampChainBoth">ClampChainBoth</a>.</p>
+</dd>
+    <dt id="RichHudFramework_UI_HudChainSizingModes_ClampMembersOffAxis"><code>ClampMembersOffAxis = 64</code></dt>
+  
+  <dd><p>Constrains member size on the off axis between <a class="xref" href="RichHudFramework.UI.HudChain-2.html#RichHudFramework_UI_HudChain_2_MemberMinSize">MemberMinSize</a>
+and <a class="xref" href="RichHudFramework.UI.HudChain-2.html#RichHudFramework_UI_HudChain_2_MemberMaxSize">MemberMaxSize</a>. If no maximum is set, the chain's size is used as the upper bound.</p>
+</dd>
+    <dt id="RichHudFramework_UI_HudChainSizingModes_ClampMembersAlignAxis"><code>ClampMembersAlignAxis = 128</code></dt>
+  
+  <dd><p>Constrains member size on the align axis between <a class="xref" href="RichHudFramework.UI.HudChain-2.html#RichHudFramework_UI_HudChain_2_MemberMinSize">MemberMinSize</a> and
+<a class="xref" href="RichHudFramework.UI.HudChain-2.html#RichHudFramework_UI_HudChain_2_MemberMaxSize">MemberMaxSize</a>. If no maximum is set, the chain's size is used as the upper bound.</p>
+</dd>
+    <dt id="RichHudFramework_UI_HudChainSizingModes_ClampMembersBoth"><code>ClampMembersBoth = ClampMembersOffAxis | ClampMembersAlignAxis</code></dt>
+  
+  <dd><p>Constrains member size in both dimensions.
+If no maximum is set, the chain's size is used as the upper bounds.</p>
+</dd>
+    <dt id="RichHudFramework_UI_HudChainSizingModes_FitMembersOffAxis"><code>FitMembersOffAxis = 256</code></dt>
+  
+  <dd><p>Forces member off-axis size to equal the chain's off-axis size (or <a class="xref" href="RichHudFramework.UI.HudChain-2.html#RichHudFramework_UI_HudChain_2_MemberMaxSize">MemberMaxSize</a> if set).
+Supersedes <a class="xref" href="RichHudFramework.UI.HudChainSizingModes.html#RichHudFramework_UI_HudChainSizingModes_ClampMembersOffAxis">ClampMembersOffAxis</a>.</p>
+</dd>
+    <dt id="RichHudFramework_UI_HudChainSizingModes_FitMembersAlignAxis"><code>FitMembersAlignAxis = 512</code></dt>
+  
+  <dd><p>Forces member align-axis size to equal the maximum proportional align-axis size
+(or <a class="xref" href="RichHudFramework.UI.HudChain-2.html#RichHudFramework_UI_HudChain_2_MemberMaxSize">MemberMaxSize</a> if set). Supersedes <a class="xref" href="RichHudFramework.UI.HudChainSizingModes.html#RichHudFramework_UI_HudChainSizingModes_ClampMembersAlignAxis">ClampMembersAlignAxis</a> and
+per-member alignAxisScale.</p>
+</dd>
+    <dt id="RichHudFramework_UI_HudChainSizingModes_FitMembersBoth"><code>FitMembersBoth = FitMembersOffAxis | FitMembersAlignAxis</code></dt>
+  
+  <dd><p>Forces members to fill the available space in the chain (or up to <a class="xref" href="RichHudFramework.UI.HudChain-2.html#RichHudFramework_UI_HudChain_2_MemberMaxSize">MemberMaxSize</a>).
+Supersedes <a class="xref" href="RichHudFramework.UI.HudChainSizingModes.html#RichHudFramework_UI_HudChainSizingModes_ClampMembersBoth">ClampMembersBoth</a>.</p>
+</dd>
+    <dt id="RichHudFramework_UI_HudChainSizingModes_AlignMembersStart"><code>AlignMembersStart = 1024</code></dt>
+  
+  <dd><p>Aligns the start of the item stack to the Left (Horizontal) or Top (Vertical) of the chain.</p>
+</dd>
+    <dt id="RichHudFramework_UI_HudChainSizingModes_AlignMembersEnd"><code>AlignMembersEnd = 2048</code></dt>
+  
+  <dd><p>Aligns the start of the item stack to the Right (Horizontal) or Bottom (Vertical) of the chain.</p>
+</dd>
+    <dt id="RichHudFramework_UI_HudChainSizingModes_AlignMembersCenter"><code>AlignMembersCenter = 4096</code></dt>
+  
+  <dd><p>Centers the item stack within the chain.</p>
+</dd>
+  </dl>
+
+
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/HUD/HudElements/HudChain.cs/#L15" class="edit-link">Edit this page</a>
+        </div>
+
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

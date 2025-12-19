@@ -1,0 +1,859 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Interface IBindGroup | Rich HUD Framework </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Interface IBindGroup | Rich HUD Framework ">
+      
+      <meta name="description" content="A collection of unique keybinds in the">
+      <link rel="icon" href="../resources/images/favicon.ico">
+      <link rel="stylesheet" href="../public/docfx.min.css">
+      <link rel="stylesheet" href="../public/main.css">
+      <meta name="docfx:navrel" content="../toc.html">
+      <meta name="docfx:tocrel" content="toc.html">
+      
+      <meta name="docfx:rel" content="../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/ZachHembree/RichHudFramework.Client/new/master/apiSpec/new?filename=RichHudFramework_UI_IBindGroup.md&amp;value=---%0Auid%3A%20RichHudFramework.UI.IBindGroup%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">
+
+      <!-- Optional nav title customization -->
+      <meta name="loc:inThisArticle" content="Sections">
+      
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="ManagedReference">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand d-flex align-items-center" href="../index.html">
+            <img id="logo" class="svg me-2" src="../resources/images/logo.svg" alt="Rich HUD Framework">
+            
+            <!-- Vertical divider -->
+            <span class="vr align-self-stretch opacity-75" aria-hidden="true"></span>
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="RichHudFramework.UI.IBindGroup">
+
+
+
+  <h1 id="RichHudFramework_UI_IBindGroup" data-uid="RichHudFramework.UI.IBindGroup" class="text-break">
+Interface IBindGroup  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/BindManager/IBindGroup.cs/#L16"><i class="bi bi-code-slash"></i></a>
+  </h1>
+
+  <div class="facts text-secondary">
+    <dl><dt>Namespace</dt><dd><a class="xref" href="RichHudFramework.html">RichHudFramework</a>.<a class="xref" href="RichHudFramework.UI.html">UI</a></dd></dl>
+  <dl><dt>Assembly</dt><dd>RichHudClient.dll</dd></dl>
+  </div>
+
+  <div class="markdown summary"><p>A collection of unique keybinds in the <a class="xref" href="RichHudFramework.UI.Client.BindManager.html">BindManager</a></p>
+</div>
+  <div class="markdown conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public interface IBindGroup : IReadOnlyList&lt;IBind&gt;, IReadOnlyCollection&lt;IBind&gt;, IEnumerable&lt;IBind&gt;, IEnumerable</code></pre>
+  </div>
+
+
+
+
+
+
+
+  <dl class="typelist inheritedMembers">
+    <dt>Inherited Members</dt>
+    <dd>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">this[int]</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ireadonlycollection-1.count">Count</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1.getenumerator">GetEnumerator()</a>
+    </div>
+  </dd></dl>
+
+
+
+
+
+
+  <h2 class="section" id="properties">Properties
+</h2>
+
+
+  <a id="RichHudFramework_UI_IBindGroup_ID_" data-uid="RichHudFramework.UI.IBindGroup.ID*"></a>
+
+  <h3 id="RichHudFramework_UI_IBindGroup_ID" data-uid="RichHudFramework.UI.IBindGroup.ID">
+  ID
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/BindManager/IBindGroup.cs/#L36"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Unique identifer</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">object ID { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="RichHudFramework_UI_IBindGroup_Index_" data-uid="RichHudFramework.UI.IBindGroup.Index*"></a>
+
+  <h3 id="RichHudFramework_UI_IBindGroup_Index" data-uid="RichHudFramework.UI.IBindGroup.Index">
+  Index
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/BindManager/IBindGroup.cs/#L31"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Index of the bind group in its associated client</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">int Index { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="RichHudFramework_UI_IBindGroup_Item_" data-uid="RichHudFramework.UI.IBindGroup.Item*"></a>
+
+  <h3 id="RichHudFramework_UI_IBindGroup_Item_System_String_" data-uid="RichHudFramework.UI.IBindGroup.Item(System.String)">
+  this[string]
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/BindManager/IBindGroup.cs/#L21"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Returns the bind with the name given, if it exists.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">IBind this[string name] { get; }</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>name</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="RichHudFramework.UI.IBind.html">IBind</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="RichHudFramework_UI_IBindGroup_Name_" data-uid="RichHudFramework.UI.IBindGroup.Name*"></a>
+
+  <h3 id="RichHudFramework_UI_IBindGroup_Name" data-uid="RichHudFramework.UI.IBindGroup.Name">
+  Name
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/BindManager/IBindGroup.cs/#L26"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Bind group name</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">string Name { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <h2 class="section" id="methods">Methods
+</h2>
+
+
+  <a id="RichHudFramework_UI_IBindGroup_AddBind_" data-uid="RichHudFramework.UI.IBindGroup.AddBind*"></a>
+
+  <h3 id="RichHudFramework_UI_IBindGroup_AddBind_System_String_System_Collections_Generic_IReadOnlyList_RichHudFramework_UI_ControlHandle__System_Collections_Generic_IReadOnlyList_System_Collections_Generic_IReadOnlyList_RichHudFramework_UI_ControlHandle___" data-uid="RichHudFramework.UI.IBindGroup.AddBind(System.String,System.Collections.Generic.IReadOnlyList{RichHudFramework.UI.ControlHandle},System.Collections.Generic.IReadOnlyList{System.Collections.Generic.IReadOnlyList{RichHudFramework.UI.ControlHandle}})">
+  AddBind(string, IReadOnlyList&lt;ControlHandle&gt;, IReadOnlyList&lt;IReadOnlyList&lt;ControlHandle&gt;&gt;)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/BindManager/IBindGroup.cs/#L76"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Adds a bind with the given name and the given key combo. Throws an exception if the bind is invalid.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">IBind AddBind(string bindName, IReadOnlyList&lt;ControlHandle&gt; combo, IReadOnlyList&lt;IReadOnlyList&lt;ControlHandle&gt;&gt; aliases = null)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>bindName</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+    <dt><code>combo</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ireadonlylist-1">IReadOnlyList</a>&lt;<a class="xref" href="RichHudFramework.UI.ControlHandle.html">ControlHandle</a>&gt;</dt>
+    <dd></dd>
+    <dt><code>aliases</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ireadonlylist-1">IReadOnlyList</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ireadonlylist-1">IReadOnlyList</a>&lt;<a class="xref" href="RichHudFramework.UI.ControlHandle.html">ControlHandle</a>&gt;&gt;</dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="RichHudFramework.UI.IBind.html">IBind</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="RichHudFramework_UI_IBindGroup_AddBind_" data-uid="RichHudFramework.UI.IBindGroup.AddBind*"></a>
+
+  <h3 id="RichHudFramework_UI_IBindGroup_AddBind_System_String_System_Collections_Generic_IReadOnlyList_System_Int32__System_Collections_Generic_IReadOnlyList_System_Collections_Generic_IReadOnlyList_System_Int32___" data-uid="RichHudFramework.UI.IBindGroup.AddBind(System.String,System.Collections.Generic.IReadOnlyList{System.Int32},System.Collections.Generic.IReadOnlyList{System.Collections.Generic.IReadOnlyList{System.Int32}})">
+  AddBind(string, IReadOnlyList&lt;int&gt;, IReadOnlyList&lt;IReadOnlyList&lt;int&gt;&gt;)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/BindManager/IBindGroup.cs/#L81"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Adds a bind with the given name and the given key combo. Throws an exception if the bind is invalid.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">IBind AddBind(string bindName, IReadOnlyList&lt;int&gt; newConIDs, IReadOnlyList&lt;IReadOnlyList&lt;int&gt;&gt; aliases = null)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>bindName</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+    <dt><code>newConIDs</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ireadonlylist-1">IReadOnlyList</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a>&gt;</dt>
+    <dd></dd>
+    <dt><code>aliases</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ireadonlylist-1">IReadOnlyList</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ireadonlylist-1">IReadOnlyList</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a>&gt;&gt;</dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="RichHudFramework.UI.IBind.html">IBind</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="RichHudFramework_UI_IBindGroup_ClearSubscribers_" data-uid="RichHudFramework.UI.IBindGroup.ClearSubscribers*"></a>
+
+  <h3 id="RichHudFramework_UI_IBindGroup_ClearSubscribers" data-uid="RichHudFramework.UI.IBindGroup.ClearSubscribers">
+  ClearSubscribers()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/BindManager/IBindGroup.cs/#L111"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Clears bind subscribers for the entire group</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">void ClearSubscribers()</code></pre>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="RichHudFramework_UI_IBindGroup_DoesBindExist_" data-uid="RichHudFramework.UI.IBindGroup.DoesBindExist*"></a>
+
+  <h3 id="RichHudFramework_UI_IBindGroup_DoesBindExist_System_String_" data-uid="RichHudFramework.UI.IBindGroup.DoesBindExist(System.String)">
+  DoesBindExist(string)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/BindManager/IBindGroup.cs/#L41"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Returns true if the group contains a bind with the given name.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">bool DoesBindExist(string name)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>name</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="RichHudFramework_UI_IBindGroup_DoesComboConflict_" data-uid="RichHudFramework.UI.IBindGroup.DoesComboConflict*"></a>
+
+  <h3 id="RichHudFramework_UI_IBindGroup_DoesComboConflict_System_Collections_Generic_IReadOnlyList_RichHudFramework_UI_ControlHandle__RichHudFramework_UI_IBind_System_Int32_" data-uid="RichHudFramework.UI.IBindGroup.DoesComboConflict(System.Collections.Generic.IReadOnlyList{RichHudFramework.UI.ControlHandle},RichHudFramework.UI.IBind,System.Int32)">
+  DoesComboConflict(IReadOnlyList&lt;ControlHandle&gt;, IBind, int)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/BindManager/IBindGroup.cs/#L46"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Returns true if the given list of controls conflicts with any existing combos</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">bool DoesComboConflict(IReadOnlyList&lt;ControlHandle&gt; newCombo, IBind currentBind = null, int alias = 0)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>newCombo</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ireadonlylist-1">IReadOnlyList</a>&lt;<a class="xref" href="RichHudFramework.UI.ControlHandle.html">ControlHandle</a>&gt;</dt>
+    <dd></dd>
+    <dt><code>currentBind</code> <a class="xref" href="RichHudFramework.UI.IBind.html">IBind</a></dt>
+    <dd></dd>
+    <dt><code>alias</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="RichHudFramework_UI_IBindGroup_DoesComboConflict_" data-uid="RichHudFramework.UI.IBindGroup.DoesComboConflict*"></a>
+
+  <h3 id="RichHudFramework_UI_IBindGroup_DoesComboConflict_System_Collections_Generic_IReadOnlyList_System_Int32__RichHudFramework_UI_IBind_System_Int32_" data-uid="RichHudFramework.UI.IBindGroup.DoesComboConflict(System.Collections.Generic.IReadOnlyList{System.Int32},RichHudFramework.UI.IBind,System.Int32)">
+  DoesComboConflict(IReadOnlyList&lt;int&gt;, IBind, int)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/BindManager/IBindGroup.cs/#L51"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Determines if given combo is equivalent to any existing combos</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">bool DoesComboConflict(IReadOnlyList&lt;int&gt; newConIDs, IBind currentBind = null, int alias = 0)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>newConIDs</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ireadonlylist-1">IReadOnlyList</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a>&gt;</dt>
+    <dd></dd>
+    <dt><code>currentBind</code> <a class="xref" href="RichHudFramework.UI.IBind.html">IBind</a></dt>
+    <dd></dd>
+    <dt><code>alias</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="RichHudFramework_UI_IBindGroup_GetBind_" data-uid="RichHudFramework.UI.IBindGroup.GetBind*"></a>
+
+  <h3 id="RichHudFramework_UI_IBindGroup_GetBind_System_String_" data-uid="RichHudFramework.UI.IBindGroup.GetBind(System.String)">
+  GetBind(string)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/BindManager/IBindGroup.cs/#L71"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Returns the bind with the name given, if it exists.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">IBind GetBind(string name)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>name</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="RichHudFramework.UI.IBind.html">IBind</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="RichHudFramework_UI_IBindGroup_GetBindData_" data-uid="RichHudFramework.UI.IBindGroup.GetBindData*"></a>
+
+  <h3 id="RichHudFramework_UI_IBindGroup_GetBindData" data-uid="RichHudFramework.UI.IBindGroup.GetBindData">
+  GetBindData()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/BindManager/IBindGroup.cs/#L106"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Retrieves the set of key binds as an array of BindDefinition</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">MyTuple&lt;string, string[], string[][]&gt;[] GetBindData()</code></pre>
+  </div>
+
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><span class="xref">MyTuple</span>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>, <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>[], <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>[][]&gt;[]</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="RichHudFramework_UI_IBindGroup_GetBindDefinitions_" data-uid="RichHudFramework.UI.IBindGroup.GetBindDefinitions*"></a>
+
+  <h3 id="RichHudFramework_UI_IBindGroup_GetBindDefinitions" data-uid="RichHudFramework.UI.IBindGroup.GetBindDefinitions">
+  GetBindDefinitions()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/BindManager/IBindGroup.cs/#L101"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Retrieves the set of key binds as an array of BindDefinition</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">BindDefinition[] GetBindDefinitions()</code></pre>
+  </div>
+
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="RichHudFramework.UI.BindDefinition.html">BindDefinition</a>[]</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="RichHudFramework_UI_IBindGroup_RegisterBinds_" data-uid="RichHudFramework.UI.IBindGroup.RegisterBinds*"></a>
+
+  <h3 id="RichHudFramework_UI_IBindGroup_RegisterBinds_RichHudFramework_UI_BindGroupInitializer_" data-uid="RichHudFramework.UI.IBindGroup.RegisterBinds(RichHudFramework.UI.BindGroupInitializer)">
+  RegisterBinds(BindGroupInitializer)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/BindManager/IBindGroup.cs/#L61"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Registers a list of binds using the names given paired with associated control indices.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">void RegisterBinds(BindGroupInitializer bindData)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>bindData</code> <a class="xref" href="RichHudFramework.UI.BindGroupInitializer.html">BindGroupInitializer</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="RichHudFramework_UI_IBindGroup_RegisterBinds_" data-uid="RichHudFramework.UI.IBindGroup.RegisterBinds*"></a>
+
+  <h3 id="RichHudFramework_UI_IBindGroup_RegisterBinds_System_Collections_Generic_IReadOnlyList_System_String__" data-uid="RichHudFramework.UI.IBindGroup.RegisterBinds(System.Collections.Generic.IReadOnlyList{System.String})">
+  RegisterBinds(IReadOnlyList&lt;string&gt;)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/BindManager/IBindGroup.cs/#L66"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Registers a list of binds using the names given.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">void RegisterBinds(IReadOnlyList&lt;string&gt; bindNames)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>bindNames</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ireadonlylist-1">IReadOnlyList</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="RichHudFramework_UI_IBindGroup_TryLoadBindData_" data-uid="RichHudFramework.UI.IBindGroup.TryLoadBindData*"></a>
+
+  <h3 id="RichHudFramework_UI_IBindGroup_TryLoadBindData_System_Collections_Generic_IReadOnlyList_RichHudFramework_UI_BindDefinition__" data-uid="RichHudFramework.UI.IBindGroup.TryLoadBindData(System.Collections.Generic.IReadOnlyList{RichHudFramework.UI.BindDefinition})">
+  TryLoadBindData(IReadOnlyList&lt;BindDefinition&gt;)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/BindManager/IBindGroup.cs/#L56"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Attempts to load bind combinations from bind data. Will not register new binds.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">bool TryLoadBindData(IReadOnlyList&lt;BindDefinition&gt; bindData)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>bindData</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ireadonlylist-1">IReadOnlyList</a>&lt;<a class="xref" href="RichHudFramework.UI.BindDefinition.html">BindDefinition</a>&gt;</dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="RichHudFramework_UI_IBindGroup_TryRegisterBind_" data-uid="RichHudFramework.UI.IBindGroup.TryRegisterBind*"></a>
+
+  <h3 id="RichHudFramework_UI_IBindGroup_TryRegisterBind_System_String_RichHudFramework_UI_IBind__" data-uid="RichHudFramework.UI.IBindGroup.TryRegisterBind(System.String,RichHudFramework.UI.IBind@)">
+  TryRegisterBind(string, out IBind)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/BindManager/IBindGroup.cs/#L86"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Tries to register an empty bind using the given name.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">bool TryRegisterBind(string bindName, out IBind newBind)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>bindName</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+    <dt><code>newBind</code> <a class="xref" href="RichHudFramework.UI.IBind.html">IBind</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="RichHudFramework_UI_IBindGroup_TryRegisterBind_" data-uid="RichHudFramework.UI.IBindGroup.TryRegisterBind*"></a>
+
+  <h3 id="RichHudFramework_UI_IBindGroup_TryRegisterBind_System_String_RichHudFramework_UI_IBind__System_Collections_Generic_IReadOnlyList_RichHudFramework_UI_ControlHandle__System_Collections_Generic_IReadOnlyList_System_Collections_Generic_IReadOnlyList_RichHudFramework_UI_ControlHandle___" data-uid="RichHudFramework.UI.IBindGroup.TryRegisterBind(System.String,RichHudFramework.UI.IBind@,System.Collections.Generic.IReadOnlyList{RichHudFramework.UI.ControlHandle},System.Collections.Generic.IReadOnlyList{System.Collections.Generic.IReadOnlyList{RichHudFramework.UI.ControlHandle}})">
+  TryRegisterBind(string, out IBind, IReadOnlyList&lt;ControlHandle&gt;, IReadOnlyList&lt;IReadOnlyList&lt;ControlHandle&gt;&gt;)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/BindManager/IBindGroup.cs/#L96"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Tries to register a bind using the given name and the given key combo.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">bool TryRegisterBind(string bindName, out IBind newBind, IReadOnlyList&lt;ControlHandle&gt; combo, IReadOnlyList&lt;IReadOnlyList&lt;ControlHandle&gt;&gt; aliases = null)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>bindName</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+    <dt><code>newBind</code> <a class="xref" href="RichHudFramework.UI.IBind.html">IBind</a></dt>
+    <dd></dd>
+    <dt><code>combo</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ireadonlylist-1">IReadOnlyList</a>&lt;<a class="xref" href="RichHudFramework.UI.ControlHandle.html">ControlHandle</a>&gt;</dt>
+    <dd></dd>
+    <dt><code>aliases</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ireadonlylist-1">IReadOnlyList</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ireadonlylist-1">IReadOnlyList</a>&lt;<a class="xref" href="RichHudFramework.UI.ControlHandle.html">ControlHandle</a>&gt;&gt;</dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="RichHudFramework_UI_IBindGroup_TryRegisterBind_" data-uid="RichHudFramework.UI.IBindGroup.TryRegisterBind*"></a>
+
+  <h3 id="RichHudFramework_UI_IBindGroup_TryRegisterBind_System_String_RichHudFramework_UI_IBind__System_Collections_Generic_IReadOnlyList_System_Int32__System_Collections_Generic_IReadOnlyList_System_Collections_Generic_IReadOnlyList_System_Int32___" data-uid="RichHudFramework.UI.IBindGroup.TryRegisterBind(System.String,RichHudFramework.UI.IBind@,System.Collections.Generic.IReadOnlyList{System.Int32},System.Collections.Generic.IReadOnlyList{System.Collections.Generic.IReadOnlyList{System.Int32}})">
+  TryRegisterBind(string, out IBind, IReadOnlyList&lt;int&gt;, IReadOnlyList&lt;IReadOnlyList&lt;int&gt;&gt;)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/BindManager/IBindGroup.cs/#L91"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Tries to register a bind using the given name and the given key combo.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">bool TryRegisterBind(string bindName, out IBind newBind, IReadOnlyList&lt;int&gt; combo, IReadOnlyList&lt;IReadOnlyList&lt;int&gt;&gt; aliases = null)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>bindName</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+    <dt><code>newBind</code> <a class="xref" href="RichHudFramework.UI.IBind.html">IBind</a></dt>
+    <dd></dd>
+    <dt><code>combo</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ireadonlylist-1">IReadOnlyList</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a>&gt;</dt>
+    <dd></dd>
+    <dt><code>aliases</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ireadonlylist-1">IReadOnlyList</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ireadonlylist-1">IReadOnlyList</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a>&gt;&gt;</dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Shared/UI/BindManager/IBindGroup.cs/#L16" class="edit-link">Edit this page</a>
+        </div>
+
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

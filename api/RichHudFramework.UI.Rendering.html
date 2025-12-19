@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Namespace RichHudFramework.UI.Rendering | Rich HUD Framework </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Namespace RichHudFramework.UI.Rendering | Rich HUD Framework ">
+      
+      
+      <link rel="icon" href="../resources/images/favicon.ico">
+      <link rel="stylesheet" href="../public/docfx.min.css">
+      <link rel="stylesheet" href="../public/main.css">
+      <meta name="docfx:navrel" content="../toc.html">
+      <meta name="docfx:tocrel" content="toc.html">
+      
+      <meta name="docfx:rel" content="../">
+      
+      
+      
+
+      <!-- Optional nav title customization -->
+      <meta name="loc:inThisArticle" content="Sections">
+      
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="ManagedReference">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand d-flex align-items-center" href="../index.html">
+            <img id="logo" class="svg me-2" src="../resources/images/logo.svg" alt="Rich HUD Framework">
+            
+            <!-- Vertical divider -->
+            <span class="vr align-self-stretch opacity-75" aria-hidden="true"></span>
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="RichHudFramework.UI.Rendering">
+
+  <h1 id="RichHudFramework_UI_Rendering" data-uid="RichHudFramework.UI.Rendering" class="text-break">Namespace RichHudFramework.UI.Rendering</h1>
+  <div class="markdown level0 summary"></div>
+  <div class="markdown level0 conceptual"></div>
+  <div class="markdown level0 remarks"></div>
+
+    <h3 id="classes">
+Classes
+</h3>
+    <dl class="jumplist">
+      <dt><a class="xref" href="RichHudFramework.UI.Rendering.BlockBoard.html">BlockBoard</a></dt>
+      <dd><p>Draws a 3D rectangular prism using billboards in world space. Useful for drawing bounding boxes.</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="RichHudFramework.UI.Rendering.MatBoard.html">MatBoard</a></dt>
+      <dd><p>A high-level wrapper for drawing textured, colored, and optionally clipped rectangular billboards.
+Utilizes <a class="xref" href="https://keensoftwarehouse.github.io/SpaceEngineersModAPI/api/VRage.Game.MyTransparentGeometry.html">MyTransparentGeometry</a> for rendering.</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="RichHudFramework.UI.Rendering.Material.html">Material</a></dt>
+      <dd><p>Represents a handle to a Space Engineers Transparent Material.
+Supports defining full textures or specific sprites (texture regions) within a texture atlas.</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="RichHudFramework.UI.Rendering.MaterialFrame.html">MaterialFrame</a></dt>
+      <dd><p>Manages the positioning, scaling, and alignment of a <a class="xref" href="RichHudFramework.UI.Rendering.MaterialFrame.html#RichHudFramework_UI_Rendering_MaterialFrame_Material">Material</a> on a QuadBoard.
+Handles calculations for aspect-ratio preservation via UV cropping or geometry scaling.</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="RichHudFramework.UI.Rendering.PolyBoard.html">PolyBoard</a></dt>
+      <dd><p>Renders a regular 2D polygon (e.g., triangle, hexagon, circle approximation) using billboards.
+The shape is constructed as a triangle fan from the center.</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="RichHudFramework.UI.Rendering.PuncturedPolyBoard.html">PuncturedPolyBoard</a></dt>
+      <dd><p>Renders a circular 2D polygon (annulus) using billboards with the center removed.
+Geometry is constructed as a strip of quads connecting an inner and outer ring.</p>
+</dd>
+    </dl>
+    <h3 id="structs">
+Structs
+</h3>
+    <dl class="jumplist">
+      <dt><a class="xref" href="RichHudFramework.UI.Rendering.BoundedQuadBoard.html">BoundedQuadBoard</a></dt>
+      <dd><p>A container struct associating a <a class="xref" href="RichHudFramework.UI.Rendering.QuadBoard.html">QuadBoard</a> definition with specific 2D bounds.</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="RichHudFramework.UI.Rendering.BoundedQuadMaterial.html">BoundedQuadMaterial</a></dt>
+      <dd><p>Defines the visual properties for rendering a quad where the texture coordinates are
+axis-aligned and defined by a bounding box (Min/Max). This is optimized for standard
+sprites or full textures without distortion.</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="RichHudFramework.UI.Rendering.CroppedBox.html">CroppedBox</a></dt>
+      <dd><p>Represents a bounding box paired with a masking box. The mask is used to clip
+the rendering of the associated billboard, acting as a scissor rectangle.</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="RichHudFramework.UI.Rendering.FlatQuad.html">FlatQuad</a></dt>
+      <dd><p>Represents a 2D quadrilateral defined by four points.
+Used for both screen-space geometry definitions and texture coordinate (UV) mapping.</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="RichHudFramework.UI.Rendering.PolyMaterial.html">PolyMaterial</a></dt>
+      <dd><p>Defines the visual properties for rendering arbitrary N-sided polygons, including
+a list of specific texture coordinates matching the polygon's vertices.</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="RichHudFramework.UI.Rendering.QuadBoard.html">QuadBoard</a></dt>
+      <dd><p>Defines the visual properties of a rectangular billboard, including its texture, color,
+texture coordinates, and skew.</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="RichHudFramework.UI.Rendering.QuadBoardData.html">QuadBoardData</a></dt>
+      <dd><p>Contains the final geometry and material data for a <a class="xref" href="RichHudFramework.UI.Rendering.QuadBoard.html">QuadBoard</a>,
+ready to be submitted to the renderer.</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="RichHudFramework.UI.Rendering.QuadMaterial.html">QuadMaterial</a></dt>
+      <dd><p>Defines the visual properties for rendering a quadrilateral using explicit texture coordinates
+for each corner, allowing for non-rectangular UV mappings (e.g., distortion or rotation).</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="RichHudFramework.UI.Rendering.TriMaterial.html">TriMaterial</a></dt>
+      <dd><p>Defines the visual properties (texture, color, and UV mapping) for rendering a single triangle billboard.</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="RichHudFramework.UI.Rendering.Triangle.html">Triangle</a></dt>
+      <dd><p>Represents a 2D triangle defined by three points.
+Used primarily for texture coordinate (UV) mapping or screen-space geometry.</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="RichHudFramework.UI.Rendering.TriangleD.html">TriangleD</a></dt>
+      <dd><p>Represents a 3D triangle defined by three double-precision world coordinates.
+Used for defining world-space geometry.</p>
+</dd>
+    </dl>
+    <h3 id="interfaces">
+Interfaces
+</h3>
+    <dl class="jumplist">
+      <dt><a class="xref" href="RichHudFramework.UI.Rendering.IFontMin.html">IFontMin</a></dt>
+      <dd><p>Simplified Font interface for use by HUD API clients.</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="RichHudFramework.UI.Rendering.ILine.html">ILine</a></dt>
+      <dd><p>Represents a single horizontal line of text within a <a class="xref" href="RichHudFramework.UI.Rendering.ITextBuilder.html">ITextBuilder</a>.</p>
+<p>
+This interface serves as a collection of <a class="xref" href="RichHudFramework.UI.Rendering.IRichChar.html">IRichChar</a> and stores line-specific layout properties, 
+such as the line's dimensions and vertical offset.
+</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="RichHudFramework.UI.Rendering.IReadOnlyMaterialFrame.html">IReadOnlyMaterialFrame</a></dt>
+      <dd><p>Read-only interface defining the mapping of a material to a quad.</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="RichHudFramework.UI.Rendering.IRichChar.html">IRichChar</a></dt>
+      <dd><p>Represents a single glyph within a rich text element.</p>
+<p>
+This interface exposes the character content, its specific formatting (font/color), 
+and its calculated layout geometry (size/offset) relative to the container.
+</p>
+<p>
+<strong>Warning:</strong> This object is a transient flyweight. It points to an index 
+in a mutable buffer. Do not store references to <a class="xref" href="RichHudFramework.UI.Rendering.IRichChar.html">IRichChar</a> across text updates.
+If the parent text changes, this interface may point to stale or recycled data.
+</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="RichHudFramework.UI.Rendering.ITextBoard.html">ITextBoard</a></dt>
+      <dd><p>Represents a renderable text element that supports rich text formatting, scrolling, and advanced layout.</p>
+<p>
+This interface combines text manipulation (via <a class="xref" href="RichHudFramework.UI.Rendering.ITextBuilder.html">ITextBuilder</a>) with rendering logic. 
+It handles text clipping, auto-resizing, text alignment, and coordinate-based character lookups.
+</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="RichHudFramework.UI.Rendering.ITextBuilder.html">ITextBuilder</a></dt>
+      <dd><p>A mutable collection of lines and characters that supports RichText formatting.</p>
+<p>
+Functioning similarly to a <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.text.stringbuilder">StringBuilder</a>, this interface allows for appending, 
+inserting, and removing text while maintaining formatting data (colors, fonts) and handling 
+line wrapping modes (Unlined, Lined, Wrapped).
+</p>
+<p>Supports <span class="xref">object.ToString()</span> for getting plain text copies.</p>
+</dd>
+    </dl>
+    <h3 id="enums">
+Enums
+</h3>
+    <dl class="jumplist">
+      <dt><a class="xref" href="RichHudFramework.UI.Rendering.FontStyles.html">FontStyles</a></dt>
+      <dd><p>Font styles used by RHF. Regular, italic and underline styling is always available.
+Bolding requires optional font atlases that may or may not be present.</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="RichHudFramework.UI.Rendering.MaterialAlignment.html">MaterialAlignment</a></dt>
+      <dd><p>Defines how a <a class="xref" href="RichHudFramework.UI.Rendering.Material.html">Material</a> texture is mapped to the geometry of the UI element.</p>
+</dd>
+    </dl>
+
+
+</article>
+
+        <div class="contribution d-print-none">
+        </div>
+
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

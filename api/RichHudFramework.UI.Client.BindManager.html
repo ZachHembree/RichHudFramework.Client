@@ -1,0 +1,769 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Class BindManager | Rich HUD Framework </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Class BindManager | Rich HUD Framework ">
+      
+      <meta name="description" content="The central hub for creating and retrieving key binds, control groups, and configuring input blacklisting in the framework.">
+      <link rel="icon" href="../resources/images/favicon.ico">
+      <link rel="stylesheet" href="../public/docfx.min.css">
+      <link rel="stylesheet" href="../public/main.css">
+      <meta name="docfx:navrel" content="../toc.html">
+      <meta name="docfx:tocrel" content="toc.html">
+      
+      <meta name="docfx:rel" content="../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/ZachHembree/RichHudFramework.Client/blob/docfx/api-supplements/Client/UI/BindManager/BindManager.md/#L60">
+
+      <!-- Optional nav title customization -->
+      <meta name="loc:inThisArticle" content="Sections">
+      
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="ManagedReference">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand d-flex align-items-center" href="../index.html">
+            <img id="logo" class="svg me-2" src="../resources/images/logo.svg" alt="Rich HUD Framework">
+            
+            <!-- Vertical divider -->
+            <span class="vr align-self-stretch opacity-75" aria-hidden="true"></span>
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="RichHudFramework.UI.Client.BindManager">
+
+
+
+  <h1 id="RichHudFramework_UI_Client_BindManager" data-uid="RichHudFramework.UI.Client.BindManager" class="text-break">
+Class BindManager  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Client/UI/BindManager/Control.cs/#L5"><i class="bi bi-code-slash"></i></a>
+  </h1>
+
+  <div class="facts text-secondary">
+    <dl><dt>Namespace</dt><dd><a class="xref" href="RichHudFramework.html">RichHudFramework</a>.<a class="xref" href="RichHudFramework.UI.html">UI</a>.<a class="xref" href="RichHudFramework.UI.Client.html">Client</a></dd></dl>
+  <dl><dt>Assembly</dt><dd>RichHudClient.dll</dd></dl>
+  </div>
+
+  <div class="markdown summary"><p>The central hub for creating and retrieving key binds, control groups, and
+configuring input blacklisting in the framework.</p>
+</div>
+  <div class="markdown conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public sealed class BindManager : RichHudClient.ApiModule</code></pre>
+  </div>
+
+
+
+
+  <dl class="typelist inheritance">
+    <dt>Inheritance</dt>
+    <dd>
+      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
+      <div><span class="xref">ModBase</span>.<span class="xref">ModuleBase</span></div>
+      <div><span class="xref">RichHudComponentBase</span></div>
+      <div><a class="xref" href="RichHudFramework.Client.RichHudClient.html">RichHudClient</a>.<a class="xref" href="RichHudFramework.Client.RichHudClient.html">ApiModule</a></div>
+      <div><span class="xref">BindManager</span></div>
+    </dd>
+  </dl>
+
+
+
+
+
+
+  <h2 id="RichHudFramework_UI_Client_BindManager_examples">Examples</h2>
+  
+<p>The following example demonstrates how to initialize a custom <code>IBindGroup</code>, register default key combinations using <code>BindGroupInitializer</code>, and apply previously saved configuration data.</p>
+<p><code>IBindGroup</code> allows binds to be retrieved by index or by name. This is convenient for initialization, but error-prone in UI integrations. For this reason, it is recommended to retrieve binds from the group once, and cache their references.</p>
+<pre><code class="lang-csharp">public class MyCustomBinds
+{
+    // Public accessors for specific binds
+    public IBind MenuOpenBind { get; private set; }
+    public IBind ModifierBind { get; private set; }
+
+    public IBindGroup BindGroup { get; private set; }
+
+    public MyCustomBinds(IReadOnlyList&lt;BindDefinition&gt; savedConfig = null)
+    {
+        // 1. Retrieve or create the group
+        BindGroup = BindManager.GetOrCreateGroup(&quot;MainControls&quot;);
+
+        // 2. Define default binds
+        var defaults = new BindGroupInitializer 
+        {
+            { &quot;MenuOpen&quot;, RichHudControls.Control, RichHudControls.F },
+            { &quot;Modifier&quot;, RichHudControls.Shift }
+        };
+
+        // 3. Register defaults
+        BindGroup.RegisterBinds(defaults);
+
+        // 4. Overwrite defaults with saved config (if available)
+        if (savedConfig != null)
+        {
+            BindGroup.TryLoadBindData(savedConfig);
+        }
+
+        // 5. Store individual bind references for use in the mod
+        MenuOpenBind = BindGroup[&quot;MenuOpen&quot;];
+        ModifierBind = BindGroup[&quot;Modifier&quot;];
+    }
+}
+</code></pre>
+
+
+  <h2 id="RichHudFramework_UI_Client_BindManager_remarks">Remarks</h2>
+  <div class="markdown level0 remarks">
+<p>The <code>BindManager</code> acts as the central factory for the creation, retrieval, and management of key bindings within the Rich HUD Framework. It facilitates the organization of controls into groups, manages the registration of custom input configurations, and handles the suppression of standard game inputs (blacklisting) when necessary.</p>
+<h3 id="bind-groups">Bind Groups</h3>
+<p>This is the central interface for organizing, initializing, and modifying individual binds.</p>
+<ul>
+<li>An <a class="xref" href="RichHudFramework.UI.IBindGroup.html">IBindGroup</a> is a collection of unique, order-independent key combinations, referred to as <a class="xref" href="RichHudFramework.UI.IBind.html">IBind</a> objects.</li>
+<li>Groups are created via <a class="xref" href="RichHudFramework.UI.Client.BindManager.html#RichHudFramework_UI_Client_BindManager_GetOrCreateGroup_">GetOrCreateGroup</a>. Their names are local to a given mod and <strong>must be unique</strong> (case-insensitive) within that context.</li>
+<li>Binds are backed by <a class="xref" href="RichHudFramework.UI.IControl.html">IControl</a> objects, which provide metadata and allow for dynamic configuration.</li>
+<li>Binds can be added individually via <a class="xref" href="RichHudFramework.UI.IBindGroup.html#RichHudFramework_UI_IBindGroup_AddBind_">AddBind</a> or <a class="xref" href="RichHudFramework.UI.IBindGroup.html#RichHudFramework_UI_IBindGroup_TryRegisterBind_">TryRegisterBind</a>, or in batches via <a class="xref" href="RichHudFramework.UI.IBindGroup.html#RichHudFramework_UI_IBindGroup_RegisterBinds_">RegisterBinds</a>, but they <strong>cannot be removed</strong> once registered.</li>
+</ul>
+<div class="NOTE">
+<h5>Note</h5>
+<p>Key binds within an <code>IBindGroup</code> <em><strong>must</strong></em> be unique. While different groups can have overlapping binds, conflicts within a single group are not allowed. Bind names must also be unique within a group (case-insensitive).</p>
+</div>
+<h3 id="initialization-utilities">Initialization Utilities</h3>
+<p>These convenience classes aid in the initialization and registration of binds within a group.</p>
+<ul>
+<li><a class="xref" href="RichHudFramework.UI.BindGroupInitializer.html">BindGroupInitializer</a>: A convenience container used to define the initial state of an <code>IBindGroup</code>.
+<ul>
+<li>Used in conjunction with <code>RegisterBinds()</code> to batch-register default configurations.</li>
+<li>It supports combinations of control names, <code>VRage.Input.MyKeys</code>, <code>VRage.Input.MyJoystickButtonsEnum</code>, and <a class="xref" href="RichHudFramework.UI.RichHudControls.html">RichHudControls</a>.</li>
+</ul>
+</li>
+<li><a class="xref" href="RichHudFramework.UI.RichHudControls.html">RichHudControls</a>: This is the recommended <strong>enum</strong> for specifying hard-coded controls, as it unifies keyboard, mouse, and gamepad inputs into a single type for simplicity.</li>
+</ul>
+<h3 id="ui-integration">UI Integration</h3>
+<p>These components provide the graphical user interface layer for key binding management and event integration.</p>
+<ul>
+<li><a class="xref" href="RichHudFramework.UI.Client.RebindPage.html">RebindPage</a>: A ready-made GUI for the <a class="xref" href="RichHudFramework.UI.Client.RichHudTerminal.html">RichHudTerminal</a>. It provides an interactive user interface for clearing or rebinding keys within <code>IBindGroup</code>s registered to that page.</li>
+<li><a class="xref" href="RichHudFramework.UI.BindInputElement.html">BindInputElement</a>: An implementation of <a class="xref" href="RichHudFramework.UI.IBindInput.html">IBindInput</a> designed to integrate declarative event-driven input into the UI tree.
+<ul>
+<li>While <code>IBind</code> provides <strong>global</strong> input events, <code>BindInputElement</code> ensures events only fire when the specific UI node is <strong>visible and input-enabled</strong>.</li>
+<li>This is essential for <strong>context-sensitive controls</strong> that should not trigger when the UI is hidden or when a different window has focus.</li>
+<li>Alternatively, binds can be polled manually in <a class="xref" href="RichHudFramework.UI.HudParentBase.html#RichHudFramework_UI_HudParentBase_HandleInput_">HandleInput</a>.</li>
+</ul>
+</li>
+</ul>
+<h3 id="serialization">Serialization</h3>
+<p>Key binds are <strong>not</strong> serialized automatically by the framework. It is the responsibility of the mod developer to handle persistence using the following workflow:</p>
+<ol>
+<li><strong>Save:</strong> Before the session unloads, retrieve the current bind definitions using <a class="xref" href="RichHudFramework.UI.IBindGroup.html#RichHudFramework_UI_IBindGroup_GetBindDefinitions_">GetBindDefinitions</a>.</li>
+<li><strong>Write:</strong> Serialize these definitions (e.g., to XML) and write them to a configuration file in mod-local storage using <a class="xref" href="https://keensoftwarehouse.github.io/SpaceEngineersModAPI/api/VRage.Game.ModAPI.IMyUtilities.html#VRage_Game_ModAPI_IMyUtilities_WriteFileInLocalStorage_">WriteFileInLocalStorage</a>.</li>
+<li><strong>Read:</strong> On session initialization, read the file using <a class="xref" href="https://keensoftwarehouse.github.io/SpaceEngineersModAPI/api/VRage.Game.ModAPI.IMyUtilities.html#VRage_Game_ModAPI_IMyUtilities_ReadFileInLocalStorage_">ReadFileInLocalStorage</a> and deserialize the data.</li>
+<li><strong>Load:</strong> Apply the loaded definitions to the <code>IBindGroup</code> using <a class="xref" href="RichHudFramework.UI.IBindGroup.html#RichHudFramework_UI_IBindGroup_TryLoadBindData_">TryLoadBindData</a>.</li>
+</ol>
+<blockquote>
+<p>Bind names should be registered via <code>RegisterBinds</code> <em>before</em> attempting to load deserialized definitions to ensure the group structure exists.</p>
+</blockquote>
+<h3 id="input-blacklisting">Input Blacklisting</h3>
+<p>The framework allows for the suppression of standard game inputs (such as camera rotation or mouse clicks) while UI elements are active. This is controlled via <a class="xref" href="RichHudFramework.UI.IBindInput.html#RichHudFramework_UI_IBindInput_InputFilter">InputFilter</a>, <a class="xref" href="RichHudFramework.UI.Client.BindManager.html#RichHudFramework_UI_Client_BindManager_BlacklistMode">BlacklistMode</a>, or <a class="xref" href="RichHudFramework.UI.Client.BindManager.html#RichHudFramework_UI_Client_BindManager_RequestTempBlacklist_">RequestTempBlacklist</a> using <a class="xref" href="RichHudFramework.UI.SeBlacklistModes.html">SeBlacklistModes</a> flags.</p>
+<ul>
+<li><strong>Common Use Cases:</strong> Disabling camera look while a cursor is visible, intercepting chat input for text fields, or blocking interactions with the game world while a menu is open.</li>
+<li><strong>Limitations:</strong> Blacklisting is not comprehensive; some Space Engineers controls cannot be disabled via the Mod API. Gamepad/Joystick blacklisting functionality may vary.</li>
+</ul>
+<div class="WARNING">
+<h5>Warning</h5>
+<p><code>BindManager</code> coordinates blacklisting between mods using the framework to prevent conflicts. Avoid using the native <a class="xref" href="https://keensoftwarehouse.github.io/SpaceEngineersModAPI/api/Sandbox.Game.MyVisualScriptLogicProvider.html#Sandbox_Game_MyVisualScriptLogicProvider_SetPlayerInputBlacklistState_">SetPlayerInputBlacklistState</a> API directly, as it may interfere with this system.</p>
+</div>
+</div>
+
+
+  <h2 class="section" id="fields">Fields
+</h2>
+
+
+
+  <h3 id="RichHudFramework_UI_Client_BindManager_MaxBindLength" data-uid="RichHudFramework.UI.Client.BindManager.MaxBindLength">
+  MaxBindLength
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Client/UI/BindManager/BindManager.cs/#L31"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>The maximum number of controls allowed in a single key bind combination (currently 3).</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public const int MaxBindLength = 3</code></pre>
+  </div>
+
+
+
+
+  <h4 class="section">Field Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+  <h2 class="section" id="properties">Properties
+</h2>
+
+
+  <a id="RichHudFramework_UI_Client_BindManager_BlacklistMode_" data-uid="RichHudFramework.UI.Client.BindManager.BlacklistMode*"></a>
+
+  <h3 id="RichHudFramework_UI_Client_BindManager_BlacklistMode" data-uid="RichHudFramework.UI.Client.BindManager.BlacklistMode">
+  BlacklistMode
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Client/UI/BindManager/BindManager.cs/#L48"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Gets or sets the persistent input blacklist mode.</p>
+<p>This setting remains active until explicitly changed. Use this to block game inputs 
+(like mouse clicks or camera movement) while UI elements are interactable.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static SeBlacklistModes BlacklistMode { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="RichHudFramework.UI.SeBlacklistModes.html">SeBlacklistModes</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="RichHudFramework_UI_Client_BindManager_Controls_" data-uid="RichHudFramework.UI.Client.BindManager.Controls*"></a>
+
+  <h3 id="RichHudFramework_UI_Client_BindManager_Controls" data-uid="RichHudFramework.UI.Client.BindManager.Controls">
+  Controls
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Client/UI/BindManager/BindManager.cs/#L41"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>A read-only collection of all available controls (keys, mouse buttons, gamepad inputs) supported by the framework.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static IReadOnlyList&lt;IControl&gt; Controls { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ireadonlylist-1">IReadOnlyList</a>&lt;<a class="xref" href="RichHudFramework.UI.IControl.html">IControl</a>&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="RichHudFramework_UI_Client_BindManager_Groups_" data-uid="RichHudFramework.UI.Client.BindManager.Groups*"></a>
+
+  <h3 id="RichHudFramework_UI_Client_BindManager_Groups" data-uid="RichHudFramework.UI.Client.BindManager.Groups">
+  Groups
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Client/UI/BindManager/BindManager.cs/#L36"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>A read-only collection of all registered bind groups.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static IReadOnlyList&lt;IBindGroup&gt; Groups { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ireadonlylist-1">IReadOnlyList</a>&lt;<a class="xref" href="RichHudFramework.UI.IBindGroup.html">IBindGroup</a>&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="RichHudFramework_UI_Client_BindManager_IsChatOpen_" data-uid="RichHudFramework.UI.Client.BindManager.IsChatOpen*"></a>
+
+  <h3 id="RichHudFramework_UI_Client_BindManager_IsChatOpen" data-uid="RichHudFramework.UI.Client.BindManager.IsChatOpen">
+  IsChatOpen
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Client/UI/BindManager/BindManager.cs/#L69"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Checks if the chat window is currently open.</p>
+<p>Unlike the standard game API, this updates instantly when the chat bind is pressed.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static bool IsChatOpen { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <h2 class="section" id="methods">Methods
+</h2>
+
+
+  <a id="RichHudFramework_UI_Client_BindManager_GetBindGroup_" data-uid="RichHudFramework.UI.Client.BindManager.GetBindGroup*"></a>
+
+  <h3 id="RichHudFramework_UI_Client_BindManager_GetBindGroup_System_String_" data-uid="RichHudFramework.UI.Client.BindManager.GetBindGroup(System.String)">
+  GetBindGroup(string)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Client/UI/BindManager/BindManager.cs/#L190"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Retrieves an existing bind group by name. Returns null if the group is not found.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static IBindGroup GetBindGroup(string name)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>name</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd><p>The name of the group to retrieve.</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="RichHudFramework.UI.IBindGroup.html">IBindGroup</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="RichHudFramework_UI_Client_BindManager_GetComboIndices_" data-uid="RichHudFramework.UI.Client.BindManager.GetComboIndices*"></a>
+
+  <h3 id="RichHudFramework_UI_Client_BindManager_GetComboIndices_System_Collections_Generic_IReadOnlyList_RichHudFramework_UI_ControlHandle__System_Collections_Generic_List_System_Int32__System_Boolean_" data-uid="RichHudFramework.UI.Client.BindManager.GetComboIndices(System.Collections.Generic.IReadOnlyList{RichHudFramework.UI.ControlHandle},System.Collections.Generic.List{System.Int32},System.Boolean)">
+  GetComboIndices(IReadOnlyList&lt;ControlHandle&gt;, List&lt;int&gt;, bool)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Client/UI/BindManager/BindManager.cs/#L242"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Converts a list of <a class="xref" href="RichHudFramework.UI.ControlHandle.html">ControlHandle</a> objects into a list of integer IDs.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void GetComboIndices(IReadOnlyList&lt;ControlHandle&gt; controls, List&lt;int&gt; combo, bool sanitize = true)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>controls</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ireadonlylist-1">IReadOnlyList</a>&lt;<a class="xref" href="RichHudFramework.UI.ControlHandle.html">ControlHandle</a>&gt;</dt>
+    <dd><p>Input list of control handles.</p>
+</dd>
+    <dt><code>combo</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1">List</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a>&gt;</dt>
+    <dd><p>Output list to store integer IDs.</p>
+</dd>
+    <dt><code>sanitize</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd><p>If true, sorts the list and removes duplicates/invalid IDs.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="RichHudFramework_UI_Client_BindManager_GetControl_" data-uid="RichHudFramework.UI.Client.BindManager.GetControl*"></a>
+
+  <h3 id="RichHudFramework_UI_Client_BindManager_GetControl_RichHudFramework_UI_ControlHandle_" data-uid="RichHudFramework.UI.Client.BindManager.GetControl(RichHudFramework.UI.ControlHandle)">
+  GetControl(ControlHandle)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Client/UI/BindManager/BindManager.cs/#L233"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Retrieves the <a class="xref" href="RichHudFramework.UI.IControl.html">IControl</a> object associated with the given <a class="xref" href="RichHudFramework.UI.ControlHandle.html">ControlHandle</a>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static IControl GetControl(ControlHandle handle)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>handle</code> <a class="xref" href="RichHudFramework.UI.ControlHandle.html">ControlHandle</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="RichHudFramework.UI.IControl.html">IControl</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="RichHudFramework_UI_Client_BindManager_GetControl_" data-uid="RichHudFramework.UI.Client.BindManager.GetControl*"></a>
+
+  <h3 id="RichHudFramework_UI_Client_BindManager_GetControl_System_String_" data-uid="RichHudFramework.UI.Client.BindManager.GetControl(System.String)">
+  GetControl(string)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Client/UI/BindManager/BindManager.cs/#L200"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Looks up the unique ID for a control by its name and returns a <a class="xref" href="RichHudFramework.UI.ControlHandle.html">ControlHandle</a>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static ControlHandle GetControl(string name)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>name</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd><p>The name of the control (e.g., &quot;LeftButton&quot;, &quot;W&quot;, etc.).</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="RichHudFramework.UI.ControlHandle.html">ControlHandle</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="RichHudFramework_UI_Client_BindManager_GetControlName_" data-uid="RichHudFramework.UI.Client.BindManager.GetControlName*"></a>
+
+  <h3 id="RichHudFramework_UI_Client_BindManager_GetControlName_RichHudFramework_UI_ControlHandle_" data-uid="RichHudFramework.UI.Client.BindManager.GetControlName(RichHudFramework.UI.ControlHandle)">
+  GetControlName(ControlHandle)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Client/UI/BindManager/BindManager.cs/#L209"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Retrieves the string name associated with a specific <a class="xref" href="RichHudFramework.UI.ControlHandle.html">ControlHandle</a>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static string GetControlName(ControlHandle con)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>con</code> <a class="xref" href="RichHudFramework.UI.ControlHandle.html">ControlHandle</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="RichHudFramework_UI_Client_BindManager_GetControlName_" data-uid="RichHudFramework.UI.Client.BindManager.GetControlName*"></a>
+
+  <h3 id="RichHudFramework_UI_Client_BindManager_GetControlName_System_Int32_" data-uid="RichHudFramework.UI.Client.BindManager.GetControlName(System.Int32)">
+  GetControlName(int)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Client/UI/BindManager/BindManager.cs/#L217"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Retrieves the string name associated with a specific control ID.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static string GetControlName(int conID)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>conID</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="RichHudFramework_UI_Client_BindManager_GetControlNames_" data-uid="RichHudFramework.UI.Client.BindManager.GetControlNames*"></a>
+
+  <h3 id="RichHudFramework_UI_Client_BindManager_GetControlNames_System_Collections_Generic_IReadOnlyList_System_Int32__" data-uid="RichHudFramework.UI.Client.BindManager.GetControlNames(System.Collections.Generic.IReadOnlyList{System.Int32})">
+  GetControlNames(IReadOnlyList&lt;int&gt;)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Client/UI/BindManager/BindManager.cs/#L225"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Batch retrieves the names for a list of control IDs.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static string[] GetControlNames(IReadOnlyList&lt;int&gt; conIDs)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>conIDs</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ireadonlylist-1">IReadOnlyList</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a>&gt;</dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>[]</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="RichHudFramework_UI_Client_BindManager_GetOrCreateGroup_" data-uid="RichHudFramework.UI.Client.BindManager.GetOrCreateGroup*"></a>
+
+  <h3 id="RichHudFramework_UI_Client_BindManager_GetOrCreateGroup_System_String_" data-uid="RichHudFramework.UI.Client.BindManager.GetOrCreateGroup(System.String)">
+  GetOrCreateGroup(string)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Client/UI/BindManager/BindManager.cs/#L180"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Retrieves an existing bind group by name, or creates a new one if it does not exist.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static IBindGroup GetOrCreateGroup(string name)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>name</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd><p>The unique name of the group.</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="RichHudFramework.UI.IBindGroup.html">IBindGroup</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="RichHudFramework_UI_Client_BindManager_RequestTempBlacklist_" data-uid="RichHudFramework.UI.Client.BindManager.RequestTempBlacklist*"></a>
+
+  <h3 id="RichHudFramework_UI_Client_BindManager_RequestTempBlacklist_RichHudFramework_UI_SeBlacklistModes_" data-uid="RichHudFramework.UI.Client.BindManager.RequestTempBlacklist(RichHudFramework.UI.SeBlacklistModes)">
+  RequestTempBlacklist(SeBlacklistModes)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Client/UI/BindManager/BindManager.cs/#L161"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Applies a temporary blacklist flag that lasts only for the current frame.</p>
+<p>This is additive to the persistent <a class="xref" href="RichHudFramework.UI.Client.BindManager.html#RichHudFramework_UI_Client_BindManager_BlacklistMode">BlacklistMode</a>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void RequestTempBlacklist(SeBlacklistModes mode)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>mode</code> <a class="xref" href="RichHudFramework.UI.SeBlacklistModes.html">SeBlacklistModes</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/ZachHembree/RichHudFramework.Client/blob/master/Client/UI/BindManager/Control.cs/#L5" class="edit-link">Edit this page</a>
+        </div>
+
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>
